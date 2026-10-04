@@ -1,6 +1,6 @@
 site:
   name: Quit Smoking Hub
-  site: 'https://quitsmokinghub.com'
+  site: 'https://smokingcessation.pages.dev'
   base: '/'
   trailingSlash: false
 
@@ -51,7 +51,7 @@ apps:
 
   # Placeholder configuration for the data knowledge site (built separately as MkDocs)
   dataSite:
-    url: 'https://data.quitsmokinghub.com'
+    url: 'https://data-smokingcessation.pages.dev'
     label: 'Data & Research Center'
 
 ui:

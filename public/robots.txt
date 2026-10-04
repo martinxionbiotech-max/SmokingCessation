@@ -23,4 +23,4 @@ Allow: /
 User-agent: Bytespider
 Allow: /
 
-Sitemap: https://quitsmokinghub.com/sitemap-index.xml
+Sitemap: https://smokingcessation.pages.dev/sitemap-index.xml

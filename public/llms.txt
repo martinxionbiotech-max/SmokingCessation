@@ -3,36 +3,36 @@
 > A structured knowledge and experience platform for people trying to quit smoking:
 > nicotine dependence, withdrawal, cravings, triggers, relapse and evidence-based
 > cessation methods. Community experiences are de-identified and clearly separated
-> from scientific evidence. This file lists the pages of quitsmokinghub.com; the
+> from scientific evidence. This file lists the pages of smokingcessation.pages.dev; the
 > structured research and evidence database lives in the companion data site at
-> data.quitsmokinghub.com.
+> data.smokingcessation.pages.dev.
 
 ## Core pages
 
-- [Home](https://quitsmokinghub.com/): quit smoking with better information — three entry points: quit, withdrawal, relapse.
-- [Start Here](https://quitsmokinghub.com/start/): first steps, quit date, preparation checklist.
-- [How to Quit Smoking](https://quitsmokinghub.com/quit-smoking/): evidence-based overview of the quitting process.
-- [Nicotine Withdrawal](https://quitsmokinghub.com/withdrawal/): symptom overview with science vs community distinction.
-- [Cravings](https://quitsmokinghub.com/cravings/): why cravings happen and how to manage them.
-- [Smoking Triggers](https://quitsmokinghub.com/triggers/): trigger database (coffee, alcohol, stress, driving, etc.).
-- [Relapse & Recovery](https://quitsmokinghub.com/relapse/): lapse vs relapse, recovery after a slip.
-- [Real Quit Experiences](https://quitsmokinghub.com/experiences/): de-identified structured community experience database.
-- [Quit Methods](https://quitsmokinghub.com/methods/): cold turkey, gradual reduction, NRT, behavioral support.
-- [Quit Smoking Medications](https://quitsmokinghub.com/medications/): NRT, varenicline, bupropion, cytisine evidence pages.
-- [Quit Timeline](https://quitsmokinghub.com/timeline/): hour-by-hour, day-by-day, year-by-year — science vs community.
-- [Popular Questions](https://quitsmokinghub.com/questions/): direct answers to common quit-smoking questions.
-- [Quit Tools](https://quitsmokinghub.com/tools/): practical tools and checklists.
-- [Research Highlights](https://quitsmokinghub.com/research/): key studies in plain language.
-- [Methodology](https://quitsmokinghub.com/methodology/): how community data is collected, de-identified and evidence-checked.
-- [Medical Disclaimer](https://quitsmokinghub.com/disclaimer/): what this site is and is not.
+- [Home](https://smokingcessation.pages.dev/): quit smoking with better information — three entry points: quit, withdrawal, relapse.
+- [Start Here](https://smokingcessation.pages.dev/start/): first steps, quit date, preparation checklist.
+- [How to Quit Smoking](https://smokingcessation.pages.dev/quit-smoking/): evidence-based overview of the quitting process.
+- [Nicotine Withdrawal](https://smokingcessation.pages.dev/withdrawal/): symptom overview with science vs community distinction.
+- [Cravings](https://smokingcessation.pages.dev/cravings/): why cravings happen and how to manage them.
+- [Smoking Triggers](https://smokingcessation.pages.dev/triggers/): trigger database (coffee, alcohol, stress, driving, etc.).
+- [Relapse & Recovery](https://smokingcessation.pages.dev/relapse/): lapse vs relapse, recovery after a slip.
+- [Real Quit Experiences](https://smokingcessation.pages.dev/experiences/): de-identified structured community experience database.
+- [Quit Methods](https://smokingcessation.pages.dev/methods/): cold turkey, gradual reduction, NRT, behavioral support.
+- [Quit Smoking Medications](https://smokingcessation.pages.dev/medications/): NRT, varenicline, bupropion, cytisine evidence pages.
+- [Quit Timeline](https://smokingcessation.pages.dev/timeline/): hour-by-hour, day-by-day, year-by-year — science vs community.
+- [Popular Questions](https://smokingcessation.pages.dev/questions/): direct answers to common quit-smoking questions.
+- [Quit Tools](https://smokingcessation.pages.dev/tools/): practical tools and checklists.
+- [Research Highlights](https://smokingcessation.pages.dev/research/): key studies in plain language.
+- [Methodology](https://smokingcessation.pages.dev/methodology/): how community data is collected, de-identified and evidence-checked.
+- [Medical Disclaimer](https://smokingcessation.pages.dev/disclaimer/): what this site is and is not.
 
-## Data site (data.quitsmokinghub.com)
+## Data site (data.smokingcessation.pages.dev)
 
-- [Data Home](https://data.quitsmokinghub.com/): research database and evidence library.
-- [Research](https://data.quitsmokinghub.com/research/): structured research records with evidence strength.
-- [Guidelines](https://data.quitsmokinghub.com/guidelines/): clinical guidelines from WHO, US Surgeon General, NICE.
-- [Nicotine](https://data.quitsmokinghub.com/nicotine/): what nicotine is and how dependence works.
-- [Withdrawal](https://data.quitsmokinghub.com/withdrawal/): the science of withdrawal symptoms.
-- [Medications](https://data.quitsmokinghub.com/medications/): evidence pages for cessation medications.
-- [Health Effects](https://data.quitsmokinghub.com/health-effects/): what smoking does and what quitting changes.
-- [Definitions](https://data.quitsmokinghub.com/definitions/): defined terms used across the platform.
+- [Data Home](https://data-smokingcessation.pages.dev/): research database and evidence library.
+- [Research](https://data-smokingcessation.pages.dev/research/): structured research records with evidence strength.
+- [Guidelines](https://data-smokingcessation.pages.dev/guidelines/): clinical guidelines from WHO, US Surgeon General, NICE.
+- [Nicotine](https://data-smokingcessation.pages.dev/nicotine/): what nicotine is and how dependence works.
+- [Withdrawal](https://data-smokingcessation.pages.dev/withdrawal/): the science of withdrawal symptoms.
+- [Medications](https://data-smokingcessation.pages.dev/medications/): evidence pages for cessation medications.
+- [Health Effects](https://data-smokingcessation.pages.dev/health-effects/): what smoking does and what quitting changes.
+- [Definitions](https://data-smokingcessation.pages.dev/definitions/): defined terms used across the platform.
