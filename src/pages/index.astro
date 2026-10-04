@@ -14,13 +14,13 @@ const metadata = {
   ignoreTitleTemplate: true,
 };
 
-const experiences = await getCollection('experiences');
+const experiences = await getCollection('experience');
 const relapses = await getCollection('relapse');
-const patterns = await getCollection('patterns');
-const questions = await getCollection('questions');
+const patterns = await getCollection('pattern');
+const questions = await getCollection('question');
 const publishedExperiences = experiences.filter((e) => e.data.editorialStatus === 'published').length;
-const publishedRelapses = relapses.filter((r) => r.data.editorialStatus === 'published').length;
-const publishedPatterns = patterns.filter((p) => p.data.editorialStatus === 'published').length;
+const publishedRelapses = relapses.length;
+const publishedPatterns = patterns.length;
 
 const entries = [
   { title: 'I Want to Quit Smoking', description: 'A practical path from deciding to quit to your quit date and beyond.', href: '/start/' },
