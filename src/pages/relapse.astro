@@ -1,6 +1,11 @@
 ---
+import { getCollection } from 'astro:content';
 import Layout from '~/layouts/PageLayout.astro';
 import CallToAction from '~/components/widgets/CallToAction.astro';
+
+const relapses = (await getCollection('relapse')).sort((a, b) =>
+  String(b.data.previousQuitDuration).localeCompare(String(a.data.previousQuitDuration))
+);
 
 const metadata = {
   title: 'Relapse & Recovery | Quit Smoking Hub',
@@ -97,6 +102,31 @@ const metadata = {
         You will not find "weak", "failure" or "lack of willpower" on this site. Relapse, return to smoking, quit
         attempt, recovery — these describe the process without judging the person.
       </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">Relapse reports from the community</h2>
+      <p class="text-muted dark:text-slate-400 mb-4">
+        De-identified accounts of real quit attempts that ended in relapse — what happened, what the person saw as
+        the reason, and what came after.
+      </p>
+      <div class="grid gap-4 md:grid-cols-2">
+        {
+          relapses.map((r) => (
+            <a href={`/relapse/${r.data.slug}/`} class="card p-6 hover:shadow-md transition">
+              <h3 class="font-bold font-heading text-lg mb-1">{r.data.title}</h3>
+              {
+                r.data.previousQuitDuration && (
+                  <p class="text-xs font-semibold uppercase tracking-wide text-secondary mb-2">
+                    Time smoke-free: {r.data.previousQuitDuration}
+                  </p>
+                )
+              }
+              <p class="text-sm text-muted dark:text-slate-400">{r.data.summary}</p>
+            </a>
+          ))
+        }
+      </div>
     </div>
   </section>
 

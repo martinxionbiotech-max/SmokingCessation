@@ -1,0 +1,152 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '~/layouts/PageLayout.astro';
+import Breadcrumbs from '~/components/common/Breadcrumbs.astro';
+import StructuredData from '~/components/common/StructuredData.astro';
+
+import { SITE } from 'astrowind:config';
+
+export async function getStaticPaths() {
+  const relapses = await getCollection('relapse');
+  return relapses.map((r) => ({ params: { slug: r.data.slug }, props: { relapse: r } }));
+}
+
+const { relapse } = Astro.props;
+const d = relapse.data;
+
+const url = `${String(SITE.site).replace(/\/$/, '')}/relapse/${d.slug}/`;
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: d.title,
+  description: d.summary,
+  url,
+  mainEntityOfPage: url,
+  publisher: { '@id': `${SITE.site}/#organization` },
+  dateModified: '2026-10-04',
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: SITE.site },
+    { '@type': 'ListItem', position: 2, name: 'Relapse', item: SITE.site + '/relapse/' },
+    { '@type': 'ListItem', position: 3, name: d.title },
+  ],
+};
+
+const metadata = {
+  title: d.title,
+  description: d.summary,
+};
+---
+
+<Layout metadata={metadata}>
+  <StructuredData slot="head" schema={[articleSchema, breadcrumbSchema]} />
+  <Breadcrumbs bar items={[{ text: 'Home', href: '/' }, { text: 'Relapse', href: '/relapse/' }, { text: d.title }]} />
+
+  <section class="relative mx-auto max-w-4xl px-4 sm:px-6 pt-8 md:pt-12 pb-4">
+    <p class="text-base font-bold tracking-wide uppercase text-secondary mb-2 text-center">Relapse Report</p>
+    <h1 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading text-heading text-center">
+      {d.title}
+    </h1>
+    <p class="text-lg text-muted dark:text-slate-400 text-center mt-4 max-w-2xl mx-auto">{d.summary}</p>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8 space-y-8">
+    <div class="card p-8">
+      <h2 class="text-2xl font-bold font-heading mb-3">What happened</h2>
+      <p class="text-muted dark:text-slate-400">{d.situation}</p>
+      {
+        d.previousQuitDuration && (
+          <p class="text-sm text-muted dark:text-slate-500 mt-3">
+            Time smoke-free before this relapse: <strong class="text-heading">{d.previousQuitDuration}</strong>
+          </p>
+        )
+      }
+    </div>
+
+    {
+      d.trigger?.length > 0 && (
+        <div>
+          <h2 class="text-2xl font-bold font-heading mb-3">Trigger</h2>
+          <ul class="list-disc list-inside space-y-2 text-muted dark:text-slate-400">
+            {d.trigger.map((t) => <li>{t}</li>)}
+          </ul>
+        </div>
+      )
+    }
+
+    {
+      d.socialEnvironment && (
+        <div>
+          <h2 class="text-2xl font-bold font-heading mb-3">Social environment</h2>
+          <p class="text-muted dark:text-slate-400">{d.socialEnvironment}</p>
+        </div>
+      )
+    }
+
+    {
+      d.alcoholUse && (
+        <div>
+          <h2 class="text-2xl font-bold font-heading mb-3">Alcohol use</h2>
+          <p class="text-muted dark:text-slate-400">{d.alcoholUse}</p>
+        </div>
+      )
+    }
+
+    {
+      d.emotionalState && (
+        <div>
+          <h2 class="text-2xl font-bold font-heading mb-3">Emotional state</h2>
+          <p class="text-muted dark:text-slate-400">{d.emotionalState}</p>
+        </div>
+      )
+    }
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">Outcome</h2>
+      <p class="text-muted dark:text-slate-400">{d.outcome}</p>
+    </div>
+
+    {
+      d.reasonReported && (
+        <div>
+          <h2 class="text-2xl font-bold font-heading mb-3">How the person explained it</h2>
+          <p class="text-muted dark:text-slate-400">{d.reasonReported}</p>
+        </div>
+      )
+    }
+
+    {
+      d.whatHappenedAfter && (
+        <div>
+          <h2 class="text-2xl font-bold font-heading mb-3">What happened after</h2>
+          <p class="text-muted dark:text-slate-400">{d.whatHappenedAfter}</p>
+        </div>
+      )
+    }
+
+    {
+      d.lessons && (
+        <div class="card p-6">
+          <h2 class="text-xl font-bold font-heading mb-2">Lessons in the report</h2>
+          <p class="text-muted dark:text-slate-400 text-sm">{d.lessons}</p>
+        </div>
+      )
+    }
+
+    <div class="card p-6">
+      <h2 class="text-xl font-bold font-heading mb-2">What the evidence says</h2>
+      <p class="text-muted dark:text-slate-400 text-sm">{d.evidenceContext}</p>
+    </div>
+
+    <p class="text-sm text-muted dark:text-slate-500">
+      This is a de-identified account from a public community forum, summarized in our own words. Relapse is a normal
+      part of many quit journeys — it is not a failure. Community reports are not scientific evidence and are not
+      medical advice.
+    </p>
+  </section>
+</Layout>
