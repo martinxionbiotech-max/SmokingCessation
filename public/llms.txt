@@ -26,13 +26,45 @@
 - [Methodology](https://smokingcessation.pages.dev/methodology/): how community data is collected, de-identified and evidence-checked.
 - [Medical Disclaimer](https://smokingcessation.pages.dev/disclaimer/): what this site is and is not.
 
+## Withdrawal symptom pages
+
+- [Anxiety](https://smokingcessation.pages.dev/withdrawal/anxiety/): why quitting can raise anxiety and how it settles.
+- [Appetite](https://smokingcessation.pages.dev/withdrawal/appetite/): increased appetite after quitting.
+- [Concentration](https://smokingcessation.pages.dev/withdrawal/concentration/): focus difficulties in early quitting.
+- [Constipation](https://smokingcessation.pages.dev/withdrawal/constipation/): gut slowing after nicotine removal.
+- [Cough](https://smokingcessation.pages.dev/withdrawal/cough/): the post-quit cough and why it happens.
+- [Cravings](https://smokingcessation.pages.dev/withdrawal/cravings/): craving as the longest-lasting symptom.
+- [Fatigue](https://smokingcessation.pages.dev/withdrawal/fatigue/): tiredness while the body adapts.
+- [Headache](https://smokingcessation.pages.dev/withdrawal/headache/): early headaches and caffeine interactions.
+- [Irritability](https://smokingcessation.pages.dev/withdrawal/irritability/): short-tempered early weeks.
+- [Mood](https://smokingcessation.pages.dev/withdrawal/mood/): low mood during withdrawal.
+- [Restlessness](https://smokingcessation.pages.dev/withdrawal/restlessness/): feeling on edge without cigarettes.
+- [Sleep](https://smokingcessation.pages.dev/withdrawal/sleep/): sleep disruption in the first weeks.
+- [Weight change](https://smokingcessation.pages.dev/withdrawal/weight-change/): appetite, weight gain and how to manage it.
+
+## Community patterns
+
+- [Alcohol & social occasions](https://smokingcessation.pages.dev/patterns/alcohol-social-occasions/): the most reported relapse setting.
+- [Health-scare motivation](https://smokingcessation.pages.dev/patterns/health-scare-motivated-quit/): health events as the decisive quit trigger.
+- [Daily check-ins](https://smokingcessation.pages.dev/patterns/daily-check-in/): check-in rituals as a long-term commitment device.
+- [Just one cigarette](https://smokingcessation.pages.dev/patterns/just-one-cigarette/): how single cigarettes end quits.
+- [Post-relapse heavier smoking](https://smokingcessation.pages.dev/patterns/post-relapse-heavier-smoking/): reported escalation after relapse.
+- [Smoking dreams](https://smokingcessation.pages.dev/patterns/smoking-dreams/): dreams about smoking after quitting.
+
 ## Data site (data.smokingcessation.pages.dev)
 
 - [Data Home](https://data-smokingcessation.pages.dev/): research database and evidence library.
-- [Research](https://data-smokingcessation.pages.dev/research/): structured research records with evidence strength.
-- [Guidelines](https://data-smokingcessation.pages.dev/guidelines/): clinical guidelines from WHO, US Surgeon General, NICE.
+- [Research](https://data-smokingcessation.pages.dev/research/): structured research records with evidence strength (17 records).
+- [Guidelines](https://data-smokingcessation.pages.dev/guidelines/): clinical guidelines from WHO, USPSTF, NICE, US PHS.
+- [Cessation methods](https://data-smokingcessation.pages.dev/cessation-methods/): evidence comparison of quit methods.
+- [Behavior change](https://data-smokingcessation.pages.dev/behavior-change/): the science of behaviour change in quitting.
 - [Nicotine](https://data-smokingcessation.pages.dev/nicotine/): what nicotine is and how dependence works.
 - [Withdrawal](https://data-smokingcessation.pages.dev/withdrawal/): the science of withdrawal symptoms.
 - [Medications](https://data-smokingcessation.pages.dev/medications/): evidence pages for cessation medications.
 - [Health Effects](https://data-smokingcessation.pages.dev/health-effects/): what smoking does and what quitting changes.
+- [Relapse](https://data-smokingcessation.pages.dev/relapse/): relapse evidence and risk factors.
 - [Definitions](https://data-smokingcessation.pages.dev/definitions/): defined terms used across the platform.
+- [Controversies](https://data-smokingcessation.pages.dev/controversies/): honest treatment of contested topics (e-cigarettes, gradual vs abrupt, dual use).
+- [References](https://data-smokingcessation.pages.dev/references/): full bibliographic reference list.
+- [Community Data overview](https://data-smokingcessation.pages.dev/community-data/): how the experience database is compiled.
+- [Community Data statistics](https://data-smokingcessation.pages.dev/community-data/statistics/): live-computed database statistics.
