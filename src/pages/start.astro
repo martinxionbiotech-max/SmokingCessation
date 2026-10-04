@@ -1,6 +1,7 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
 import CallToAction from '~/components/widgets/CallToAction.astro';
+import Image from '~/components/common/Image.astro';
 
 const metadata = {
   title: 'Start Here | Quit Smoking Hub',
@@ -20,6 +21,16 @@ const metadata = {
       you the shortest useful path through the rest of this site.
     </p>
   </section>
+
+  <div class="mx-auto max-w-4xl px-4 sm:px-6">
+    <Image
+      src="~/assets/images/qs-start-journey.webp"
+      alt="A park path at dawn with fresh green leaves and dew, a new beginning"
+      class="rounded-md w-full"
+      width={1024}
+      height={576}
+    />
+  </div>
 
   <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8 md:py-12">
     <div class="space-y-8">

@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import Layout from '~/layouts/PageLayout.astro';
 import StructuredData from '~/components/common/StructuredData.astro';
 import CallToAction from '~/components/widgets/CallToAction.astro';
+import Image from '~/components/common/Image.astro';
 
 import { SITE } from 'astrowind:config';
 
@@ -44,6 +45,16 @@ const metadata = {
       Each record is one person's report — not evidence, not advice, and never a prediction.
     </p>
   </section>
+
+  <div class="mx-auto max-w-4xl px-4 sm:px-6">
+    <Image
+      src="~/assets/images/qs-community-support.webp"
+      alt="A group of people walking together in a park at sunrise, supporting each other, seen from behind"
+      class="rounded-md w-full"
+      width={1024}
+      height={576}
+    />
+  </div>
 
   <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8">
     {

@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import Layout from '~/layouts/PageLayout.astro';
 import CallToAction from '~/components/widgets/CallToAction.astro';
+import Image from '~/components/common/Image.astro';
 
 const stages = (await getCollection('timeline')).sort((a, b) => {
   const order = ['first-hour', 'day-1', 'day-2', 'day-3', 'first-week', 'week-2', 'week-3', 'month-1', 'month-2', 'month-3', 'month-6', 'year-1', 'long-term'];
@@ -26,6 +27,16 @@ const metadata = {
       experience. They are related but not the same — and neither predicts your exact path.
     </p>
   </section>
+
+  <div class="mx-auto max-w-4xl px-4 sm:px-6">
+    <Image
+      src="~/assets/images/qs-timeline-progress.webp"
+      alt="A long road with wooden milestone posts at sunrise, symbolizing the stages of a journey"
+      class="rounded-md w-full"
+      width={1024}
+      height={576}
+    />
+  </div>
 
   <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8">
     <div class="relative border-l-2 border-gray-200 dark:border-slate-700 ml-3 space-y-10">

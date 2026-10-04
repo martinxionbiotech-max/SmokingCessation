@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import Layout from '~/layouts/PageLayout.astro';
 import CallToAction from '~/components/widgets/CallToAction.astro';
+import Image from '~/components/common/Image.astro';
 
 const symptoms = (await getCollection('withdrawal')).sort((a, b) => a.data.slug.localeCompare(b.data.slug));
 
@@ -23,6 +24,16 @@ const metadata = {
       it is the main reason quitting feels hard in the first weeks.
     </p>
   </section>
+
+  <div class="mx-auto max-w-4xl px-4 sm:px-6">
+    <Image
+      src="~/assets/images/qs-withdrawal-calm.webp"
+      alt="A peaceful windowsill with herbal tea, an open journal and a small green plant in soft morning light"
+      class="rounded-md w-full"
+      width={1024}
+      height={576}
+    />
+  </div>
 
   <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8">
     <div class="grid gap-6 md:grid-cols-2">
