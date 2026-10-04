@@ -3,15 +3,17 @@
   "slug": "alcohol-social-occasions",
   "title": "Alcohol and Social Occasions: The Most Reported Relapse Setting",
   "observedPattern": "Across multiple independent quit reports, drinking occasions — weddings, gatherings with friends, drinking at the table with smokers — are repeatedly described as the moment a quit broke, or as the situation where the urge became hardest to resist, in one case even seven years into a quit.",
-  "numberOfRelevantExperiences": 4,
+  "numberOfRelevantExperiences": 6,
   "commonContexts": [
     "Weddings and celebrations",
     "Gatherings with friends who smoke",
+    "Classmate reunions",
     "Drinking at meals"
   ],
   "reportedStrategies": [
     "Holding the line through it: one report describes drinking several times in the first two weeks while friends smoked at the table, and staying smoke-free",
     "Asking the community for strategies before the situation arises",
+    "Treating the memory of how a drinking relapse felt as a deterrent (one report)",
     "Awareness that the risk applies to long quits too, not just the early weeks"
   ],
   "contradictoryExperiences": "One long-term quitter reports that after seven years, alcohol remains the one situation where the urge still wins — while an early-quit report shows drinking with smokers can also be survived without smoking.",
