@@ -5,6 +5,7 @@ import Hero from '~/components/widgets/Hero.astro';
 import Features3 from '~/components/widgets/Features3.astro';
 import Content from '~/components/widgets/Content.astro';
 import CallToAction from '~/components/widgets/CallToAction.astro';
+import Stats from '~/components/widgets/Stats.astro';
 
 const metadata = {
   title: 'Quit Smoking With Better Information | Quit Smoking Hub',
@@ -12,6 +13,14 @@ const metadata = {
     'A practical, evidence-aware resource combining real-world quit experiences with scientific evidence: nicotine withdrawal, cravings, triggers, relapse and evidence-based cessation methods.',
   ignoreTitleTemplate: true,
 };
+
+const experiences = await getCollection('experiences');
+const relapses = await getCollection('relapse');
+const patterns = await getCollection('patterns');
+const questions = await getCollection('questions');
+const publishedExperiences = experiences.filter((e) => e.data.editorialStatus === 'published').length;
+const publishedRelapses = relapses.filter((r) => r.data.editorialStatus === 'published').length;
+const publishedPatterns = patterns.filter((p) => p.data.editorialStatus === 'published').length;
 
 const entries = [
   { title: 'I Want to Quit Smoking', description: 'A practical path from deciding to quit to your quit date and beyond.', href: '/start/' },
@@ -48,6 +57,18 @@ const entries = [
       ))}
     </div>
   </section>
+
+  <Stats
+    tagline="Community database"
+    title="Built from real quit experiences"
+    subtitle="Every record is de-identified, quality-scored and evidence-labeled before it appears anywhere on this site. Thin records stay internal — only records that pass the quality gate are published."
+    stats={[
+      { amount: `${publishedExperiences}`, title: 'Published experiences', icon: 'tabler:users' },
+      { amount: `${publishedRelapses}`, title: 'Relapse reports', icon: 'tabler:refresh-alert' },
+      { amount: `${publishedPatterns}`, title: 'Community patterns', icon: 'tabler:chart-dots' },
+      { amount: `${questions.length}`, title: 'Answered questions', icon: 'tabler:help-circle' },
+    ]}
+  />
 
   <Features3
     title="What this platform gives you"
