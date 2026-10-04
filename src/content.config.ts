@@ -53,7 +53,7 @@ export const experienceSchema = z.object({
   sourcePlatform: z.string(), // e.g. "Baidu Tieba (Quit Smoking bar)"
   sourceUrl: z.string().optional(), // internal reference only, not published
   sourceDate: z.string().optional(),
-  publishedDate: z.date(),
+  publishedDate: z.coerce.date(),
 
   // Smoking history — only what was explicitly reported. NEVER inferred.
   ageGroup: z.string().optional(), // e.g. "30s" — only if explicit
