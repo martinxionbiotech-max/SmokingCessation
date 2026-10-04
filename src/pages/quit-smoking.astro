@@ -1,0 +1,109 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+const metadata = {
+  title: 'How to Quit Smoking | Quit Smoking Hub',
+  description:
+    'An evidence-based overview of how to quit smoking: preparation, choosing a quit method, managing withdrawal and cravings, and staying quit.',
+};
+---
+
+<Layout metadata={metadata}>
+  <section class="relative mx-auto max-w-4xl px-4 sm:px-6 pt-8 md:pt-12 pb-4">
+    <p class="text-base font-bold tracking-wide uppercase text-secondary mb-2 text-center">How to Quit</p>
+    <h1 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading text-heading text-center">
+      How to quit smoking: what actually works
+    </h1>
+    <p class="mt-4 max-w-3xl mx-auto text-lg text-muted text-center">
+      Quitting is not one decision — it is a process with a preparation phase, an acute withdrawal phase, and a
+      maintenance phase. Each phase has tools that work better than willpower alone.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8 md:py-12">
+    <div class="space-y-12">
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">1. Prepare (1–2 weeks)</h2>
+        <ul class="list-disc list-inside space-y-2 text-muted dark:text-slate-400">
+          <li><strong class="text-heading">Set a quit date</strong> and write it down.</li>
+          <li>
+            <strong class="text-heading">Choose a method:</strong>{' '}
+            <a href="/methods/" class="text-primary underline decoration-1 underline-offset-2">compare quit methods</a>.
+            Medication plus behavioral support works better than either alone.
+          </li>
+          <li>
+            <strong class="text-heading">Identify your triggers</strong> — check the{' '}
+            <a href="/triggers/" class="text-primary underline decoration-1 underline-offset-2">trigger list</a> and
+            plan a replacement for each.
+          </li>
+          <li>
+            <strong class="text-heading">Remove smoking items</strong>: cigarettes, lighters, ashtrays. Clean the car
+            and clothes.
+          </li>
+          <li>
+            <strong class="text-heading">Line up support</strong>: a quitline, a counselor, family, or a
+            quit-smoking community.
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">2. Survive the first weeks</h2>
+        <p class="text-muted dark:text-slate-400 mb-3">
+          Withdrawal peaks in the first week. This is the hardest phase and it is temporary. Understand{' '}
+          <a href="/withdrawal/" class="text-primary underline decoration-1 underline-offset-2">
+            what withdrawal feels like
+          </a>{' '}
+          and use the{' '}
+          <a href="/cravings/" class="text-primary underline decoration-1 underline-offset-2">cravings playbook</a>.
+        </p>
+        <ul class="list-disc list-inside space-y-2 text-muted dark:text-slate-400">
+          <li>Most cravings pass within 5–10 minutes — wait them out, don't fight them.</li>
+          <li>Change your routines: different coffee spot, different break, different route home.</li>
+          <li>Avoid high-risk situations (alcohol, smoking friends) in the first weeks.</li>
+          <li>Use your quit method correctly — NRT and medication only work as directed.</li>
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">3. Stay quit (weeks to years)</h2>
+        <ul class="list-disc list-inside space-y-2 text-muted dark:text-slate-400">
+          <li>
+            Track your progress — the{' '}
+            <a href="/timeline/" class="text-primary underline decoration-1 underline-offset-2">
+              quit timeline
+            </a>{' '}
+            shows what is happening in your body.
+          </li>
+          <li>Expect trigger cravings for months; each one survived weakens the association.</li>
+          <li>
+            If you lapse, read{' '}
+            <a href="/relapse/" class="text-primary underline decoration-1 underline-offset-2">
+              Relapse &amp; Recovery
+            </a>{' '}
+            and return to your quit plan the same day.
+          </li>
+          <li>Most successful quitters made multiple attempts — each attempt teaches something.</li>
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">What does not work well</h2>
+        <p class="text-muted dark:text-slate-400">
+          Waiting for the perfect moment, relying on willpower alone without a plan, and treating a lapse as total
+          failure. None of these are supported by evidence — a plan, support and (where appropriate) medication are.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <CallToAction
+    title="Ready to start?"
+    subtitle="Pick your quit date, then choose the method that fits you."
+    actions={[
+      { variant: 'primary', text: 'Compare Quit Methods', href: '/methods/' },
+      { text: 'Start Here', href: '/start/' },
+    ]}
+  />
+</Layout>

@@ -1,0 +1,62 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+
+const metadata = {
+  title: 'Medical Disclaimer | Quit Smoking Hub',
+  description:
+    'Quit Smoking Hub provides general information about smoking cessation. It is not medical advice, diagnosis or treatment.',
+  ignoreTitleTemplate: true,
+};
+---
+
+<Layout metadata={metadata}>
+  <section class="relative mx-auto max-w-4xl px-4 sm:px-6 pt-8 md:pt-12 pb-4">
+    <p class="text-base font-bold tracking-wide uppercase text-secondary mb-2 text-center">Disclaimer</p>
+    <h1 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading text-heading text-center">
+      Medical disclaimer
+    </h1>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8 space-y-6">
+    <div class="card p-8">
+      <h2 class="text-2xl font-bold font-heading mb-3">Information, not medical advice</h2>
+      <p class="text-muted dark:text-slate-400">
+        All content on Quit Smoking Hub — including pages about withdrawal, medications and health effects — is
+        provided for general information only. It is <strong class="text-heading">not</strong> medical advice,
+        diagnosis, treatment or a substitute for consultation with a qualified healthcare professional.
+      </p>
+    </div>
+
+    <div class="card p-8">
+      <h2 class="text-2xl font-bold font-heading mb-3">Community experiences are not evidence</h2>
+      <p class="text-muted dark:text-slate-400">
+        Experience pages summarize de-identified community reports. One person's experience — including with
+        medications — is not a recommendation and not scientific evidence. What worked for one person may be
+        inappropriate or harmful for another.
+      </p>
+    </div>
+
+    <div class="card p-8">
+      <h2 class="text-2xl font-bold font-heading mb-3">Medication information</h2>
+      <p class="text-muted dark:text-slate-400">
+        Medication pages describe what products are, how they work and what trials found. We never recommend doses,
+        judge individual suitability, or replace professional advice. Always discuss medications — including
+        nicotine replacement therapy — with a pharmacist or doctor, especially if you are pregnant, breastfeeding,
+        or have cardiovascular disease, mental health conditions or other illnesses.
+      </p>
+    </div>
+
+    <div class="card p-8 border-l-4 border-l-primary">
+      <h2 class="text-2xl font-bold font-heading mb-3">Seek professional help when needed</h2>
+      <ul class="list-disc list-inside space-y-2 text-muted dark:text-slate-400">
+        <li>If you experience severe or persistent symptoms — physical or mental — consult a healthcare professional.</li>
+        <li>If you are having thoughts of harming yourself, seek immediate help from local emergency services or a crisis line.</li>
+        <li>In a medical emergency, call your local emergency number.</li>
+      </ul>
+    </div>
+
+    <p class="text-sm text-muted dark:text-slate-500">
+      Last updated: October 2026. By using this website you accept this disclaimer.
+    </p>
+  </section>
+</Layout>

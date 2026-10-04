@@ -1,0 +1,73 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '~/layouts/PageLayout.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+const research = (await getCollection('research')).sort((a, b) => (a.data.year || 0) - (b.data.year || 0));
+
+const metadata = {
+  title: 'Research Highlights | Quit Smoking Hub',
+  description:
+    'Landmark smoking cessation research explained in plain language: NRT, varenicline, bupropion, abrupt vs gradual quitting, health benefits of quitting — with limitations stated honestly.',
+};
+---
+
+<Layout metadata={metadata}>
+  <section class="relative mx-auto max-w-4xl px-4 sm:px-6 pt-8 md:pt-12 pb-4">
+    <p class="text-base font-bold tracking-wide uppercase text-secondary mb-2 text-center">Research Highlights</p>
+    <h1 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading text-heading text-center">
+      The research behind this platform
+    </h1>
+    <p class="mt-4 max-w-3xl mx-auto text-lg text-muted text-center">
+      These are the studies and reports we cite most often — in plain language, with their limitations stated
+      honestly. The full structured research database lives on the data site.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8 space-y-8">
+    {
+      research.map((r) => (
+        <div class="card p-8">
+          <h2 class="text-xl md:text-2xl font-bold font-heading mb-2">{r.data.title}</h2>
+          <p class="text-sm text-muted dark:text-slate-500 mb-3">
+            {r.data.authors} · {r.data.journal} · {r.data.year} · {r.data.researchType}
+          </p>
+          <div class="space-y-3 text-muted dark:text-slate-400">
+            <p>
+              <strong class="text-heading">Question:</strong> {r.data.mainQuestion}
+            </p>
+            <p>
+              <strong class="text-heading">Found:</strong> {r.data.mainFindings}
+            </p>
+            {
+              r.data.limitations && (
+                <p>
+                  <strong class="text-heading">Limitations:</strong> {r.data.limitations}
+                </p>
+              )
+            }
+            <p class="text-sm">
+              Evidence strength: <span class="font-bold text-primary">{r.data.evidenceStrength}</span>
+              {
+                r.data.doi && (
+                  <span>
+                    {' '}·{' '}
+                    <a href={`https://doi.org/${r.data.doi}`} target="_blank" rel="noopener" class="text-primary underline decoration-1 underline-offset-2">
+                      DOI: {r.data.doi}
+                    </a>
+                  </span>
+                )
+              }
+            </p>
+          </div>
+        </div>
+      ))
+    }
+  </section>
+
+  <CallToAction
+    title="Full research database"
+    subtitle="Structured records with populations, sample sizes, methods and evidence grading — on the data site."
+    actions={[{ variant: 'primary', text: 'Visit the Data Center', href: 'https://data.quitsmokinghub.com', target: '_blank' }]}
+  />
+</Layout>

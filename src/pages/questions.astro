@@ -1,0 +1,85 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '~/layouts/PageLayout.astro';
+import StructuredData from '~/components/common/StructuredData.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+import { SITE } from 'astrowind:config';
+
+const questions = (await getCollection('question')).sort((a, b) => a.data.question.localeCompare(b.data.question));
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: questions.map((q) => ({
+    '@type': 'Question',
+    name: q.data.question,
+    acceptedAnswer: { '@type': 'Answer', text: q.data.shortAnswer },
+  })),
+};
+
+const metadata = {
+  title: 'Popular Questions About Quitting Smoking | Quit Smoking Hub',
+  description:
+    'Direct answers to the questions people actually ask about quitting smoking: withdrawal, cravings, methods, relapse and health changes.',
+};
+---
+
+<Layout metadata={metadata}>
+  <StructuredData slot="head" schema={faqSchema} />
+
+  <section class="relative mx-auto max-w-4xl px-4 sm:px-6 pt-8 md:pt-12 pb-4">
+    <p class="text-base font-bold tracking-wide uppercase text-secondary mb-2 text-center">Popular Questions</p>
+    <h1 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading text-heading text-center">
+      Questions people actually ask
+    </h1>
+    <p class="mt-4 max-w-3xl mx-auto text-lg text-muted text-center">
+      Short, direct answers first — then the detail, the evidence and what remains uncertain. No filler.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8 space-y-8">
+    {
+      questions.map((q) => (
+        <div class="card p-8" id={q.data.slug}>
+          <h2 class="text-xl md:text-2xl font-bold font-heading mb-3">{q.data.question}</h2>
+          <p class="text-heading mb-4 font-medium">{q.data.shortAnswer}</p>
+          <div class="space-y-3 text-muted dark:text-slate-400">
+            <p>{q.data.fullAnswer}</p>
+            <p>
+              <strong class="text-heading">Evidence:</strong> {q.data.evidence}
+            </p>
+            <p>
+              <strong class="text-heading">Community experience:</strong> {q.data.communityExperience}
+            </p>
+            <p>
+              <strong class="text-heading">What remains uncertain:</strong> {q.data.uncertainty}
+            </p>
+            {
+              q.data.relatedTopics?.length > 0 && (
+                <p class="text-sm">
+                  Related:{' '}
+                  {q.data.relatedTopics.map((t, i) => (
+                    <span>
+                      {i > 0 && ' · '}
+                      <a href={t === 'Nicotine Withdrawal' ? '/withdrawal/' : t === 'Cravings' ? '/cravings/' : t === 'Smoking Triggers' ? '/triggers/' : t === 'Relapse & Recovery' ? '/relapse/' : t === 'Quit Methods' ? '/methods/' : t === 'Quit Timeline' ? '/timeline/' : t === 'Quit Smoking Medications' ? '/medications/' : t === 'Cold Turkey' ? '/methods/cold-turkey/' : t === 'Gradual Reduction' ? '/methods/gradual-reduction/' : t === 'Nicotine Replacement Therapy' ? '/medications/nicotine-patch/' : t === 'E-cigarettes' || t === 'Health Benefits' || t === 'Real Quit Experiences' ? (t === 'Real Quit Experiences' ? '/experiences/' : t === 'E-cigarettes' ? '/methods/cold-turkey/' : '/timeline/') : '/questions/'} class="text-primary underline decoration-1 underline-offset-2">{t}</a>
+                    </span>
+                  ))}
+                </p>
+              )
+            }
+          </div>
+        </div>
+      ))
+    }
+  </section>
+
+  <CallToAction
+    title="Still wondering about something?"
+    subtitle="Browse the full knowledge base for deeper answers."
+    actions={[
+      { variant: 'primary', text: 'Start Here', href: '/start/' },
+      { text: 'Research Highlights', href: '/research/' },
+    ]}
+  />
+</Layout>

@@ -1,0 +1,75 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '~/layouts/PageLayout.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+const stages = (await getCollection('timeline')).sort((a, b) => {
+  const order = ['first-hour', 'day-1', 'day-2', 'day-3', 'first-week', 'week-2', 'week-3', 'month-1', 'month-2', 'month-3', 'month-6', 'year-1', 'long-term'];
+  return order.indexOf(a.data.slug) - order.indexOf(b.data.slug);
+});
+
+const metadata = {
+  title: 'Quit Smoking Timeline | Quit Smoking Hub',
+  description:
+    'What happens after you quit smoking: hour by hour, day by day, year by year. The science timeline and the community experience timeline, kept clearly separate.',
+};
+---
+
+<Layout metadata={metadata}>
+  <section class="relative mx-auto max-w-4xl px-4 sm:px-6 pt-8 md:pt-12 pb-4">
+    <p class="text-base font-bold tracking-wide uppercase text-secondary mb-2 text-center">Quit Timeline</p>
+    <h1 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading text-heading text-center">
+      What happens after you quit smoking
+    </h1>
+    <p class="mt-4 max-w-3xl mx-auto text-lg text-muted text-center">
+      Two timelines run in parallel: what science documents in the body, and what people report about their own
+      experience. They are related but not the same — and neither predicts your exact path.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8">
+    <div class="relative border-l-2 border-gray-200 dark:border-slate-700 ml-3 space-y-10">
+      {
+        stages.map((s) => (
+          <div class="ml-6 relative">
+            <span class="absolute -left-[31px] top-1 h-3 w-3 rounded-full bg-primary"></span>
+            <h2 class="text-2xl font-bold font-heading mb-2">{s.data.timeLabel}</h2>
+            <div class="grid gap-4 md:grid-cols-2">
+              <div class="card p-5">
+                <h3 class="font-bold font-heading mb-2 text-primary">Science timeline</h3>
+                <p class="text-muted dark:text-slate-400 text-sm">{s.data.scienceDetail}</p>
+              </div>
+              <div class="card p-5">
+                <h3 class="font-bold font-heading mb-2 text-secondary">Community experience</h3>
+                <p class="text-muted dark:text-slate-400 text-sm">{s.data.communityDetail}</p>
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8">
+    <div class="card p-8">
+      <h2 class="text-2xl font-bold font-heading mb-3">A note on timelines</h2>
+      <p class="text-muted dark:text-slate-400 mb-3">
+        The science timeline describes documented averages — not guarantees. The community timeline describes what
+        people report — not predictions. "Someone experienced X on day 7" never becomes "X happens on day 7."
+      </p>
+      <p class="text-sm text-muted dark:text-slate-500">
+        Sources include US Surgeon General reports, the WHO tobacco fact sheet, and withdrawal time-course research
+        (e.g. Hughes, 2007). See the data site for the full research records.
+      </p>
+    </div>
+  </section>
+
+  <CallToAction
+    title="Track your own timeline"
+    subtitle="Compare your day-by-day experience with what science and community report."
+    actions={[
+      { variant: 'primary', text: 'Understand Withdrawal', href: '/withdrawal/' },
+      { text: 'Browse Experiences', href: '/experiences/' },
+    ]}
+  />
+</Layout>

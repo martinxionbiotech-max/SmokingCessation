@@ -1,0 +1,113 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+const metadata = {
+  title: 'Start Here | Quit Smoking Hub',
+  description:
+    'A practical path from deciding to quit to your quit date and beyond: preparation, quit methods, withdrawal expectations and what to do after a lapse.',
+};
+---
+
+<Layout metadata={metadata}>
+  <section class="relative mx-auto max-w-4xl px-4 sm:px-6 pt-8 md:pt-12 pb-4">
+    <p class="text-base font-bold tracking-wide uppercase text-secondary mb-2 text-center">Start Here</p>
+    <h1 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading text-heading text-center">
+      Wherever you are, start here
+    </h1>
+    <p class="mt-4 max-w-3xl mx-auto text-lg text-muted text-center">
+      Whether you are thinking about quitting, in the middle of withdrawal, or back after a relapse — this page gives
+      you the shortest useful path through the rest of this site.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8 md:py-12">
+    <div class="space-y-8">
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-3">If you have not decided yet</h2>
+        <p class="text-muted dark:text-slate-400">
+          Start with{' '}
+          <a href="/quit-smoking/" class="text-primary underline decoration-1 underline-offset-2">How to Quit Smoking</a>{' '}
+          to understand what quitting actually involves, then read the{' '}
+          <a href="/questions/" class="text-primary underline decoration-1 underline-offset-2">most asked questions</a>{' '}
+          people have before quitting. You do not need to feel 100% ready — preparation is part of quitting.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-3">If you have decided to quit</h2>
+        <ol class="list-decimal list-inside space-y-3 text-muted dark:text-slate-400">
+          <li>
+            <strong class="text-heading">Pick a quit date</strong> within the next 1–2 weeks. Writing it down makes it
+            real.
+          </li>
+          <li>
+            <strong class="text-heading">Choose your method:</strong> compare{' '}
+            <a href="/methods/" class="text-primary underline decoration-1 underline-offset-2">quit methods</a> (cold
+            turkey, gradual reduction, NRT, medication, behavioral support).
+          </li>
+          <li>
+            <strong class="text-heading">Prepare your environment:</strong> remove cigarettes, lighters and ashtrays.
+            Plan for your top{' '}
+            <a href="/triggers/" class="text-primary underline decoration-1 underline-offset-2">triggers</a>.
+          </li>
+          <li>
+            <strong class="text-heading">Know what to expect:</strong> read the{' '}
+            <a href="/withdrawal/" class="text-primary underline decoration-1 underline-offset-2">withdrawal guide</a>{' '}
+            and the{' '}
+            <a href="/timeline/" class="text-primary underline decoration-1 underline-offset-2">quit timeline</a>.
+          </li>
+          <li>
+            <strong class="text-heading">Tell people and get support:</strong> a quitline, a counselor, or a
+            quit-smoking community all improve your chances.
+          </li>
+        </ol>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-3">If you are in the middle of quitting</h2>
+        <p class="text-muted dark:text-slate-400">
+          What you are feeling right now is normal and temporary:{' '}
+          <a href="/withdrawal/" class="text-primary underline decoration-1 underline-offset-2">withdrawal symptoms</a>{' '}
+          peak in the first week and settle within weeks. For a craving happening right now, use the{' '}
+          <a href="/cravings/" class="text-primary underline decoration-1 underline-offset-2">cravings playbook</a>.
+          Reading{' '}
+          <a href="/experiences/" class="text-primary underline decoration-1 underline-offset-2">
+            real quit experiences
+          </a>{' '}
+          from people at the same stage helps more than most people expect.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-3">If you have relapsed</h2>
+        <p class="text-muted dark:text-slate-400">
+          A relapse is part of the quitting process for many people — it is not a verdict. Read{' '}
+          <a href="/relapse/" class="text-primary underline decoration-1 underline-offset-2">
+            Relapse &amp; Recovery
+          </a>{' '}
+          to understand what happened, learn from it, and set a new quit date. Most successful quitters made several
+          attempts.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-3">If you are supporting someone who is quitting</h2>
+        <p class="text-muted dark:text-slate-400">
+          The first weeks are the hardest. Expect irritability — it is withdrawal, not their personality. Practical
+          help (removing triggers, being available, not smoking around them) matters more than advice.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <CallToAction
+    title="Not sure where to begin?"
+    subtitle="Answer a few questions about where you are and this site will point you to the right pages."
+    actions={[
+      { variant: 'primary', text: 'I want to quit smoking', href: '/quit-smoking/' },
+      { text: 'I am in withdrawal', href: '/withdrawal/' },
+      { text: 'I have relapsed', href: '/relapse/' },
+    ]}
+  />
+</Layout>

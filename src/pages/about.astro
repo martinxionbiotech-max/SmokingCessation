@@ -1,0 +1,72 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+
+const metadata = {
+  title: 'About Quit Smoking Hub',
+  description:
+    'What Quit Smoking Hub is: an independent, evidence-aware knowledge and experience platform for smoking cessation. Not a blog, not a medical service.',
+  ignoreTitleTemplate: true,
+};
+---
+
+<Layout metadata={metadata}>
+  <section class="relative mx-auto max-w-4xl px-4 sm:px-6 pt-8 md:pt-12 pb-4">
+    <p class="text-base font-bold tracking-wide uppercase text-secondary mb-2 text-center">About</p>
+    <h1 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading text-heading text-center">
+      About Quit Smoking Hub
+    </h1>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8 space-y-10">
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">What this is</h2>
+      <p class="text-muted dark:text-slate-400">
+        Quit Smoking Hub is a structured smoking cessation knowledge and experience platform. It combines a
+        de-identified community experience database with an evidence library drawn from WHO, CDC, NIH, Cochrane and
+        peer-reviewed research. It is not a blog, not a medical service, and not a translation of forum posts.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">Core principles</h2>
+      <ul class="list-disc list-inside space-y-2 text-muted dark:text-slate-400">
+        <li><strong class="text-heading">Real-world experiences and scientific evidence stay separate.</strong> A community report is one person's experience; it is never presented as proof.</li>
+        <li><strong class="text-heading">No shame, no exaggerated claims, no fake medical authority.</strong></li>
+        <li><strong class="text-heading">No fabrication.</strong> We do not invent experiences, studies, statistics, DOIs or experts.</li>
+        <li><strong class="text-heading">Unreported means "Not reported".</strong> We never guess age, smoking history or medical details.</li>
+        <li><strong class="text-heading">Information, not prescription.</strong> Medication pages explain evidence; they never recommend doses or judge individual suitability.</li>
+      </ul>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">Who this is for</h2>
+      <ul class="list-disc list-inside space-y-1 text-muted dark:text-slate-400">
+        <li>People preparing to quit smoking</li>
+        <li>People in the first weeks of a quit attempt</li>
+        <li>People who have relapsed and want to try again</li>
+        <li>Long-term former smokers</li>
+        <li>Family members and partners supporting someone who is quitting</li>
+        <li>Anyone wanting to understand nicotine dependence</li>
+      </ul>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">How content is produced</h2>
+      <p class="text-muted dark:text-slate-400">
+        Community material goes through source discovery, privacy filtering, de-identification, deduplication,
+        structuring and editorial synthesis before publication. Medical and research content is written against
+        authoritative sources with evidence-strength labels. The full pipeline is documented on the{' '}
+        <a href="/methodology/" class="text-primary underline decoration-1 underline-offset-2">methodology page</a>.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">What we are not</h2>
+      <p class="text-muted dark:text-slate-400">
+        We are not doctors, and this site does not provide medical advice, diagnosis or treatment. No content here
+        replaces consultation with a qualified healthcare professional. See the{' '}
+        <a href="/disclaimer/" class="text-primary underline decoration-1 underline-offset-2">medical disclaimer</a>.
+      </p>
+    </div>
+  </section>
+</Layout>

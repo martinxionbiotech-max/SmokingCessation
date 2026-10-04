@@ -1,0 +1,47 @@
+---
+// Calm teal palette for Quit Smoking Hub.
+// Font family is provided by Astro's native Fonts API (see `fonts` in astro.config.ts).
+---
+
+<style is:inline>
+  :root {
+    --aw-font-sans: var(--font-inter);
+    --aw-font-serif: var(--font-inter);
+    --aw-font-heading: var(--font-inter);
+
+    --aw-color-primary: rgb(22 163 74);
+    --aw-color-secondary: rgb(21 128 61);
+    --aw-color-accent: rgb(132 204 22);
+
+    --aw-color-text-heading: rgb(0 0 0);
+    --aw-color-text-default: rgb(16 16 16);
+    --aw-color-text-muted: rgb(16 16 16 / 66%);
+    --aw-color-bg-page: rgb(255 255 255);
+
+    --aw-color-bg-page-dark: rgb(6 12 9);
+
+    ::selection {
+      background-color: rgb(22 163 74 / 30%);
+    }
+  }
+
+  .dark {
+    --aw-font-sans: var(--font-inter);
+    --aw-font-serif: var(--font-inter);
+    --aw-font-heading: var(--font-inter);
+
+    --aw-color-primary: rgb(34 197 94);
+    --aw-color-secondary: rgb(74 222 128);
+    --aw-color-accent: rgb(163 230 53);
+
+    --aw-color-text-heading: rgb(244 247 245);
+    --aw-color-text-default: rgb(226 232 228);
+    --aw-color-text-muted: rgb(203 213 207 / 66%);
+    --aw-color-bg-page: rgb(6 12 9);
+
+    ::selection {
+      background-color: rgb(34 197 94 / 35%);
+      color: rgb(255 255 255);
+    }
+  }
+</style>

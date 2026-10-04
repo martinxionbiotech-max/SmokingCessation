@@ -1,0 +1,122 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '~/layouts/PageLayout.astro';
+import Breadcrumbs from '~/components/common/Breadcrumbs.astro';
+import StructuredData from '~/components/common/StructuredData.astro';
+
+import { SITE } from 'astrowind:config';
+
+export async function getStaticPaths() {
+  const experiences = (await getCollection('experience')).filter((e) => e.data.editorialStatus === 'published');
+  return experiences.map((e) => ({ params: { slug: e.data.experienceId }, props: { experience: e } }));
+}
+
+const { experience } = Astro.props;
+const d = experience.data;
+
+const url = `${String(SITE.site).replace(/\/$/, '')}/experiences/${d.experienceId}/`;
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: d.title || `Community experience ${d.experienceId}`,
+  description: d.summary || 'A de-identified community-reported quit smoking experience.',
+  url,
+  mainEntityOfPage: url,
+  publisher: { '@id': `${SITE.site}/#organization` },
+  dateModified: '2026-10-04',
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: SITE.site },
+    { '@type': 'ListItem', position: 2, name: 'Real Quit Experiences', item: SITE.site + '/experiences/' },
+    { '@type': 'ListItem', position: 3, name: d.title || d.experienceId },
+  ],
+};
+
+const metadata = {
+  title: d.title || `Quit experience ${d.experienceId}`,
+  description: d.summary || 'A de-identified community-reported quit smoking experience.',
+};
+---
+
+<Layout metadata={metadata}>
+  <StructuredData slot="head" schema={[articleSchema, breadcrumbSchema]} />
+  <Breadcrumbs bar items={[{ text: 'Home', href: '/' }, { text: 'Experiences', href: '/experiences/' }, { text: d.title || d.experienceId }]} />
+
+  <section class="relative mx-auto max-w-4xl px-4 sm:px-6 pt-8 md:pt-12 pb-4">
+    <p class="text-base font-bold tracking-wide uppercase text-secondary mb-2 text-center">
+      Community Experience · {d.sourcePlatform}
+    </p>
+    <h1 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading text-heading text-center">
+      {d.title || `Experience ${d.experienceId}`}
+    </h1>
+    {d.summary && <p class="mt-4 max-w-3xl mx-auto text-lg text-muted text-center">{d.summary}</p>}
+  </section>
+
+  <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8 space-y-8">
+    <div class="card p-8">
+      <h2 class="text-2xl font-bold font-heading mb-4">Experience snapshot</h2>
+      <dl class="grid gap-x-8 gap-y-3 md:grid-cols-2 text-sm">
+        {
+          (
+            [
+              ['Recovery day', d.recoveryDay != null ? `Day ${d.recoveryDay}` : null],
+              ['Recovery stage', d.recoveryStage],
+              ['Quit method', d.quitMethod?.join(', ')],
+              ['Years smoking', d.yearsSmoking || 'Not reported'],
+              ['Cigarettes per day', d.cigarettesPerDay || 'Not reported'],
+              ['Quit attempt number', d.quitAttemptNumber || 'Not reported'],
+              ['Age group', d.ageGroup || 'Not reported'],
+              ['Gender', d.gender || 'Not reported'],
+            ] as const
+          ).filter(([, v]) => v != null).map(([k, v]) => (
+            <div>
+              <dt class="font-bold text-heading">{k}</dt>
+              <dd class="text-muted dark:text-slate-400 mt-1">{v}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+
+    <div class="space-y-6 text-muted dark:text-slate-400">
+      {
+        (
+          [
+            ['Main challenge', d.physicalSymptoms?.join(', ') || d.craving],
+            ['Trigger', d.trigger?.join(', ')],
+            ['Craving', d.craving],
+            ['Emotional state', d.emotionalState],
+            ['What happened', d.behavior],
+            ['What the person tried', d.intervention],
+            ['Reported outcome', d.outcome],
+            ['Relapse', d.relapse === true ? `Yes — ${d.relapseTrigger || 'trigger not reported'}` : d.relapse === false ? 'No' : null],
+            ['What can be learned', d.lessons],
+          ] as const
+        ).filter(([, v]) => v != null && v !== '').map(([k, v]) => (
+          <div>
+            <h2 class="text-xl font-bold font-heading mb-2">{k}</h2>
+            <p>{v}</p>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="card p-6">
+      <h2 class="text-xl font-bold font-heading mb-2">Evidence status</h2>
+      <p class="text-muted dark:text-slate-400 text-sm">
+        This is a single community report ({d.evidenceStatus}). It describes one person's experience. It does not
+        constitute medical advice or scientific evidence.
+      </p>
+    </div>
+
+    <p class="text-sm text-muted dark:text-slate-500">
+      This page summarizes a community-reported personal experience. It does not constitute medical advice or
+      scientific evidence. Identifying details have been removed.
+    </p>
+  </section>
+</Layout>

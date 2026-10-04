@@ -1,0 +1,68 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '~/layouts/PageLayout.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+const triggers = (await getCollection('triggers')).sort((a, b) => a.data.title.localeCompare(b.data.title));
+
+const metadata = {
+  title: 'Smoking Triggers | Quit Smoking Hub',
+  description:
+    'The smoking triggers database: coffee, alcohol, stress, driving, social events and more. What science says about conditioned cues, and how people manage each trigger.',
+};
+---
+
+<Layout metadata={metadata}>
+  <section class="relative mx-auto max-w-4xl px-4 sm:px-6 pt-8 md:pt-12 pb-4">
+    <p class="text-base font-bold tracking-wide uppercase text-secondary mb-2 text-center">Smoking Triggers</p>
+    <h1 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading text-heading text-center">
+      Triggers: why you suddenly want a cigarette
+    </h1>
+    <p class="mt-4 max-w-3xl mx-auto text-lg text-muted text-center">
+      A trigger is a situation your brain has learned to associate with smoking. After quitting, these situations can
+      produce cravings — but each time you pass through one without smoking, the association weakens.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8">
+    <div class="grid gap-6 md:grid-cols-2">
+      {
+        triggers.map((t) => (
+          <a
+            href={`/triggers/${t.data.slug}/`}
+            class="card p-6 no-underline hover:-translate-y-1 transition duration-200"
+          >
+            <h2 class="font-bold font-heading text-xl mb-2">{t.data.title.replace(' as a Smoking Trigger', '').replace(' as a Trigger', '').replace(' as Triggers', '')}</h2>
+            <p class="text-muted dark:text-slate-400 text-sm">{t.data.summary}</p>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8">
+    <div class="card p-8">
+      <h2 class="text-2xl font-bold font-heading mb-3">How triggers actually work</h2>
+      <p class="text-muted dark:text-slate-400 mb-3">
+        Smoking pairs nicotine with thousands of everyday moments — coffee, meals, driving, stress, breaks. The brain
+        stores these as associations: <em>this situation → cigarette</em>. After quitting, the situation still fires
+        the association, which feels like an urge.
+      </p>
+      <p class="text-muted dark:text-slate-400 mb-3">
+        The good news: associations weaken with repetition in the opposite direction. Every time you experience the
+        trigger without smoking, the link gets a little weaker. This is why the first weeks are hardest and later
+        weeks get easier.
+      </p>
+      <p class="text-sm text-muted dark:text-slate-500">
+        Note: community reports describe what people experienced — they are not evidence that a trigger causes
+        relapse. Each trigger page separates community reports from scientific evidence.
+      </p>
+    </div>
+  </section>
+
+  <CallToAction
+    title="Know your top three triggers"
+    subtitle="Write them down, plan a replacement for each, and you have already done half the preparation work."
+    actions={[{ variant: 'primary', text: 'Start Here', href: '/start/' }]}
+  />
+</Layout>

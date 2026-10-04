@@ -1,0 +1,65 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+
+const metadata = {
+  title: 'Privacy Policy | Quit Smoking Hub',
+  description:
+    'Privacy policy for Quit Smoking Hub: what data we process, how community content is de-identified, and what we do not publish.',
+  ignoreTitleTemplate: true,
+};
+---
+
+<Layout metadata={metadata}>
+  <section class="relative mx-auto max-w-4xl px-4 sm:px-6 pt-8 md:pt-12 pb-4">
+    <p class="text-base font-bold tracking-wide uppercase text-secondary mb-2 text-center">Legal</p>
+    <h1 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading text-heading text-center">
+      Privacy Policy
+    </h1>
+    <p class="mt-4 max-w-3xl mx-auto text-lg text-muted text-center">
+      <em>Last updated: October 2026</em>
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8 space-y-8">
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">In short</h2>
+      <p class="text-muted dark:text-slate-400">
+        Quit Smoking Hub is a static informational website. We do not require accounts, do not collect personal
+        information through forms, and do not sell or share data with third parties.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">Community content and de-identification</h2>
+      <p class="text-muted dark:text-slate-400">
+        Community experiences published on this site are editorial syntheses of public forum material. We never
+        publish usernames, avatars, user IDs, contact details, real names or any other identifying information.
+        Source material is used for research and structuring only, never reproduced verbatim.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">Technical data</h2>
+      <p class="text-muted dark:text-slate-400">
+        As a static site we process only the standard technical data any website receives (such as IP addresses in
+        server logs, where logs are enabled by the hosting provider). We do not use tracking cookies or advertising
+        networks.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">Third-party links</h2>
+      <p class="text-muted dark:text-slate-400">
+        Pages link to external resources (research articles, public health agencies, quitlines). We are not
+        responsible for the privacy practices of those sites.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">Contact</h2>
+      <p class="text-muted dark:text-slate-400">
+        For privacy questions, contact the site operator through the details on the hosting platform.
+      </p>
+    </div>
+  </section>
+</Layout>

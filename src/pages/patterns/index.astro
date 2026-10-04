@@ -1,0 +1,64 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '~/layouts/PageLayout.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+const patterns = (await getCollection('pattern')).sort((a, b) => b.data.numberOfRelevantExperiences - a.data.numberOfRelevantExperiences);
+
+const metadata = {
+  title: 'Community Patterns | Quit Smoking Hub',
+  description:
+    'Patterns that appear across many independent quit experiences: observed patterns, common contexts, reported strategies, scientific evidence and what we do not know.',
+};
+---
+
+<Layout metadata={metadata}>
+  <section class="relative mx-auto max-w-4xl px-4 sm:px-6 pt-8 md:pt-12 pb-4">
+    <p class="text-base font-bold tracking-wide uppercase text-secondary mb-2 text-center">Community Patterns</p>
+    <h1 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading text-heading text-center">
+      Patterns across many quit attempts
+    </h1>
+    <p class="mt-4 max-w-3xl mx-auto text-lg text-muted text-center">
+      When many independent experiences describe the same phenomenon, we record it as a community pattern — with the
+      number of relevant experiences, contradicting reports, and the scientific evidence, kept strictly separate.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8">
+    {
+      patterns.length === 0 && (
+        <div class="card p-10 text-center">
+          <h2 class="text-2xl font-bold font-heading mb-3">Patterns emerge as the database grows</h2>
+          <p class="text-muted dark:text-slate-400 max-w-2xl mx-auto">
+            A community pattern requires multiple independent experiences. Once the first batches of the Experience
+            Database are verified, patterns will be published here with their evidence counts.{' '}
+            <a href="/experiences/" class="text-primary underline decoration-1 underline-offset-2">See the database</a>.
+          </p>
+        </div>
+      )
+    }
+    {
+      patterns.map((p) => (
+        <div class="card p-8 mb-6">
+          <h2 class="text-xl md:text-2xl font-bold font-heading mb-3">{p.data.title}</h2>
+          <p class="text-muted dark:text-slate-400 mb-3">{p.data.observedPattern}</p>
+          <p class="text-sm text-muted dark:text-slate-500 mb-4">
+            Relevant experiences: <strong class="text-heading">{p.data.numberOfRelevantExperiences}</strong>
+          </p>
+          <a href={`/patterns/${p.data.slug}/`} class="text-primary underline decoration-1 underline-offset-2 text-sm">
+            Read the full pattern
+          </a>
+        </div>
+      ))
+    }
+  </section>
+
+  <CallToAction
+    title="Patterns are observations, not conclusions"
+    subtitle="Community observations never become medical conclusions here — each pattern page states what we do not know."
+    actions={[
+      { variant: 'primary', text: 'See the Evidence', href: '/research/' },
+      { text: 'Our Methodology', href: '/methodology/' },
+    ]}
+  />
+</Layout>

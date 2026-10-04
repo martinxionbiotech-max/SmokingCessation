@@ -1,0 +1,103 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+
+const metadata = {
+  title: 'Methodology | Quit Smoking Hub',
+  description:
+    'How Quit Smoking Hub collects, de-identifies, structures and quality-scores community quit experiences, and how scientific evidence is evaluated.',
+};
+---
+
+<Layout metadata={metadata}>
+  <section class="relative mx-auto max-w-4xl px-4 sm:px-6 pt-8 md:pt-12 pb-4">
+    <p class="text-base font-bold tracking-wide uppercase text-secondary mb-2 text-center">Methodology</p>
+    <h1 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading text-heading text-center">
+      How this platform works
+    </h1>
+    <p class="mt-4 max-w-3xl mx-auto text-lg text-muted text-center">
+      Transparency about method is the difference between a knowledge platform and a content farm. This page
+      documents every step.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8 space-y-10">
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">1. Where community experiences come from</h2>
+      <p class="text-muted dark:text-slate-400">
+        Public quit-smoking communities (primarily Baidu's Quit Smoking forum and comparable public platforms) are
+        used as <em>source material only</em>. We read posts to understand real quit experiences — we never mirror,
+        copy or translate posts wholesale.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">2. Privacy filtering and de-identification</h2>
+      <ul class="list-disc list-inside space-y-2 text-muted dark:text-slate-400">
+        <li>Usernames, avatars, UIDs, QQ/WeChat IDs, emails, phone numbers and real names are removed.</li>
+        <li>Any other identifiable detail (workplace names, distinctive personal events) is removed or generalized.</li>
+        <li>Unrelated, abusive or inappropriate content is discarded.</li>
+      </ul>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">3. Structuring and deduplication</h2>
+      <p class="text-muted dark:text-slate-400">
+        Each relevant experience is extracted into the same structured schema — smoking history, quit method,
+        withdrawal, triggers, cravings, relapse, outcome, lessons. Duplicates (same post, same story) are detected
+        and merged. Only what the person explicitly stated is recorded; everything else is "Not reported".
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">4. Editorial synthesis</h2>
+      <p class="text-muted dark:text-slate-400">
+        Published pages are original English editorial content written from the structured records — never verbatim
+        translation of posts. A community report is always attributed as "a community member reported", never as
+        proof.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">5. How evidence is evaluated</h2>
+      <ul class="list-disc list-inside space-y-2 text-muted dark:text-slate-400">
+        <li><strong class="text-heading">Tier 1:</strong> WHO, CDC, NIH, NCI, PubMed-indexed systematic reviews, Cochrane, clinical guidelines.</li>
+        <li><strong class="text-heading">Tier 2:</strong> peer-reviewed journals, professional organizations, major universities.</li>
+        <li><strong class="text-heading">Tier 3:</strong> high-quality secondary sources.</li>
+        <li><strong class="text-heading">Community:</strong> experience source only — never scientific evidence.</li>
+      </ul>
+      <p class="text-muted dark:text-slate-400 mt-3">
+        Every claim carries an evidence-strength label: Strong, Moderate, Limited, Mixed, Insufficient, or Community
+        Report Only. Research records store title, authors, year, journal, DOI/PMID where available, population,
+        method, findings and limitations.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">6. Medical safety gate</h2>
+      <p class="text-muted dark:text-slate-400">
+        Content touching medications, pregnancy, mental health, cardiovascular or respiratory disease, cancer or
+        medication interactions enters a medical review queue and is published only with appropriate framing and
+        disclaimers. This platform does not diagnose, prescribe or give individual advice.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">7. Quality scoring and updates</h2>
+      <p class="text-muted dark:text-slate-400">
+        Every page is scored on originality, information gain, evidence quality, source quality, experience value,
+        specificity, accuracy, uncertainty handling, internal links, search intent fit, AIO readiness and medical
+        safety. Content below threshold is not published. Research records carry a "last verified" date and are
+        re-checked on a schedule.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">8. What we do not do</h2>
+      <p class="text-muted dark:text-slate-400">
+        We do not fabricate experiences, studies, statistics, DOIs, PMIDs or experts. We do not turn one person's
+        story into a population claim, community reports into medical conclusions, correlation into causation, or
+        medication information into prescriptions.
+      </p>
+    </div>
+  </section>
+</Layout>

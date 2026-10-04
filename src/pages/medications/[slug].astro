@@ -1,0 +1,120 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '~/layouts/PageLayout.astro';
+import Breadcrumbs from '~/components/common/Breadcrumbs.astro';
+import StructuredData from '~/components/common/StructuredData.astro';
+
+import { SITE } from 'astrowind:config';
+
+export async function getStaticPaths() {
+  const medications = (await getCollection('method')).filter((m) => m.data.medicationWarning);
+  return medications.map((m) => ({ params: { slug: m.data.slug }, props: { medication: m } }));
+}
+
+const { medication } = Astro.props;
+const d = medication.data;
+
+const url = `${String(SITE.site).replace(/\/$/, '')}/medications/${d.slug}/`;
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'MedicalWebPage',
+  headline: d.title,
+  description: d.summary,
+  url,
+  mainEntityOfPage: url,
+  publisher: { '@id': `${SITE.site}/#organization` },
+  dateModified: '2026-10-04',
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: SITE.site },
+    { '@type': 'ListItem', position: 2, name: 'Quit Smoking Medications', item: SITE.site + '/medications/' },
+    { '@type': 'ListItem', position: 3, name: d.title },
+  ],
+};
+
+const metadata = {
+  title: d.title,
+  description: d.summary,
+};
+
+const questionsToAsk = [
+  'Is this medication appropriate for my medical history and current conditions?',
+  'What dose and duration would you recommend for me, and how should I take it?',
+  'What side effects should I expect and which ones mean I should contact you?',
+  'Does it interact with any of my other medications?',
+  'What happens if I smoke while using it?',
+  'How long should I continue it after quitting?',
+];
+---
+
+<Layout metadata={metadata}>
+  <StructuredData slot="head" schema={[articleSchema, breadcrumbSchema]} />
+  <Breadcrumbs bar items={[{ text: 'Home', href: '/' }, { text: 'Medications', href: '/medications/' }, { text: d.title }]} />
+
+  <section class="relative mx-auto max-w-4xl px-4 sm:px-6 pt-8 md:pt-12 pb-4">
+    <p class="text-base font-bold tracking-wide uppercase text-secondary mb-2 text-center">
+      {d.category} — Information Only
+    </p>
+    <h1 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading text-heading text-center">
+      {d.title}
+    </h1>
+    <p class="mt-4 max-w-3xl mx-auto text-lg text-muted text-center">{d.summary}</p>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8 space-y-10">
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">What it is</h2>
+      <p class="text-muted dark:text-slate-400">{d.whatItIs}</p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">How it works</h2>
+      <p class="text-muted dark:text-slate-400">{d.howItWorks}</p>
+    </div>
+
+    <div class="card p-6">
+      <h2 class="text-xl font-bold font-heading mb-2">Evidence and effectiveness</h2>
+      <p class="text-muted dark:text-slate-400 text-sm mb-2">{d.evidence}</p>
+      <p class="text-sm">
+        Evidence strength: <span class="font-bold text-primary">{d.evidenceStrength}</span>
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">Reported community experiences</h2>
+      <p class="text-muted dark:text-slate-400">{d.reportedCommunityExperiences}</p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">Common considerations</h2>
+      <ul class="list-disc list-inside space-y-2 text-muted dark:text-slate-400">
+        {d.practicalConsiderations.map((c) => <li>{c}</li>)}
+      </ul>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">Limitations</h2>
+      <p class="text-muted dark:text-slate-400">{d.limitations}</p>
+    </div>
+
+    <div class="card p-8 border-l-4 border-l-primary">
+      <h2 class="text-2xl font-bold font-heading mb-3">Questions to ask a healthcare professional</h2>
+      <ul class="list-disc list-inside space-y-2 text-muted dark:text-slate-400 text-sm">
+        {questionsToAsk.map((q) => <li>{q}</li>)}
+      </ul>
+      <p class="text-sm font-bold text-heading mt-4">
+        This page is information only. It does not recommend this medication for any individual, does not suggest
+        doses, and does not replace professional medical advice.
+      </p>
+    </div>
+
+    <p class="text-sm text-muted dark:text-slate-500">
+      Source: {d.evidence} Community reports are de-identified and are not scientific evidence.
+    </p>
+  </section>
+</Layout>

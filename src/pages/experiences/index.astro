@@ -1,0 +1,115 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '~/layouts/PageLayout.astro';
+import StructuredData from '~/components/common/StructuredData.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+import { SITE } from 'astrowind:config';
+
+const experiences = (await getCollection('experience')).filter((e) => e.data.editorialStatus === 'published');
+
+const datasetSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 'Smoking Cessation Experience Database',
+  description:
+    'A structured, de-identified database of community-reported quit smoking experiences: smoking history, quit methods, withdrawal, triggers, cravings, relapse and recovery.',
+  url: `${SITE.site}/experiences/`,
+  publisher: { '@id': `${SITE.site}/#organization` },
+  license: 'https://creativecommons.org/licenses/by/4.0/',
+  includedInDataCatalog: {
+    '@type': 'DataCatalog',
+    name: 'Quit Smoking Hub',
+    url: SITE.site,
+  },
+};
+
+const metadata = {
+  title: 'Real Quit Smoking Experiences | Quit Smoking Hub',
+  description:
+    'A structured, de-identified database of community quit attempts: smoking history, methods, withdrawal, triggers, relapse and recovery — real experiences, clearly separated from scientific evidence.',
+};
+---
+
+<Layout metadata={metadata}>
+  <StructuredData slot="head" schema={datasetSchema} />
+
+  <section class="relative mx-auto max-w-4xl px-4 sm:px-6 pt-8 md:pt-12 pb-4">
+    <p class="text-base font-bold tracking-wide uppercase text-secondary mb-2 text-center">Real Quit Experiences</p>
+    <h1 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading text-heading text-center">
+      The Experience Database
+    </h1>
+    <p class="mt-4 max-w-3xl mx-auto text-lg text-muted text-center">
+      Structured, de-identified, de-duplicated records of real quit attempts from public quit-smoking communities.
+      Each record is one person's report — not evidence, not advice, and never a prediction.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8">
+    {
+      experiences.length === 0 && (
+        <div class="card p-10 text-center">
+          <h2 class="text-2xl font-bold font-heading mb-3">The first batch is being compiled</h2>
+          <p class="text-muted dark:text-slate-400 max-w-2xl mx-auto">
+            We are processing the first batch of community experiences through our ingestion pipeline — source
+            verification, de-identification, deduplication, structuring and quality scoring. Records are published
+            here only after passing every gate. See{' '}
+            <a href="/methodology/" class="text-primary underline decoration-1 underline-offset-2">our methodology</a>{' '}
+            for how this works.
+          </p>
+        </div>
+      )
+    }
+    {
+      experiences.length > 0 && (
+        <div class="grid gap-6 md:grid-cols-2">
+          {experiences.map((e) => (
+            <a
+              href={`/experiences/${e.data.experienceId}/`}
+              class="card p-6 no-underline hover:-translate-y-1 transition duration-200"
+            >
+              <h2 class="font-bold font-heading text-xl mb-2">{e.data.title || `Experience ${e.data.experienceId}`}</h2>
+              <p class="text-muted dark:text-slate-400 text-sm">{e.data.summary}</p>
+            </a>
+          ))}
+        </div>
+      )
+    }
+  </section>
+
+  <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8 space-y-6">
+    <div class="card p-8">
+      <h2 class="text-2xl font-bold font-heading mb-3">What a structured record captures</h2>
+      <p class="text-muted dark:text-slate-400 mb-3">
+        Every record is extracted into the same fields, so patterns become visible across hundreds of attempts:
+      </p>
+      <ul class="list-disc list-inside space-y-1 text-muted dark:text-slate-400 text-sm">
+        <li>Smoking history (only what the person explicitly reported)</li>
+        <li>Quit method, quit attempt number and recovery day</li>
+        <li>Triggers, cravings, emotional state, physical symptoms</li>
+        <li>What the person tried, and the reported outcome</li>
+        <li>Relapse details — trigger, context, what happened afterward, lessons</li>
+        <li>Reported changes, positive and negative</li>
+      </ul>
+    </div>
+
+    <div class="card p-8 border-l-4 border-l-primary">
+      <h2 class="text-2xl font-bold font-heading mb-3">Privacy by design</h2>
+      <ul class="list-disc list-inside space-y-2 text-muted dark:text-slate-400 text-sm">
+        <li>No usernames, avatars, UIDs, contact details or real names are ever published.</li>
+        <li>Content is editorial synthesis, never verbatim copies or translations of posts.</li>
+        <li>Unreported fields are marked "Not reported" — never guessed.</li>
+        <li>Records that do not meet the quality threshold stay internal.</li>
+      </ul>
+    </div>
+  </section>
+
+  <CallToAction
+    title="Experiences ≠ evidence"
+    subtitle="Community reports show what happens in real life. Research shows what is supported by evidence. Both are here — clearly labeled."
+    actions={[
+      { variant: 'primary', text: 'See the Evidence', href: '/research/' },
+      { text: 'Our Methodology', href: '/methodology/' },
+    ]}
+  />
+</Layout>

@@ -1,0 +1,80 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '~/layouts/PageLayout.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+const methods = (await getCollection('method')).sort((a, b) => a.data.title.localeCompare(b.data.title));
+const grouped = methods.reduce(
+  (acc, m) => {
+    const cat = m.data.category;
+    (acc[cat] = acc[cat] || []).push(m);
+    return acc;
+  },
+  {} as Record<string, typeof methods>
+);
+
+const metadata = {
+  title: 'Quit Methods Compared | Quit Smoking Hub',
+  description:
+    'Cold turkey, gradual reduction, nicotine replacement therapy, varenicline, bupropion, cytisine, counseling, quitlines and more — with evidence strength for each.',
+};
+---
+
+<Layout metadata={metadata}>
+  <section class="relative mx-auto max-w-4xl px-4 sm:px-6 pt-8 md:pt-12 pb-4">
+    <p class="text-base font-bold tracking-wide uppercase text-secondary mb-2 text-center">Quit Methods</p>
+    <h1 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading text-heading text-center">
+      Quit methods: what the evidence says
+    </h1>
+    <p class="mt-4 max-w-3xl mx-auto text-lg text-muted text-center">
+      No single method works for everyone. The strongest evidence supports medication plus behavioral support — but
+      the best method is the one you will actually use consistently.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-5xl px-4 sm:px-6 py-8 space-y-10">
+    {
+      Object.entries(grouped).map(([cat, list]) => (
+        <div>
+          <h2 class="text-2xl font-bold font-heading mb-4">{cat}</h2>
+          <div class="grid gap-6 md:grid-cols-2">
+            {list.map((m) => (
+              <a
+                href={`/methods/${m.data.slug}/`}
+                class="card p-6 no-underline hover:-translate-y-1 transition duration-200"
+              >
+                <h3 class="font-bold font-heading text-xl mb-2">{m.data.title}</h3>
+                <p class="text-muted dark:text-slate-400 text-sm mb-3">{m.data.summary}</p>
+                <p class="text-sm">
+                  Evidence strength: <span class="font-bold text-primary">{m.data.evidenceStrength}</span>
+                </p>
+              </a>
+            ))}
+          </div>
+        </div>
+      ))
+    }
+  </section>
+
+  <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8">
+    <div class="card p-8">
+      <h2 class="text-2xl font-bold font-heading mb-3">How to read the evidence labels</h2>
+      <ul class="list-disc list-inside space-y-2 text-muted dark:text-slate-400 text-sm">
+        <li><strong class="text-heading">Strong:</strong> multiple high-quality trials or reviews agree.</li>
+        <li><strong class="text-heading">Moderate:</strong> good evidence with some uncertainty.</li>
+        <li><strong class="text-heading">Limited:</strong> promising but few or small studies.</li>
+        <li><strong class="text-heading">Mixed:</strong> studies disagree.</li>
+      </ul>
+      <p class="text-sm text-muted dark:text-slate-500 mt-3">
+        Community experience is reported separately on each page — what people experienced is not the same as what
+        trials measured.
+      </p>
+    </div>
+  </section>
+
+  <CallToAction
+    title="Medication pages"
+    subtitle="For NRT, varenicline, bupropion and cytisine, see the dedicated medication evidence pages."
+    actions={[{ variant: 'primary', text: 'View Medications', href: '/medications/' }]}
+  />
+</Layout>

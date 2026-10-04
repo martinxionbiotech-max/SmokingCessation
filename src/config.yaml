@@ -1,0 +1,66 @@
+site:
+  name: Quit Smoking Hub
+  site: 'https://quitsmokinghub.com'
+  base: '/'
+  trailingSlash: false
+
+# Default SEO metadata
+metadata:
+  title:
+    default: 'Quit Smoking Hub | Evidence-Aware Smoking Cessation Knowledge & Experience Platform'
+    template: '%s | Quit Smoking Hub'
+  description: 'A structured knowledge and experience platform for people trying to quit smoking: nicotine withdrawal, cravings, triggers, relapse and evidence-based cessation methods, combining real-world quit experiences with scientific evidence.'
+  robots:
+    index: true
+    follow: true
+  openGraph:
+    site_name: Quit Smoking Hub
+    images:
+      - url: '~/assets/images/default.png'
+        width: 1200
+        height: 628
+    type: website
+  twitter:
+    handle: ''
+    site: ''
+    cardType: summary_large_image
+
+i18n:
+  language: en
+  textDirection: ltr
+
+apps:
+  blog:
+    isEnabled: false
+    postsPerPage: 8
+
+    post:
+      isEnabled: true
+      permalink: '/%slug%'
+      robots:
+        index: true
+
+    list:
+      isEnabled: true
+      pathname: 'blog'
+      robots:
+        index: true
+
+    category:
+      isEnabled: true
+
+  # Placeholder configuration for the data knowledge site (built separately as MkDocs)
+  dataSite:
+    url: 'https://data.quitsmokinghub.com'
+    label: 'Data & Research Center'
+
+ui:
+  theme: 'system'
+  defaultTheme: 'system'
+
+analytics:
+  vendors:
+    googleAnalytics:
+      id: null
+    partytown:
+      isEnabled: false

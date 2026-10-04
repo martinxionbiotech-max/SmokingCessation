@@ -1,0 +1,87 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+const metadata = {
+  title: 'Cravings: How to Handle Urges to Smoke | Quit Smoking Hub',
+  description:
+    'What a craving is, how long it lasts, and a practical playbook for getting through it — based on behavioral science and community experience.',
+};
+---
+
+<Layout metadata={metadata}>
+  <section class="relative mx-auto max-w-4xl px-4 sm:px-6 pt-8 md:pt-12 pb-4">
+    <p class="text-base font-bold tracking-wide uppercase text-secondary mb-2 text-center">Cravings</p>
+    <h1 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading text-heading text-center">
+      The cravings playbook
+    </h1>
+    <p class="mt-4 max-w-3xl mx-auto text-lg text-muted text-center">
+      A craving is a wave, not a wall. Most pass within 5–10 minutes — the skill is not to stop the wave, but to ride
+      it out without smoking.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8 space-y-10">
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">What a craving actually is</h2>
+      <p class="text-muted dark:text-slate-400">
+        Two things produce cravings after quitting. <strong class="text-heading">Withdrawal craving</strong> comes
+        from the brain adapting to the absence of nicotine — it fades over weeks. <strong class="text-heading">
+          Cue-triggered craving</strong> comes from learned associations (coffee, stress, driving) and can appear for
+        months. Both feel urgent. Neither lasts long.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-4">The 10-minute playbook</h2>
+      <ol class="list-decimal list-inside space-y-3 text-muted dark:text-slate-400">
+        <li><strong class="text-heading">Name it:</strong> "This is a craving. It will pass in minutes."</li>
+        <li><strong class="text-heading">Set a timer</strong> for 10 minutes and commit to waiting it out.</li>
+        <li><strong class="text-heading">Change state:</strong> drink cold water, wash your face, stand up and move.</li>
+        <li><strong class="text-heading">Change scene:</strong> leave the room, take a short walk.</li>
+        <li><strong class="text-heading">Occupy the mouth:</strong> sugar-free gum, mint, toothpicks, water.</li>
+        <li><strong class="text-heading">Breathe slowly:</strong> 4 seconds in, 6 seconds out, for two minutes.</li>
+        <li>
+          <strong class="text-heading">After it passes, note it:</strong> every survived craving weakens the
+          association.
+        </li>
+      </ol>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">What research supports</h2>
+      <p class="text-muted dark:text-slate-400">
+        Urge surfing (observing the craving without acting) and distraction have behavioral research support, and are
+        standard components of cessation counseling. Nicotine replacement therapy and stop-smoking medications reduce
+        craving intensity — which is a main reason they improve quit rates in trials.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">What people report</h2>
+      <p class="text-muted dark:text-slate-400">
+        Community reports consistently describe cravings as waves that peak and fade, becoming shorter and less
+        frequent over weeks. Many people describe the first few days as a constant background urge, later replaced by
+        short, sharp trigger-based bursts. Community records are being compiled in the Experience Database.
+      </p>
+    </div>
+
+    <div class="card p-6">
+      <h2 class="text-xl font-bold font-heading mb-2">If a craving overwhelms you</h2>
+      <p class="text-muted dark:text-slate-400 text-sm">
+        One cigarette will not make the craving "stop" in a useful way — it restarts the withdrawal clock. If you are
+        repeatedly overwhelmed, that is a signal to strengthen your toolkit: consider NRT or medication, call a
+        quitline, or ask for professional support.
+      </p>
+    </div>
+  </section>
+
+  <CallToAction
+    title="Know your triggers, plan your response"
+    subtitle="Cravings usually come from a trigger. Map yours and plan a replacement."
+    actions={[
+      { variant: 'primary', text: 'Explore Triggers', href: '/triggers/' },
+      { text: 'Understand Withdrawal', href: '/withdrawal/' },
+    ]}
+  />
+</Layout>

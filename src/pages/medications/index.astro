@@ -1,0 +1,76 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '~/layouts/PageLayout.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+const medications = (await getCollection('method')).filter((m) => m.data.medicationWarning);
+
+const metadata = {
+  title: 'Quit Smoking Medications | Quit Smoking Hub',
+  description:
+    'Evidence pages for smoking cessation medications: nicotine replacement therapy, varenicline, bupropion and cytisine. What they are, how they work, and what trials found.',
+};
+---
+
+<Layout metadata={metadata}>
+  <section class="relative mx-auto max-w-4xl px-4 sm:px-6 pt-8 md:pt-12 pb-4">
+    <p class="text-base font-bold tracking-wide uppercase text-secondary mb-2 text-center">Quit Smoking Medications</p>
+    <h1 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading text-heading text-center">
+      Quit smoking medications: the evidence
+    </h1>
+    <p class="mt-4 max-w-3xl mx-auto text-lg text-muted text-center">
+      Medication is one of the strongest tools available for quitting — combined with behavioral support it is more
+      effective than either alone. These pages explain the evidence. They do not prescribe.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8">
+    <div class="grid gap-6 md:grid-cols-2">
+      {
+        medications.map((m) => (
+          <a
+            href={`/medications/${m.data.slug}/`}
+            class="card p-6 no-underline hover:-translate-y-1 transition duration-200"
+          >
+            <h2 class="font-bold font-heading text-xl mb-2">{m.data.title}</h2>
+            <p class="text-muted dark:text-slate-400 text-sm mb-3">{m.data.summary}</p>
+            <p class="text-sm">
+              Evidence strength: <span class="font-bold text-primary">{m.data.evidenceStrength}</span>
+            </p>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8 space-y-6">
+    <div class="card p-8">
+      <h2 class="text-2xl font-bold font-heading mb-3">How medication helps</h2>
+      <p class="text-muted dark:text-slate-400 mb-3">
+        Nicotine withdrawal is the main reason early quit attempts fail. Medications act on the brain's nicotine
+        system to reduce withdrawal and craving, which frees up attention for the behavioral work — new routines,
+        trigger management, coping skills. This is why trials consistently find that medication plus behavioral
+        support outperforms either alone.
+      </p>
+    </div>
+
+    <div class="card p-8 border-l-4 border-l-primary">
+      <h2 class="text-2xl font-bold font-heading mb-3">Important: this is information, not a prescription</h2>
+      <ul class="list-disc list-inside space-y-2 text-muted dark:text-slate-400 text-sm">
+        <li>We do not recommend doses, judge whether a medication suits you, or give individual advice.</li>
+        <li>Prescription medications (varenicline, bupropion, cytisine in most countries) require a healthcare professional.</li>
+        <li>Every medication has contraindications, interactions and side effects that only a prescriber can assess.</li>
+        <li>Pregnant people, people with cardiovascular disease, mental health conditions or other illnesses need professional guidance.</li>
+      </ul>
+      <p class="text-sm font-bold text-heading mt-3">
+        Questions to ask a healthcare professional are listed on each medication page.
+      </p>
+    </div>
+  </section>
+
+  <CallToAction
+    title="Medication + support = strongest evidence"
+    subtitle="Read the method pages to see how medication combines with counseling, quitlines and community support."
+    actions={[{ variant: 'primary', text: 'Compare Quit Methods', href: '/methods/' }]}
+  />
+</Layout>

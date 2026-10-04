@@ -1,0 +1,118 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '~/layouts/PageLayout.astro';
+import Hero from '~/components/widgets/Hero.astro';
+import Features3 from '~/components/widgets/Features3.astro';
+import Content from '~/components/widgets/Content.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+const metadata = {
+  title: 'Quit Smoking With Better Information | Quit Smoking Hub',
+  description:
+    'A practical, evidence-aware resource combining real-world quit experiences with scientific evidence: nicotine withdrawal, cravings, triggers, relapse and evidence-based cessation methods.',
+  ignoreTitleTemplate: true,
+};
+
+const entries = [
+  { title: 'I Want to Quit Smoking', description: 'A practical path from deciding to quit to your quit date and beyond.', href: '/start/' },
+  { title: 'I Am Experiencing Withdrawal', description: 'Understand what is happening to your body and mind — and what actually helps.', href: '/withdrawal/' },
+  { title: 'I Have Relapsed', description: 'A slip is not the end. Learn what happened and how to get back on track.', href: '/relapse/' },
+];
+---
+
+<Layout metadata={metadata}>
+  <Hero
+    tagline="Evidence-aware quitting support"
+    actions={[
+      { variant: 'primary', text: 'Start Here', href: '/start/' },
+      { text: 'Understand Withdrawal', href: '/withdrawal/' },
+    ]}
+  >
+    <Fragment slot="title">
+      Quit Smoking With <span class="text-accent">Better Information</span>
+    </Fragment>
+
+    <Fragment slot="subtitle">
+      A practical, evidence-aware resource combining real-world quit experiences with scientific evidence. No shame, no
+      exaggerated claims, no fake medical authority — just what people report and what research supports.
+    </Fragment>
+  </Hero>
+
+  <section class="relative mx-auto max-w-7xl px-4 sm:px-6 py-8 md:py-12">
+    <div class="grid gap-6 md:grid-cols-3">
+      {entries.map((e) => (
+        <a href={e.href} class="card p-6 hover:-translate-y-1 transition duration-200 no-underline">
+          <h2 class="font-bold font-heading text-xl mb-2">{e.title}</h2>
+          <p class="text-muted dark:text-slate-400">{e.description}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <Features3
+    title="What this platform gives you"
+    subtitle="People's experiences can tell us what happens in real life. Research helps us understand what is supported by evidence. The two should not be confused."
+    items={[
+      {
+        title: 'Real Quit Experiences',
+        description: 'A structured, de-identified database of community quit attempts: triggers, cravings, relapse and recovery.',
+        icon: 'tabler:users',
+        callToAction: { text: 'Browse experiences', href: '/experiences/' },
+      },
+      {
+        title: 'Common Triggers',
+        description: 'Coffee, alcohol, stress, driving, social events — how conditioned cues work and how people manage them.',
+        icon: 'tabler:alert-triangle',
+        callToAction: { text: 'Explore triggers', href: '/triggers/' },
+      },
+      {
+        title: 'Withdrawal Timeline',
+        description: 'What science says happens hour by hour, day by day — and what people actually report.',
+        icon: 'tabler:timeline',
+        callToAction: { text: 'View the timeline', href: '/timeline/' },
+      },
+      {
+        title: 'Evidence-Based Quit Methods',
+        description: 'Cold turkey, gradual reduction, NRT, medications and behavioral support — with their evidence strength.',
+        icon: 'tabler:checklist',
+        callToAction: { text: 'Compare methods', href: '/methods/' },
+      },
+      {
+        title: 'Popular Questions',
+        description: 'Direct, sourced answers to the questions people actually ask while quitting.',
+        icon: 'tabler:help-circle',
+        callToAction: { text: 'Read answers', href: '/questions/' },
+      },
+      {
+        title: 'Research Highlights',
+        description: 'Landmark studies explained in plain language, with limitations stated honestly.',
+        icon: 'tabler:flask',
+        callToAction: { text: 'See the evidence', href: '/research/' },
+      },
+    ]}
+  />
+
+  <Content
+    items={[
+      {
+        title: 'Experiences are not evidence',
+        description:
+          'A community member reported a day-12 craving after coffee. That tells us what can happen — it does not prove coffee causes relapse. Every experience page distinguishes community reports from scientific evidence, and every claim is labeled with its evidence strength.',
+      },
+      {
+        title: 'Medication information, not prescriptions',
+        description:
+          'We describe how NRT, varenicline, bupropion and cytisine work and what trials found. We never recommend doses, judge who should use them, or replace a healthcare professional. Questions to ask your doctor are listed on each medication page.',
+      },
+    ]}
+  />
+
+  <CallToAction
+    title="Start where you are"
+    subtitle="Whether you are thinking about quitting, in the middle of withdrawal, or back after a relapse — start here."
+    actions={[
+      { variant: 'primary', text: 'Start Here', href: '/start/' },
+      { text: 'Browse Quit Methods', href: '/methods/' },
+    ]}
+  />
+</Layout>

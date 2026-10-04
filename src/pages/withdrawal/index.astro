@@ -1,0 +1,81 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '~/layouts/PageLayout.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+const symptoms = (await getCollection('withdrawal')).sort((a, b) => a.data.slug.localeCompare(b.data.slug));
+
+const metadata = {
+  title: 'Nicotine Withdrawal | Quit Smoking Hub',
+  description:
+    'What nicotine withdrawal feels like, how long it lasts, and what actually helps: cravings, irritability, sleep problems, concentration, appetite, mood and cough.',
+};
+---
+
+<Layout metadata={metadata}>
+  <section class="relative mx-auto max-w-4xl px-4 sm:px-6 pt-8 md:pt-12 pb-4">
+    <p class="text-base font-bold tracking-wide uppercase text-secondary mb-2 text-center">Nicotine Withdrawal</p>
+    <h1 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading text-heading text-center">
+      What nicotine withdrawal feels like
+    </h1>
+    <p class="mt-4 max-w-3xl mx-auto text-lg text-muted text-center">
+      Withdrawal is your body and brain adjusting to life without nicotine. It is uncomfortable but temporary — and
+      it is the main reason quitting feels hard in the first weeks.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8">
+    <div class="grid gap-6 md:grid-cols-2">
+      {
+        symptoms.map((s) => (
+          <a
+            href={`/withdrawal/${s.data.slug}/`}
+            class="card p-6 no-underline hover:-translate-y-1 transition duration-200"
+          >
+            <h2 class="font-bold font-heading text-xl mb-2">{s.data.title.replace('Withdrawal: ', '')}</h2>
+            <p class="text-muted dark:text-slate-400 text-sm">{s.data.summary}</p>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8">
+    <div class="space-y-6">
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-3">How long does withdrawal last?</h2>
+        <p class="text-muted dark:text-slate-400">
+          Symptoms usually begin within hours of the last cigarette, peak in the first 3–7 days, and mostly resolve
+          within 2–4 weeks. Cravings can persist longer but become less frequent and less intense. See the full{' '}
+          <a href="/timeline/" class="text-primary underline decoration-1 underline-offset-2">quit timeline</a>.
+        </p>
+      </div>
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-3">Two sources of information — kept separate</h2>
+        <p class="text-muted dark:text-slate-400">
+          Every symptom page separates <strong class="text-heading">what science says</strong> (documented symptoms,
+          time course, effective approaches) from <strong class="text-heading">what people report</strong> (community
+          experiences, which vary and are not predictions). A community member reporting something on day 7 does not
+          mean it will happen to you on day 7.
+        </p>
+      </div>
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-3">When withdrawal needs medical attention</h2>
+        <p class="text-muted dark:text-slate-400">
+          Withdrawal itself is uncomfortable but not dangerous. But if symptoms are severe, last far beyond a month,
+          or involve persistent low mood or thoughts of self-harm, talk to a healthcare professional — quitting does
+          not mean coping alone.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <CallToAction
+    title="Feeling it right now?"
+    subtitle="Read how people manage this exact moment — and what the evidence supports."
+    actions={[
+      { variant: 'primary', text: 'Cravings Playbook', href: '/cravings/' },
+      { text: 'View the Timeline', href: '/timeline/' },
+    ]}
+  />
+</Layout>

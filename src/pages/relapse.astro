@@ -1,0 +1,111 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+const metadata = {
+  title: 'Relapse & Recovery | Quit Smoking Hub',
+  description:
+    'Lapse vs relapse, why relapses happen, what to do after one, and how community experience plus research can help you get back on track — without shame.',
+};
+---
+
+<Layout metadata={metadata}>
+  <section class="relative mx-auto max-w-4xl px-4 sm:px-6 pt-8 md:pt-12 pb-4">
+    <p class="text-base font-bold tracking-wide uppercase text-secondary mb-2 text-center">Relapse &amp; Recovery</p>
+    <h1 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading text-heading text-center">
+      A relapse is not the end of your quit
+    </h1>
+    <p class="mt-4 max-w-3xl mx-auto text-lg text-muted text-center">
+      Most successful quitters made multiple attempts. A relapse is information — about triggers, timing and
+      situations — not a verdict on your character or your chances.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8 space-y-10">
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">Lapse vs relapse</h2>
+      <div class="grid gap-4 md:grid-cols-2">
+        <div class="card p-6">
+          <h3 class="font-bold font-heading text-xl mb-2">Lapse</h3>
+          <p class="text-muted dark:text-slate-400 text-sm">
+            A single slip — one cigarette or a few — followed by returning to not smoking. Lapses are common and do
+            not erase progress, but they should be taken seriously: a lapse unmanaged often becomes a relapse.
+          </p>
+        </div>
+        <div class="card p-6">
+          <h3 class="font-bold font-heading text-xl mb-2">Relapse</h3>
+          <p class="text-muted dark:text-slate-400 text-sm">
+            A return to regular smoking. Relapse is a normal phase in the quitting process for many people, not a
+            failure of willpower. Research treats relapse as a predictable risk to plan for, not a moral event.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">What commonly happens before a relapse</h2>
+      <p class="text-muted dark:text-slate-400 mb-3">
+        Research and community reports point to similar risk situations. This list is not a prediction — it is a
+        planning checklist:
+      </p>
+      <ul class="list-disc list-inside space-y-2 text-muted dark:text-slate-400">
+        <li>Drinking alcohol or being at a party with smokers</li>
+        <li>High-stress events (work crisis, conflict, bad news)</li>
+        <li>Strong negative emotions: anger, loneliness, boredom</li>
+        <li>Overconfidence after a milestone ("one won't hurt")</li>
+        <li>Stopping medication or support too early</li>
+        <li>Being around close friends or family who smoke</li>
+      </ul>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">What to do after a lapse or relapse</h2>
+      <ol class="list-decimal list-inside space-y-3 text-muted dark:text-slate-400">
+        <li><strong class="text-heading">Stop again immediately.</strong> Remove remaining cigarettes now.</li>
+        <li>
+          <strong class="text-heading">Reconstruct what happened:</strong> What was the trigger? What time, place and
+          emotional state? Who was there? Was alcohol involved?
+        </li>
+        <li>
+          <strong class="text-heading">Write down the lesson</strong> — one specific change for next time (e.g.
+          "no alcohol for two more weeks", "leave the party early").
+        </li>
+        <li>
+          <strong class="text-heading">Set a new quit date</strong> within days, not months.
+        </li>
+        <li>
+          <strong class="text-heading">Review your method:</strong> would medication, NRT or structured support
+          strengthen this attempt?
+        </li>
+      </ol>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">What the relapse data shows</h2>
+      <p class="text-muted dark:text-slate-400">
+        The highest relapse risk is in the first weeks after quitting; risk declines substantially over the first
+        year. Each additional quit attempt raises the cumulative chance of eventual success. Medication and
+        behavioral support reduce relapse rates in trials. Our structured relapse database extracts the same
+        variables from community reports — what happened before, the trigger, the context, the outcome — so patterns
+        can be seen across many attempts, without judgment.
+      </p>
+    </div>
+
+    <div class="card p-6">
+      <h2 class="text-xl font-bold font-heading mb-2">Language matters</h2>
+      <p class="text-muted dark:text-slate-400 text-sm">
+        You will not find "weak", "failure" or "lack of willpower" on this site. Relapse, return to smoking, quit
+        attempt, recovery — these describe the process without judging the person.
+      </p>
+    </div>
+  </section>
+
+  <CallToAction
+    title="Ready to try again?"
+    subtitle="Rebuild your quit plan with what you learned."
+    actions={[
+      { variant: 'primary', text: 'Start Here', href: '/start/' },
+      { text: 'Compare Quit Methods', href: '/methods/' },
+    ]}
+  />
+</Layout>
