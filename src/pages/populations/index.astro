@@ -1,0 +1,52 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '~/layouts/PageLayout.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+const populations = (await getCollection('population')).sort((a, b) => a.data.title.localeCompare(b.data.title));
+
+const metadata = {
+  title: 'Quitting Smoking in Special Situations | Quit Smoking Hub',
+  description:
+    'Evidence-based quitting guidance for pregnancy, cardiovascular disease, mental health conditions and young smokers — where the approach genuinely differs.',
+};
+---
+
+<Layout metadata={metadata}>
+  <section class="relative mx-auto max-w-4xl px-4 sm:px-6 pt-8 md:pt-12 pb-4">
+    <p class="text-base font-bold tracking-wide uppercase text-secondary mb-2 text-center">Special Situations</p>
+    <h1 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading text-heading text-center">
+      Quitting when the situation is different
+    </h1>
+    <p class="mt-4 max-w-3xl mx-auto text-lg text-muted text-center">
+      Pregnancy, heart disease, mental health conditions, being young — these change the approach to quitting. Here is
+      what the evidence says for each, plainly.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-5xl px-4 sm:px-6 py-8 space-y-6">
+    {
+      populations.map((p) => (
+        <a
+          href={`/populations/${p.data.slug}/`}
+          class="card p-6 block no-underline hover:-translate-y-1 transition duration-200"
+        >
+          <h2 class="font-bold font-heading text-xl mb-2">{p.data.title}</h2>
+          <p class="text-muted dark:text-slate-400 text-sm">{p.data.summary}</p>
+          <p class="text-sm mt-3">
+            Evidence strength: <span class="font-bold text-primary">{p.data.evidenceStrength}</span>
+          </p>
+        </a>
+      ))
+    }
+  </section>
+
+  <CallToAction
+    title="This is not medical advice for your specific case"
+    subtitle="Use these pages to understand the evidence, then talk with a professional about your situation."
+    actions={[
+      { variant: 'primary', text: 'All Quit Methods', href: '/methods/' },
+      { text: 'Popular Questions', href: '/questions/' },
+    ]}
+  />
+</Layout>

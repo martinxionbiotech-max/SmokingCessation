@@ -1,0 +1,55 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '~/layouts/PageLayout.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+const comparisons = (await getCollection('comparison')).sort((a, b) => a.data.title.localeCompare(b.data.title));
+
+const metadata = {
+  title: 'Quit Methods Compared Head-to-Head | Quit Smoking Hub',
+  description:
+    'Head-to-head comparisons of the big quitting decisions: cold turkey vs gradual reduction, NRT vs no medication, medication vs behavioral support and combination vs single-form NRT.',
+};
+---
+
+<Layout metadata={metadata}>
+  <section class="relative mx-auto max-w-4xl px-4 sm:px-6 pt-8 md:pt-12 pb-4">
+    <p class="text-base font-bold tracking-wide uppercase text-secondary mb-2 text-center">Head-to-Head</p>
+    <h1 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading text-heading text-center">
+      Quit methods compared
+    </h1>
+    <p class="mt-4 max-w-3xl mx-auto text-lg text-muted text-center">
+      The decisions every quitter faces, examined side by side with the best available evidence. No single method wins
+      for everyone — the goal is matching the approach to you.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-5xl px-4 sm:px-6 py-8 space-y-6">
+    {
+      comparisons.map((c) => (
+        <a
+          href={`/comparisons/${c.data.slug}/`}
+          class="card p-6 block no-underline hover:-translate-y-1 transition duration-200"
+        >
+          <h2 class="font-bold font-heading text-xl mb-1">{c.data.title}</h2>
+          <p class="text-sm text-muted dark:text-slate-400 mb-3">
+            <span class="font-semibold text-heading">{c.data.optionA}</span> vs <span class="font-semibold text-heading">{c.data.optionB}</span>
+          </p>
+          <p class="text-muted dark:text-slate-400 text-sm">{c.data.summary}</p>
+          <p class="text-sm mt-3">
+            Evidence strength: <span class="font-bold text-primary">{c.data.evidenceStrength}</span>
+          </p>
+        </a>
+      ))
+    }
+  </section>
+
+  <CallToAction
+    title="Not sure which method fits you?"
+    subtitle="Browse every quit method with its evidence strength."
+    actions={[
+      { variant: 'primary', text: 'All Quit Methods', href: '/methods/' },
+      { text: 'Popular Questions', href: '/questions/' },
+    ]}
+  />
+</Layout>

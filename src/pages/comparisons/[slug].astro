@@ -1,0 +1,101 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '~/layouts/PageLayout.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+export async function getStaticPaths() {
+  const comparisons = await getCollection('comparison');
+  return comparisons.map((c) => ({ params: { slug: c.data.slug }, props: { comparison: c } }));
+}
+
+const { comparison } = Astro.props;
+const { Content } = await render(comparison);
+const c = comparison.data;
+
+const metadata = {
+  title: `${c.title} | Quit Smoking Hub`,
+  description: c.summary,
+};
+---
+
+<Layout metadata={metadata}>
+  <section class="relative mx-auto max-w-4xl px-4 sm:px-6 pt-8 md:pt-12 pb-4">
+    <p class="text-base font-bold tracking-wide uppercase text-secondary mb-2 text-center">Head-to-Head Comparison</p>
+    <h1 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading text-heading text-center">
+      {c.title}
+    </h1>
+    <p class="mt-4 max-w-3xl mx-auto text-lg text-muted text-center">{c.summary}</p>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8 space-y-8">
+    <div class="card p-8">
+      <h2 class="text-2xl font-bold font-heading mb-3">What the evidence shows</h2>
+      <p class="text-muted dark:text-slate-400">{c.whatEvidenceShows}</p>
+      <p class="text-sm mt-3">
+        Evidence strength: <span class="font-bold text-primary">{c.evidenceStrength}</span>
+      </p>
+    </div>
+
+    <div class="card p-8">
+      <h2 class="text-2xl font-bold font-heading mb-4">Side by side</h2>
+      <div class="space-y-4">
+        {
+          c.headToHead.map((row) => (
+            <div>
+              <h3 class="font-semibold text-heading mb-2">{row.dimension}</h3>
+              <div class="grid gap-4 md:grid-cols-2">
+                <div class="rounded-lg border border-primary/30 p-4">
+                  <p class="text-xs font-bold uppercase tracking-wide text-primary mb-1">{c.optionA}</p>
+                  <p class="text-sm text-muted dark:text-slate-400">{row.optionA}</p>
+                </div>
+                <div class="rounded-lg border border-slate-300 dark:border-slate-700 p-4">
+                  <p class="text-xs font-bold uppercase tracking-wide text-heading mb-1">{c.optionB}</p>
+                  <p class="text-sm text-muted dark:text-slate-400">{row.optionB}</p>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="grid gap-6 md:grid-cols-2">
+      <div class="card p-8">
+        <h2 class="text-xl font-bold font-heading mb-2 text-primary">Who might prefer: {c.optionA}</h2>
+        <p class="text-muted dark:text-slate-400">{c.whoMightPreferA}</p>
+      </div>
+      <div class="card p-8">
+        <h2 class="text-xl font-bold font-heading mb-2">Who might prefer: {c.optionB}</h2>
+        <p class="text-muted dark:text-slate-400">{c.whoMightPreferB}</p>
+      </div>
+    </div>
+
+    <div class="card p-8">
+      <h2 class="text-xl font-bold font-heading mb-2">Community experience</h2>
+      <p class="text-muted dark:text-slate-400">{c.communityExperience}</p>
+    </div>
+
+    <div class="card p-8 bg-primary/5 border-primary/30">
+      <h2 class="text-xl font-bold font-heading mb-2">Bottom line</h2>
+      <p class="text-heading">{c.bottomLine}</p>
+    </div>
+
+    {
+      c.sources?.length > 0 && (
+        <p class="text-sm text-muted dark:text-slate-400">
+          <strong class="text-heading">Sources:</strong> {c.sources.join('; ')} · Last reviewed:{' '}
+          {c.lastReviewed ?? 'not dated'}
+        </p>
+      )
+    }
+  </section>
+
+  <CallToAction
+    title="Compare another decision"
+    subtitle="See all head-to-head comparisons."
+    actions={[
+      { variant: 'primary', text: 'All Comparisons', href: '/comparisons/' },
+      { text: 'All Quit Methods', href: '/methods/' },
+    ]}
+  />
+</Layout>

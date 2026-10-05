@@ -11,7 +11,9 @@ export const headerData = {
       links: [
         { text: 'How to Quit Smoking', href: getPermalink('/quit-smoking') },
         { text: 'Quit Methods', href: getPermalink('/methods') },
+        { text: 'Methods Compared', href: getPermalink('/comparisons') },
         { text: 'Quit Smoking Medications', href: getPermalink('/medications') },
+        { text: 'Special Situations', href: getPermalink('/populations') },
         { text: 'Quit Timeline', href: getPermalink('/timeline') },
         { text: 'Quit Tools', href: getPermalink('/tools') },
       ],
@@ -53,6 +55,8 @@ export const footerData = {
         { text: 'Start Here', href: getPermalink('/start') },
         { text: 'How to Quit Smoking', href: getPermalink('/quit-smoking') },
         { text: 'Quit Methods', href: getPermalink('/methods') },
+        { text: 'Methods Compared', href: getPermalink('/comparisons') },
+        { text: 'Special Situations', href: getPermalink('/populations') },
         { text: 'Quit Timeline', href: getPermalink('/timeline') },
       ],
     },

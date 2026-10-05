@@ -1,0 +1,90 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '~/layouts/PageLayout.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+export async function getStaticPaths() {
+  const populations = await getCollection('population');
+  return populations.map((p) => ({ params: { slug: p.data.slug }, props: { population: p } }));
+}
+
+const { population } = Astro.props;
+const { Content } = await render(population);
+const p = population.data;
+
+const metadata = {
+  title: `${p.title} | Quit Smoking Hub`,
+  description: p.summary,
+};
+---
+
+<Layout metadata={metadata}>
+  <section class="relative mx-auto max-w-4xl px-4 sm:px-6 pt-8 md:pt-12 pb-4">
+    <p class="text-base font-bold tracking-wide uppercase text-secondary mb-2 text-center">Special Situation</p>
+    <h1 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading text-heading text-center">
+      {p.title}
+    </h1>
+    <p class="mt-4 max-w-3xl mx-auto text-lg text-muted text-center">{p.summary}</p>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8 space-y-8">
+    <div class="card p-8">
+      <h2 class="text-2xl font-bold font-heading mb-3">Why this group is different</h2>
+      <p class="text-muted dark:text-slate-400">{p.whyThisGroupIsDifferent}</p>
+    </div>
+
+    <div class="card p-8">
+      <h2 class="text-2xl font-bold font-heading mb-4">Recommended approach</h2>
+      <ul class="space-y-2 text-muted dark:text-slate-400 list-disc list-inside">
+        {p.recommendedApproach.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="card p-8">
+      <h2 class="text-2xl font-bold font-heading mb-3">What the evidence says</h2>
+      <p class="text-muted dark:text-slate-400">{p.evidence}</p>
+      <p class="text-sm mt-3">
+        Evidence strength: <span class="font-bold text-primary">{p.evidenceStrength}</span>
+      </p>
+    </div>
+
+    <div class="card p-8">
+      <h2 class="text-xl font-bold font-heading mb-2">Medication notes</h2>
+      <p class="text-muted dark:text-slate-400">{p.medicationNotes}</p>
+    </div>
+
+    <div class="card p-8">
+      <h2 class="text-xl font-bold font-heading mb-2">Community experience</h2>
+      <p class="text-muted dark:text-slate-400">{p.communityExperience}</p>
+    </div>
+
+    <div class="card p-8 border-amber-500/50">
+      <h2 class="text-xl font-bold font-heading mb-3">Key cautions</h2>
+      <ul class="space-y-2 text-muted dark:text-slate-400 list-disc list-inside">
+        {p.keyCautions.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </div>
+
+    {
+      p.sources?.length > 0 && (
+        <p class="text-sm text-muted dark:text-slate-400">
+          <strong class="text-heading">Sources:</strong> {p.sources.join('; ')} · Last reviewed:{' '}
+          {p.lastReviewed ?? 'not dated'}
+        </p>
+      )
+    }
+  </section>
+
+  <CallToAction
+    title="Every situation is individual"
+    subtitle="This page explains the evidence — your clinician can apply it to your case."
+    actions={[
+      { variant: 'primary', text: 'All Special Situations', href: '/populations/' },
+      { text: 'All Quit Methods', href: '/methods/' },
+    ]}
+  />
+</Layout>

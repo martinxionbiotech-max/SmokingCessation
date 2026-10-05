@@ -252,6 +252,52 @@ export const patternSchema = z.object({
 });
 
 // ---------------------------------------------------------------------------
+// Comparisons — head-to-head method comparisons
+// ---------------------------------------------------------------------------
+export const comparisonSchema = z.object({
+  slug: z.string(),
+  title: z.string(),
+  optionA: z.string(),
+  optionB: z.string(),
+  summary: z.string(),
+  whatEvidenceShows: z.string(),
+  evidenceStrength: z.enum(['Strong', 'Moderate', 'Limited', 'Mixed', 'Insufficient']).default('Moderate'),
+  headToHead: z.array(
+    z.object({
+      dimension: z.string(),
+      optionA: z.string(),
+      optionB: z.string(),
+    })
+  ),
+  whoMightPreferA: z.string(),
+  whoMightPreferB: z.string(),
+  communityExperience: z.string(),
+  bottomLine: z.string(),
+  sources: z.array(z.string()).optional(),
+  lastReviewed: z.string().optional(),
+  metadata: metadataDefinition(),
+});
+
+// ---------------------------------------------------------------------------
+// Special populations — cessation guidance for specific groups
+// ---------------------------------------------------------------------------
+export const populationSchema = z.object({
+  slug: z.string(),
+  title: z.string(),
+  summary: z.string(),
+  whyThisGroupIsDifferent: z.string(),
+  recommendedApproach: z.array(z.string()),
+  evidence: z.string(),
+  evidenceStrength: z.enum(['Strong', 'Moderate', 'Limited', 'Mixed', 'Insufficient']).default('Moderate'),
+  medicationNotes: z.string(),
+  communityExperience: z.string(),
+  keyCautions: z.array(z.string()),
+  sources: z.array(z.string()).optional(),
+  lastReviewed: z.string().optional(),
+  metadata: metadataDefinition(),
+});
+
+// ---------------------------------------------------------------------------
 // Questions — question database for AIO + FAQ
 // ---------------------------------------------------------------------------
 export const questionSchema = z.object({
@@ -287,6 +333,8 @@ const relapse = defineCollection({ loader: glob({ pattern: ['*.md', '*.mdx'], ba
 const timeline = defineCollection({ loader: glob({ pattern: ['*.md', '*.mdx'], base: 'src/data/timeline' }), schema: timelineSchema });
 const pattern = defineCollection({ loader: glob({ pattern: ['*.md', '*.mdx'], base: 'src/data/patterns' }), schema: patternSchema });
 const question = defineCollection({ loader: glob({ pattern: ['*.md', '*.mdx'], base: 'src/data/questions' }), schema: questionSchema });
+const comparison = defineCollection({ loader: glob({ pattern: ['*.md', '*.mdx'], base: 'src/data/comparisons' }), schema: comparisonSchema });
+const population = defineCollection({ loader: glob({ pattern: ['*.md', '*.mdx'], base: 'src/data/populations' }), schema: populationSchema });
 
 export const collections = {
   experience,
@@ -298,4 +346,6 @@ export const collections = {
   timeline,
   pattern,
   question,
+  comparison,
+  population,
 };
