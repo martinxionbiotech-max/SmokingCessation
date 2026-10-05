@@ -15,6 +15,13 @@
     "Avoid acidic drinks (coffee, juice) around use as they reduce nicotine absorption",
     "Do not smoke while using NRT"
   ],
-  "limitations": "Correct technique matters for effect and side effects. Dose and duration should follow product labeling or pharmacist advice, not individual suggestions on this site."
+  "limitations": "Correct technique matters for effect and side effects. Dose and duration should follow product labeling or pharmacist advice, not individual suggestions on this site.",
+  "commonAdverseEffects": "Jaw ache, mouth soreness, hiccups and upset stomach are most common, often from chewing too fast or swallowing nicotine. Correct chew-and-park technique reduces these effects.",
+  "safetyConsiderations": "Available without prescription. Acidic drinks (coffee, soda) reduce nicotine absorption and should be avoided around dosing times. People with recent cardiac events or temporomandibular joint problems should discuss use with a professional.",
+  "guidelineStatus": "Recommended by WHO (2024), USPSTF (2021) and NICE NG209 (UK) as an effective form of NRT.",
+  "comparisonNote": "Similar effectiveness to other single-form NRT. Combining with a nicotine patch improves success more than gum alone.",
+  "sources": "Cochrane review of NRT (CD000146); WHO 2024 guideline.",
+  "lastReviewed": "October 2026"
 }
 ---
+

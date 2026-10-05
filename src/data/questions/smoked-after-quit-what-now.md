@@ -12,6 +12,8 @@
     "Relapse & Recovery",
     "Smoking Triggers",
     "Cravings"
-  ]
+  ],
+  "stage": "Relapse"
 }
 ---
+

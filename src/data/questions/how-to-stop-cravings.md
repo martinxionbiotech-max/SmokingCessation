@@ -12,6 +12,8 @@
     "Cravings",
     "Nicotine Withdrawal",
     "Quit Methods"
-  ]
+  ],
+  "stage": "Cravings"
 }
 ---
+

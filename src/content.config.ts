@@ -168,6 +168,12 @@ export const methodSchema = z.object({
   reportedCommunityExperiences: z.string(),
   practicalConsiderations: z.array(z.string()),
   limitations: z.string(),
+  commonAdverseEffects: z.string().optional(),
+  safetyConsiderations: z.string().optional(),
+  guidelineStatus: z.string().optional(),
+  comparisonNote: z.string().optional(),
+  sources: z.string().optional(),
+  lastReviewed: z.string().optional(),
   medicationWarning: z.boolean().default(false),
   metadata: metadataDefinition(),
 });
@@ -257,6 +263,7 @@ export const questionSchema = z.object({
   communityExperience: z.string(),
   uncertainty: z.string(),
   relatedTopics: z.array(z.string()).optional(),
+  stage: z.string().optional(), // question lifecycle stage for grouping
   searchIntent: z.enum([
     'INFORMATIONAL',
     'PROBLEM',

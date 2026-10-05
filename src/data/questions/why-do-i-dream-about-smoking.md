@@ -12,6 +12,8 @@
     "Withdrawal",
     "Real Quit Experiences",
     "Cravings"
-  ]
+  ],
+  "stage": "Withdrawal"
 }
 ---
+

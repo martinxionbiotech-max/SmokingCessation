@@ -12,6 +12,8 @@
     "Quit Methods",
     "Quit Smoking Medications",
     "Nicotine Replacement Therapy"
-  ]
+  ],
+  "stage": "Medication"
 }
 ---
+

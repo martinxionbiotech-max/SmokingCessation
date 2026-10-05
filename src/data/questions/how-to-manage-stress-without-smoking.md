@@ -12,6 +12,8 @@
     "Triggers",
     "Cravings",
     "Withdrawal"
-  ]
+  ],
+  "stage": "Triggers"
 }
 ---
+

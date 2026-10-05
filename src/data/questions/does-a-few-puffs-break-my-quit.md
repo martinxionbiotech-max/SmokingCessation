@@ -12,6 +12,8 @@
     "Lapse vs relapse",
     "One-cigarette risk"
   ],
-  "searchIntent": "RELAPSE"
+  "searchIntent": "RELAPSE",
+  "stage": "Relapse"
 }
 ---
+

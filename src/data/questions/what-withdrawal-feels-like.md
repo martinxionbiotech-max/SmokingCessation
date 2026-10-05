@@ -12,6 +12,8 @@
     "Nicotine Withdrawal",
     "Quit Timeline",
     "Cravings"
-  ]
+  ],
+  "stage": "Withdrawal"
 }
 ---
+

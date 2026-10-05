@@ -15,6 +15,13 @@
     "Contraindicated in certain conditions (e.g. seizure disorders); discuss medical history with the prescriber",
     "Report mood changes promptly to the prescriber"
   ],
-  "limitations": "Prescription medication: this page is information only. Individual suitability, dosing and risks are matters for a prescribing professional."
+  "limitations": "Prescription medication: this page is information only. Individual suitability, dosing and risks are matters for a prescribing professional.",
+  "commonAdverseEffects": "Commonly reported effects include dry mouth, insomnia and headache. Seizure risk is the main serious concern (contraindicated in seizure disorders).",
+  "safetyConsiderations": "Contraindicated in people with a seizure disorder, current or previous eating disorder, or recent use of MAOI antidepressants. Mood changes should be reported to the prescriber promptly. Medical history review before starting is required.",
+  "guidelineStatus": "Recommended by WHO (2024), USPSTF (2021) and NICE NG209 (UK) as an effective medication for adult smokers.",
+  "comparisonNote": "Roughly doubles quit success versus placebo, but network meta-analyses place it below varenicline and combination NRT in effectiveness. It may suit people who prefer a non-nicotine oral option or where varenicline is unsuitable.",
+  "sources": "Cochrane review of antidepressants for smoking cessation (CD000031); WHO 2024 guideline; NICE NG209.",
+  "lastReviewed": "October 2026"
 }
 ---
+

@@ -12,6 +12,8 @@
     "Quit Timeline",
     "Health Benefits",
     "Nicotine Withdrawal"
-  ]
+  ],
+  "stage": "First Month"
 }
 ---
+

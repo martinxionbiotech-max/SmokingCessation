@@ -15,6 +15,13 @@
     "Discuss use with a pharmacist or doctor",
     "Report side effects as with any medication"
   ],
-  "limitations": "Information only, not individual advice. Availability, regulation and dosing differ between countries; check local status with a healthcare professional."
+  "limitations": "Information only, not individual advice. Availability, regulation and dosing differ between countries; check local status with a healthcare professional.",
+  "commonAdverseEffects": "Nausea, dry mouth, sleep disturbance and headache are the most commonly reported effects. Gastrointestinal upset is the most frequent reason for stopping.",
+  "safetyConsiderations": "Typical courses are short (around 3–4 weeks). Availability and regulatory status differ between countries; it is not FDA-approved in the US. Discuss with a pharmacist or doctor, and report side effects as with any medication.",
+  "guidelineStatus": "Recommended by WHO (2024) for adult tobacco users. USPSTF (US) does not cover it because it is not FDA-approved.",
+  "comparisonNote": "Cochrane evidence shows cytisine increases quit success versus placebo. A 2019 randomized trial found it non-inferior to varenicline with fewer adverse events, at substantially lower cost.",
+  "sources": "Cochrane review of nicotine receptor partial agonists (cytisine subgroup); WHO 2024 guideline.",
+  "lastReviewed": "October 2026"
 }
 ---
+

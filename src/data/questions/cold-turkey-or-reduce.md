@@ -12,6 +12,8 @@
     "Quit Methods",
     "Cold Turkey",
     "Gradual Reduction"
-  ]
+  ],
+  "stage": "Before Quitting"
 }
 ---
+

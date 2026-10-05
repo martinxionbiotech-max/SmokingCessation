@@ -12,6 +12,8 @@
     "Nicotine Withdrawal",
     "Low Mood",
     "When to Seek Help"
-  ]
+  ],
+  "stage": "Mental Health"
 }
 ---
+

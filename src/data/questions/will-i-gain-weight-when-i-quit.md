@@ -12,6 +12,8 @@
     "Health Effects",
     "Withdrawal",
     "Quit Methods"
-  ]
+  ],
+  "stage": "Weight"
 }
 ---
+

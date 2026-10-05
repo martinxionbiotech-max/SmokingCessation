@@ -12,6 +12,8 @@
     "Quit Methods",
     "Real Quit Experiences",
     "Triggers"
-  ]
+  ],
+  "stage": "Quit Date"
 }
 ---
+

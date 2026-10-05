@@ -12,6 +12,8 @@
     "Health Effects",
     "Quit Timeline",
     "Real Quit Experiences"
-  ]
+  ],
+  "stage": "Before Quitting"
 }
 ---
+

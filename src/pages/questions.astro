@@ -8,6 +8,30 @@ import { SITE } from 'astrowind:config';
 
 const questions = (await getCollection('question')).sort((a, b) => a.data.question.localeCompare(b.data.question));
 
+const stageOrder = [
+  'Before Quitting',
+  'Quit Date',
+  'First 72 Hours',
+  'First Week',
+  'First Month',
+  'Withdrawal',
+  'Cravings',
+  'Triggers',
+  'Medication',
+  'Relapse',
+  'Mental Health',
+  'Weight',
+  'Alcohol & Social Situations',
+  'Vaping',
+  'Pregnancy',
+  'Long-Term Recovery',
+];
+
+const grouped = stageOrder
+  .map((stage) => ({ stage, items: questions.filter((q) => q.data.stage === stage) }))
+  .filter((g) => g.items.length > 0);
+const ungrouped = questions.filter((q) => !q.data.stage);
+
 const faqSchema = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
@@ -40,37 +64,76 @@ const metadata = {
 
   <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8 space-y-8">
     {
-      questions.map((q) => (
-        <div class="card p-8" id={q.data.slug}>
-          <h2 class="text-xl md:text-2xl font-bold font-heading mb-3">{q.data.question}</h2>
-          <p class="text-heading mb-4 font-medium">{q.data.shortAnswer}</p>
-          <div class="space-y-3 text-muted dark:text-slate-400">
-            <p>{q.data.fullAnswer}</p>
-            <p>
-              <strong class="text-heading">Evidence:</strong> {q.data.evidence}
-            </p>
-            <p>
-              <strong class="text-heading">Community experience:</strong> {q.data.communityExperience}
-            </p>
-            <p>
-              <strong class="text-heading">What remains uncertain:</strong> {q.data.uncertainty}
-            </p>
-            {
-              q.data.relatedTopics?.length > 0 && (
-                <p class="text-sm">
-                  Related:{' '}
-                  {q.data.relatedTopics.map((t, i) => (
-                    <span>
-                      {i > 0 && ' · '}
-                      <a href={t === 'Nicotine Withdrawal' ? '/withdrawal/' : t === 'Cravings' ? '/cravings/' : t === 'Smoking Triggers' ? '/triggers/' : t === 'Relapse & Recovery' ? '/relapse/' : t === 'Quit Methods' ? '/methods/' : t === 'Quit Timeline' ? '/timeline/' : t === 'Quit Smoking Medications' ? '/medications/' : t === 'Cold Turkey' ? '/methods/cold-turkey/' : t === 'Gradual Reduction' ? '/methods/gradual-reduction/' : t === 'Nicotine Replacement Therapy' ? '/medications/nicotine-patch/' : t === 'E-cigarettes' || t === 'Health Benefits' || t === 'Real Quit Experiences' ? (t === 'Real Quit Experiences' ? '/experiences/' : t === 'E-cigarettes' ? '/methods/cold-turkey/' : '/timeline/') : '/questions/'} class="text-primary underline decoration-1 underline-offset-2">{t}</a>
-                    </span>
-                  ))}
-                </p>
-              )
-            }
+      grouped.map((g) => (
+        <div>
+          <h2 class="text-2xl font-bold font-heading mb-4 text-primary">{g.stage}</h2>
+          <div class="space-y-8">
+            {g.items.map((q) => (
+              <div class="card p-8" id={q.data.slug}>
+                <h2 class="text-xl md:text-2xl font-bold font-heading mb-3">{q.data.question}</h2>
+                <p class="text-heading mb-4 font-medium">{q.data.shortAnswer}</p>
+                <div class="space-y-3 text-muted dark:text-slate-400">
+                  <p>{q.data.fullAnswer}</p>
+                  <p>
+                    <strong class="text-heading">Evidence:</strong> {q.data.evidence}
+                  </p>
+                  <p>
+                    <strong class="text-heading">Community experience:</strong> {q.data.communityExperience}
+                  </p>
+                  <p>
+                    <strong class="text-heading">What remains uncertain:</strong> {q.data.uncertainty}
+                  </p>
+                  {
+                    q.data.relatedTopics?.length > 0 && (
+                      <p class="text-sm">
+                        Related:{' '}
+                        {q.data.relatedTopics.map((t, i) => (
+                          <span>
+                            {i > 0 && ' · '}
+                            <a
+                              href={t === 'Nicotine Withdrawal' ? '/withdrawal/' : t === 'Cravings' ? '/cravings/' : t === 'Smoking Triggers' ? '/triggers/' : t === 'Relapse & Recovery' ? '/relapse/' : t === 'Quit Methods' ? '/methods/' : t === 'Quit Timeline' ? '/timeline/' : t === 'Quit Smoking Medications' ? '/medications/' : t === 'Cold Turkey' ? '/methods/cold-turkey/' : t === 'Gradual Reduction' ? '/methods/gradual-reduction/' : t === 'Nicotine Replacement Therapy' ? '/medications/nicotine-patch/' : t === 'E-cigarettes' || t === 'Health Benefits' || t === 'Real Quit Experiences' ? (t === 'Real Quit Experiences' ? '/experiences/' : t === 'E-cigarettes' ? '/methods/cold-turkey/' : '/timeline/') : '/questions/'}
+                              class="text-primary underline decoration-1 underline-offset-2"
+                            >
+                              {t}
+                            </a>
+                          </span>
+                        ))}
+                      </p>
+                    )
+                  }
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       ))
+    }
+    {
+      ungrouped.length > 0 && (
+        <div>
+          <h2 class="text-2xl font-bold font-heading mb-4 text-primary">More Questions</h2>
+          <div class="space-y-8">
+            {ungrouped.map((q) => (
+              <div class="card p-8" id={q.data.slug}>
+                <h2 class="text-xl md:text-2xl font-bold font-heading mb-3">{q.data.question}</h2>
+                <p class="text-heading mb-4 font-medium">{q.data.shortAnswer}</p>
+                <div class="space-y-3 text-muted dark:text-slate-400">
+                  <p>{q.data.fullAnswer}</p>
+                  <p>
+                    <strong class="text-heading">Evidence:</strong> {q.data.evidence}
+                  </p>
+                  <p>
+                    <strong class="text-heading">Community experience:</strong> {q.data.communityExperience}
+                  </p>
+                  <p>
+                    <strong class="text-heading">What remains uncertain:</strong> {q.data.uncertainty}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
     }
   </section>
 
