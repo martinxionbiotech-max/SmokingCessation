@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '~/layouts/PageLayout.astro';
+import Sources from '~/components/common/Sources.astro';
 import StructuredData from '~/components/common/StructuredData.astro';
 import Breadcrumbs from '~/components/common/Breadcrumbs.astro';
 import { SITE } from 'astrowind:config';
@@ -23,6 +24,8 @@ const pageSchema = {
   url: `${String(SITE.site).replace(/\/$/, '')}/triggers/`,
   mainEntityOfPage: `${String(SITE.site).replace(/\/$/, '')}/triggers/`,
   isPartOf: { '@id': `${SITE.site}/#website` },
+  author: { '@type': 'Organization', name: 'SmokingCessationHub Tech Team' },
+  reviewedBy: { '@type': 'Organization', name: 'SmokingCessationHub Tech Team' },
   publisher: { '@id': `${SITE.site}/#organization` },
 };
 
@@ -35,6 +38,12 @@ const breadcrumbSchema = {
     { '@type': 'ListItem', position: 3, name: 'Triggers: why you suddenly want a cigarette' },
   ],
 };
+
+const pageSources = [
+    { label: 'WHO — More than 100 reasons to quit tobacco', url: 'https://www.who.int/news-room/spotlight/more-than-100-reasons-to-quit-tobacco' },
+    { label: 'NHS — Quit smoking', url: 'https://www.nhs.uk/live-well/quit-smoking/' },
+];
+
 ---
 
 
@@ -52,6 +61,7 @@ const breadcrumbSchema = {
       produce cravings — but each time you pass through one without smoking, the association weakens.
     </p>
   </section>
+  <p class="mx-auto max-w-4xl px-4 sm:px-6 pb-2 text-xs text-muted dark:text-slate-400">Maintained by <span class="font-semibold">SmokingCessationHub Tech Team</span></p>
 
   <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8">
     <div class="grid gap-6 md:grid-cols-2">
@@ -89,6 +99,7 @@ const breadcrumbSchema = {
     </div>
   </section>
 
+  <Sources sources={pageSources} />
   <CallToAction
     title="Know your top three triggers"
     subtitle="Write them down, plan a replacement for each, and you have already done half the preparation work."

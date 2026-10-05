@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '~/layouts/PageLayout.astro';
+import Sources from '~/components/common/Sources.astro';
 import StructuredData from '~/components/common/StructuredData.astro';
 import Breadcrumbs from '~/components/common/Breadcrumbs.astro';
 import { SITE } from 'astrowind:config';
@@ -23,6 +24,8 @@ const pageSchema = {
   url: `${String(SITE.site).replace(/\/$/, '')}/patterns/`,
   mainEntityOfPage: `${String(SITE.site).replace(/\/$/, '')}/patterns/`,
   isPartOf: { '@id': `${SITE.site}/#website` },
+  author: { '@type': 'Organization', name: 'SmokingCessationHub Tech Team' },
+  reviewedBy: { '@type': 'Organization', name: 'SmokingCessationHub Tech Team' },
   publisher: { '@id': `${SITE.site}/#organization` },
 };
 
@@ -35,6 +38,12 @@ const breadcrumbSchema = {
     { '@type': 'ListItem', position: 3, name: 'Patterns across many quit attempts' },
   ],
 };
+
+const pageSources = [
+    { label: 'WHO — More than 100 reasons to quit tobacco', url: 'https://www.who.int/news-room/spotlight/more-than-100-reasons-to-quit-tobacco' },
+    { label: 'CDC — Smoking and Tobacco Use', url: 'https://www.cdc.gov/tobacco/index.html' },
+];
+
 ---
 
 
@@ -52,6 +61,7 @@ const breadcrumbSchema = {
       number of relevant experiences, contradicting reports, and the scientific evidence, kept strictly separate.
     </p>
   </section>
+  <p class="mx-auto max-w-4xl px-4 sm:px-6 pb-2 text-xs text-muted dark:text-slate-400">Maintained by <span class="font-semibold">SmokingCessationHub Tech Team</span></p>
 
   <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8">
     {
@@ -82,6 +92,7 @@ const breadcrumbSchema = {
     }
   </section>
 
+  <Sources sources={pageSources} />
   <CallToAction
     title="Patterns are observations, not conclusions"
     subtitle="Community observations never become medical conclusions here — each pattern page states what we do not know."

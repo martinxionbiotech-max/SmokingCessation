@@ -1,5 +1,6 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
+import Sources from '~/components/common/Sources.astro';
 import StructuredData from '~/components/common/StructuredData.astro';
 import Breadcrumbs from '~/components/common/Breadcrumbs.astro';
 import { SITE } from 'astrowind:config';
@@ -19,6 +20,8 @@ const pageSchema = {
   url: `${String(SITE.site).replace(/\/$/, '')}/methodology/`,
   mainEntityOfPage: `${String(SITE.site).replace(/\/$/, '')}/methodology/`,
   isPartOf: { '@id': `${SITE.site}/#website` },
+  author: { '@type': 'Organization', name: 'SmokingCessationHub Tech Team' },
+  reviewedBy: { '@type': 'Organization', name: 'SmokingCessationHub Tech Team' },
   publisher: { '@id': `${SITE.site}/#organization` },
 };
 
@@ -30,6 +33,12 @@ const breadcrumbSchema = {
     { '@type': 'ListItem', position: 2, name: 'How this platform works' },
   ],
 };
+
+const pageSources = [
+    { label: 'NCBI Bookshelf — Nicotine pharmacology and withdrawal', url: 'https://www.ncbi.nlm.nih.gov/books/NBK513271/' },
+    { label: 'Cochrane — Pharmacological interventions for smoking cessation (overview & network meta-analysis)', url: 'https://doi.org/10.1002/14651858.CD009329.pub2' },
+];
+
 ---
 
 
@@ -47,6 +56,7 @@ const breadcrumbSchema = {
       documents every step.
     </p>
   </section>
+  <p class="mx-auto max-w-4xl px-4 sm:px-6 pb-2 text-xs text-muted dark:text-slate-400">Maintained by <span class="font-semibold">SmokingCessationHub Tech Team</span></p>
 
   <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8 space-y-10">
     <div>
@@ -128,4 +138,5 @@ const breadcrumbSchema = {
       </p>
     </div>
   </section>
+  <Sources sources={pageSources} />
 </Layout>

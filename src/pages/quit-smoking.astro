@@ -1,5 +1,6 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
+import Sources from '~/components/common/Sources.astro';
 import StructuredData from '~/components/common/StructuredData.astro';
 import Breadcrumbs from '~/components/common/Breadcrumbs.astro';
 import { SITE } from 'astrowind:config';
@@ -20,6 +21,8 @@ const pageSchema = {
   url: `${String(SITE.site).replace(/\/$/, '')}/quit-smoking/`,
   mainEntityOfPage: `${String(SITE.site).replace(/\/$/, '')}/quit-smoking/`,
   isPartOf: { '@id': `${SITE.site}/#website` },
+  author: { '@type': 'Organization', name: 'SmokingCessationHub Tech Team' },
+  reviewedBy: { '@type': 'Organization', name: 'SmokingCessationHub Tech Team' },
   publisher: { '@id': `${SITE.site}/#organization` },
 };
 
@@ -31,6 +34,13 @@ const breadcrumbSchema = {
     { '@type': 'ListItem', position: 2, name: 'How to quit smoking: what actually works' },
   ],
 };
+
+const pageSources = [
+    { label: 'NHS — Quit smoking', url: 'https://www.nhs.uk/live-well/quit-smoking/' },
+    { label: 'USPSTF — Tobacco Smoking Cessation in Adults, Including Pregnant Persons', url: 'https://www.uspreventiveservicestaskforce.org/uspstf/recommendation/tobacco-use-in-adults-and-pregnant-women-counseling-and-interventions' },
+    { label: 'WHO — Tobacco fact sheet', url: 'https://www.who.int/news-room/fact-sheets/detail/tobacco' },
+];
+
 ---
 
 
@@ -48,6 +58,7 @@ const breadcrumbSchema = {
       maintenance phase. Each phase has tools that work better than willpower alone.
     </p>
   </section>
+  <p class="mx-auto max-w-4xl px-4 sm:px-6 pb-2 text-xs text-muted dark:text-slate-400">Maintained by <span class="font-semibold">SmokingCessationHub Tech Team</span></p>
 
   <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8 md:py-12">
     <div class="space-y-12">
@@ -183,6 +194,7 @@ const breadcrumbSchema = {
     </div>
   </section>
 
+  <Sources sources={pageSources} />
   <CallToAction
     title="Ready to start?"
     subtitle="Pick your quit date, then choose the method that fits you."

@@ -1,0 +1,35 @@
+---
+export interface Props {
+  sources: Array<{ label: string; url: string; note?: string }>;
+  maintainer?: string;
+}
+
+const { sources = [], maintainer = 'SmokingCessationHub Tech Team' } = Astro.props;
+---
+
+<section class="mx-auto max-w-4xl px-4 sm:px-6 pb-4">
+  <div class="rounded-lg border border-gray-200 dark:border-slate-700 p-6">
+    <h2 class="text-lg font-bold font-heading mb-3">Sources</h2>
+    <ul class="space-y-2 text-sm">
+      {
+        sources.map((s) => (
+          <li class="text-muted dark:text-slate-400">
+            <a
+              href={s.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-primary underline decoration-1 underline-offset-2"
+            >
+              {s.label}
+            </a>
+            {s.note && <span class="ml-1">— {s.note}</span>}
+          </li>
+        ))
+      }
+    </ul>
+    <p class="mt-4 text-xs text-muted dark:text-slate-400">
+      Maintained by <span class="font-semibold">{maintainer}</span>. Always confirm current guidance with your own
+      clinician or national health service.
+    </p>
+  </div>
+</section>

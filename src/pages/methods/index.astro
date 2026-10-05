@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '~/layouts/PageLayout.astro';
+import Sources from '~/components/common/Sources.astro';
 import StructuredData from '~/components/common/StructuredData.astro';
 import Breadcrumbs from '~/components/common/Breadcrumbs.astro';
 import { SITE } from 'astrowind:config';
@@ -31,6 +32,8 @@ const pageSchema = {
   url: `${String(SITE.site).replace(/\/$/, '')}/methods/`,
   mainEntityOfPage: `${String(SITE.site).replace(/\/$/, '')}/methods/`,
   isPartOf: { '@id': `${SITE.site}/#website` },
+  author: { '@type': 'Organization', name: 'SmokingCessationHub Tech Team' },
+  reviewedBy: { '@type': 'Organization', name: 'SmokingCessationHub Tech Team' },
   publisher: { '@id': `${SITE.site}/#organization` },
 };
 
@@ -43,6 +46,12 @@ const breadcrumbSchema = {
     { '@type': 'ListItem', position: 3, name: 'Quit methods: what the evidence says' },
   ],
 };
+
+const pageSources = [
+    { label: 'NICE NG209 — Tobacco: preventing uptake, promoting quitting and treating dependence', url: 'https://www.nice.org.uk/guidance/ng209' },
+    { label: 'Cochrane — Pharmacological interventions for smoking cessation (overview & network meta-analysis)', url: 'https://doi.org/10.1002/14651858.CD009329.pub2' },
+];
+
 ---
 
 
@@ -60,6 +69,7 @@ const breadcrumbSchema = {
       the best method is the one you will actually use consistently.
     </p>
   </section>
+  <p class="mx-auto max-w-4xl px-4 sm:px-6 pb-2 text-xs text-muted dark:text-slate-400">Maintained by <span class="font-semibold">SmokingCessationHub Tech Team</span></p>
 
   <section class="mx-auto max-w-5xl px-4 sm:px-6 py-8 space-y-10">
     {
@@ -108,6 +118,7 @@ const breadcrumbSchema = {
     </div>
   </section>
 
+  <Sources sources={pageSources} />
   <CallToAction
     title="Medication pages"
     subtitle="For NRT, varenicline, bupropion and cytisine, see the dedicated medication evidence pages."

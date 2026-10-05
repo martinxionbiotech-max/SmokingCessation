@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '~/layouts/PageLayout.astro';
+import Sources from '~/components/common/Sources.astro';
 import StructuredData from '~/components/common/StructuredData.astro';
 import Breadcrumbs from '~/components/common/Breadcrumbs.astro';
 import { SITE } from 'astrowind:config';
@@ -23,6 +24,8 @@ const pageSchema = {
   url: `${String(SITE.site).replace(/\/$/, '')}/populations/`,
   mainEntityOfPage: `${String(SITE.site).replace(/\/$/, '')}/populations/`,
   isPartOf: { '@id': `${SITE.site}/#website` },
+  author: { '@type': 'Organization', name: 'SmokingCessationHub Tech Team' },
+  reviewedBy: { '@type': 'Organization', name: 'SmokingCessationHub Tech Team' },
   publisher: { '@id': `${SITE.site}/#organization` },
 };
 
@@ -35,6 +38,12 @@ const breadcrumbSchema = {
     { '@type': 'ListItem', position: 3, name: 'Quitting when the situation is different' },
   ],
 };
+
+const pageSources = [
+    { label: 'USPSTF — Tobacco Smoking Cessation in Adults, Including Pregnant Persons', url: 'https://www.uspreventiveservicestaskforce.org/uspstf/recommendation/tobacco-use-in-adults-and-pregnant-women-counseling-and-interventions' },
+    { label: 'NHS — Quit smoking', url: 'https://www.nhs.uk/live-well/quit-smoking/' },
+];
+
 ---
 
 
@@ -52,6 +61,7 @@ const breadcrumbSchema = {
       what the evidence says for each, plainly.
     </p>
   </section>
+  <p class="mx-auto max-w-4xl px-4 sm:px-6 pb-2 text-xs text-muted dark:text-slate-400">Maintained by <span class="font-semibold">SmokingCessationHub Tech Team</span></p>
 
   <section class="mx-auto max-w-5xl px-4 sm:px-6 py-8 space-y-6">
     {
@@ -70,6 +80,7 @@ const breadcrumbSchema = {
     }
   </section>
 
+  <Sources sources={pageSources} />
   <CallToAction
     title="This is not medical advice for your specific case"
     subtitle="Use these pages to understand the evidence, then talk with a professional about your situation."

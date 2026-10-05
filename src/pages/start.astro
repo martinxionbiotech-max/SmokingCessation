@@ -1,5 +1,6 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
+import Sources from '~/components/common/Sources.astro';
 import StructuredData from '~/components/common/StructuredData.astro';
 import Breadcrumbs from '~/components/common/Breadcrumbs.astro';
 import { SITE } from 'astrowind:config';
@@ -21,6 +22,8 @@ const pageSchema = {
   url: `${String(SITE.site).replace(/\/$/, '')}/start/`,
   mainEntityOfPage: `${String(SITE.site).replace(/\/$/, '')}/start/`,
   isPartOf: { '@id': `${SITE.site}/#website` },
+  author: { '@type': 'Organization', name: 'SmokingCessationHub Tech Team' },
+  reviewedBy: { '@type': 'Organization', name: 'SmokingCessationHub Tech Team' },
   publisher: { '@id': `${SITE.site}/#organization` },
 };
 
@@ -32,6 +35,12 @@ const breadcrumbSchema = {
     { '@type': 'ListItem', position: 2, name: 'Wherever you are, start here' },
   ],
 };
+
+const pageSources = [
+    { label: 'NHS Better Health — Quit smoking', url: 'https://www.nhs.uk/better-health/quit-smoking/' },
+    { label: 'Smokefree.gov — US national quit resource', url: 'https://smokefree.gov/' },
+];
+
 ---
 
 
@@ -49,6 +58,7 @@ const breadcrumbSchema = {
       you the shortest useful path through the rest of this site.
     </p>
   </section>
+  <p class="mx-auto max-w-4xl px-4 sm:px-6 pb-2 text-xs text-muted dark:text-slate-400">Maintained by <span class="font-semibold">SmokingCessationHub Tech Team</span></p>
 
   <div class="mx-auto max-w-4xl px-4 sm:px-6">
     <Image
@@ -140,6 +150,7 @@ const breadcrumbSchema = {
     </div>
   </section>
 
+  <Sources sources={pageSources} />
   <CallToAction
     title="Not sure where to begin?"
     subtitle="Answer a few questions about where you are and this site will point you to the right pages."

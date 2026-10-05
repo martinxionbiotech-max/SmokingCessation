@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Layout from '~/layouts/PageLayout.astro';
+import Sources from '~/components/common/Sources.astro';
 import Breadcrumbs from '~/components/common/Breadcrumbs.astro';
 import StructuredData from '~/components/common/StructuredData.astro';
 import { SITE } from 'astrowind:config';
@@ -30,6 +31,8 @@ const pageSchema = {
   url,
   mainEntityOfPage: url,
   isPartOf: { '@id': `${SITE.site}/#website` },
+  author: { '@type': 'Organization', name: 'SmokingCessationHub Tech Team' },
+  reviewedBy: { '@type': 'Organization', name: 'SmokingCessationHub Tech Team' },
   publisher: { '@id': `${SITE.site}/#organization` },
 };
 
@@ -42,6 +45,12 @@ const breadcrumbSchema = {
     { '@type': 'ListItem', position: 3, name: c.title },
   ],
 };
+
+const pageSources = [
+    { label: 'Cochrane — Pharmacological interventions for smoking cessation (overview & network meta-analysis)', url: 'https://doi.org/10.1002/14651858.CD009329.pub2' },
+    { label: 'NICE NG209 — Tobacco: preventing uptake, promoting quitting and treating dependence', url: 'https://www.nice.org.uk/guidance/ng209' },
+];
+
 ---
 
 
@@ -56,6 +65,7 @@ const breadcrumbSchema = {
     </h1>
     <p class="mt-4 max-w-3xl mx-auto text-lg text-muted text-center">{c.summary}</p>
   </section>
+  <p class="mx-auto max-w-4xl px-4 sm:px-6 pb-2 text-xs text-muted dark:text-slate-400">Maintained by <span class="font-semibold">SmokingCessationHub Tech Team</span></p>
 
   <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8 space-y-8">
     <div class="card p-8">
@@ -120,6 +130,7 @@ const breadcrumbSchema = {
     }
   </section>
 
+  <Sources sources={pageSources} />
   <CallToAction
     title="Compare another decision"
     subtitle="See all head-to-head comparisons."

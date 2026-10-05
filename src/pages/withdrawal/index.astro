@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '~/layouts/PageLayout.astro';
+import Sources from '~/components/common/Sources.astro';
 import StructuredData from '~/components/common/StructuredData.astro';
 import Breadcrumbs from '~/components/common/Breadcrumbs.astro';
 import { SITE } from 'astrowind:config';
@@ -24,6 +25,8 @@ const pageSchema = {
   url: `${String(SITE.site).replace(/\/$/, '')}/withdrawal/`,
   mainEntityOfPage: `${String(SITE.site).replace(/\/$/, '')}/withdrawal/`,
   isPartOf: { '@id': `${SITE.site}/#website` },
+  author: { '@type': 'Organization', name: 'SmokingCessationHub Tech Team' },
+  reviewedBy: { '@type': 'Organization', name: 'SmokingCessationHub Tech Team' },
   publisher: { '@id': `${SITE.site}/#organization` },
 };
 
@@ -36,6 +39,12 @@ const breadcrumbSchema = {
     { '@type': 'ListItem', position: 3, name: 'What nicotine withdrawal feels like' },
   ],
 };
+
+const pageSources = [
+    { label: 'WHO — Tobacco fact sheet', url: 'https://www.who.int/news-room/fact-sheets/detail/tobacco' },
+    { label: 'CDC — Smoking and Tobacco Use', url: 'https://www.cdc.gov/tobacco/index.html' },
+];
+
 ---
 
 
@@ -53,6 +62,7 @@ const breadcrumbSchema = {
       it is the main reason quitting feels hard in the first weeks.
     </p>
   </section>
+  <p class="mx-auto max-w-4xl px-4 sm:px-6 pb-2 text-xs text-muted dark:text-slate-400">Maintained by <span class="font-semibold">SmokingCessationHub Tech Team</span></p>
 
   <div class="mx-auto max-w-4xl px-4 sm:px-6">
     <Image
@@ -121,6 +131,7 @@ const breadcrumbSchema = {
     </div>
   </section>
 
+  <Sources sources={pageSources} />
   <CallToAction
     title="Feeling it right now?"
     subtitle="Read how people manage this exact moment — and what the evidence supports."
