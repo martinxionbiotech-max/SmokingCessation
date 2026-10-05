@@ -1,6 +1,9 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '~/layouts/PageLayout.astro';
+import StructuredData from '~/components/common/StructuredData.astro';
+import Breadcrumbs from '~/components/common/Breadcrumbs.astro';
+import { SITE } from 'astrowind:config';
 import CallToAction from '~/components/widgets/CallToAction.astro';
 
 const research = (await getCollection('research')).sort((a, b) => (a.data.year || 0) - (b.data.year || 0));
@@ -12,9 +15,34 @@ const metadata = {
   description:
     'Landmark smoking cessation research explained in plain language: NRT, varenicline, bupropion, abrupt vs gradual quitting, health benefits of quitting — with limitations stated honestly.',
 };
+
+const pageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'Research Highlights | Quit Smoking Hub',
+  name: 'Research Highlights | Quit Smoking Hub',
+  description: 'Landmark smoking cessation research explained in plain language: NRT, varenicline, bupropion, abrupt vs gradual quitting, health benefits of quitting — with limitations stated honestly.',
+  url: `${String(SITE.site).replace(/\/$/, '')}/research/`,
+  mainEntityOfPage: `${String(SITE.site).replace(/\/$/, '')}/research/`,
+  isPartOf: { '@id': `${SITE.site}/#website` },
+  publisher: { '@id': `${SITE.site}/#organization` },
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: SITE.site },
+    { '@type': 'ListItem', position: 2, name: 'The research behind this platform' },
+  ],
+};
 ---
 
+
+
 <Layout metadata={metadata}>
+  <StructuredData slot="head" schema={[pageSchema, breadcrumbSchema]} />
+  <Breadcrumbs bar items={[{ text: 'Home', href: '/' }, { text: 'The research behind this platform' }]} />
   <section class="relative mx-auto max-w-4xl px-4 sm:px-6 pt-8 md:pt-12 pb-4">
     <p class="text-base font-bold tracking-wide uppercase text-secondary mb-2 text-center">Research Highlights</p>
     <h1 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading text-heading text-center">

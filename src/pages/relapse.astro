@@ -1,6 +1,9 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '~/layouts/PageLayout.astro';
+import StructuredData from '~/components/common/StructuredData.astro';
+import Breadcrumbs from '~/components/common/Breadcrumbs.astro';
+import { SITE } from 'astrowind:config';
 import CallToAction from '~/components/widgets/CallToAction.astro';
 
 const relapses = (await getCollection('relapse')).sort((a, b) =>
@@ -12,9 +15,34 @@ const metadata = {
   description:
     'Lapse vs relapse, why relapses happen, what to do after one, and how community experience plus research can help you get back on track — without shame.',
 };
+
+const pageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'Relapse & Recovery | Quit Smoking Hub',
+  name: 'Relapse & Recovery | Quit Smoking Hub',
+  description: 'Lapse vs relapse, why relapses happen, what to do after one, and how community experience plus research can help you get back on track — without shame.',
+  url: `${String(SITE.site).replace(/\/$/, '')}/relapse/`,
+  mainEntityOfPage: `${String(SITE.site).replace(/\/$/, '')}/relapse/`,
+  isPartOf: { '@id': `${SITE.site}/#website` },
+  publisher: { '@id': `${SITE.site}/#organization` },
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: SITE.site },
+    { '@type': 'ListItem', position: 2, name: 'A relapse is not the end of your quit' },
+  ],
+};
 ---
 
+
+
 <Layout metadata={metadata}>
+  <StructuredData slot="head" schema={[pageSchema, breadcrumbSchema]} />
+  <Breadcrumbs bar items={[{ text: 'Home', href: '/' }, { text: 'A relapse is not the end of your quit' }]} />
   <section class="relative mx-auto max-w-4xl px-4 sm:px-6 pt-8 md:pt-12 pb-4">
     <p class="text-base font-bold tracking-wide uppercase text-secondary mb-2 text-center">Relapse &amp; Recovery</p>
     <h1 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading text-heading text-center">

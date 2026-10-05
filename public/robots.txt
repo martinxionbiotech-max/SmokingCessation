@@ -23,4 +23,7 @@ Allow: /
 User-agent: Bytespider
 Allow: /
 
+# Content signals (declares the same policy as the Allow rules above)
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
+
 Sitemap: https://smokingcessationhub.com/sitemap-index.xml

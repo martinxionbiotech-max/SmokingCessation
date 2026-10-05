@@ -1,6 +1,9 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '~/layouts/PageLayout.astro';
+import StructuredData from '~/components/common/StructuredData.astro';
+import Breadcrumbs from '~/components/common/Breadcrumbs.astro';
+import { SITE } from 'astrowind:config';
 import CallToAction from '~/components/widgets/CallToAction.astro';
 
 const methods = (await getCollection('method')).sort((a, b) => a.data.title.localeCompare(b.data.title));
@@ -18,9 +21,35 @@ const metadata = {
   description:
     'Cold turkey, gradual reduction, nicotine replacement therapy, varenicline, bupropion, cytisine, counseling, quitlines and more — with evidence strength for each.',
 };
+
+const pageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  headline: 'Quit Methods Compared | Quit Smoking Hub',
+  name: 'Quit Methods Compared | Quit Smoking Hub',
+  description: 'Cold turkey, gradual reduction, nicotine replacement therapy, varenicline, bupropion, cytisine, counseling, quitlines and more — with evidence strength for each.',
+  url: `${String(SITE.site).replace(/\/$/, '')}/methods/`,
+  mainEntityOfPage: `${String(SITE.site).replace(/\/$/, '')}/methods/`,
+  isPartOf: { '@id': `${SITE.site}/#website` },
+  publisher: { '@id': `${SITE.site}/#organization` },
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: SITE.site },
+    { '@type': 'ListItem', position: 2, name: 'Quit Methods', item: SITE.site + '/methods/' },
+    { '@type': 'ListItem', position: 3, name: 'Quit methods: what the evidence says' },
+  ],
+};
 ---
 
+
+
 <Layout metadata={metadata}>
+  <StructuredData slot="head" schema={[pageSchema, breadcrumbSchema]} />
+  <Breadcrumbs bar items={[{ text: 'Home', href: '/' }, { text: 'Quit Methods', href: '/methods/' }, { text: 'Quit methods: what the evidence says' }]} />
   <section class="relative mx-auto max-w-4xl px-4 sm:px-6 pt-8 md:pt-12 pb-4">
     <p class="text-base font-bold tracking-wide uppercase text-secondary mb-2 text-center">Quit Methods</p>
     <h1 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading text-heading text-center">

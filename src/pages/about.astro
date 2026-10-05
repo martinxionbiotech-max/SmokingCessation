@@ -1,5 +1,8 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
+import StructuredData from '~/components/common/StructuredData.astro';
+import Breadcrumbs from '~/components/common/Breadcrumbs.astro';
+import { SITE } from 'astrowind:config';
 
 const metadata = {
   title: 'About Quit Smoking Hub',
@@ -7,9 +10,34 @@ const metadata = {
     'What Quit Smoking Hub is: an independent, evidence-aware knowledge and experience platform for smoking cessation. Not a blog, not a medical service.',
   ignoreTitleTemplate: true,
 };
+
+const pageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  headline: 'About Quit Smoking Hub',
+  name: 'About Quit Smoking Hub',
+  description: 'What Quit Smoking Hub is: an independent, evidence-aware knowledge and experience platform for smoking cessation. Not a blog, not a medical service.',
+  url: `${String(SITE.site).replace(/\/$/, '')}/about/`,
+  mainEntityOfPage: `${String(SITE.site).replace(/\/$/, '')}/about/`,
+  isPartOf: { '@id': `${SITE.site}/#website` },
+  publisher: { '@id': `${SITE.site}/#organization` },
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: SITE.site },
+    { '@type': 'ListItem', position: 2, name: 'About Quit Smoking Hub' },
+  ],
+};
 ---
 
+
+
 <Layout metadata={metadata}>
+  <StructuredData slot="head" schema={[pageSchema, breadcrumbSchema]} />
+  <Breadcrumbs bar items={[{ text: 'Home', href: '/' }, { text: 'About Quit Smoking Hub' }]} />
   <section class="relative mx-auto max-w-4xl px-4 sm:px-6 pt-8 md:pt-12 pb-4">
     <p class="text-base font-bold tracking-wide uppercase text-secondary mb-2 text-center">About</p>
     <h1 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading text-heading text-center">

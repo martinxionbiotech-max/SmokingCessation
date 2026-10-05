@@ -1,5 +1,8 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
+import StructuredData from '~/components/common/StructuredData.astro';
+import Breadcrumbs from '~/components/common/Breadcrumbs.astro';
+import { SITE } from 'astrowind:config';
 import CallToAction from '~/components/widgets/CallToAction.astro';
 
 const metadata = {
@@ -7,9 +10,34 @@ const metadata = {
   description:
     'An evidence-based overview of how to quit smoking: preparation, choosing a quit method, managing withdrawal and cravings, and staying quit.',
 };
+
+const pageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'How to Quit Smoking | Quit Smoking Hub',
+  name: 'How to Quit Smoking | Quit Smoking Hub',
+  description: 'An evidence-based overview of how to quit smoking: preparation, choosing a quit method, managing withdrawal and cravings, and staying quit.',
+  url: `${String(SITE.site).replace(/\/$/, '')}/quit-smoking/`,
+  mainEntityOfPage: `${String(SITE.site).replace(/\/$/, '')}/quit-smoking/`,
+  isPartOf: { '@id': `${SITE.site}/#website` },
+  publisher: { '@id': `${SITE.site}/#organization` },
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: SITE.site },
+    { '@type': 'ListItem', position: 2, name: 'How to quit smoking: what actually works' },
+  ],
+};
 ---
 
+
+
 <Layout metadata={metadata}>
+  <StructuredData slot="head" schema={[pageSchema, breadcrumbSchema]} />
+  <Breadcrumbs bar items={[{ text: 'Home', href: '/' }, { text: 'How to quit smoking: what actually works' }]} />
   <section class="relative mx-auto max-w-4xl px-4 sm:px-6 pt-8 md:pt-12 pb-4">
     <p class="text-base font-bold tracking-wide uppercase text-secondary mb-2 text-center">How to Quit</p>
     <h1 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading text-heading text-center">
