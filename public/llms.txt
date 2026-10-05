@@ -3,68 +3,68 @@
 > A structured knowledge and experience platform for people trying to quit smoking:
 > nicotine dependence, withdrawal, cravings, triggers, relapse and evidence-based
 > cessation methods. Community experiences are de-identified and clearly separated
-> from scientific evidence. This file lists the pages of smokingcessation.pages.dev; the
+> from scientific evidence. This file lists the pages of smokingcessationhub.com; the
 > structured research and evidence database lives in the companion data site at
-> data.smokingcessation.pages.dev.
+> data.smokingcessationhub.com.
 
 ## Core pages
 
-- [Home](https://smokingcessation.pages.dev/): quit smoking with better information — three entry points: quit, withdrawal, relapse.
-- [Start Here](https://smokingcessation.pages.dev/start/): first steps, quit date, preparation checklist.
-- [How to Quit Smoking](https://smokingcessation.pages.dev/quit-smoking/): evidence-based overview of the quitting process.
-- [Nicotine Withdrawal](https://smokingcessation.pages.dev/withdrawal/): symptom overview with science vs community distinction.
-- [Cravings](https://smokingcessation.pages.dev/cravings/): why cravings happen and how to manage them.
-- [Smoking Triggers](https://smokingcessation.pages.dev/triggers/): trigger database (coffee, alcohol, stress, driving, etc.).
-- [Relapse & Recovery](https://smokingcessation.pages.dev/relapse/): lapse vs relapse, recovery after a slip.
-- [Real Quit Experiences](https://smokingcessation.pages.dev/experiences/): de-identified structured community experience database.
-- [Quit Methods](https://smokingcessation.pages.dev/methods/): cold turkey, gradual reduction, NRT, behavioral support.
-- [Quit Smoking Medications](https://smokingcessation.pages.dev/medications/): NRT, varenicline, bupropion, cytisine evidence pages.
-- [Quit Timeline](https://smokingcessation.pages.dev/timeline/): hour-by-hour, day-by-day, year-by-year — science vs community.
-- [Popular Questions](https://smokingcessation.pages.dev/questions/): direct answers to common quit-smoking questions.
-- [Quit Tools](https://smokingcessation.pages.dev/tools/): practical tools and checklists.
-- [Research Highlights](https://smokingcessation.pages.dev/research/): key studies in plain language.
-- [Methodology](https://smokingcessation.pages.dev/methodology/): how community data is collected, de-identified and evidence-checked.
-- [Medical Disclaimer](https://smokingcessation.pages.dev/disclaimer/): what this site is and is not.
+- [Home](https://smokingcessationhub.com/): quit smoking with better information — three entry points: quit, withdrawal, relapse.
+- [Start Here](https://smokingcessationhub.com/start/): first steps, quit date, preparation checklist.
+- [How to Quit Smoking](https://smokingcessationhub.com/quit-smoking/): evidence-based overview of the quitting process.
+- [Nicotine Withdrawal](https://smokingcessationhub.com/withdrawal/): symptom overview with science vs community distinction.
+- [Cravings](https://smokingcessationhub.com/cravings/): why cravings happen and how to manage them.
+- [Smoking Triggers](https://smokingcessationhub.com/triggers/): trigger database (coffee, alcohol, stress, driving, etc.).
+- [Relapse & Recovery](https://smokingcessationhub.com/relapse/): lapse vs relapse, recovery after a slip.
+- [Real Quit Experiences](https://smokingcessationhub.com/experiences/): de-identified structured community experience database.
+- [Quit Methods](https://smokingcessationhub.com/methods/): cold turkey, gradual reduction, NRT, behavioral support.
+- [Quit Smoking Medications](https://smokingcessationhub.com/medications/): NRT, varenicline, bupropion, cytisine evidence pages.
+- [Quit Timeline](https://smokingcessationhub.com/timeline/): hour-by-hour, day-by-day, year-by-year — science vs community.
+- [Popular Questions](https://smokingcessationhub.com/questions/): direct answers to common quit-smoking questions.
+- [Quit Tools](https://smokingcessationhub.com/tools/): practical tools and checklists.
+- [Research Highlights](https://smokingcessationhub.com/research/): key studies in plain language.
+- [Methodology](https://smokingcessationhub.com/methodology/): how community data is collected, de-identified and evidence-checked.
+- [Medical Disclaimer](https://smokingcessationhub.com/disclaimer/): what this site is and is not.
 
 ## Withdrawal symptom pages
 
-- [Anxiety](https://smokingcessation.pages.dev/withdrawal/anxiety/): why quitting can raise anxiety and how it settles.
-- [Appetite](https://smokingcessation.pages.dev/withdrawal/appetite/): increased appetite after quitting.
-- [Concentration](https://smokingcessation.pages.dev/withdrawal/concentration/): focus difficulties in early quitting.
-- [Constipation](https://smokingcessation.pages.dev/withdrawal/constipation/): gut slowing after nicotine removal.
-- [Cough](https://smokingcessation.pages.dev/withdrawal/cough/): the post-quit cough and why it happens.
-- [Cravings](https://smokingcessation.pages.dev/withdrawal/cravings/): craving as the longest-lasting symptom.
-- [Fatigue](https://smokingcessation.pages.dev/withdrawal/fatigue/): tiredness while the body adapts.
-- [Headache](https://smokingcessation.pages.dev/withdrawal/headache/): early headaches and caffeine interactions.
-- [Irritability](https://smokingcessation.pages.dev/withdrawal/irritability/): short-tempered early weeks.
-- [Mood](https://smokingcessation.pages.dev/withdrawal/mood/): low mood during withdrawal.
-- [Restlessness](https://smokingcessation.pages.dev/withdrawal/restlessness/): feeling on edge without cigarettes.
-- [Sleep](https://smokingcessation.pages.dev/withdrawal/sleep/): sleep disruption in the first weeks.
-- [Weight change](https://smokingcessation.pages.dev/withdrawal/weight-change/): appetite, weight gain and how to manage it.
+- [Anxiety](https://smokingcessationhub.com/withdrawal/anxiety/): why quitting can raise anxiety and how it settles.
+- [Appetite](https://smokingcessationhub.com/withdrawal/appetite/): increased appetite after quitting.
+- [Concentration](https://smokingcessationhub.com/withdrawal/concentration/): focus difficulties in early quitting.
+- [Constipation](https://smokingcessationhub.com/withdrawal/constipation/): gut slowing after nicotine removal.
+- [Cough](https://smokingcessationhub.com/withdrawal/cough/): the post-quit cough and why it happens.
+- [Cravings](https://smokingcessationhub.com/withdrawal/cravings/): craving as the longest-lasting symptom.
+- [Fatigue](https://smokingcessationhub.com/withdrawal/fatigue/): tiredness while the body adapts.
+- [Headache](https://smokingcessationhub.com/withdrawal/headache/): early headaches and caffeine interactions.
+- [Irritability](https://smokingcessationhub.com/withdrawal/irritability/): short-tempered early weeks.
+- [Mood](https://smokingcessationhub.com/withdrawal/mood/): low mood during withdrawal.
+- [Restlessness](https://smokingcessationhub.com/withdrawal/restlessness/): feeling on edge without cigarettes.
+- [Sleep](https://smokingcessationhub.com/withdrawal/sleep/): sleep disruption in the first weeks.
+- [Weight change](https://smokingcessationhub.com/withdrawal/weight-change/): appetite, weight gain and how to manage it.
 
 ## Community patterns
 
-- [Alcohol & social occasions](https://smokingcessation.pages.dev/patterns/alcohol-social-occasions/): the most reported relapse setting.
-- [Health-scare motivation](https://smokingcessation.pages.dev/patterns/health-scare-motivated-quit/): health events as the decisive quit trigger.
-- [Daily check-ins](https://smokingcessation.pages.dev/patterns/daily-check-in/): check-in rituals as a long-term commitment device.
-- [Just one cigarette](https://smokingcessation.pages.dev/patterns/just-one-cigarette/): how single cigarettes end quits.
-- [Post-relapse heavier smoking](https://smokingcessation.pages.dev/patterns/post-relapse-heavier-smoking/): reported escalation after relapse.
-- [Smoking dreams](https://smokingcessation.pages.dev/patterns/smoking-dreams/): dreams about smoking after quitting.
+- [Alcohol & social occasions](https://smokingcessationhub.com/patterns/alcohol-social-occasions/): the most reported relapse setting.
+- [Health-scare motivation](https://smokingcessationhub.com/patterns/health-scare-motivated-quit/): health events as the decisive quit trigger.
+- [Daily check-ins](https://smokingcessationhub.com/patterns/daily-check-in/): check-in rituals as a long-term commitment device.
+- [Just one cigarette](https://smokingcessationhub.com/patterns/just-one-cigarette/): how single cigarettes end quits.
+- [Post-relapse heavier smoking](https://smokingcessationhub.com/patterns/post-relapse-heavier-smoking/): reported escalation after relapse.
+- [Smoking dreams](https://smokingcessationhub.com/patterns/smoking-dreams/): dreams about smoking after quitting.
 
-## Data site (data.smokingcessation.pages.dev)
+## Data site (data.smokingcessationhub.com)
 
-- [Data Home](https://data-smokingcessation.pages.dev/): research database and evidence library.
-- [Research](https://data-smokingcessation.pages.dev/research/): structured research records with evidence strength (17 records).
-- [Guidelines](https://data-smokingcessation.pages.dev/guidelines/): clinical guidelines from WHO, USPSTF, NICE, US PHS.
-- [Cessation methods](https://data-smokingcessation.pages.dev/cessation-methods/): evidence comparison of quit methods.
-- [Behavior change](https://data-smokingcessation.pages.dev/behavior-change/): the science of behaviour change in quitting.
-- [Nicotine](https://data-smokingcessation.pages.dev/nicotine/): what nicotine is and how dependence works.
-- [Withdrawal](https://data-smokingcessation.pages.dev/withdrawal/): the science of withdrawal symptoms.
-- [Medications](https://data-smokingcessation.pages.dev/medications/): evidence pages for cessation medications.
-- [Health Effects](https://data-smokingcessation.pages.dev/health-effects/): what smoking does and what quitting changes.
-- [Relapse](https://data-smokingcessation.pages.dev/relapse/): relapse evidence and risk factors.
-- [Definitions](https://data-smokingcessation.pages.dev/definitions/): defined terms used across the platform.
-- [Controversies](https://data-smokingcessation.pages.dev/controversies/): honest treatment of contested topics (e-cigarettes, gradual vs abrupt, dual use).
-- [References](https://data-smokingcessation.pages.dev/references/): full bibliographic reference list.
-- [Community Data overview](https://data-smokingcessation.pages.dev/community-data/): how the experience database is compiled.
-- [Community Data statistics](https://data-smokingcessation.pages.dev/community-data/statistics/): live-computed database statistics.
+- [Data Home](https://data.smokingcessationhub.com/): research database and evidence library.
+- [Research](https://data.smokingcessationhub.com/research/): structured research records with evidence strength (17 records).
+- [Guidelines](https://data.smokingcessationhub.com/guidelines/): clinical guidelines from WHO, USPSTF, NICE, US PHS.
+- [Cessation methods](https://data.smokingcessationhub.com/cessation-methods/): evidence comparison of quit methods.
+- [Behavior change](https://data.smokingcessationhub.com/behavior-change/): the science of behaviour change in quitting.
+- [Nicotine](https://data.smokingcessationhub.com/nicotine/): what nicotine is and how dependence works.
+- [Withdrawal](https://data.smokingcessationhub.com/withdrawal/): the science of withdrawal symptoms.
+- [Medications](https://data.smokingcessationhub.com/medications/): evidence pages for cessation medications.
+- [Health Effects](https://data.smokingcessationhub.com/health-effects/): what smoking does and what quitting changes.
+- [Relapse](https://data.smokingcessationhub.com/relapse/): relapse evidence and risk factors.
+- [Definitions](https://data.smokingcessationhub.com/definitions/): defined terms used across the platform.
+- [Controversies](https://data.smokingcessationhub.com/controversies/): honest treatment of contested topics (e-cigarettes, gradual vs abrupt, dual use).
+- [References](https://data.smokingcessationhub.com/references/): full bibliographic reference list.
+- [Community Data overview](https://data.smokingcessationhub.com/community-data/): how the experience database is compiled.
+- [Community Data statistics](https://data.smokingcessationhub.com/community-data/statistics/): live-computed database statistics.

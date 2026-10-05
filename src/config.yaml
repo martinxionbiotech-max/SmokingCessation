@@ -1,8 +1,8 @@
 site:
   name: Quit Smoking Hub
-  site: 'https://smokingcessation.pages.dev'
+  site: 'https://smokingcessationhub.com'
   base: '/'
-  trailingSlash: false
+  trailingSlash: true
 
 # Default SEO metadata
 metadata:
@@ -51,7 +51,7 @@ apps:
 
   # Placeholder configuration for the data knowledge site (built separately as MkDocs)
   dataSite:
-    url: 'https://data-smokingcessation.pages.dev'
+    url: 'https://data.smokingcessationhub.com'
     label: 'Data & Research Center'
 
 ui:

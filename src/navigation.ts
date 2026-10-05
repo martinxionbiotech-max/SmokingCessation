@@ -80,7 +80,7 @@ export const footerData = {
     {
       title: 'Resources',
       links: [
-        { text: 'Data & Research Center', href: 'https://data-smokingcessation.pages.dev' },
+        { text: 'Data & Research Center', href: 'https://data.smokingcessationhub.com' },
         { text: 'Research Highlights', href: getPermalink('/research') },
         { text: 'Methodology', href: getPermalink('/methodology') },
         { text: 'Medical Disclaimer', href: getPermalink('/disclaimer') },
