@@ -32,6 +32,36 @@ const grouped = stageOrder
   .filter((g) => g.items.length > 0);
 const ungrouped = questions.filter((q) => !q.data.stage);
 
+const topicUrls: Record<string, string> = {
+  'Nicotine Withdrawal': '/withdrawal/',
+  'Cravings': '/cravings/',
+  'Smoking Triggers': '/triggers/',
+  'Relapse & Recovery': '/relapse/',
+  'Quit Methods': '/methods/',
+  'Methods Compared': '/comparisons/',
+  'Quit Timeline': '/timeline/',
+  'Quit Smoking Medications': '/medications/',
+  'Cold Turkey': '/methods/cold-turkey/',
+  'Gradual Reduction': '/methods/gradual-reduction/',
+  'Nicotine Replacement Therapy': '/medications/nicotine-patch/',
+  'Nicotine Patch': '/medications/nicotine-patch/',
+  'Varenicline': '/medications/varenicline/',
+  'Bupropion': '/medications/bupropion/',
+  'Cytisine': '/medications/cytisine/',
+  'Behavioral Support': '/methods/counseling/',
+  'Combination NRT': '/comparisons/combination-nrt-vs-single-form/',
+  'E-cigarettes': '/methods/',
+  'Health Benefits': '/timeline/',
+  'Real Quit Experiences': '/experiences/',
+  'Community Patterns': '/patterns/',
+  'Mental Health': '/populations/mental-health-conditions/',
+  'Pregnancy': '/populations/pregnancy/',
+  'Cardiovascular Disease': '/populations/cardiovascular-disease/',
+  'Young Smokers': '/populations/young-smokers/',
+  'Weight': '/withdrawal/weight-change/',
+  'Long-Term Recovery': '/timeline/',
+};
+
 const faqSchema = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
@@ -91,7 +121,7 @@ const metadata = {
                           <span>
                             {i > 0 && ' · '}
                             <a
-                              href={t === 'Nicotine Withdrawal' ? '/withdrawal/' : t === 'Cravings' ? '/cravings/' : t === 'Smoking Triggers' ? '/triggers/' : t === 'Relapse & Recovery' ? '/relapse/' : t === 'Quit Methods' ? '/methods/' : t === 'Quit Timeline' ? '/timeline/' : t === 'Quit Smoking Medications' ? '/medications/' : t === 'Cold Turkey' ? '/methods/cold-turkey/' : t === 'Gradual Reduction' ? '/methods/gradual-reduction/' : t === 'Nicotine Replacement Therapy' ? '/medications/nicotine-patch/' : t === 'E-cigarettes' || t === 'Health Benefits' || t === 'Real Quit Experiences' ? (t === 'Real Quit Experiences' ? '/experiences/' : t === 'E-cigarettes' ? '/methods/cold-turkey/' : '/timeline/') : '/questions/'}
+                              href={topicUrls[t] ?? '/questions/'}
                               class="text-primary underline decoration-1 underline-offset-2"
                             >
                               {t}
