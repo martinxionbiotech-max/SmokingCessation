@@ -112,3 +112,17 @@ const seoProps: SEOProps = {
 ---
 
 <SEO {...seoProps} />
+
+<script is:inline set:html={(() => {
+  const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+  if (path === '/') return '';
+  const segments = path.split('/').filter(Boolean);
+  let acc = '';
+  const items = [{ '@type': 'ListItem', position: 1, name: 'Home', item: SITE.site + '/' }];
+  segments.forEach((seg, idx) => {
+    acc += '/' + seg + '/';
+    const name = seg.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+    items.push({ '@type': 'ListItem', position: idx + 2, name, item: SITE.site + acc });
+  });
+  return JSON.stringify({ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: items });
+})()} />
