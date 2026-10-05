@@ -8,7 +8,7 @@ site:
 metadata:
   title:
     default: 'Quit Smoking Hub | Evidence-Aware Smoking Cessation Knowledge & Experience Platform'
-    template: '%s | Quit Smoking Hub'
+    template: '%s'
   description: 'A structured knowledge and experience platform for people trying to quit smoking: nicotine withdrawal, cravings, triggers, relapse and evidence-based cessation methods, combining real-world quit experiences with scientific evidence.'
   robots:
     index: true
