@@ -8,7 +8,7 @@ import StructuredData from '~/components/common/StructuredData.astro';
 import { headerData, footerData } from '~/navigation';
 
 import { SITE, I18N } from 'astrowind:config';
-import favIconSvg from '~/assets/favicons/favicon.svg';
+import favIconSvg from '~/assets/favicons/favicon.svg'; // legacy, replaced below
 
 import type { MetaData } from '~/types';
 
@@ -36,7 +36,7 @@ const baseSchema = [
     name: 'Quit Smoking Hub',
     alternateName: 'Quit Smoking Hub',
     url: SITE?.site,
-    logo: new URL(favIconSvg.src, SITE?.site).toString(),
+    logo: new URL('/favicon.png', SITE?.site).toString(),
     description: 'An independent, evidence-aware knowledge and experience platform for smoking cessation.',
     sameAs: [],
   },
