@@ -16,6 +16,7 @@
     "Exercise has good evidence for mood support",
     "Structured support can help people with mental health histories quit safely"
   ],
-  "whenToSeekMedicalAdvice": "If low mood persists beyond 2–4 weeks, deepens, or involves hopelessness or thoughts of self-harm, seek professional help promptly. Quitting smoking does not have to mean coping alone."
+  "whenToSeekMedicalAdvice": "If low mood persists beyond 2–4 weeks, deepens, or involves hopelessness or thoughts of self-harm, seek professional help promptly. Quitting smoking does not have to mean coping alone.",
+  "evidenceSources": "R-007 (validated withdrawal symptom)."
 }
 ---

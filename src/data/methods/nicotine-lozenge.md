@@ -20,8 +20,7 @@
   "safetyConsiderations": "Available without prescription; keep out of reach of children — lozenges resemble candy. Same cardiac precautions as other NRT forms. In pregnancy, use only under professional guidance.",
   "guidelineStatus": "Recommended by WHO (2024), USPSTF (2021) and NICE NG209 (UK) as an effective form of NRT.",
   "comparisonNote": "Similar effectiveness to gum and other single-form NRT. Combining with a nicotine patch is more effective than lozenge alone.",
-  "sources": "Cochrane review of NRT (CD000146); WHO 2024 guideline.",
+  "sources": "R-001 (Cochrane NRT review); R-013 (WHO 2024 guideline).",
   "lastReviewed": "October 2026"
 }
 ---
-

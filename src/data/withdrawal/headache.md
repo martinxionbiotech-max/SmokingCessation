@@ -15,6 +15,7 @@
   "evidenceSupportedApproaches": [
     "Hydration and regular routines are standard first-line management"
   ],
-  "whenToSeekMedicalAdvice": "Sudden severe headache, or headache with vision changes, weakness, confusion, or stiff neck, needs urgent medical evaluation — these are not withdrawal symptoms."
+  "whenToSeekMedicalAdvice": "Sudden severe headache, or headache with vision changes, weakness, confusion, or stiff neck, needs urgent medical evaluation — these are not withdrawal symptoms.",
+  "evidenceSources": "R-007 (withdrawal time course); community reports."
 }
 ---

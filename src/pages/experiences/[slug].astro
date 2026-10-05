@@ -66,7 +66,7 @@ const metadata = {
             [
               ['Recovery day', d.recoveryDay != null ? `Day ${d.recoveryDay}` : null],
               ['Recovery stage', d.recoveryStage],
-              ['Quit method', d.quitMethod?.join(', ')],
+              ['Quit method', d.quitMethod?.length ? d.quitMethod.join(', ') : 'Not reported'],
               ['Years smoking', d.yearsSmoking || 'Not reported'],
               ['Cigarettes per day', d.cigarettesPerDay || 'Not reported'],
               ['Quit attempt number', d.quitAttemptNumber || 'Not reported'],

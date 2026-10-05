@@ -16,6 +16,7 @@
     "Behavioural support for managing withdrawal anxiety",
     "Relaxation and breathing techniques have some supportive evidence"
   ],
-  "whenToSeekMedicalAdvice": "Seek professional help for panic attacks, persistent severe anxiety that lasts beyond the withdrawal window, or anxiety that prevents normal functioning."
+  "whenToSeekMedicalAdvice": "Seek professional help for panic attacks, persistent severe anxiety that lasts beyond the withdrawal window, or anxiety that prevents normal functioning.",
+  "evidenceSources": "R-007 (validated withdrawal symptom); R-010 (Surgeon General 2020)."
 }
 ---

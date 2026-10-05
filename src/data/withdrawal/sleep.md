@@ -16,6 +16,7 @@
     "Sleep hygiene practices are standard in cessation support",
     "Addressing caffeine intake is commonly advised"
   ],
-  "whenToSeekMedicalAdvice": "If insomnia persists beyond a month or severely affects daytime function, or if sleep problems accompany persistent low mood, consult a healthcare professional."
+  "whenToSeekMedicalAdvice": "If insomnia persists beyond a month or severely affects daytime function, or if sleep problems accompany persistent low mood, consult a healthcare professional.",
+  "evidenceSources": "R-007 (validated withdrawal symptom)."
 }
 ---

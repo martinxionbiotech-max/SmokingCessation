@@ -17,6 +17,7 @@
     "Avoiding standing still for long periods in the first week",
     "Reviewing any medications with a professional if dizziness persists"
   ],
-  "whenToSeekMedicalAdvice": "Seek prompt medical attention if dizziness is severe, recurrent, causes falls, or comes with chest pain, palpitations, fainting, or other concerning symptoms. Dizziness can have causes unrelated to quitting."
+  "whenToSeekMedicalAdvice": "Seek prompt medical attention if dizziness is severe, recurrent, causes falls, or comes with chest pain, palpitations, fainting, or other concerning symptoms. Dizziness can have causes unrelated to quitting.",
+  "evidenceSources": "Community reports; R-007 (withdrawal time course)."
 }
 ---

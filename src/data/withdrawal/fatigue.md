@@ -15,6 +15,7 @@
   "evidenceSupportedApproaches": [
     "Mild physical activity has the best evidence for withdrawal-related low energy"
   ],
-  "whenToSeekMedicalAdvice": "If fatigue persists well beyond the first month, or comes with breathlessness, pallor, unexplained weight loss or night sweats, see a doctor."
+  "whenToSeekMedicalAdvice": "If fatigue persists well beyond the first month, or comes with breathlessness, pallor, unexplained weight loss or night sweats, see a doctor.",
+  "evidenceSources": "R-010 (Surgeon General 2020); community reports."
 }
 ---

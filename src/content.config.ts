@@ -191,6 +191,7 @@ export const withdrawalSchema = z.object({
   howPeopleManage: z.array(z.string()),
   evidenceSupportedApproaches: z.array(z.string()),
   whenToSeekMedicalAdvice: z.string(),
+  evidenceSources: z.string().optional(),
   metadata: metadataDefinition(),
 });
 

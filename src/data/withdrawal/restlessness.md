@@ -16,6 +16,7 @@
     "Exercise is a common component of cessation support",
     "NRT reduces overall withdrawal symptom load"
   ],
-  "whenToSeekMedicalAdvice": "If restlessness is severe, prevents sleep, or persists for weeks alongside agitation or mood changes, discuss it with a healthcare professional."
+  "whenToSeekMedicalAdvice": "If restlessness is severe, prevents sleep, or persists for weeks alongside agitation or mood changes, discuss it with a healthcare professional.",
+  "evidenceSources": "R-007 (validated withdrawal symptom)."
 }
 ---

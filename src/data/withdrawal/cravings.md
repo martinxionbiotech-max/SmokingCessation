@@ -17,6 +17,7 @@
     "Distraction and urge surfing are supported by behavioral research",
     "Avoiding early high-risk cue situations reduces craving frequency"
   ],
-  "whenToSeekMedicalAdvice": "If cravings are overwhelming, constant, or driving you back to smoking repeatedly, or if you feel you need medication support, talk to a healthcare professional or a quitline counselor."
+  "whenToSeekMedicalAdvice": "If cravings are overwhelming, constant, or driving you back to smoking repeatedly, or if you feel you need medication support, talk to a healthcare professional or a quitline counselor.",
+  "evidenceSources": "R-007 (validated withdrawal symptom)."
 }
 ---

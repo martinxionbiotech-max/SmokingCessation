@@ -16,6 +16,7 @@
     "NRT can reduce cognitive withdrawal symptoms",
     "Time management and task structuring are standard behavioral advice"
   ],
-  "whenToSeekMedicalAdvice": "If concentration problems persist well beyond the first month or significantly impair work or safety (e.g. driving), discuss with a healthcare professional."
+  "whenToSeekMedicalAdvice": "If concentration problems persist well beyond the first month or significantly impair work or safety (e.g. driving), discuss with a healthcare professional.",
+  "evidenceSources": "R-007 (validated withdrawal symptom)."
 }
 ---

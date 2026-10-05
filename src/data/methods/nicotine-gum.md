@@ -20,8 +20,7 @@
   "safetyConsiderations": "Available without prescription. Acidic drinks (coffee, soda) reduce nicotine absorption and should be avoided around dosing times. People with recent cardiac events or temporomandibular joint problems should discuss use with a professional.",
   "guidelineStatus": "Recommended by WHO (2024), USPSTF (2021) and NICE NG209 (UK) as an effective form of NRT.",
   "comparisonNote": "Similar effectiveness to other single-form NRT. Combining with a nicotine patch improves success more than gum alone.",
-  "sources": "Cochrane review of NRT (CD000146); WHO 2024 guideline.",
+  "sources": "R-001 (Cochrane NRT review); R-013 (WHO 2024 guideline).",
   "lastReviewed": "October 2026"
 }
 ---
-

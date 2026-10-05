@@ -15,6 +15,7 @@
   "evidenceSupportedApproaches": [
     "Expectant management is standard; the cough usually resolves without treatment"
   ],
-  "whenToSeekMedicalAdvice": "If the cough persists beyond several weeks, produces blood, comes with chest pain, breathlessness, fever or unexplained weight loss, see a doctor promptly."
+  "whenToSeekMedicalAdvice": "If the cough persists beyond several weeks, produces blood, comes with chest pain, breathlessness, fever or unexplained weight loss, see a doctor promptly.",
+  "evidenceSources": "R-010 (Surgeon General 2020, respiratory recovery); community reports."
 }
 ---

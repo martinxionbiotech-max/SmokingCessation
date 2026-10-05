@@ -16,6 +16,7 @@
     "Exercise helps manage both weight and cravings",
     "Planning meals and snacks is common in cessation counseling"
   ],
-  "whenToSeekMedicalAdvice": "If weight gain becomes rapid or distressing, or if eating patterns become disordered, discuss with a healthcare professional. The health benefits of quitting outweigh typical weight gain."
+  "whenToSeekMedicalAdvice": "If weight gain becomes rapid or distressing, or if eating patterns become disordered, discuss with a healthcare professional. The health benefits of quitting outweigh typical weight gain.",
+  "evidenceSources": "R-007 (validated withdrawal symptom)."
 }
 ---

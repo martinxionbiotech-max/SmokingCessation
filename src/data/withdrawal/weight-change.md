@@ -15,6 +15,7 @@
   "evidenceSupportedApproaches": [
     "Physical activity and dietary planning are supported for managing post-cessation weight change"
   ],
-  "whenToSeekMedicalAdvice": "Rapid large weight gain or disordered eating patterns deserve professional attention; weight concerns are also a legitimate topic to raise with a doctor when planning a quit."
+  "whenToSeekMedicalAdvice": "Rapid large weight gain or disordered eating patterns deserve professional attention; weight concerns are also a legitimate topic to raise with a doctor when planning a quit.",
+  "evidenceSources": "R-007 (validated withdrawal symptom); R-001 (NRT evidence)."
 }
 ---

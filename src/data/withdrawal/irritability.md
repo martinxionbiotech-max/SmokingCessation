@@ -16,6 +16,7 @@
     "NRT and stop-smoking medications reduce withdrawal irritability",
     "Relaxation techniques and exercise are supported by behavioral research"
   ],
-  "whenToSeekMedicalAdvice": "If irritability becomes severe, persistent beyond a month, or is accompanied by significant low mood or thoughts of harming yourself or others, seek professional support promptly."
+  "whenToSeekMedicalAdvice": "If irritability becomes severe, persistent beyond a month, or is accompanied by significant low mood or thoughts of harming yourself or others, seek professional support promptly.",
+  "evidenceSources": "R-007 (validated withdrawal symptom)."
 }
 ---

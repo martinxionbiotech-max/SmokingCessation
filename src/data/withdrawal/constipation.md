@@ -15,6 +15,7 @@
   "evidenceSupportedApproaches": [
     "Diet and hydration changes are standard first-line management; short-term fiber supplements or mild laxatives are used when needed"
   ],
-  "whenToSeekMedicalAdvice": "See a doctor for constipation with severe pain, blood in the stool, or lasting more than a few weeks."
+  "whenToSeekMedicalAdvice": "See a doctor for constipation with severe pain, blood in the stool, or lasting more than a few weeks.",
+  "evidenceSources": "R-007 (validated withdrawal symptom)."
 }
 ---

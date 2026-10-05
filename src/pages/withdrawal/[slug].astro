@@ -91,6 +91,17 @@ const metadata = {
       <p class="text-muted dark:text-slate-400 text-sm">{d.whenToSeekMedicalAdvice}</p>
     </div>
 
+    {
+      d.evidenceSources && (
+        <div class="card p-6">
+          <h2 class="text-xl font-bold font-heading mb-2">Evidence sources</h2>
+          <p class="text-muted dark:text-slate-400 text-sm">{d.evidenceSources} Full records in the{' '}
+            <a href="https://data.smokingcessationhub.com/research/" target="_blank" class="underline decoration-1 underline-offset-2">Data Center research database</a>.
+          </p>
+        </div>
+      )
+    }
+
     <p class="text-sm text-muted dark:text-slate-500">
       This page combines documented withdrawal science with community-reported experience. Community reports are
       de-identified individual accounts, not scientific evidence and not predictions. This page is not medical advice.

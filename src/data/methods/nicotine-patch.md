@@ -20,8 +20,7 @@
   "safetyConsiderations": "Widely available without prescription. People with recent heart attack, stroke or unstable angina should discuss use with a healthcare professional first. In pregnancy, behavioral support is preferred; any NRT use should be under professional guidance.",
   "guidelineStatus": "Recommended by WHO (2024), USPSTF (2021) and NICE NG209 (UK). NRT products were first prequalified by WHO in April 2024.",
   "comparisonNote": "Single-form NRT raises quit success by roughly 50–60% versus placebo. Combining the patch with a fast-acting form (gum or lozenge) is more effective than either alone and roughly comparable to varenicline.",
-  "sources": "Cochrane review of NRT for smoking cessation (CD000146); WHO 2024 guideline; NICE NG209.",
+  "sources": "R-001 (Cochrane NRT review); R-013 (WHO 2024 guideline); R-012 (NICE NG209).",
   "lastReviewed": "October 2026"
 }
 ---
-
