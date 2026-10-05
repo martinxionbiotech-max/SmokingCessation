@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build",
+    "build": "astro build && LLMS_BASE=https://smokingcessationhub.com LLMS_TITLE='Quit Smoking Hub' LLMS_DESC='Evidence-based smoking cessation knowledge platform: methods, medications, withdrawal, cravings and real quit experiences. Educational information; not medical advice.' node scripts/build-llms.mjs",
     "preview": "astro preview",
     "astro": "astro",
     "check": "npm run check:astro && npm run check:eslint && npm run check:prettier",
