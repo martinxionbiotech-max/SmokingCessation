@@ -1,22 +1,49 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
+import StructuredData from '~/components/common/StructuredData.astro';
+import Breadcrumbs from '~/components/common/Breadcrumbs.astro';
+import { SITE } from 'astrowind:config';
 
 const metadata = {
   title: 'Privacy Policy | Quit Smoking Hub',
   description:
-    'Privacy policy for Quit Smoking Hub: what data we process, how community content is de-identified, and what we do not publish.',
+    'Privacy policy for Quit Smoking Hub: a static informational site that collects no personal data through forms and uses no tracking cookies or advertising networks.',
   ignoreTitleTemplate: true,
+};
+
+const pageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  headline: 'Privacy Policy',
+  name: 'Privacy Policy',
+  description:
+    'Privacy policy for Quit Smoking Hub: a static informational site that collects no personal data through forms and uses no tracking cookies or advertising networks.',
+  url: `${String(SITE.site).replace(/\/$/, '')}/privacy/`,
+  mainEntityOfPage: `${String(SITE.site).replace(/\/$/, '')}/privacy/`,
+  isPartOf: { '@id': `${SITE.site}/#website` },
+  publisher: { '@id': `${SITE.site}/#organization` },
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: SITE.site },
+    { '@type': 'ListItem', position: 2, name: 'Privacy Policy' },
+  ],
 };
 ---
 
 <Layout metadata={metadata}>
+  <StructuredData slot="head" schema={[pageSchema, breadcrumbSchema]} />
+  <Breadcrumbs bar items={[{ text: 'Home', href: '/' }, { text: 'Privacy Policy' }]} />
   <section class="relative mx-auto max-w-4xl px-4 sm:px-6 pt-8 md:pt-12 pb-4">
     <p class="text-base font-bold tracking-wide uppercase text-secondary mb-2 text-center">Legal</p>
     <h1 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading text-heading text-center">
       Privacy Policy
     </h1>
     <p class="mt-4 max-w-3xl mx-auto text-lg text-muted text-center">
-      <em>Last updated: October 2026</em>
+      <em>Last updated: 2026-10-23</em>
     </p>
   </section>
 
@@ -25,40 +52,102 @@ const metadata = {
       <h2 class="text-2xl font-bold font-heading mb-3">In short</h2>
       <p class="text-muted dark:text-slate-400">
         Quit Smoking Hub is a static informational website. We do not require accounts, do not collect personal
-        information through forms, and do not sell or share data with third parties.
+        information through forms, and do not sell, rent or share personal data with third parties. We do not use
+        tracking cookies, analytics or advertising networks.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">Data we collect</h2>
+      <p class="text-muted dark:text-slate-400 mb-3">
+        We collect as little as a static site can. Specifically, item by item:
+      </p>
+      <ul class="list-disc list-inside space-y-2 text-muted dark:text-slate-400">
+        <li><strong class="text-heading">Account and profile data: none.</strong> There is no registration, no login and no user profile.</li>
+        <li><strong class="text-heading">Contact-form or newsletter data: none.</strong> The site has no contact form, no newsletter signup and no other data-entry field.</li>
+        <li><strong class="text-heading">Analytics data: none.</strong> No analytics service (such as Google Analytics) is configured on this site.</li>
+        <li><strong class="text-heading">Cookies: none.</strong> See the <a href="/cookies/" class="text-primary underline decoration-1 underline-offset-2">cookie policy</a> for details.</li>
+        <li><strong class="text-heading">Local storage: theme preference only.</strong> Your light/dark choice is stored in your own browser's local storage and is not sent to our servers.</li>
+      </ul>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">Technical data (server logs)</h2>
+      <p class="text-muted dark:text-slate-400">
+        As a static site, we process only the standard technical data any website receives — such as IP addresses in
+        server or CDN access logs, where logs are enabled by the hosting provider, together with the user agent and
+        pages requested. These logs are used by the hosting infrastructure for security and operation, not for building
+        advertising profiles.
       </p>
     </div>
 
     <div>
       <h2 class="text-2xl font-bold font-heading mb-3">Community content and de-identification</h2>
       <p class="text-muted dark:text-slate-400">
-        Community experiences published on this site are editorial syntheses of public forum material. We never
-        publish usernames, avatars, user IDs, contact details, real names or any other identifying information.
-        Source material is used for research and structuring only, never reproduced verbatim.
+        Community experiences published on this site are editorial syntheses of public forum material. We never publish
+        usernames, avatars, user IDs, contact details, real names or any other identifying information. Source material
+        is used for research and structuring only, never reproduced verbatim. See the{' '}
+        <a href="/methodology/" class="text-primary underline decoration-1 underline-offset-2">methodology page</a>.
       </p>
     </div>
 
     <div>
-      <h2 class="text-2xl font-bold font-heading mb-3">Technical data</h2>
+      <h2 class="text-2xl font-bold font-heading mb-3">How we use data</h2>
       <p class="text-muted dark:text-slate-400">
-        As a static site we process only the standard technical data any website receives (such as IP addresses in
-        server logs, where logs are enabled by the hosting provider). We do not use tracking cookies or advertising
-        networks.
+        Because we collect no personal data through the site, there is no personal data to use for marketing,
+        profiling, or any other purpose. Technical logs are used solely by the hosting infrastructure to operate and
+        secure the site.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">Sharing and disclosure</h2>
+      <p class="text-muted dark:text-slate-400">
+        We do not sell, rent or share personal data with third parties, because we do not collect any through the site.
+        Technical data is processed by the hosting provider as necessary to deliver the site, as described above.
       </p>
     </div>
 
     <div>
       <h2 class="text-2xl font-bold font-heading mb-3">Third-party links</h2>
       <p class="text-muted dark:text-slate-400">
-        Pages link to external resources (research articles, public health agencies, quitlines). We are not
-        responsible for the privacy practices of those sites.
+        Pages link to external resources (research articles, public health agencies, quitlines) and to the companion
+        data site. We are not responsible for the privacy practices of those sites.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">Your rights</h2>
+      <p class="text-muted dark:text-slate-400">
+        Depending on where you are, you may have rights over your personal data (such as access, correction and
+        deletion). Because this site collects no personal data through forms or accounts, there is generally no
+        personal data of yours held by us to exercise those rights against. If you have a question, contact us as
+        described below.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">Children's privacy</h2>
+      <p class="text-muted dark:text-slate-400">
+        This site is not directed at children and collects no personal data from anyone. The content concerns adult
+        smoking cessation and is written for adults.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">Changes to this policy</h2>
+      <p class="text-muted dark:text-slate-400">
+        We may update this privacy policy if our practices change. The "Last updated" date above reflects the most
+        recent revision.
       </p>
     </div>
 
     <div>
       <h2 class="text-2xl font-bold font-heading mb-3">Contact</h2>
       <p class="text-muted dark:text-slate-400">
-        For privacy questions, contact the site operator through the details on the hosting platform.
+        For privacy questions, see the{' '}
+        <a href="/contact/" class="text-primary underline decoration-1 underline-offset-2">contact page</a>. This site
+        does not currently publish a dedicated email address; contact details will be added once established.
       </p>
     </div>
   </section>
