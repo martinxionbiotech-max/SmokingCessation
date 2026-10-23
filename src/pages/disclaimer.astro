@@ -1,15 +1,42 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
+import StructuredData from '~/components/common/StructuredData.astro';
+import Breadcrumbs from '~/components/common/Breadcrumbs.astro';
+import { SITE } from 'astrowind:config';
 
 const metadata = {
   title: 'Medical Disclaimer | Quit Smoking Hub',
   description:
-    'Quit Smoking Hub provides general information about smoking cessation. It is not medical advice, diagnosis or treatment.',
+    'Quit Smoking Hub provides general information about smoking cessation. It is not medical advice, diagnosis or treatment. In an emergency, seek professional care.',
   ignoreTitleTemplate: true,
+};
+
+const pageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  headline: 'Medical Disclaimer',
+  name: 'Medical Disclaimer',
+  description:
+    'Quit Smoking Hub provides general information about smoking cessation. It is not medical advice, diagnosis or treatment. In an emergency, seek professional care.',
+  url: `${String(SITE.site).replace(/\/$/, '')}/disclaimer/`,
+  mainEntityOfPage: `${String(SITE.site).replace(/\/$/, '')}/disclaimer/`,
+  isPartOf: { '@id': `${SITE.site}/#website` },
+  publisher: { '@id': `${SITE.site}/#organization` },
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: SITE.site },
+    { '@type': 'ListItem', position: 2, name: 'Medical Disclaimer' },
+  ],
 };
 ---
 
 <Layout metadata={metadata}>
+  <StructuredData slot="head" schema={[pageSchema, breadcrumbSchema]} />
+  <Breadcrumbs bar items={[{ text: 'Home', href: '/' }, { text: 'Medical Disclaimer' }]} />
   <section class="relative mx-auto max-w-4xl px-4 sm:px-6 pt-8 md:pt-12 pb-4">
     <p class="text-base font-bold tracking-wide uppercase text-secondary mb-2 text-center">Disclaimer</p>
     <h1 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading text-heading text-center">
@@ -24,6 +51,15 @@ const metadata = {
         All content on Quit Smoking Hub — including pages about withdrawal, medications and health effects — is
         provided for general information only. It is <strong class="text-heading">not</strong> medical advice,
         diagnosis, treatment or a substitute for consultation with a qualified healthcare professional.
+      </p>
+    </div>
+
+    <div class="card p-8">
+      <h2 class="text-2xl font-bold font-heading mb-3">No efficacy or cure claims</h2>
+      <p class="text-muted dark:text-slate-400">
+        This site makes no claims that any method or product cures, treats or guarantees quitting smoking. Quitting
+        outcomes vary from person to person, and nothing here promises a result for you. We do not rank, endorse or
+        prescribe any medication, and we never suggest doses.
       </p>
     </div>
 
@@ -50,13 +86,24 @@ const metadata = {
       <h2 class="text-2xl font-bold font-heading mb-3">Seek professional help when needed</h2>
       <ul class="list-disc list-inside space-y-2 text-muted dark:text-slate-400">
         <li>If you experience severe or persistent symptoms — physical or mental — consult a healthcare professional.</li>
+        <li>If you are pregnant, breastfeeding, or managing a medical or mental health condition, talk to a healthcare professional before making changes to how you quit.</li>
         <li>If you are having thoughts of harming yourself, seek immediate help from local emergency services or a crisis line.</li>
-        <li>In a medical emergency, call your local emergency number.</li>
+        <li>In a medical emergency, call your local emergency number now. Do not wait for information from this website.</li>
       </ul>
     </div>
 
+    <div class="card p-8 border-l-4 border-l-primary">
+      <h2 class="text-2xl font-bold font-heading mb-3">If you feel unwell while quitting</h2>
+      <p class="text-muted dark:text-slate-400">
+        Some symptoms during quitting — chest pain, breathlessness, fainting, severe or prolonged dizziness, or any
+        symptom that worries you — may need urgent medical attention. This website cannot assess your symptoms. If you
+        are concerned about how you feel, contact a healthcare professional or seek emergency care.
+      </p>
+    </div>
+
     <p class="text-sm text-muted dark:text-slate-500">
-      Last updated: October 2026. By using this website you accept this disclaimer.
+      Last updated: 2026-10-23. By using this website you accept this disclaimer. See also the{' '}
+      <a href="/terms/" class="text-primary underline decoration-1 underline-offset-2">terms of service</a>.
     </p>
   </section>
 </Layout>
