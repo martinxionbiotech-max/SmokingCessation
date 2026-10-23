@@ -88,9 +88,12 @@ export const footerData = {
     },
   ],
   secondaryLinks: [
-    { text: 'Methodology', href: getPermalink('/methodology') },
+    { text: 'About', href: getPermalink('/about') },
+    { text: 'Contact', href: getPermalink('/contact') },
     { text: 'Medical Disclaimer', href: getPermalink('/disclaimer') },
+    { text: 'Terms of Service', href: getPermalink('/terms') },
     { text: 'Privacy Policy', href: getPermalink('/privacy') },
+    { text: 'Cookie Policy', href: getPermalink('/cookies') },
   ],
   socialLinks: [],
   footNote: `
