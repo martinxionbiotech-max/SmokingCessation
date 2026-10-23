@@ -1,0 +1,232 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import StructuredData from '~/components/common/StructuredData.astro';
+import Breadcrumbs from '~/components/common/Breadcrumbs.astro';
+import { SITE } from 'astrowind:config';
+
+const metadata = {
+  title: 'Terms of Service | Quit Smoking Hub',
+  description:
+    'Terms of service for Quit Smoking Hub: an informational smoking cessation platform. Content is information and experience sharing, not medical advice.',
+  ignoreTitleTemplate: true,
+};
+
+const pageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  headline: 'Terms of Service',
+  name: 'Terms of Service',
+  description:
+    'Terms of service for Quit Smoking Hub: an informational smoking cessation platform. Content is information and experience sharing, not medical advice.',
+  url: `${String(SITE.site).replace(/\/$/, '')}/terms/`,
+  mainEntityOfPage: `${String(SITE.site).replace(/\/$/, '')}/terms/`,
+  isPartOf: { '@id': `${SITE.site}/#website` },
+  publisher: { '@id': `${SITE.site}/#organization` },
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: SITE.site },
+    { '@type': 'ListItem', position: 2, name: 'Terms of Service' },
+  ],
+};
+---
+
+<Layout metadata={metadata}>
+  <StructuredData slot="head" schema={[pageSchema, breadcrumbSchema]} />
+  <Breadcrumbs bar items={[{ text: 'Home', href: '/' }, { text: 'Terms of Service' }]} />
+  <section class="relative mx-auto max-w-4xl px-4 sm:px-6 pt-8 md:pt-12 pb-4">
+    <p class="text-base font-bold tracking-wide uppercase text-secondary mb-2 text-center">Legal</p>
+    <h1 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading text-heading text-center">
+      Terms of Service
+    </h1>
+    <p class="mt-4 max-w-3xl mx-auto text-lg text-muted text-center">
+      <em>Last updated: 2026-10-23</em>
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8 space-y-8">
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">1. Agreement to these terms</h2>
+      <p class="text-muted dark:text-slate-400">
+        By accessing or using Quit Smoking Hub (this website, including its pages, articles and linked data
+        resources), you agree to be bound by these Terms of Service. If you do not agree, please do not use the site.
+        These terms apply to all visitors and to any use of the site through any device or automated means.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">2. What this site is</h2>
+      <p class="text-muted dark:text-slate-400">
+        Quit Smoking Hub is an independent, evidence-aware knowledge and experience platform about smoking cessation.
+        It publishes general information about nicotine withdrawal, cravings, triggers, relapse and cessation methods,
+        and it presents de-identified community quit experiences. It is a static informational website: there are no
+        user accounts, no interactive community features, and no commercial transactions on the site.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">3. Nature of the content</h2>
+      <p class="text-muted dark:text-slate-400 mb-3">
+        All content is provided for general information and experience sharing only. Specifically:
+      </p>
+      <ul class="list-disc list-inside space-y-2 text-muted dark:text-slate-400">
+        <li>Community experiences are de-identified reports of individual people, not scientific evidence and not recommendations.</li>
+        <li>Scientific content is written against identified sources with evidence-strength labels and is not exhaustive.</li>
+        <li>Information may become outdated as research and guidance evolve.</li>
+        <li>We do not guarantee that any content is complete, current or error-free at the moment you read it.</li>
+        <li>Evidence-strength labels describe the quality of the underlying evidence, not a promise about any individual outcome.</li>
+      </ul>
+    </div>
+
+    <div class="card p-8 border-l-4 border-l-primary">
+      <h2 class="text-2xl font-bold font-heading mb-3">4. No medical advice</h2>
+      <p class="text-muted dark:text-slate-400 mb-3">
+        Nothing on Quit Smoking Hub is medical advice, diagnosis or treatment, and nothing here is a substitute for
+        consultation with a qualified healthcare professional. In particular, the site:
+      </p>
+      <ul class="list-disc list-inside space-y-2 text-muted dark:text-slate-400">
+        <li>Does not recommend doses or tell you how to take any medication or product.</li>
+        <li>Does not judge whether a medication, including nicotine replacement therapy, is suitable for you.</li>
+        <li>Does not provide individualised quit-smoking guidance, coaching or clinical care.</li>
+      </ul>
+      <p class="text-muted dark:text-slate-400 mt-3">
+        Always discuss medications and any health concerns with a pharmacist or doctor. These terms incorporate by
+        reference the full{' '}
+        <a href="/disclaimer/" class="text-primary underline decoration-1 underline-offset-2">medical disclaimer</a>.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">5. No professional relationship</h2>
+      <p class="text-muted dark:text-slate-400">
+        Your use of this site does not create a doctor–patient, therapist–client, or any other professional
+        relationship between you and Quit Smoking Hub or its operator. No one who contributes to this site is acting
+        as your healthcare provider.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">6. Intellectual property and licence</h2>
+      <p class="text-muted dark:text-slate-400">
+        Unless otherwise stated, the text, structure, selection and arrangement of content on this site are owned by or
+        licensed to Quit Smoking Hub. You may read and share links to the content for personal, non-commercial
+        purposes, provided you do not remove attribution or misrepresent the content. You may not reproduce,
+        republish, scrape, or commercially exploit the content in bulk without permission. Third-party trademarks,
+        study citations and external resources referenced on this site remain the property of their respective owners,
+        and references to them are for identification and citation only.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">7. Acceptable use</h2>
+      <p class="text-muted dark:text-slate-400 mb-3">
+        This site has no user-generated content features, so there are no community posting rules to accept. When
+        accessing the site you agree not to:
+      </p>
+      <ul class="list-disc list-inside space-y-2 text-muted dark:text-slate-400">
+        <li>Use the site in any way that is unlawful or that misrepresents its content as personalized medical advice.</li>
+        <li>Attempt to disrupt, overload or interfere with the site or its hosting infrastructure.</li>
+        <li>Scrape or mirror the site at scale, or reuse its content in a way that violates section 6.</li>
+        <li>Introduce or transmit malware, or attempt to gain unauthorised access to any part of the site or its infrastructure.</li>
+      </ul>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">8. Feedback and unsolicited ideas</h2>
+      <p class="text-muted dark:text-slate-400">
+        We welcome corrections and well-sourced suggestions. Any feedback, corrections or ideas you submit are
+        provided voluntarily and without expectation of compensation. Submitting them does not transfer to us any
+        obligation of confidentiality, and nothing you send us creates an employment, agency or partnership
+        relationship.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">9. Third-party links</h2>
+      <p class="text-muted dark:text-slate-400">
+        Pages link to external resources such as research articles, public health agencies, quitlines and the companion
+        data site. We are not responsible for the content, accuracy, availability or privacy practices of third-party
+        sites, and a link does not imply endorsement. Accessing those sites is at your own risk and subject to their
+        own terms.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">10. Disclaimer of warranties</h2>
+      <p class="text-muted dark:text-slate-400">
+        To the fullest extent permitted by law, the site is provided "as is" and "as available", without warranties of
+        any kind, whether express or implied, including implied warranties of merchantability, fitness for a particular
+        purpose, accuracy and non-infringement. We do not warrant that the site will be uninterrupted, secure, or free
+        of errors or harmful components.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">11. Limitation of liability</h2>
+      <p class="text-muted dark:text-slate-400">
+        To the fullest extent permitted by law, Quit Smoking Hub and its operator are not liable for any indirect,
+        incidental, special, consequential or punitive loss or damage, or for any loss of data, arising from your use
+        of, or reliance on, the content — including any decisions made about your health. Where liability cannot be
+        excluded, it is limited to the maximum extent permitted by law. This site is information only; you are
+        responsible for seeking appropriate professional care.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">12. Indemnification</h2>
+      <p class="text-muted dark:text-slate-400">
+        You agree to indemnify and hold harmless Quit Smoking Hub and its operator from any claims, liabilities or
+        expenses arising out of your use of the site in violation of these terms or applicable law.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">13. Changes to content and terms</h2>
+      <p class="text-muted dark:text-slate-400">
+        We may add, change or remove content at any time without notice. We may also update these terms from time to
+        time. The "Last updated" date above reflects the most recent revision. Continued use of the site after changes
+        are posted constitutes acceptance of the revised terms.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">14. Termination</h2>
+      <p class="text-muted dark:text-slate-400">
+        These terms remain in effect while you use the site. We may restrict or terminate access to the site, or
+        suspend the site, at any time and for any reason, including for conduct that we reasonably believe violates
+        these terms.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">15. Governing law and disputes</h2>
+      <p class="text-muted dark:text-slate-400">
+        These terms are governed by the laws of the jurisdiction in which the site operator is established. The
+        operator's legal entity and registered jurisdiction have not yet been published on this site; the specific
+        governing law will be stated here once that information is confirmed. Any dispute arising from these terms will
+        be resolved in the courts of that jurisdiction, to the extent permitted by law.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">16. Severability and entire agreement</h2>
+      <p class="text-muted dark:text-slate-400">
+        If any provision of these terms is found to be invalid or unenforceable, that provision will be limited or
+        removed to the minimum extent necessary, and the remaining provisions will continue in full force and effect.
+        These terms, together with the medical disclaimer, privacy policy and cookie policy, constitute the entire
+        agreement between you and Quit Smoking Hub regarding your use of the site.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">17. Contact</h2>
+      <p class="text-muted dark:text-slate-400">
+        Questions about these terms can be raised through the{' '}
+        <a href="/contact/" class="text-primary underline decoration-1 underline-offset-2">contact page</a>.
+      </p>
+    </div>
+  </section>
+</Layout>
