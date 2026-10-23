@@ -1,0 +1,193 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import StructuredData from '~/components/common/StructuredData.astro';
+import Breadcrumbs from '~/components/common/Breadcrumbs.astro';
+import { SITE } from 'astrowind:config';
+
+const metadata = {
+  title: 'Cookie Policy | Quit Smoking Hub',
+  description:
+    'Cookie policy for Quit Smoking Hub. This static site does not use tracking cookies, advertising cookies or analytics. Theme preference is stored in local browser storage.',
+  ignoreTitleTemplate: true,
+};
+
+const pageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  headline: 'Cookie Policy',
+  name: 'Cookie Policy',
+  description:
+    'Cookie policy for Quit Smoking Hub. This static site does not use tracking cookies, advertising cookies or analytics. Theme preference is stored in local browser storage.',
+  url: `${String(SITE.site).replace(/\/$/, '')}/cookies/`,
+  mainEntityOfPage: `${String(SITE.site).replace(/\/$/, '')}/cookies/`,
+  isPartOf: { '@id': `${SITE.site}/#website` },
+  publisher: { '@id': `${SITE.site}/#organization` },
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: SITE.site },
+    { '@type': 'ListItem', position: 2, name: 'Cookie Policy' },
+  ],
+};
+---
+
+<Layout metadata={metadata}>
+  <StructuredData slot="head" schema={[pageSchema, breadcrumbSchema]} />
+  <Breadcrumbs bar items={[{ text: 'Home', href: '/' }, { text: 'Cookie Policy' }]} />
+  <section class="relative mx-auto max-w-4xl px-4 sm:px-6 pt-8 md:pt-12 pb-4">
+    <p class="text-base font-bold tracking-wide uppercase text-secondary mb-2 text-center">Legal</p>
+    <h1 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading text-heading text-center">
+      Cookie Policy
+    </h1>
+    <p class="mt-4 max-w-3xl mx-auto text-lg text-muted text-center">
+      <em>Last updated: 2026-10-23</em>
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8 space-y-8">
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">In short</h2>
+      <p class="text-muted dark:text-slate-400">
+        Quit Smoking Hub is a static website. It does <strong class="text-heading">not</strong> set tracking cookies,
+        advertising cookies or analytics cookies, and it does not load third-party tracking scripts. Because no such
+        cookies are used, there is no consent banner and nothing to opt in to. The only browser-side setting we store
+        is your light/dark theme preference, which is kept in local browser storage — not in a cookie.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">1. What a cookie is</h2>
+      <p class="text-muted dark:text-slate-400">
+        A cookie is a small text file that a website asks your browser to store on your device. Cookies are often used
+        for session management, preferences, analytics and advertising. A website that sets no cookies sends none to
+        your device; a website that sets cookies should explain what they do and why. Cookies can be "first-party"
+        (set by the site you are visiting) or "third-party" (set by a different domain, such as an advertising
+        network).
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">2. Cookies used on this site</h2>
+      <p class="text-muted dark:text-slate-400 mb-3">
+        As of the date above, Quit Smoking Hub uses:
+      </p>
+      <ul class="list-disc list-inside space-y-2 text-muted dark:text-slate-400">
+        <li><strong class="text-heading">Strictly necessary cookies: none.</strong> The site has no login, no shopping cart, no session state and no form submissions, so no strictly necessary cookie is required.</li>
+        <li><strong class="text-heading">Preference cookies: none.</strong> The theme preference described below uses local storage, not a cookie.</li>
+        <li><strong class="text-heading">Analytics / performance cookies: none.</strong> No analytics service (such as Google Analytics) is configured on this site.</li>
+        <li><strong class="text-heading">Advertising / targeting cookies: none.</strong> The site does not run advertising or ad networks.</li>
+      </ul>
+      <p class="text-muted dark:text-slate-400 mt-3">
+        This list reflects the site as actually built and deployed. It is not an aspirational statement; it is checked
+        against the site's implementation.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">3. Theme preference (local storage, not a cookie)</h2>
+      <p class="text-muted dark:text-slate-400">
+        When you switch between light and dark mode, your choice is saved in your browser's local storage so the
+        preference persists across visits. Local storage is data kept inside your own browser; unlike a cookie, it is
+        not sent to our servers with each request. It is a convenience setting only and is not used to identify, track
+        or profile you. Clearing local storage simply resets your theme preference to the system default until you
+        choose again.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">4. Server logs and hosting infrastructure</h2>
+      <p class="text-muted dark:text-slate-400">
+        Like most websites, the hosting infrastructure may keep standard server or CDN access logs (such as IP address,
+        user agent and the pages requested) for security and operation. These are access logs, not cookies, and are not
+        used to build advertising profiles. See the{' '}
+        <a href="/privacy/" class="text-primary underline decoration-1 underline-offset-2">privacy policy</a> for
+        details on technical data.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">5. Third-party links and their cookies</h2>
+      <p class="text-muted dark:text-slate-400">
+        This site links to external resources — research articles, public health agencies, quitlines and the companion
+        data site. We do not embed third-party trackers or widgets on this site, so no third-party cookie is set by
+        Quit Smoking Hub itself. However, if you follow a link to another website, that site may set its own cookies
+        under its own policies. We are not responsible for the cookies or privacy practices of third-party sites.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">6. Embedded content</h2>
+      <p class="text-muted dark:text-slate-400">
+        This site does not embed third-party content such as videos, social media widgets, comment systems or
+        advertising iframes, so no third-party cookie is set by embedded content. All text and images are served
+        directly by this site (or its CDN) rather than loaded from third-party trackers.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">7. Log data retention</h2>
+      <p class="text-muted dark:text-slate-400">
+        Any server or CDN access logs described in section 4 are retained by the hosting infrastructure according to
+        that provider's own retention and security practices, not by Quit Smoking Hub. We do not have access to
+        user-level identifiers in those logs and do not combine them with any other data to identify individual
+        visitors.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">8. Do Not Track and similar signals</h2>
+      <p class="text-muted dark:text-slate-400">
+        Some browsers offer a "Do Not Track" (DNT) setting. Because this site does not track you across visits or
+        devices, there is no cross-site tracking to switch off; DNT and similar preference signals have no effect on
+        this site because there is nothing for them to disable.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">9. Consent</h2>
+      <p class="text-muted dark:text-slate-400">
+        Because this site does not place non-essential cookies, it does not require cookie consent under regimes that
+        attach consent obligations to the use of non-essential cookies and similar tracking technologies. If our
+        practices change — for example, if we later enable analytics or advertising — this policy will be updated and,
+        where required, a consent mechanism will be provided before those technologies are used.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">10. Managing cookies and storage in your browser</h2>
+      <p class="text-muted dark:text-slate-400 mb-3">
+        You can control cookies and site data through your browser settings. Most browsers let you:
+      </p>
+      <ul class="list-disc list-inside space-y-2 text-muted dark:text-slate-400">
+        <li>View the cookies and site data stored for any website.</li>
+        <li>Block some or all cookies, or block third-party cookies specifically.</li>
+        <li>Delete cookies and clear site data (including local storage) for a site.</li>
+        <li>Set site-by-site preferences or use private browsing to avoid persistent storage.</li>
+      </ul>
+      <p class="text-muted dark:text-slate-400 mt-3">
+        Blocking cookies will not affect this site, because it does not rely on them. For instructions specific to your
+        browser, consult the browser's own help pages, as menus differ between versions and devices.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">11. Changes to this policy</h2>
+      <p class="text-muted dark:text-slate-400">
+        We may update this cookie policy if the site's use of cookies or similar technologies changes. The "Last
+        updated" date above reflects the most recent revision. Material changes will be reflected here before the
+        relevant technology is introduced.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">12. Contact</h2>
+      <p class="text-muted dark:text-slate-400">
+        Questions about this cookie policy can be raised through the{' '}
+        <a href="/contact/" class="text-primary underline decoration-1 underline-offset-2">contact page</a>.
+      </p>
+    </div>
+  </section>
+</Layout>
