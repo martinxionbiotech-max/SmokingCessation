@@ -1,0 +1,130 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import StructuredData from '~/components/common/StructuredData.astro';
+import Breadcrumbs from '~/components/common/Breadcrumbs.astro';
+import { SITE } from 'astrowind:config';
+
+const metadata = {
+  title: 'Contact | Quit Smoking Hub',
+  description:
+    'Contact Quit Smoking Hub for factual corrections, editorial feedback and collaboration. We do not provide medical advice or quit-smoking clinical services.',
+  ignoreTitleTemplate: true,
+};
+
+const pageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  headline: 'Contact Quit Smoking Hub',
+  name: 'Contact Quit Smoking Hub',
+  description:
+    'Contact Quit Smoking Hub for factual corrections, editorial feedback and collaboration. We do not provide medical advice or quit-smoking clinical services.',
+  url: `${String(SITE.site).replace(/\/$/, '')}/contact/`,
+  mainEntityOfPage: `${String(SITE.site).replace(/\/$/, '')}/contact/`,
+  isPartOf: { '@id': `${SITE.site}/#website` },
+  publisher: { '@id': `${SITE.site}/#organization` },
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: SITE.site },
+    { '@type': 'ListItem', position: 2, name: 'Contact Quit Smoking Hub' },
+  ],
+};
+---
+
+<Layout metadata={metadata}>
+  <StructuredData slot="head" schema={[pageSchema, breadcrumbSchema]} />
+  <Breadcrumbs bar items={[{ text: 'Home', href: '/' }, { text: 'Contact Quit Smoking Hub' }]} />
+  <section class="relative mx-auto max-w-4xl px-4 sm:px-6 pt-8 md:pt-12 pb-4">
+    <p class="text-base font-bold tracking-wide uppercase text-secondary mb-2 text-center">Contact</p>
+    <h1 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading text-heading text-center">
+      Contact Quit Smoking Hub
+    </h1>
+    <p class="mt-4 max-w-3xl mx-auto text-lg text-muted text-center">
+      <em>Last updated: 2026-10-23</em>
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8 space-y-8">
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">What this page is for</h2>
+      <p class="text-muted dark:text-slate-400">
+        This page is for two things: reporting a <strong class="text-heading">factual error</strong> in our content,
+        and raising a <strong class="text-heading">legitimate editorial or collaboration</strong> matter. If you have
+        spotted an incorrect citation, a misstated statistic, a broken link or content that does not match its listed
+        source, we want to know.
+      </p>
+    </div>
+
+    <div class="card p-8 border-l-4 border-l-primary">
+      <h2 class="text-2xl font-bold font-heading mb-3">What we do not provide</h2>
+      <p class="text-muted dark:text-slate-400 mb-3">
+        Before contacting us, please read this carefully. Quit Smoking Hub is an informational platform. We
+        <strong class="text-heading">do not</strong>:
+      </p>
+      <ul class="list-disc list-inside space-y-2 text-muted dark:text-slate-400">
+        <li>Provide medical advice, diagnosis or treatment of any kind.</li>
+        <li>Provide quit-smoking clinical services, counselling or one-to-one coaching.</li>
+        <li>Recommend doses, judge whether a medication is right for you, or tell you how to take a product.</li>
+        <li>Respond to medical emergencies or time-sensitive health questions.</li>
+      </ul>
+      <p class="text-muted dark:text-slate-400 mt-3">
+        Questions about your own health, symptoms, pregnancy, medications or mental health should go to a qualified
+        healthcare professional, not to this site. See the{' '}
+        <a href="/disclaimer/" class="text-primary underline decoration-1 underline-offset-2">medical disclaimer</a>.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">Report a factual error or correction</h2>
+      <p class="text-muted dark:text-slate-400">
+        Every factual claim on this site is written against an identified source and an evidence-strength label. If
+        you believe a claim is wrong, is missing an important caveat, or no longer reflects the best available
+        evidence, tell us which page, which sentence, and — if you have it — the source that contradicts us. Each
+        correction is reviewed against authoritative sources before anything is changed.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">Collaboration and other inquiries</h2>
+      <p class="text-muted dark:text-slate-400">
+        We welcome well-sourced research suggestions, corrections to the evidence library, and legitimate partnership
+        or content inquiries. We do not accept or pay for promotional links, sponsored medical claims, or any content
+        that conflicts with our{' '}
+        <a href="/methodology/" class="text-primary underline decoration-1 underline-offset-2">methodology</a> and{' '}
+        <a href="/about/" class="text-primary underline decoration-1 underline-offset-2">editorial principles</a>.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">Response expectations</h2>
+      <p class="text-muted dark:text-slate-400">
+        Quit Smoking Hub is a small, static, independently maintained website. We do not operate a support desk or a
+        guaranteed response window. We review editorial corrections on a best-effort basis and fix verified errors as
+        promptly as we can, but we cannot promise a reply to every message or a specific turnaround time.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">How to reach us</h2>
+      <p class="text-muted dark:text-slate-400">
+        This site does not currently publish a dedicated public email address or telephone number, and it operates
+        without a contact form or backend. Contact details will be published on this page once they are established.
+        Until then, factual corrections and editorial matters can be raised through the hosting platform's standard
+        contact channels, and privacy questions are handled as described in the{' '}
+        <a href="/privacy/" class="text-primary underline decoration-1 underline-offset-2">privacy policy</a>.
+      </p>
+    </div>
+
+    <div class="card p-8">
+      <h2 class="text-2xl font-bold font-heading mb-3">In an emergency</h2>
+      <p class="text-muted dark:text-slate-400">
+        This contact page is not monitored for emergencies. If you are having thoughts of harming yourself, contact a
+        local crisis line or emergency services immediately. If you are experiencing a medical emergency, call your
+        local emergency number now.
+      </p>
+    </div>
+  </section>
+</Layout>
