@@ -19,9 +19,9 @@ const ROUTED = [
 ];
 
 const SINGLE = [
-  { name: 'Popular Questions', href: '/questions/', desc: 'Direct answers to the questions people ask most often.' },
-  { name: 'Quit Timeline', href: '/timeline/', desc: 'What changes in the body, and when, after the last cigarette.' },
-  { name: 'Research Highlights', href: '/research/', desc: 'What the trial evidence does and does not establish.' },
+  { id: 'popular-questions', name: 'Popular Questions', href: '/questions/', desc: 'Direct answers to the questions people ask most often.' },
+  { id: 'timeline', name: 'Quit Timeline', href: '/timeline/', desc: 'What changes in the body, and when, after the last cigarette.' },
+  { id: 'research', name: 'Research Highlights', href: '/research/', desc: 'What the trial evidence does and does not establish.' },
 ];
 
 const STATIC_PAGES = [
@@ -100,7 +100,7 @@ const breadcrumbSchema = {
         </a>
       ))}
       {SINGLE.map((s) => (
-        <a class="rounded-full border border-gray-300 px-3 py-1 no-underline hover:border-gray-500" href={`#${s.href.replace(/\//g, '')}`}>{s.name}</a>
+        <a class="rounded-full border border-gray-300 px-3 py-1 no-underline hover:border-gray-500" href={`#${s.id}`}>{s.name}</a>
       ))}
       <a class="rounded-full border border-gray-300 px-3 py-1 no-underline hover:border-gray-500" href="#site-pages">Site pages</a>
     </nav>
@@ -124,14 +124,15 @@ const breadcrumbSchema = {
       </div>
     ))}
 
-    <div id="popular-questions" class="mt-10 scroll-mt-20">
-      <h2 class="border-b border-gray-200 pb-2 text-xl font-semibold">Single-page sections</h2>
-      <ul class="mt-4 list-none space-y-2 p-0 text-[0.95rem]">
-        {SINGLE.map((s) => (
-          <li><a href={s.href}>{s.name}</a> — <span class="text-sm text-muted">{s.desc}</span></li>
-        ))}
-      </ul>
-    </div>
+    {SINGLE.map((s) => (
+      <div id={s.id} class="mt-10 scroll-mt-20">
+        <h2 class="border-b border-gray-200 pb-2 text-xl font-semibold">
+          <a href={s.href} class="no-underline">{s.name}</a>
+        </h2>
+        <p class="mt-2 text-sm text-muted">{s.desc}</p>
+        <p class="mt-3 text-[0.95rem]"><a href={s.href}>Open {s.name} →</a></p>
+      </div>
+    ))}
 
     <div id="site-pages" class="mt-10 scroll-mt-20">
       <h2 class="border-b border-gray-200 pb-2 text-xl font-semibold">Site pages</h2>
