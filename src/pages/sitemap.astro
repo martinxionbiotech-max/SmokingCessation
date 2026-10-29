@@ -1,0 +1,145 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '~/layouts/PageLayout.astro';
+import StructuredData from '~/components/common/StructuredData.astro';
+import Breadcrumbs from '~/components/common/Breadcrumbs.astro';
+import { SITE } from 'astrowind:config';
+
+// Sections that have a real detail route, plus the three that render as a
+// single page. `base` is the URL prefix the dynamic route actually uses.
+const ROUTED = [
+  { name: 'Quit Methods', coll: 'method', base: '/methods/', desc: 'Cold turkey, NRT, varenicline, bupropion, cytisine, counselling, quitlines and more — with the evidence behind each.' },
+  { name: 'Method Comparisons', coll: 'comparison', base: '/comparisons/', desc: 'Head-to-head comparisons of the approaches people actually choose between.' },
+  { name: 'Nicotine Withdrawal', coll: 'withdrawal', base: '/withdrawal/', desc: 'What withdrawal does, how long each symptom lasts, and what actually helps.' },
+  { name: 'Cravings', coll: 'trigger', base: '/triggers/', desc: 'The situations that trigger a craving, and specific countermeasures for each.' },
+  { name: 'Relapse & Recovery', coll: 'relapse', base: '/relapse/', desc: 'What a lapse means, why it happens, and how to restart without losing the whole attempt.' },
+  { name: 'Special Situations', coll: 'population', base: '/populations/', desc: 'Pregnancy, mental-health conditions, cardiovascular disease, younger smokers.' },
+  { name: 'Patterns', coll: 'pattern', base: '/patterns/', desc: 'Recurring shapes across the experience database, stated as patterns rather than findings.' },
+  { name: 'Real Quit Experiences', coll: 'experience', base: '/experiences/', desc: 'De-identified, community-reported experiences of quitting — not scientific evidence.' },
+];
+
+const SINGLE = [
+  { name: 'Popular Questions', href: '/questions/', desc: 'Direct answers to the questions people ask most often.' },
+  { name: 'Quit Timeline', href: '/timeline/', desc: 'What changes in the body, and when, after the last cigarette.' },
+  { name: 'Research Highlights', href: '/research/', desc: 'What the trial evidence does and does not establish.' },
+];
+
+const STATIC_PAGES = [
+  ['Start Here', '/start/'],
+  ['How to Quit Smoking', '/quit-smoking/'],
+  ['Quit Tools', '/tools/'],
+  ['Methodology', '/methodology/'],
+  ['About', '/about/'],
+  ['Medical Disclaimer', '/disclaimer/'],
+  ['Privacy Policy', '/privacy/'],
+];
+
+const sections = await Promise.all(
+  ROUTED.map(async (s) => {
+    const entries = await getCollection(s.coll);
+    const items = entries
+      .filter((e) => {
+        const r = e.data.metadata?.robots;
+        return !e.data.draft && r?.index !== false;
+      })
+      .map((e) => ({ title: e.data.title ?? e.data.experienceId ?? e.id, href: `${s.base}${e.data.slug ?? e.id.replace(/\.mdx?$/, '')}/` }))
+      .sort((a, b) => a.title.localeCompare(b.title, 'en'));
+    return { ...s, items, count: items.length };
+  })
+);
+
+const total = sections.reduce((n, s) => n + s.count, 0) + SINGLE.length + STATIC_PAGES.length;
+
+const metadata = {
+  title: `Sitemap — all ${total} pages | Quit Smoking Hub`,
+  description: `Complete index of Quit Smoking Hub: ${total} pages — quit methods, comparisons, withdrawal, cravings, relapse, special situations, practitioner experiences, questions, timeline and research.`,
+  canonical: `${String(SITE.site).replace(/\/$/, '')}/sitemap/`,
+};
+
+const pageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'Sitemap',
+  description: `Complete index of Quit Smoking Hub: ${total} pages.`,
+  url: `${String(SITE.site).replace(/\/$/, '')}/sitemap/`,
+  isPartOf: { '@id': `${SITE.site}/#website` },
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: SITE.site },
+    { '@type': 'ListItem', position: 2, name: 'Sitemap', item: `${String(SITE.site).replace(/\/$/, '')}/sitemap/` },
+  ],
+};
+---
+
+<Layout metadata={metadata}>
+  <StructuredData slot="head" schema={[pageSchema, breadcrumbSchema]} />
+
+  <section class="mx-auto max-w-4xl px-4 py-10">
+    <Breadcrumbs
+      items={[
+        { label: 'Home', href: '/' },
+        { label: 'Sitemap' },
+      ]}
+    />
+
+    <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">Sitemap</h1>
+    <p class="mt-4 text-muted">
+      Every published page on the site, grouped by section and listed alphabetically.
+      <strong class="text-default">{total}</strong> pages in {sections.length + SINGLE.length} sections.
+      Crawlers should use <a class="underline" href="/sitemap-index.xml">sitemap-index.xml</a>.
+    </p>
+
+    <nav class="mt-6 flex flex-wrap gap-2 text-sm" aria-label="Sections">
+      {sections.map((s) => (
+        <a class="rounded-full border border-gray-300 px-3 py-1 no-underline hover:border-gray-500" href={`#${s.coll}`}>
+          {s.name} <span class="text-muted">{s.count}</span>
+        </a>
+      ))}
+      {SINGLE.map((s) => (
+        <a class="rounded-full border border-gray-300 px-3 py-1 no-underline hover:border-gray-500" href={`#${s.href.replace(/\//g, '')}`}>{s.name}</a>
+      ))}
+      <a class="rounded-full border border-gray-300 px-3 py-1 no-underline hover:border-gray-500" href="#site-pages">Site pages</a>
+    </nav>
+
+    {sections.map((s) => (
+      <div id={s.coll} class="mt-10 scroll-mt-20">
+        <h2 class="flex items-baseline gap-3 border-b border-gray-200 pb-2 text-xl font-semibold">
+          <a href={s.base} class="no-underline">{s.name}</a>
+          <span class="text-sm font-normal text-muted">{s.count}</span>
+        </h2>
+        <p class="mt-2 text-sm text-muted">{s.desc}</p>
+        {s.count > 0 ? (
+          <ul class="mt-4 list-none columns-1 gap-8 p-0 text-[0.95rem] sm:columns-2">
+            {s.items.map((it) => (
+              <li class="mb-1.5 break-inside-avoid leading-snug"><a href={it.href}>{it.title}</a></li>
+            ))}
+          </ul>
+        ) : (
+          <p class="mt-3 text-sm text-muted">No published entries yet.</p>
+        )}
+      </div>
+    ))}
+
+    <div id="popular-questions" class="mt-10 scroll-mt-20">
+      <h2 class="border-b border-gray-200 pb-2 text-xl font-semibold">Single-page sections</h2>
+      <ul class="mt-4 list-none space-y-2 p-0 text-[0.95rem]">
+        {SINGLE.map((s) => (
+          <li><a href={s.href}>{s.name}</a> — <span class="text-sm text-muted">{s.desc}</span></li>
+        ))}
+      </ul>
+    </div>
+
+    <div id="site-pages" class="mt-10 scroll-mt-20">
+      <h2 class="border-b border-gray-200 pb-2 text-xl font-semibold">Site pages</h2>
+      <ul class="mt-4 list-none columns-1 gap-8 p-0 text-[0.95rem] sm:columns-2">
+        {STATIC_PAGES.map(([name, href]) => (
+          <li class="mb-1.5 break-inside-avoid"><a href={href}>{name}</a></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+</Layout>

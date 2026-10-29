@@ -94,6 +94,7 @@ export const footerData = {
     { text: 'Terms of Service', href: getPermalink('/terms') },
     { text: 'Privacy Policy', href: getPermalink('/privacy') },
     { text: 'Cookie Policy', href: getPermalink('/cookies') },
+    { text: 'Sitemap', href: getPermalink('/sitemap') },
   ],
   socialLinks: [],
   footNote: `
