@@ -42,7 +42,15 @@ const sections = await Promise.all(
         const r = e.data.metadata?.robots;
         return !e.data.draft && r?.index !== false;
       })
-      .map((e) => ({ title: e.data.title ?? e.data.experienceId ?? e.id, href: `${s.base}${e.data.slug ?? e.id.replace(/\.mdx?$/, '')}/` }))
+      .map((e) => {
+        // The experiences route keys on experienceId, not slug; the other
+        // collections key on data.slug. Mirror each route exactly.
+        const key =
+          s.coll === 'experience'
+            ? e.data.experienceId
+            : (e.data.slug ?? e.id.replace(/\.mdx?$/, ''));
+        return { title: e.data.title ?? e.data.experienceId ?? e.id, href: `${s.base}${key}/` };
+      })
       .sort((a, b) => a.title.localeCompare(b.title, 'en'));
     return { ...s, items, count: items.length };
   })

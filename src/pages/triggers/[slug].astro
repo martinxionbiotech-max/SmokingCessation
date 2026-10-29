@@ -7,7 +7,7 @@ import StructuredData from '~/components/common/StructuredData.astro';
 import { SITE } from 'astrowind:config';
 
 export async function getStaticPaths() {
-  const triggers = await getCollection('triggers');
+  const triggers = await getCollection('trigger');
   return triggers.map((t) => ({ params: { slug: t.data.slug }, props: { trigger: t } }));
 }
 
