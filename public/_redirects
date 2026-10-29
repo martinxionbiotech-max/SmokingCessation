@@ -1,0 +1,4 @@
+# Canonical host: send www to the bare domain.
+# The canonical tag already points at the bare domain, but a 301 avoids two
+# hostnames serving identical content and consolidates any inbound links.
+https://www.smokingcessationhub.com/*  https://smokingcessationhub.com/:splat  301!
