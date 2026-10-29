@@ -40,6 +40,9 @@ const sections = await Promise.all(
     const items = entries
       .filter((e) => {
         const r = e.data.metadata?.robots;
+        // Experiences carry their own editorial gate: only 'published' entries
+        // get a route. Linking the other 36 produces 404s.
+        if (s.coll === 'experience') return e.data.editorialStatus === 'published';
         return !e.data.draft && r?.index !== false;
       })
       .map((e) => {
