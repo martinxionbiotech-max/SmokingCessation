@@ -2,3 +2,18 @@
 # The canonical tag already points at the bare domain, but a 301 avoids two
 # hostnames serving identical content and consolidates any inbound links.
 https://www.smokingcessationhub.com/*  https://smokingcessationhub.com/:splat  301!
+
+# Medication methods are published once, at /medications/{slug}/. Consolidate
+# the old duplicate /methods/{slug}/ URLs with permanent redirects.
+/methods/bupropion/         /medications/bupropion/         301!
+/methods/bupropion          /medications/bupropion/         301!
+/methods/cytisine/          /medications/cytisine/          301!
+/methods/cytisine           /medications/cytisine/          301!
+/methods/nicotine-gum/      /medications/nicotine-gum/      301!
+/methods/nicotine-gum       /medications/nicotine-gum/      301!
+/methods/nicotine-lozenge/  /medications/nicotine-lozenge/  301!
+/methods/nicotine-lozenge   /medications/nicotine-lozenge/  301!
+/methods/nicotine-patch/    /medications/nicotine-patch/    301!
+/methods/nicotine-patch     /medications/nicotine-patch/    301!
+/methods/varenicline/       /medications/varenicline/       301!
+/methods/varenicline        /medications/varenicline/       301!

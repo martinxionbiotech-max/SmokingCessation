@@ -8,7 +8,7 @@ import { SITE } from 'astrowind:config';
 // Sections that have a real detail route, plus the three that render as a
 // single page. `base` is the URL prefix the dynamic route actually uses.
 const ROUTED = [
-  { name: 'Quit Methods', coll: 'method', base: '/methods/', desc: 'Cold turkey, NRT, varenicline, bupropion, cytisine, counselling, quitlines and more — with the evidence behind each.' },
+  { name: 'Quit Methods', coll: 'method', base: '/methods/', desc: 'Cold turkey, gradual reduction, counselling, quitlines, digital programs and peer support — with the evidence behind each.' },
   { name: 'Method Comparisons', coll: 'comparison', base: '/comparisons/', desc: 'Head-to-head comparisons of the approaches people actually choose between.' },
   { name: 'Nicotine Withdrawal', coll: 'withdrawal', base: '/withdrawal/', desc: 'What withdrawal does, how long each symptom lasts, and what actually helps.' },
   { name: 'Cravings', coll: 'trigger', base: '/triggers/', desc: 'The situations that trigger a craving, and specific countermeasures for each.' },
@@ -43,6 +43,9 @@ const sections = await Promise.all(
         // Experiences carry their own editorial gate: only 'published' entries
         // get a route. Linking the other 36 produces 404s.
         if (s.coll === 'experience') return e.data.editorialStatus === 'published';
+        // Medication methods are canonical at /medications/{slug}/ and are
+        // listed in their own section below, not under /methods/.
+        if (s.coll === 'method' && e.data.medicationWarning) return false;
         return !e.data.draft && r?.index !== false;
       })
       .map((e) => {
@@ -59,7 +62,25 @@ const sections = await Promise.all(
   })
 );
 
-const total = sections.reduce((n, s) => n + s.count, 0) + SINGLE.length + STATIC_PAGES.length;
+const medicationItems = (await getCollection('method'))
+  .filter((m) => m.data.medicationWarning && !m.data.draft && m.data.metadata?.robots?.index !== false)
+  .map((m) => ({ title: m.data.title, href: `/medications/${m.data.slug}/` }))
+  .sort((a, b) => a.title.localeCompare(b.title, 'en'));
+
+const medicationSection = {
+  name: 'Quit Smoking Medications',
+  coll: 'medications',
+  base: '/medications/',
+  desc: 'Nicotine replacement therapy, varenicline, bupropion and cytisine — evidence pages, not prescriptions.',
+  items: medicationItems,
+  count: medicationItems.length,
+};
+
+// Insert medications directly after quit methods so the two related sections
+// stay adjacent without duplicating any entry.
+const allSections = [sections[0], medicationSection, ...sections.slice(1)];
+
+const total = allSections.reduce((n, s) => n + s.count, 0) + SINGLE.length + STATIC_PAGES.length;
 
 const metadata = {
   title: `Sitemap — all ${total} pages | Quit Smoking Hub`,
@@ -100,12 +121,12 @@ const breadcrumbSchema = {
     <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">Sitemap</h1>
     <p class="mt-4 text-muted">
       Every published page on the site, grouped by section and listed alphabetically.
-      <strong class="text-default">{total}</strong> pages in {sections.length + SINGLE.length} sections.
+      <strong class="text-default">{total}</strong> pages in {allSections.length + SINGLE.length} sections.
       Crawlers should use <a class="underline" href="/sitemap-index.xml">sitemap-index.xml</a>.
     </p>
 
     <nav class="mt-6 flex flex-wrap gap-2 text-sm" aria-label="Sections">
-      {sections.map((s) => (
+      {allSections.map((s) => (
         <a class="rounded-full border border-gray-300 px-3 py-1 no-underline hover:border-gray-500" href={`#${s.coll}`}>
           {s.name} <span class="text-muted">{s.count}</span>
         </a>
@@ -116,7 +137,7 @@ const breadcrumbSchema = {
       <a class="rounded-full border border-gray-300 px-3 py-1 no-underline hover:border-gray-500" href="#site-pages">Site pages</a>
     </nav>
 
-    {sections.map((s) => (
+    {allSections.map((s) => (
       <div id={s.coll} class="mt-10 scroll-mt-20">
         <h2 class="flex items-baseline gap-3 border-b border-gray-200 pb-2 text-xl font-semibold">
           <a href={s.base} class="no-underline">{s.name}</a>

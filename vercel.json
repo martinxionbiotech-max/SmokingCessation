@@ -1,6 +1,14 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
+  "redirects": [
+    { "source": "/methods/bupropion", "destination": "/medications/bupropion/", "permanent": true },
+    { "source": "/methods/cytisine", "destination": "/medications/cytisine/", "permanent": true },
+    { "source": "/methods/nicotine-gum", "destination": "/medications/nicotine-gum/", "permanent": true },
+    { "source": "/methods/nicotine-lozenge", "destination": "/medications/nicotine-lozenge/", "permanent": true },
+    { "source": "/methods/nicotine-patch", "destination": "/medications/nicotine-patch/", "permanent": true },
+    { "source": "/methods/varenicline", "destination": "/medications/varenicline/", "permanent": true }
+  ],
   "headers": [
     {
       "source": "/_astro/(.*)",

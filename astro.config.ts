@@ -26,6 +26,20 @@ const whenExternalScripts = (items: (() => AstroIntegration) | (() => AstroInteg
 export default defineConfig({
   output: 'static',
 
+  // Canonical consolidation: medication methods are published under
+  // /medications/{slug}/. The old /methods/{slug}/ URLs must not exist as
+  // duplicate pages. Host-level 301s live in public/_redirects, vercel.json
+  // and nginx/nginx.conf; these static redirect stubs are the portable
+  // fallback for any host that does not read those files.
+  redirects: {
+    '/methods/bupropion': '/medications/bupropion/',
+    '/methods/cytisine': '/medications/cytisine/',
+    '/methods/nicotine-gum': '/medications/nicotine-gum/',
+    '/methods/nicotine-lozenge': '/medications/nicotine-lozenge/',
+    '/methods/nicotine-patch': '/medications/nicotine-patch/',
+    '/methods/varenicline': '/medications/varenicline/',
+  },
+
   // Prefetch links as they enter the viewport for snappier navigations
   // (works together with <ClientRouter />, which enables prefetch by default).
   prefetch: {
@@ -49,7 +63,12 @@ export default defineConfig({
   ],
 
   integrations: [
-    sitemap(),
+    sitemap({
+      // Redirect stubs are generated for the six consolidated medication URLs.
+      // They must never appear in the XML sitemap.
+      filter: (page) =>
+        !/\/methods\/(bupropion|cytisine|nicotine-gum|nicotine-lozenge|nicotine-patch|varenicline)\/?$/.test(page),
+    }),
     mdx(),
     icon({
       // Local SVG icons (used as <Icon name="file-name" />) live next to the other assets.

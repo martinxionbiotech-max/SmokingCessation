@@ -1,7 +1,7 @@
 ---
 {
   "slug": "one-year-quit-then-two-packs",
-  "title": "One Year Quit, Then a Relapse That Doubled the Habit",
+  "title": "One Year Quit, Then Back to Two Packs a Day",
   "summary": "After a year smoke-free, a long-time smoker relapsed — and came back smoking two packs a day. A second quit attempt is now in its third week.",
   "situation": "First quit ended in relapse after one year; smoking then increased to two packs a day.",
   "previousQuitDuration": "1 year",

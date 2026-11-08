@@ -7,7 +7,13 @@ import Breadcrumbs from '~/components/common/Breadcrumbs.astro';
 import { SITE } from 'astrowind:config';
 import CallToAction from '~/components/widgets/CallToAction.astro';
 
-const methods = (await getCollection('method')).sort((a, b) => a.data.title.localeCompare(b.data.title));
+// Medication methods live at /medications/{slug}/ canonical URLs. Linking them
+// from this hub as /methods/{slug}/ would route every visitor through a 301 and
+// keep duplicate entries in the index, so they are listed in the medications
+// section instead.
+const methods = (await getCollection('method'))
+  .filter((m) => !m.data.medicationWarning)
+  .sort((a, b) => a.data.title.localeCompare(b.data.title));
 const grouped = methods.reduce(
   (acc, m) => {
     const cat = m.data.category;
@@ -93,6 +99,17 @@ const pageSources = [
         </div>
       ))
     }
+  </section>
+
+  <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8">
+    <div class="card p-8">
+      <h2 class="text-2xl font-bold font-heading mb-3">Medication methods</h2>
+      <p class="text-muted dark:text-slate-400 text-sm mb-4">
+        Nicotine replacement therapy, varenicline, bupropion and cytisine have dedicated evidence pages, including
+        safety considerations and what trials found. They are listed once, under medications — not duplicated here.
+      </p>
+      <a href="/medications/" class="btn btn-primary">View medication evidence pages</a>
+    </div>
   </section>
 
   <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8">

@@ -1,7 +1,7 @@
 ---
 {
   "slug": "gradual-creep-after-a-year-and-a-half",
-  "title": "A Year and a Half Lost to 'One Is Fine' Thinking",
+  "title": "Eighteen Months Smoke-Free, Then 'One Is Fine'",
   "summary": "After 18 months smoke-free, 'one cigarette is fine' became one a day, then two — and slowly, a full return to smoking.",
   "situation": "At 18 months smoke-free, the person took a single cigarette on the reasoning that one would not matter.",
   "trigger": [

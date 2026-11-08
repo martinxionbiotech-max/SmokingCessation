@@ -7,7 +7,10 @@ import StructuredData from '~/components/common/StructuredData.astro';
 import { SITE } from 'astrowind:config';
 
 export async function getStaticPaths() {
-  const methods = await getCollection('method');
+  // Medication methods are published once, at /medications/{slug}/. Their
+  // /methods/{slug}/ URLs are 301 redirects (see astro.config.ts and the host
+  // redirect files), so they must not be generated as duplicate pages here.
+  const methods = (await getCollection('method')).filter((m) => !m.data.medicationWarning);
   return methods.map((m) => ({ params: { slug: m.data.slug }, props: { method: m } }));
 }
 
