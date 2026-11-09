@@ -7,7 +7,8 @@ import Image from '~/components/common/Image.astro';
 
 import { SITE } from 'astrowind:config';
 
-const experiences = (await getCollection('experience')).filter((e) => e.data.editorialStatus === 'published');
+const allExperiences = await getCollection('experience');
+const experiences = allExperiences.filter((e) => e.data.editorialStatus === 'published');
 
 const datasetSchema = {
   '@context': 'https://schema.org',
@@ -43,6 +44,10 @@ const metadata = {
     <p class="mt-4 max-w-3xl mx-auto text-lg text-muted text-center">
       Structured, de-identified, de-duplicated records of real quit attempts from public quit-smoking communities.
       Each record is one person's report — not evidence, not advice, and never a prediction.
+    </p>
+    <p class="mt-3 max-w-3xl mx-auto text-sm text-muted dark:text-slate-400 text-center">
+      {experiences.length} of {allExperiences.length} processed records pass the quality gate and are published.{' '}
+      <a href="#quality-gate" class="text-primary underline decoration-1 underline-offset-2">How records are selected</a>
     </p>
   </section>
 
@@ -102,6 +107,19 @@ const metadata = {
         <li>Relapse details — trigger, context, what happened afterward, lessons</li>
         <li>Reported changes, positive and negative</li>
       </ul>
+    </div>
+
+    <div class="card p-8 border-l-4 border-l-primary" id="quality-gate">
+      <h2 class="text-2xl font-bold font-heading mb-3">The quality gate</h2>
+      <p class="text-muted dark:text-slate-400 mb-3 text-sm">
+        A record is published here only when all four conditions are met: a quality score of at least 7/10, complete
+        provenance (title, summary, source platform and date), a reported outcome, and at least three structured detail
+        fields such as quit method, triggers, withdrawal symptoms or lessons.
+      </p>
+      <p class="text-muted dark:text-slate-400 text-sm">
+        Records that fail stay in the internal database and are marked noindex. They are not published, linked or
+        included in the sitemap. The public set is capped at 60 records so that quantity never substitutes for detail.
+      </p>
     </div>
 
     <div class="card p-8 border-l-4 border-l-primary">

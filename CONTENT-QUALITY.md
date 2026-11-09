@@ -38,8 +38,13 @@ Each structured experience is scored 0–10 on:
 | Clarity | Coherent, extractable |
 | Privacy Safety | Fully de-identified, nothing risky |
 
-**Minimum 6/10 to enter the public Experience Database.** Below that: internal
-database only, marked `editorialStatus: noindex`.
+**Minimum 7/10 to enter the public Experience Database**, together with complete
+provenance (title, summary, source platform, published date), a reported outcome,
+and at least three structured detail fields. Below that: internal database only,
+marked `editorialStatus: noindex`.
+
+The public, indexable Experience set is capped at 60 records. Enforce both rules
+with `npm run audit:experiences` (also run automatically before `npm run build`).
 
 ## 3. Information Gain rule (anti-spam)
 
