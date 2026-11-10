@@ -1,0 +1,154 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '~/layouts/PageLayout.astro';
+import Breadcrumbs from '~/components/common/Breadcrumbs.astro';
+import Sources from '~/components/common/Sources.astro';
+import StructuredData from '~/components/common/StructuredData.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+import { SITE } from 'astrowind:config';
+
+export async function getStaticPaths() {
+  const pages = await getCollection('questionPage');
+  return pages.map((page) => ({ params: { slug: page.data.slug }, props: { page } }));
+}
+
+const { page } = Astro.props;
+const d = page.data;
+
+const site = String(SITE.site).replace(/\/$/, '');
+const url = `${site}/questions/${d.slug}/`;
+
+const metadata = {
+  title: d.question,
+  description: d.metaDescription,
+  canonical: url,
+};
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'MedicalWebPage',
+  headline: d.question,
+  name: d.question,
+  description: d.metaDescription,
+  url,
+  mainEntityOfPage: url,
+  isPartOf: { '@id': `${site}/#website` },
+  author: { '@type': 'Organization', name: 'SmokingCessationHub Tech Team' },
+  publisher: { '@id': `${site}/#organization` },
+  dateModified: d.lastReviewed,
+  datePublished: d.lastReviewed,
+  about: { '@type': 'Thing', name: 'Smoking cessation' },
+  audience: { '@type': 'PeopleAudience', audienceType: 'People who smoke and want to quit' },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: d.faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.question,
+    acceptedAnswer: { '@type': 'Answer', text: f.answer },
+  })),
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: site },
+    { '@type': 'ListItem', position: 2, name: 'Questions', item: `${site}/questions/` },
+    { '@type': 'ListItem', position: 3, name: d.question },
+  ],
+};
+---
+
+<Layout metadata={metadata}>
+  <StructuredData slot="head" schema={[articleSchema, faqSchema, breadcrumbSchema]} />
+  <Breadcrumbs
+    bar
+    items={[{ text: 'Home', href: '/' }, { text: 'Questions', href: '/questions/' }, { text: d.question }]}
+  />
+
+  <article>
+    <section class="relative mx-auto max-w-4xl px-4 sm:px-6 pt-8 md:pt-12 pb-4">
+      <p class="text-base font-bold tracking-wide uppercase text-secondary mb-2 text-center">{d.stage}</p>
+      <h1 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading text-heading text-center">
+        {d.question}
+      </h1>
+      <div class="mt-6 card p-6 border-l-4 border-l-primary">
+        <p class="text-heading font-medium">{d.directAnswer}</p>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-4xl px-4 sm:px-6 py-6">
+      <h2 class="text-2xl font-bold font-heading mb-4">The short version</h2>
+      <ul class="list-disc list-inside space-y-2 text-muted dark:text-slate-400">
+        {d.keyPoints.map((point) => <li>{point}</li>)}
+      </ul>
+    </section>
+
+    <section class="mx-auto max-w-4xl px-4 sm:px-6 py-6 space-y-10">
+      {
+        d.sections.map((section) => (
+          <div>
+            <h2 class="text-2xl font-bold font-heading mb-3">{section.heading}</h2>
+            <div class="space-y-4 text-muted dark:text-slate-400">
+              {section.paragraphs.map((p) => <p>{p}</p>)}
+            </div>
+          </div>
+        ))
+      }
+    </section>
+
+    <section class="mx-auto max-w-4xl px-4 sm:px-6 py-6">
+      <h2 class="text-2xl font-bold font-heading mb-6">More questions</h2>
+      <div class="space-y-6">
+        {
+          d.faqs.map((faq) => (
+            <div class="border-b border-gray-200 dark:border-slate-700 pb-6">
+              <h3 class="text-lg font-bold font-heading mb-2 text-heading">{faq.question}</h3>
+              <p class="text-muted dark:text-slate-400">{faq.answer}</p>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+  </article>
+
+  <section class="mx-auto max-w-4xl px-4 sm:px-6 py-6">
+    <div class="rounded-lg bg-gray-50 dark:bg-slate-800 p-6">
+      <h2 class="text-lg font-bold font-heading mb-2">How this page was written</h2>
+      <p class="text-sm text-muted dark:text-slate-400">
+        This page summarises publicly available guidance and systematic reviews. It has <strong>not been reviewed by a
+        clinician</strong>, and it is educational information rather than medical advice. It does not recommend a specific product or regimen,
+        prescribe treatment or replace a consultation. Last reviewed: {d.lastReviewed}.
+      </p>
+    </div>
+  </section>
+
+  <Sources sources={d.sources} />
+
+  <section class="mx-auto max-w-4xl px-4 sm:px-6 py-6">
+    <h2 class="text-lg font-bold font-heading mb-3">Related</h2>
+    <ul class="space-y-2 text-sm">
+      {
+        d.relatedLinks.map((link) => (
+          <li>
+            <a href={link.href} class="text-primary underline decoration-1 underline-offset-2">
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <CallToAction
+    title="Want the full picture?"
+    subtitle="Browse the question index or start with the quit basics."
+    actions={[
+      { variant: 'primary', text: 'All questions', href: '/questions/' },
+      { text: 'Start here', href: '/start/' },
+    ]}
+  />
+</Layout>

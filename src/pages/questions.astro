@@ -7,6 +7,14 @@ import CallToAction from '~/components/widgets/CallToAction.astro';
 import { SITE } from 'astrowind:config';
 
 const questions = (await getCollection('question')).sort((a, b) => a.data.question.localeCompare(b.data.question));
+const questionPages = (await getCollection('questionPage')).sort((a, b) =>
+  a.data.question.localeCompare(b.data.question)
+);
+const pageBySlug = new Map(questionPages.map((p) => [p.data.slug, p.data]));
+
+// The hub is an index, not a 112-answer wall. Long answers live on
+// /questions/{slug}/; every other question keeps its one-paragraph answer here.
+const featured = questionPages.map((p) => p.data);
 
 const stageOrder = [
   'Before Quitting',
@@ -32,55 +40,54 @@ const grouped = stageOrder
   .filter((g) => g.items.length > 0);
 const ungrouped = questions.filter((q) => !q.data.stage);
 
-const topicUrls: Record<string, string> = {
-  'Nicotine Withdrawal': '/withdrawal/',
-  'Cravings': '/cravings/',
-  'Smoking Triggers': '/triggers/',
-  'Relapse & Recovery': '/relapse/',
-  'Quit Methods': '/methods/',
-  'Methods Compared': '/comparisons/',
-  'Quit Timeline': '/timeline/',
-  'Quit Smoking Medications': '/medications/',
-  'Cold Turkey': '/methods/cold-turkey/',
-  'Gradual Reduction': '/methods/gradual-reduction/',
-  'Nicotine Replacement Therapy': '/medications/nicotine-patch/',
-  'Nicotine Patch': '/medications/nicotine-patch/',
-  'Varenicline': '/medications/varenicline/',
-  'Bupropion': '/medications/bupropion/',
-  'Cytisine': '/medications/cytisine/',
-  'Behavioral Support': '/methods/counseling/',
-  'Combination NRT': '/comparisons/combination-nrt-vs-single-form/',
-  'E-cigarettes': '/methods/',
-  'Health Benefits': '/timeline/',
-  'Real Quit Experiences': '/experiences/',
-  'Community Patterns': '/patterns/',
-  'Mental Health': '/populations/mental-health-conditions/',
-  'Pregnancy': '/populations/pregnancy/',
-  'Cardiovascular Disease': '/populations/cardiovascular-disease/',
-  'Young Smokers': '/populations/young-smokers/',
-  'Weight': '/withdrawal/weight-change/',
-  'Long-Term Recovery': '/timeline/',
+const site = String(SITE.site).replace(/\/$/, '');
+
+const pageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  headline: 'Popular Questions About Quitting Smoking',
+  name: 'Popular Questions About Quitting Smoking',
+  description:
+    'Direct answers to the questions people actually ask about quitting smoking: withdrawal, cravings, methods, relapse and health changes.',
+  url: `${site}/questions/`,
+  mainEntityPage: { '@id': `${site}/#website` },
+  isPartOf: { '@id': `${site}/#website` },
+  author: { '@type': 'Organization', name: 'SmokingCessationHub Tech Team' },
+  publisher: { '@id': `${site}/#organization` },
 };
 
-const faqSchema = {
+const listSchema = {
   '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: questions.map((q) => ({
-    '@type': 'Question',
-    name: q.data.question,
-    acceptedAnswer: { '@type': 'Answer', text: q.data.shortAnswer },
+  '@type': 'ItemList',
+  name: 'In-depth answers about quitting smoking',
+  numberOfItems: featured.length,
+  itemListElement: featured.map((q, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: q.question,
+    url: `${site}/questions/${q.slug}/`,
   })),
 };
 
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: site },
+    { '@type': 'ListItem', position: 2, name: 'Questions', item: `${site}/questions/` },
+  ],
+};
+
 const metadata = {
-  title: 'Popular Questions About Quitting Smoking | Quit Smoking Hub',
+  title: 'Popular Questions About Quitting Smoking',
   description:
     'Direct answers to the questions people actually ask about quitting smoking: withdrawal, cravings, methods, relapse and health changes.',
+  canonical: `${site}/questions/`,
 };
 ---
 
 <Layout metadata={metadata}>
-  <StructuredData slot="head" schema={faqSchema} />
+  <StructuredData slot="head" schema={[pageSchema, listSchema, breadcrumbSchema]} />
 
   <section class="relative mx-auto max-w-4xl px-4 sm:px-6 pt-8 md:pt-12 pb-4">
     <p class="text-base font-bold tracking-wide uppercase text-secondary mb-2 text-center">Popular Questions</p>
@@ -92,79 +99,78 @@ const metadata = {
     </p>
   </section>
 
-  <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8 space-y-8">
-    {
-      grouped.map((g) => (
-        <div>
-          <h2 class="text-2xl font-bold font-heading mb-4 text-primary">{g.stage}</h2>
-          <div class="space-y-8">
-            {g.items.map((q) => (
-              <div class="card p-8" id={q.data.slug}>
-                <h2 class="text-xl md:text-2xl font-bold font-heading mb-3">{q.data.question}</h2>
-                <p class="text-heading mb-4 font-medium">{q.data.shortAnswer}</p>
-                <div class="space-y-3 text-muted dark:text-slate-400">
-                  <p>{q.data.fullAnswer}</p>
-                  <p>
-                    <strong class="text-heading">Evidence:</strong> {q.data.evidence}
-                  </p>
-                  <p>
-                    <strong class="text-heading">Community experience:</strong> {q.data.communityExperience}
-                  </p>
-                  <p>
-                    <strong class="text-heading">What remains uncertain:</strong> {q.data.uncertainty}
-                  </p>
-                  {
-                    q.data.relatedTopics?.length > 0 && (
-                      <p class="text-sm">
-                        Related:{' '}
-                        {q.data.relatedTopics.map((t, i) => (
-                          <span>
-                            {i > 0 && ' · '}
-                            <a
-                              href={topicUrls[t] ?? '/questions/'}
-                              class="text-primary underline decoration-1 underline-offset-2"
-                            >
-                              {t}
-                            </a>
-                          </span>
-                        ))}
-                      </p>
-                    )
-                  }
-                </div>
-              </div>
-            ))}
+  <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8">
+    <h2 class="text-2xl font-bold font-heading mb-2 text-primary">In-depth answers</h2>
+    <p class="text-muted dark:text-slate-400 mb-6 text-sm">
+      Full pages on the questions that need more than a paragraph: timing, medication decisions, lapses and preparing to
+      stop.
+    </p>
+    <div class="grid gap-4 sm:grid-cols-2">
+      {
+        featured.map((q) => (
+          <a
+            href={`/questions/${q.slug}/`}
+            class="card p-6 no-underline block hover:border-primary border border-transparent transition-colors"
+          >
+            <span class="text-xs font-bold uppercase tracking-wide text-secondary">{q.stage}</span>
+            <h3 class="mt-1 text-lg font-bold font-heading text-heading">{q.question}</h3>
+            <p class="mt-2 text-sm text-muted dark:text-slate-400 line-clamp-3">{q.directAnswer}</p>
+            <span class="mt-3 inline-block text-sm font-semibold text-primary">Read the full answer →</span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-4 sm:px-6 pb-8">
+    <h2 class="text-2xl font-bold font-heading mb-2 text-primary">Browse all {questions.length} questions</h2>
+    <p class="text-muted dark:text-slate-400 mb-6 text-sm">
+      Grouped by the stage of quitting they belong to. Questions with a full page are linked; the rest include a short
+      answer here.
+    </p>
+    <div class="space-y-8">
+      {
+        grouped.map((g) => (
+          <div>
+            <h3 class="text-xl font-bold font-heading mb-3 text-heading">{g.stage}</h3>
+            <div class="space-y-3">
+              {g.items.map((q) => {
+                const detail = pageBySlug.get(q.data.slug);
+                return (
+                  <div class="border-b border-gray-200 dark:border-slate-700 pb-3">
+                    <p class="font-semibold text-heading">
+                      {detail ? (
+                        <a href={`/questions/${q.data.slug}/`} class="underline decoration-1 underline-offset-2">
+                          {q.data.question}
+                        </a>
+                      ) : (
+                        q.data.question
+                      )}
+                    </p>
+                    <p class="text-sm text-muted dark:text-slate-400 mt-1">{q.data.shortAnswer}</p>
+                  </div>
+                );
+              })}
+            </div>
           </div>
-        </div>
-      ))
-    }
-    {
-      ungrouped.length > 0 && (
-        <div>
-          <h2 class="text-2xl font-bold font-heading mb-4 text-primary">More Questions</h2>
-          <div class="space-y-8">
-            {ungrouped.map((q) => (
-              <div class="card p-8" id={q.data.slug}>
-                <h2 class="text-xl md:text-2xl font-bold font-heading mb-3">{q.data.question}</h2>
-                <p class="text-heading mb-4 font-medium">{q.data.shortAnswer}</p>
-                <div class="space-y-3 text-muted dark:text-slate-400">
-                  <p>{q.data.fullAnswer}</p>
-                  <p>
-                    <strong class="text-heading">Evidence:</strong> {q.data.evidence}
-                  </p>
-                  <p>
-                    <strong class="text-heading">Community experience:</strong> {q.data.communityExperience}
-                  </p>
-                  <p>
-                    <strong class="text-heading">What remains uncertain:</strong> {q.data.uncertainty}
-                  </p>
+        ))
+      }
+      {
+        ungrouped.length > 0 && (
+          <div>
+            <h3 class="text-xl font-bold font-heading mb-3 text-heading">More questions</h3>
+            <div class="space-y-3">
+              {ungrouped.map((q) => (
+                <div class="border-b border-gray-200 dark:border-slate-700 pb-3">
+                  <p class="font-semibold text-heading">{q.data.question}</p>
+                  <p class="text-sm text-muted dark:text-slate-400 mt-1">{q.data.shortAnswer}</p>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      )
-    }
+        )
+      }
+    </div>
   </section>
 
   <CallToAction

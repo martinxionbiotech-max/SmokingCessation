@@ -325,6 +325,50 @@ export const questionSchema = z.object({
   metadata: metadataDefinition(),
 });
 
+// ---------------------------------------------------------------------------
+// Question pages — long-form answers split out of the /questions/ hub
+// ---------------------------------------------------------------------------
+export const questionPageSchema = z.object({
+  slug: z.string(),
+  question: z.string(),
+  searchIntent: z.enum([
+    'INFORMATIONAL',
+    'PROBLEM',
+    'SOLUTION',
+    'COMPARISON',
+    'EXPERIENCE',
+    'TIMELINE',
+    'RELAPSE',
+    'MEDICAL',
+    'COMMERCIAL',
+  ]),
+  stage: z.string(),
+  directAnswer: z.string(),
+  metaDescription: z.string().min(120).max(160),
+  keyPoints: z.array(z.string()).min(3).max(6),
+  sections: z
+    .array(
+      z.object({
+        heading: z.string(),
+        paragraphs: z.array(z.string()).min(1),
+      })
+    )
+    .min(3),
+  faqs: z
+    .array(
+      z.object({
+        question: z.string(),
+        answer: z.string(),
+      })
+    )
+    .min(5)
+    .max(8),
+  sources: z.array(z.object({ label: z.string(), url: z.string() })).min(3),
+  relatedLinks: z.array(z.object({ label: z.string(), href: z.string() })).min(3),
+  lastReviewed: z.string(),
+  metadata: metadataDefinition(),
+});
+
 const experience = defineCollection({ loader: glob({ pattern: ['*.md', '*.mdx'], base: 'src/data/experiences' }), schema: experienceSchema });
 const research = defineCollection({ loader: glob({ pattern: ['*.md', '*.mdx'], base: 'src/data/research' }), schema: researchSchema });
 const trigger = defineCollection({ loader: glob({ pattern: ['*.md', '*.mdx'], base: 'src/data/triggers' }), schema: triggerSchema });
@@ -336,6 +380,7 @@ const pattern = defineCollection({ loader: glob({ pattern: ['*.md', '*.mdx'], ba
 const question = defineCollection({ loader: glob({ pattern: ['*.md', '*.mdx'], base: 'src/data/questions' }), schema: questionSchema });
 const comparison = defineCollection({ loader: glob({ pattern: ['*.md', '*.mdx'], base: 'src/data/comparisons' }), schema: comparisonSchema });
 const population = defineCollection({ loader: glob({ pattern: ['*.md', '*.mdx'], base: 'src/data/populations' }), schema: populationSchema });
+const questionPage = defineCollection({ loader: glob({ pattern: ['*.md', '*.mdx'], base: 'src/data/question-pages' }), schema: questionPageSchema });
 
 export const collections = {
   experience,
@@ -349,4 +394,5 @@ export const collections = {
   question,
   comparison,
   population,
+  questionPage,
 };
