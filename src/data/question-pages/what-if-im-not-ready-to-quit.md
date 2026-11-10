@@ -47,6 +47,13 @@
         "Nagging, ultimatums and repeated reminders usually increase resistance. If someone close to you is pushing hard, it can help to explain what kind of support actually helps: practical help, space, or simply not commenting on every cigarette. You are allowed to set that boundary.",
         "If the pressure is coming from a clinician, an employer or a family member, you can still control the pace. The decision to quit is yours, and the most effective plans are the ones you have some ownership of."
       ]
+    },
+    {
+      "heading": "When to get medical advice",
+      "paragraphs": [
+        "Ambivalence is not a diagnosis. Talk to a clinician if smoking is affecting your health now — a persistent cough, breathlessness, chest pain, or symptoms you have been putting off — or if low mood or anxiety is making daily life hard.",
+        "You can discuss quitting without committing to a date. A clinician can review your health and options without turning the appointment into pressure to stop immediately."
+      ]
     }
   ],
   "faqs": [

@@ -47,6 +47,13 @@
         "If you have made several serious attempts with support and keep returning to smoking, it is worth a clinical conversation. Persistent difficulty can reflect heavy dependence, an untreated mood or anxiety problem, a medication that does not suit you, or a environment that keeps undermining the attempt. None of those are character flaws, and each has a practical response.",
         "Quitlines and stop-smoking services exist for exactly this pattern. They are used to people who have tried before, and they do not require you to be confident before you call."
       ]
+    },
+    {
+      "heading": "When to get medical advice",
+      "paragraphs": [
+        "Repeated attempts are not a medical problem, but they can be a sign that something treatable is interfering: untreated depression or anxiety, heavy dependence, or a medication that does not suit you.",
+        "If you have made several supported attempts without success, ask a clinician or stop-smoking service to review the plan rather than simply trying harder. A review is more likely to find the missing piece than another unplanned attempt."
+      ]
     }
   ],
   "faqs": [

@@ -47,6 +47,13 @@
         "Do not plan your quit around a detox deadline. The first three days matter because withdrawal is most intense then, but the body keeps adjusting for weeks. Drinking water, sleeping and eating regularly support general wellbeing; there is no good evidence that a special diet or supplement speeds nicotine clearance in a meaningful way.",
         "If you are facing a nicotine test and need a reliable answer, treat the general figures as background only and get the specific information from the laboratory or the organisation requesting the test."
       ]
+    },
+    {
+      "heading": "When to get medical advice",
+      "paragraphs": [
+        "The clearance timeline is not an emergency in itself. Seek advice if you have palpitations, chest pain, severe dizziness or vomiting while using nicotine products, or if you are pregnant and unsure whether a product is appropriate.",
+        "For employment or insurance testing, ask the laboratory or the organisation requesting the test for the window that applies to you. A general health page cannot tell you how a specific test will read."
+      ]
     }
   ],
   "faqs": [

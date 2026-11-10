@@ -47,6 +47,13 @@
         "Plan the week rather than improvising it. Clear cigarettes and lighters from the house and car, tell the people you live with what you are doing, and decide in advance what you will do at your three most dangerous times of day. Keep meals and sleep as regular as you can; hunger and tiredness both amplify craving.",
         "Use the support you have arranged: medication if it has been recommended for you, a quitline or text programme, a friend who knows what you are doing, or a written list of reasons. The goal for the week is not to feel good every hour. It is to get to the end of it without smoking."
       ]
+    },
+    {
+      "heading": "When to get medical advice",
+      "paragraphs": [
+        "Feeling irritable, tired and foggy in the first week is expected. Get urgent help for chest pain, fainting, a racing or irregular heartbeat, or severe shortness of breath. Speak to a clinician promptly if low mood is persistent or severe, if you have thoughts of harming yourself, or if you cannot eat or sleep at all.",
+        "If you have a heart or lung condition, or take regular medicines, ask before adding nicotine replacement or another cessation medicine — especially in the first week, when it is tempting to improvise."
+      ]
     }
   ],
   "faqs": [

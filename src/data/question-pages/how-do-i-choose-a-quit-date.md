@@ -47,6 +47,13 @@
         "Set another date within the next few days. A missed date is common and does not mean the plan was wrong; it usually means the preparation was incomplete or the week was harder than expected. Review what got in the way, adjust one thing, and try again.",
         "Do not wait for a new surge of motivation. Motivation tends to follow action rather than precede it, and a new date creates a new decision point."
       ]
+    },
+    {
+      "heading": "When to get medical advice",
+      "paragraphs": [
+        "Choosing a date is not a medical decision, but the plan around it can be. Ask a pharmacist or clinician before starting nicotine replacement if you are pregnant, have heart disease, or take regular medicines.",
+        "If you develop chest pain, fainting or severe breathlessness after your quit date, seek urgent care rather than assuming it is withdrawal. If you have a mental health condition, consider a check-in around the date rather than waiting for a crisis."
+      ]
     }
   ],
   "faqs": [

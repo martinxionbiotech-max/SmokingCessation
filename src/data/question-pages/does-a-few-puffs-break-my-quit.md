@@ -47,6 +47,13 @@
         "There is no standard. Some programmes count continuous abstinence from the original date and treat any slip as a reset; others track 'quit date' as the start of the current attempt. Both are defensible. What matters is that the counter serves you rather than shames you.",
         "If resetting makes the quit feel honest and gives you a clean start, reset it. If it makes you feel that weeks of progress have vanished, keep the original date and record the lapse separately. Either way, the physical and psychological work you have already done is not erased by one cigarette."
       ]
+    },
+    {
+      "heading": "When to get medical advice",
+      "paragraphs": [
+        "A lapse itself does not usually need medical attention, but the feelings around it can. If a slip leaves you persistently low, anxious or unable to function, or if you have thoughts of harming yourself, speak to a clinician.",
+        "If you are using a cessation medicine and develop palpitations, chest pain or severe nausea, stop and seek advice. Do not adjust or combine medicines on your own to compensate for a lapse."
+      ]
     }
   ],
   "faqs": [

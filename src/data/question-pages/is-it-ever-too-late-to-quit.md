@@ -47,6 +47,13 @@
         "The belief that the body is already ruined is common and understandable, especially after decades of smoking. It is also one of the most reliable predictors of continued smoking. The evidence points the other way: the body continues to repair some functions and to benefit from the removal of smoke at any age.",
         "If you have smoked for forty years, the honest summary is this: you cannot recover the years already lost, and you can still change the ones ahead. That is not a slogan; it is what the cohort data show."
       ]
+    },
+    {
+      "heading": "When to get medical advice",
+      "paragraphs": [
+        "Quitting is safe for most people, but the first weeks can unmask or worsen symptoms. Seek urgent help for chest pain, fainting, severe breathlessness or coughing blood.",
+        "Speak to a clinician promptly about persistent low mood, thoughts of self-harm, or new symptoms that worry you — especially if you already have heart or lung disease. Do not assume every new symptom is part of withdrawal."
+      ]
     }
   ],
   "faqs": [
