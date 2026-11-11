@@ -4,7 +4,9 @@ import Layout from '~/layouts/PageLayout.astro';
 import Sources from '~/components/common/Sources.astro';
 import StructuredData from '~/components/common/StructuredData.astro';
 import Breadcrumbs from '~/components/common/Breadcrumbs.astro';
+import ReviewStatement from '~/components/common/ReviewStatement.astro';
 import { SITE } from 'astrowind:config';
+import { authorRef, dateFields } from '~/utils/schema';
 import CallToAction from '~/components/widgets/CallToAction.astro';
 
 // Medication methods live at /medications/{slug}/ canonical URLs. Linking them
@@ -38,19 +40,9 @@ const pageSchema = {
   url: `${String(SITE.site).replace(/\/$/, '')}/methods/`,
   mainEntityOfPage: `${String(SITE.site).replace(/\/$/, '')}/methods/`,
   isPartOf: { '@id': `${SITE.site}/#website` },
-  author: { '@type': 'Organization', name: 'SmokingCessationHub Tech Team' },
-  reviewedBy: { '@type': 'Organization', name: 'SmokingCessationHub Tech Team' },
+  author: authorRef(SITE.site),
   publisher: { '@id': `${SITE.site}/#organization` },
-};
-
-const breadcrumbSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Home', item: SITE.site },
-    { '@type': 'ListItem', position: 2, name: 'Quit Methods', item: SITE.site + '/methods/' },
-    { '@type': 'ListItem', position: 3, name: 'Quit methods: what the evidence says' },
-  ],
+  ...dateFields(),
 };
 
 const pageSources = [
@@ -63,7 +55,7 @@ const pageSources = [
 
 
 <Layout metadata={metadata}>
-  <StructuredData slot="head" schema={[pageSchema, breadcrumbSchema]} />
+  <StructuredData slot="head" schema={[pageSchema]} />
   <Breadcrumbs bar items={[{ text: 'Home', href: '/' }, { text: 'Quit Methods', href: '/methods/' }, { text: 'Quit methods: what the evidence says' }]} />
   <section class="relative mx-auto max-w-4xl px-4 sm:px-6 pt-8 md:pt-12 pb-4">
     <p class="text-base font-bold tracking-wide uppercase text-secondary mb-2 text-center">Quit Methods</p>
@@ -141,4 +133,6 @@ const pageSources = [
     subtitle="For NRT, varenicline, bupropion and cytisine, see the dedicated medication evidence pages."
     actions={[{ variant: 'primary', text: 'View Medications', href: '/medications/' }]}
   />
+
+  <ReviewStatement />
 </Layout>

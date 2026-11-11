@@ -1,7 +1,9 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '~/layouts/PageLayout.astro';
+import ReviewStatement from '~/components/common/ReviewStatement.astro';
 import StructuredData from '~/components/common/StructuredData.astro';
+import Breadcrumbs from '~/components/common/Breadcrumbs.astro';
 import CallToAction from '~/components/widgets/CallToAction.astro';
 import Image from '~/components/common/Image.astro';
 
@@ -34,7 +36,8 @@ const metadata = {
 ---
 
 <Layout metadata={metadata}>
-  <StructuredData slot="head" schema={datasetSchema} />
+  <StructuredData slot="head" schema={[datasetSchema]} />
+  <Breadcrumbs bar items={[{ text: 'Home', href: '/' }, { text: 'Real Quit Experiences' }]} />
 
   <section class="relative mx-auto max-w-4xl px-4 sm:px-6 pt-8 md:pt-12 pb-4">
     <p class="text-base font-bold tracking-wide uppercase text-secondary mb-2 text-center">Real Quit Experiences</p>
@@ -141,4 +144,6 @@ const metadata = {
       { text: 'Our Methodology', href: '/methodology/' },
     ]}
   />
+
+  <ReviewStatement />
 </Layout>

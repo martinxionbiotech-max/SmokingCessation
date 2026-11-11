@@ -1,0 +1,38 @@
+---
+/**
+ * Editorial status disclosure shown at the bottom of every content page.
+ *
+ * This site has no clinical reviewer. The wording therefore says explicitly
+ * that the page has NOT been reviewed by a clinician; it must never say
+ * "medically reviewed" or imply clinical sign-off.
+ */
+export interface Props {
+  /** `medical` for evidence pages, `community` for de-identified experience reports. */
+  variant?: 'medical' | 'community';
+  /** ISO or human date of the last edit. Omit when no verified date exists. */
+  updated?: string;
+  class?: string;
+}
+
+const { variant = 'medical', updated, class: className = '' } = Astro.props;
+
+const statement =
+  variant === 'community'
+    ? 'This is a de-identified community report. It has not been reviewed by a clinician, it is not scientific evidence, and it is not medical advice.'
+    : 'This page has not been reviewed by a clinician. It is general educational information about smoking cessation, compiled from the public guidance and research listed on the page. It is not medical advice, diagnosis or treatment, and it does not replace consultation with a qualified healthcare professional.';
+---
+
+<section class:list={['mx-auto max-w-4xl px-4 sm:px-6 pb-10', className]}>
+  <div class="rounded-lg border border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-900/40 p-5 text-sm">
+    <p class="text-muted dark:text-slate-400">
+      <span class="font-bold text-heading dark:text-slate-200">Medical review status:</span>
+      {statement}
+    </p>
+    <p class="mt-2 text-xs text-muted dark:text-slate-500">
+      {updated && <span>Last updated {updated}. </span>}
+      <a href="/editorial-policy/" class="text-primary underline decoration-1 underline-offset-2">
+        Editorial and medical review policy
+      </a>
+    </p>
+  </div>
+</section>

@@ -83,6 +83,7 @@ export const footerData = {
         { text: 'Data & Research Center', href: 'https://data.smokingcessationhub.com' },
         { text: 'Research Highlights', href: getPermalink('/research') },
         { text: 'Methodology', href: getPermalink('/methodology') },
+        { text: 'Editorial Policy', href: getPermalink('/editorial-policy') },
         { text: 'Medical Disclaimer', href: getPermalink('/disclaimer') },
       ],
     },
@@ -90,6 +91,7 @@ export const footerData = {
   secondaryLinks: [
     { text: 'About', href: getPermalink('/about') },
     { text: 'Contact', href: getPermalink('/contact') },
+    { text: 'Editorial & Medical Review Policy', href: getPermalink('/editorial-policy') },
     { text: 'Medical Disclaimer', href: getPermalink('/disclaimer') },
     { text: 'Terms of Service', href: getPermalink('/terms') },
     { text: 'Privacy Policy', href: getPermalink('/privacy') },

@@ -4,7 +4,9 @@ import Layout from '~/layouts/PageLayout.astro';
 import Sources from '~/components/common/Sources.astro';
 import StructuredData from '~/components/common/StructuredData.astro';
 import Breadcrumbs from '~/components/common/Breadcrumbs.astro';
+import ReviewStatement from '~/components/common/ReviewStatement.astro';
 import { SITE } from 'astrowind:config';
+import { authorRef, dateFields } from '~/utils/schema';
 import CallToAction from '~/components/widgets/CallToAction.astro';
 
 const medications = (await getCollection('method')).filter((m) => m.data.medicationWarning);
@@ -24,19 +26,9 @@ const pageSchema = {
   url: `${String(SITE.site).replace(/\/$/, '')}/medications/`,
   mainEntityOfPage: `${String(SITE.site).replace(/\/$/, '')}/medications/`,
   isPartOf: { '@id': `${SITE.site}/#website` },
-  author: { '@type': 'Organization', name: 'SmokingCessationHub Tech Team' },
-  reviewedBy: { '@type': 'Organization', name: 'SmokingCessationHub Tech Team' },
+  author: authorRef(SITE.site),
   publisher: { '@id': `${SITE.site}/#organization` },
-};
-
-const breadcrumbSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Home', item: SITE.site },
-    { '@type': 'ListItem', position: 2, name: 'Medications', item: SITE.site + '/medications/' },
-    { '@type': 'ListItem', position: 3, name: 'Quit smoking medications: the evidence' },
-  ],
+  ...dateFields(),
 };
 
 const pageSources = [
@@ -50,7 +42,7 @@ const pageSources = [
 
 
 <Layout metadata={metadata}>
-  <StructuredData slot="head" schema={[pageSchema, breadcrumbSchema]} />
+  <StructuredData slot="head" schema={[pageSchema]} />
   <Breadcrumbs bar items={[{ text: 'Home', href: '/' }, { text: 'Medications', href: '/medications/' }, { text: 'Quit smoking medications: the evidence' }]} />
   <section class="relative mx-auto max-w-4xl px-4 sm:px-6 pt-8 md:pt-12 pb-4">
     <p class="text-base font-bold tracking-wide uppercase text-secondary mb-2 text-center">Quit Smoking Medications</p>
@@ -125,4 +117,6 @@ const pageSources = [
     subtitle="Read the method pages to see how medication combines with counseling, quitlines and community support."
     actions={[{ variant: 'primary', text: 'Compare Quit Methods', href: '/methods/' }]}
   />
+
+  <ReviewStatement />
 </Layout>

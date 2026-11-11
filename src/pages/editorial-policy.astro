@@ -1,0 +1,256 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Sources from '~/components/common/Sources.astro';
+import StructuredData from '~/components/common/StructuredData.astro';
+import Breadcrumbs from '~/components/common/Breadcrumbs.astro';
+import { SITE } from 'astrowind:config';
+import { authorRef, dateFields, organizationRef, siteUrl } from '~/utils/schema';
+
+const metadata = {
+  title: 'Editorial and Medical Review Policy',
+  description:
+    'How Quit Smoking Hub writes, sources and corrects smoking cessation pages, and why no page here claims clinical review, medical sign-off or a named doctor.',
+};
+
+const site = siteUrl(SITE.site);
+const url = `${site}/editorial-policy/`;
+
+const pageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'Editorial and Medical Review Policy',
+  headline: 'Editorial and Medical Review Policy',
+  description: metadata.description,
+  url,
+  mainEntityOfPage: url,
+  isPartOf: { '@id': `${site}/#website` },
+  author: authorRef(SITE.site),
+  publisher: organizationRef(SITE.site),
+  ...dateFields('2026-11-11', '2026-11-11'),
+};
+
+const pageSources = [
+  {
+    label: 'WHO — Clinical treatment guideline for tobacco cessation in adults (2024)',
+    url: 'https://www.who.int/publications/i/item/9789240096431',
+  },
+  {
+    label: 'NICE — Tobacco: preventing uptake, promoting quitting and treating dependence (NG209)',
+    url: 'https://www.nice.org.uk/guidance/ng209',
+  },
+  {
+    label: 'USPSTF — Tobacco use in adults and pregnant women: counselling and interventions (2021)',
+    url: 'https://www.uspreventiveservicestaskforce.org/uspstf/recommendation/tobacco-use-in-adults-and-pregnant-women-counseling-and-interventions',
+  },
+  {
+    label: 'Cochrane — Nicotine replacement therapy for smoking cessation',
+    url: 'https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD000146.pub4/full',
+  },
+  { label: 'CDC — Tobacco and smoking', url: 'https://www.cdc.gov/tobacco/index.html' },
+  { label: 'NHS — Quit smoking', url: 'https://www.nhs.uk/better-health/quit-smoking/' },
+];
+---
+
+<Layout metadata={metadata}>
+  <StructuredData slot="head" schema={[pageSchema]} />
+  <Breadcrumbs bar items={[{ text: 'Home', href: '/' }, { text: 'Editorial and Medical Review Policy' }]} />
+
+  <section class="relative mx-auto max-w-4xl px-4 sm:px-6 pt-8 md:pt-12 pb-4">
+    <p class="text-base font-bold tracking-wide uppercase text-secondary mb-2 text-center">Trust and transparency</p>
+    <h1 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading text-heading text-center">
+      Editorial and medical review policy
+    </h1>
+    <p class="mt-4 max-w-3xl mx-auto text-lg text-muted text-center">
+      Who writes this site, where the evidence comes from, what we refuse to publish, and what our pages do not claim.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8 space-y-10">
+    <div class="card p-6 border-l-4 border-l-primary">
+      <h2 class="text-2xl font-bold font-heading mb-3">The short version</h2>
+      <ul class="list-disc list-inside space-y-2 text-muted dark:text-slate-400">
+        <li>
+          <strong class="text-heading dark:text-slate-200">No page on this site has been reviewed by a clinician.</strong>
+          We do not have a named medical reviewer, and we do not describe any page as medically reviewed, medically
+          approved, or clinically verified.
+        </li>
+        <li>
+          Every evidence page names the public guidance and research it draws on, and states how strong that evidence
+          is.
+        </li>
+        <li>
+          We publish general education only. We do not give doses, injection instructions, prescriptions,
+          individualised treatment plans, or promises that any method will work.
+        </li>
+        <li>Community experiences are labelled as community reports everywhere they appear. They are not evidence.</li>
+      </ul>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">1. Who produces this site</h2>
+      <p class="text-muted dark:text-slate-400">
+        Quit Smoking Hub is produced by the SmokingCessationHub editorial team: a small group that researches, writes,
+        structures and maintains the pages, and operates the de-identified experience database. The team includes
+        writers and editors with a background in health communication. It does not include a physician, nurse
+        practitioner, pharmacist or other licensed clinician who signs off on individual pages.
+      </p>
+      <p class="text-muted dark:text-slate-400 mt-3">
+        That means the site can summarise what public guidance says. It cannot assess your medical history, your
+        medicines, your pregnancy, your mental health or your comorbidities — and it does not try to.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">2. What “not reviewed by a clinician” means here</h2>
+      <p class="text-muted dark:text-slate-400">
+        On this site the phrase means exactly what it says. A page has been written and edited against the cited
+        sources, checked for consistency with those sources, and proofread — but no licensed clinician has read that
+        specific page and confirmed it. Pages that carry a medical claim show this disclosure at the bottom.
+      </p>
+      <p class="text-muted dark:text-slate-400 mt-3">
+        We do not use the words “medically reviewed”, “clinically reviewed”, “doctor-approved” or “medically verified”
+        anywhere on this site, and we do not display reviewer names, credentials, headshots or review badges. If a
+        clinician ever joins the review process, this page will say who they are, what they reviewed and when, before
+        any page starts claiming review.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">3. The three kinds of page on this site</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm text-left">
+          <thead>
+            <tr class="border-b border-gray-200 dark:border-slate-700">
+              <th class="py-2 pr-4 font-bold text-heading dark:text-slate-200">Page type</th>
+              <th class="py-2 pr-4 font-bold text-heading dark:text-slate-200">What it is</th>
+              <th class="py-2 font-bold text-heading dark:text-slate-200">What it is not</th>
+            </tr>
+          </thead>
+          <tbody class="text-muted dark:text-slate-400">
+            <tr class="border-b border-gray-100 dark:border-slate-800">
+              <td class="py-3 pr-4 font-semibold text-heading dark:text-slate-300">Evidence pages</td>
+              <td class="py-3 pr-4">Summaries of public guidance and systematic reviews: methods, medications, withdrawal, triggers, special situations.</td>
+              <td class="py-3">A prescription, a dosing guide, or a recommendation for an individual.</td>
+            </tr>
+            <tr class="border-b border-gray-100 dark:border-slate-800">
+              <td class="py-3 pr-4 font-semibold text-heading dark:text-slate-300">Question answers</td>
+              <td class="py-3 pr-4">Long-form answers to the questions people search for, each tied to the same source base.</td>
+              <td class="py-3">A diagnosis, or a substitute for a consultation.</td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-4 font-semibold text-heading dark:text-slate-300">Community reports</td>
+              <td class="py-3 pr-4">De-identified, structured accounts of one person's quit attempt, published only when they pass a quality gate.</td>
+              <td class="py-3">Scientific evidence, a population claim, or a typical case.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">4. Where the evidence comes from</h2>
+      <p class="text-muted dark:text-slate-400">
+        We work down a fixed source hierarchy. When sources disagree, the page says so rather than picking the more
+        dramatic answer.
+      </p>
+      <ol class="list-decimal list-inside space-y-2 text-muted dark:text-slate-400 mt-3">
+        <li>
+          <strong class="text-heading dark:text-slate-200">Clinical guidelines and public health bodies:</strong> WHO
+          (including the 2024 tobacco cessation guideline), NICE NG209, USPSTF, CDC, NHS, NIH, FDA.
+        </li>
+        <li>
+          <strong class="text-heading dark:text-slate-200">Systematic reviews and trials:</strong> Cochrane reviews and
+          the primary trials they summarise, recorded in our research register as R-001 to R-017.
+        </li>
+        <li>
+          <strong class="text-heading dark:text-slate-200">Peer-reviewed primary studies:</strong> used when no review
+          covers the question, with design and limitations stated.
+        </li>
+        <li>
+          <strong class="text-heading dark:text-slate-200">Community reports:</strong> used to describe what people
+          report, never to establish what works.
+        </li>
+      </ol>
+      <p class="text-muted dark:text-slate-400 mt-3">
+        Research records store the title, authors, year, journal, DOI or PMID where one exists, population, method,
+        main findings, limitations and a verification date. The register is published on the{' '}
+        <a href="/research/" class="text-primary underline decoration-1 underline-offset-2">research highlights page</a>{' '}
+        and in the{' '}
+        <a
+          href="https://data.smokingcessationhub.com/"
+          class="text-primary underline decoration-1 underline-offset-2"
+          rel="noopener">data and research centre</a
+        >.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">5. How uncertainty is shown</h2>
+      <p class="text-muted dark:text-slate-400">
+        Every evidence claim carries a strength label — Strong, Moderate, Limited, Mixed or Insufficient — and
+        community material is labelled community report only. Where the evidence is thin, the page says it is thin.
+        Where a widely repeated claim is not supported, the page says that too, and explains what the studies actually
+        measured.
+      </p>
+      <p class="text-muted dark:text-slate-400 mt-3">
+        We do not convert one person's outcome into a success rate, correlation into causation, or a surrogate endpoint
+        into a promise about long-term health.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">6. What we will not publish</h2>
+      <ul class="list-disc list-inside space-y-2 text-muted dark:text-slate-400">
+        <li>Doses, titration schedules, injection technique, or instructions to obtain prescription medicines.</li>
+        <li>Claims that a method cures nicotine dependence, guarantees abstinence, or works for everyone.</li>
+        <li>Invented clinicians, reviewers, credentials, clinical certifications, studies, statistics, DOIs or PMIDs.</li>
+        <li>Community posts copied verbatim, or translated and republished as our own writing.</li>
+        <li>Testimonials framed as proof of effectiveness.</li>
+        <li>Personalised advice for a named individual, including in response to emails.</li>
+      </ul>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">7. Dates, updates and AI assistance</h2>
+      <p class="text-muted dark:text-slate-400">
+        Pages show the date they were last edited. That date reflects an editorial change, not a clinical review. We do
+        not backdate pages, and we do not add review dates that did not happen.
+      </p>
+      <p class="text-muted dark:text-slate-400 mt-3">
+        Drafting and maintenance are carried out with AI-assisted editorial tooling. Every published page is checked
+        against its cited sources before it goes live, and the source list is visible on the page. AI assistance is
+        never presented as clinical expertise, and no page is described as reviewed by a person who does not exist.
+      </p>
+      <p class="text-muted dark:text-slate-400 mt-3">
+        Guidance changes. When WHO, NICE, USPSTF or the Cochrane Library publishes an update that affects a page, the
+        page is revised and the edit date changes. Pages whose sources have been superseded are revised or withdrawn
+        rather than left to age quietly.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">8. Corrections</h2>
+      <p class="text-muted dark:text-slate-400">
+        If a page misstates a source, overstates evidence, or contains a factual error, tell us through the{' '}
+        <a href="/contact/" class="text-primary underline decoration-1 underline-offset-2">contact page</a> and include
+        the URL and the passage. Corrections that change meaning are made on the page and noted in the edit date.
+        Corrections that are purely typographic are made without a note.
+      </p>
+      <p class="text-muted dark:text-slate-400 mt-3">
+        We will not remove a page because it is unflattering to a product or method. We will remove or rewrite a page
+        that turns out to be wrong.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-bold font-heading mb-3">9. If you need clinical help</h2>
+      <p class="text-muted dark:text-slate-400">
+        This site cannot provide it. For cessation medicines, pregnancy, mental health conditions, cardiovascular or
+        respiratory disease, talk to a pharmacist, GP or specialist cessation service. If you are in immediate distress
+        or having a medical emergency, contact your local emergency number.
+      </p>
+    </div>
+  </section>
+
+  <Sources sources={pageSources} maintainer="SmokingCessationHub Editorial Team" />
+</Layout>

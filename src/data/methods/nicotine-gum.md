@@ -4,7 +4,7 @@
   "title": "Nicotine Gum",
   "category": "Nicotine Replacement Therapy",
   "medicationWarning": true,
-  "summary": "Chewing gum that releases nicotine to relieve cravings quickly when they appear.",
+  "summary": "Chewing gum that releases nicotine to relieve cravings quickly when they appear: what trials found, side effects, cautions and who to ask first.",
   "whatItIs": "Nicotine gum is a fast-acting nicotine replacement: nicotine is absorbed through the lining of the mouth when the gum is chewed in a \"chew and park\" pattern.",
   "howItWorks": "It delivers a quick nicotine dose within minutes, which can blunt a craving as it appears. Because it is used on demand, it also gives the hands and mouth a behavioral substitute.",
   "evidence": "Nicotine gum is covered by the same Cochrane evidence base as other NRT forms: it increases quit success by roughly 50–60% compared with placebo.",

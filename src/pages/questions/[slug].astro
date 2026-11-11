@@ -6,6 +6,9 @@ import Sources from '~/components/common/Sources.astro';
 import StructuredData from '~/components/common/StructuredData.astro';
 import CallToAction from '~/components/widgets/CallToAction.astro';
 import { SITE } from 'astrowind:config';
+import ReviewStatement from '~/components/common/ReviewStatement.astro';
+import { seoDescription, seoTitle } from '~/utils/seo';
+import { authorRef, organizationRef, siteUrl } from '~/utils/schema';
 
 export async function getStaticPaths() {
   const pages = await getCollection('questionPage');
@@ -15,12 +18,12 @@ export async function getStaticPaths() {
 const { page } = Astro.props;
 const d = page.data;
 
-const site = String(SITE.site).replace(/\/$/, '');
+const site = siteUrl(SITE.site);
 const url = `${site}/questions/${d.slug}/`;
 
 const metadata = {
-  title: d.question,
-  description: d.metaDescription,
+  title: seoTitle(d.question),
+  description: seoDescription(d.metaDescription),
   canonical: url,
 };
 
@@ -33,8 +36,8 @@ const articleSchema = {
   url,
   mainEntityOfPage: url,
   isPartOf: { '@id': `${site}/#website` },
-  author: { '@type': 'Organization', name: 'SmokingCessationHub Tech Team' },
-  publisher: { '@id': `${site}/#organization` },
+  author: authorRef(SITE.site),
+  publisher: organizationRef(SITE.site),
   dateModified: d.lastReviewed,
   datePublished: d.lastReviewed,
   about: { '@type': 'Thing', name: 'Smoking cessation' },
@@ -50,20 +53,10 @@ const faqSchema = {
     acceptedAnswer: { '@type': 'Answer', text: f.answer },
   })),
 };
-
-const breadcrumbSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Home', item: site },
-    { '@type': 'ListItem', position: 2, name: 'Questions', item: `${site}/questions/` },
-    { '@type': 'ListItem', position: 3, name: d.question },
-  ],
-};
 ---
 
 <Layout metadata={metadata}>
-  <StructuredData slot="head" schema={[articleSchema, faqSchema, breadcrumbSchema]} />
+  <StructuredData slot="head" schema={[articleSchema, faqSchema]} />
   <Breadcrumbs
     bar
     items={[{ text: 'Home', href: '/' }, { text: 'Questions', href: '/questions/' }, { text: d.question }]}
@@ -151,4 +144,6 @@ const breadcrumbSchema = {
       { text: 'Start here', href: '/start/' },
     ]}
   />
+
+  <ReviewStatement updated={d.lastReviewed} />
 </Layout>

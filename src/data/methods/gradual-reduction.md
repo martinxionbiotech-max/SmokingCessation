@@ -3,7 +3,7 @@
   "slug": "gradual-reduction",
   "title": "Gradual Reduction Before Quitting",
   "category": "Behavioral",
-  "summary": "Cutting down the number of cigarettes per day on a schedule before stopping completely.",
+  "summary": "Cutting down the number of cigarettes per day on a schedule before stopping completely, and how this compares with quitting abruptly and all at once.",
   "whatItIs": "Gradual reduction means reducing cigarettes per day (or switching to lower-nicotine products) over days or weeks, leading to a final quit date.",
   "howItWorks": "The idea is to weaken the habit and lower nicotine intake before full cessation. Some people use a fixed schedule (e.g. one less cigarette every 2–3 days).",
   "evidence": "A 2016 Cochrane review found that people randomized to abrupt quitting were more likely to succeed than those randomized to gradual reduction, though gradual reduction still helped some people quit and remains a reasonable option for those who prefer it.",

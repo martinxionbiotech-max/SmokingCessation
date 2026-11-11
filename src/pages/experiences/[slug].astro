@@ -3,8 +3,11 @@ import { getCollection } from 'astro:content';
 import Layout from '~/layouts/PageLayout.astro';
 import Breadcrumbs from '~/components/common/Breadcrumbs.astro';
 import StructuredData from '~/components/common/StructuredData.astro';
+import ReviewStatement from '~/components/common/ReviewStatement.astro';
 
 import { SITE } from 'astrowind:config';
+import { COMMUNITY_TAIL, seoDescription, seoTitle } from '~/utils/seo';
+import { authorRef, dateFields, organizationRef, siteUrl } from '~/utils/schema';
 
 export async function getStaticPaths() {
   const experiences = (await getCollection('experience')).filter((e) => e.data.editorialStatus === 'published');
@@ -14,7 +17,10 @@ export async function getStaticPaths() {
 const { experience } = Astro.props;
 const d = experience.data;
 
-const url = `${String(SITE.site).replace(/\/$/, '')}/experiences/${d.experienceId}/`;
+const site = siteUrl(SITE.site);
+const url = `${site}/experiences/${d.experienceId}/`;
+
+const published = d.publishedDate ? new Date(d.publishedDate).toISOString().slice(0, 10) : undefined;
 
 const articleSchema = {
   '@context': 'https://schema.org',
@@ -23,28 +29,22 @@ const articleSchema = {
   description: d.summary || 'A de-identified community-reported quit smoking experience.',
   url,
   mainEntityOfPage: url,
-  publisher: { '@id': `${SITE.site}/#organization` },
-  dateModified: '2026-10-04',
-};
-
-const breadcrumbSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Home', item: SITE.site },
-    { '@type': 'ListItem', position: 2, name: 'Real Quit Experiences', item: SITE.site + '/experiences/' },
-    { '@type': 'ListItem', position: 3, name: d.title || d.experienceId },
-  ],
+  isPartOf: { '@id': `${site}/#website` },
+  author: authorRef(SITE.site),
+  publisher: organizationRef(SITE.site),
+  ...dateFields(published),
 };
 
 const metadata = {
-  title: d.title || `Quit experience ${d.experienceId}`,
-  description: d.summary || 'A de-identified community-reported quit smoking experience.',
+  title: seoTitle(d.title || `Quit experience ${d.experienceId}`),
+  description: seoDescription(d.summary || 'A de-identified community-reported quit smoking experience.', {
+    tail: COMMUNITY_TAIL,
+  }),
 };
 ---
 
 <Layout metadata={metadata}>
-  <StructuredData slot="head" schema={[articleSchema, breadcrumbSchema]} />
+  <StructuredData slot="head" schema={[articleSchema]} />
   <Breadcrumbs bar items={[{ text: 'Home', href: '/' }, { text: 'Experiences', href: '/experiences/' }, { text: d.title || d.experienceId }]} />
 
   <section class="relative mx-auto max-w-4xl px-4 sm:px-6 pt-8 md:pt-12 pb-4">
@@ -119,4 +119,6 @@ const metadata = {
       scientific evidence. Identifying details have been removed.
     </p>
   </section>
+
+  <ReviewStatement variant="community" updated={published} />
 </Layout>

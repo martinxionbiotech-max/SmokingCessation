@@ -9,20 +9,28 @@ import type { MetaData, MetaDataOpenGraph } from '~/types';
 import { getCanonical } from '~/utils/permalinks';
 
 import { adaptOpenGraphImages } from '~/utils/images';
+import { clampDescriptionMax, seoTitle } from '~/utils/seo';
 
 export interface Props extends MetaData {
   dontUseTitleTemplate?: boolean;
 }
 
 const {
-  title,
+  title: rawTitle,
   ignoreTitleTemplate = false,
   canonical = String(getCanonical(String(Astro.url.pathname))),
   robots = {},
-  description,
+  description: rawDescription,
   openGraph = {},
   twitter = {},
 } = Astro.props;
+
+// Last line of defence for SERP limits. Templates clamp their own text with a
+// meaningful disclosure tail; this guard only shortens anything that slips
+// through, so a page can never ship a title over 60 or a description over 155
+// characters.
+const title = seoTitle(rawTitle) || rawTitle;
+const description = rawDescription ? clampDescriptionMax(rawDescription) : rawDescription;
 
 const mergedOg: MetaDataOpenGraph = merge(
   {
@@ -112,17 +120,3 @@ const seoProps: SEOProps = {
 ---
 
 <SEO {...seoProps} />
-
-<script is:inline set:html={(() => {
-  const path = Astro.url.pathname.replace(/\/$/, '') || '/';
-  if (path === '/') return '';
-  const segments = path.split('/').filter(Boolean);
-  let acc = '';
-  const items = [{ '@type': 'ListItem', position: 1, name: 'Home', item: SITE.site + '/' }];
-  segments.forEach((seg, idx) => {
-    acc += '/' + seg + '/';
-    const name = seg.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
-    items.push({ '@type': 'ListItem', position: idx + 2, name, item: SITE.site + acc });
-  });
-  return JSON.stringify({ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: items });
-})()} />

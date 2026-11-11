@@ -1,10 +1,12 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '~/layouts/PageLayout.astro';
+import ReviewStatement from '~/components/common/ReviewStatement.astro';
 import StructuredData from '~/components/common/StructuredData.astro';
 import CallToAction from '~/components/widgets/CallToAction.astro';
 
 import { SITE } from 'astrowind:config';
+import { authorRef, dateFields } from '~/utils/schema';
 
 const questions = (await getCollection('question')).sort((a, b) => a.data.question.localeCompare(b.data.question));
 const questionPages = (await getCollection('questionPage')).sort((a, b) =>
@@ -52,7 +54,7 @@ const pageSchema = {
   url: `${site}/questions/`,
   mainEntityPage: { '@id': `${site}/#website` },
   isPartOf: { '@id': `${site}/#website` },
-  author: { '@type': 'Organization', name: 'SmokingCessationHub Tech Team' },
+  author: authorRef(SITE.site),
   publisher: { '@id': `${site}/#organization` },
 };
 
@@ -81,7 +83,7 @@ const breadcrumbSchema = {
 const metadata = {
   title: 'Popular Questions About Quitting Smoking',
   description:
-    'Direct answers to the questions people actually ask about quitting smoking: withdrawal, cravings, methods, relapse and health changes.',
+    'Direct answers to the questions people actually ask about quitting smoking: withdrawal, cravings, methods, relapse, sleep, weight gain and health changes.',
   canonical: `${site}/questions/`,
 };
 ---
@@ -181,4 +183,6 @@ const metadata = {
       { text: 'Research Highlights', href: '/research/' },
     ]}
   />
+
+  <ReviewStatement />
 </Layout>

@@ -3,7 +3,7 @@
   "slug": "counseling",
   "title": "Individual Counseling",
   "category": "Behavioral Support",
-  "summary": "Structured one-to-one support sessions that build quit plans and coping skills.",
+  "summary": "Structured one-to-one support sessions that build quit plans and coping skills, plus what the evidence says about counselling alongside medication.",
   "whatItIs": "Individual counseling is structured behavioral support delivered by a trained professional, in person, by phone or online, usually across several sessions.",
   "howItWorks": "Counseling helps people prepare a quit date, identify personal triggers, practice coping strategies and solve problems during the attempt, and provides accountability.",
   "evidence": "Cochrane reviews find that behavioral support, including individual counseling, increases quit rates, and that more intensive support tends to work better. Combining counseling with medication is more effective than either alone.",

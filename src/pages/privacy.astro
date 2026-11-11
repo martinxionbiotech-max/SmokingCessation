@@ -3,11 +3,12 @@ import Layout from '~/layouts/PageLayout.astro';
 import StructuredData from '~/components/common/StructuredData.astro';
 import Breadcrumbs from '~/components/common/Breadcrumbs.astro';
 import { SITE } from 'astrowind:config';
+import { authorRef, dateFields } from '~/utils/schema';
 
 const metadata = {
   title: 'Privacy Policy | Quit Smoking Hub',
   description:
-    'Privacy policy for Quit Smoking Hub: a static informational site that collects no personal data through forms and uses no tracking cookies or advertising networks.',
+    'Privacy policy for Quit Smoking Hub: a static site that collects no personal data through forms, sets no tracking cookies and runs no advertising networks.',
   ignoreTitleTemplate: true,
 };
 
@@ -21,21 +22,14 @@ const pageSchema = {
   url: `${String(SITE.site).replace(/\/$/, '')}/privacy/`,
   mainEntityOfPage: `${String(SITE.site).replace(/\/$/, '')}/privacy/`,
   isPartOf: { '@id': `${SITE.site}/#website` },
+  author: authorRef(SITE.site),
   publisher: { '@id': `${SITE.site}/#organization` },
-};
-
-const breadcrumbSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Home', item: SITE.site },
-    { '@type': 'ListItem', position: 2, name: 'Privacy Policy' },
-  ],
+  ...dateFields(),
 };
 ---
 
 <Layout metadata={metadata}>
-  <StructuredData slot="head" schema={[pageSchema, breadcrumbSchema]} />
+  <StructuredData slot="head" schema={[pageSchema]} />
   <Breadcrumbs bar items={[{ text: 'Home', href: '/' }, { text: 'Privacy Policy' }]} />
   <section class="relative mx-auto max-w-4xl px-4 sm:px-6 pt-8 md:pt-12 pb-4">
     <p class="text-base font-bold tracking-wide uppercase text-secondary mb-2 text-center">Legal</p>
