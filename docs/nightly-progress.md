@@ -1,8 +1,8 @@
 # Nightly Progress — SmokingCessationHub
 
-Last updated: 2026-11-11
-Current task: N4
-Next task: N5
+Last updated: 2026-11-12
+Current task: N5
+Next task: N6
 Status: ready
 
 ## Completed
@@ -13,6 +13,7 @@ Status: ready
 | N2 | 2026-11-09 | 0566a30 | 152 content pages (+6 redirect stubs) | Experience quality gate applied: published only records with `qualityScore >= 7`, complete provenance, a reported outcome and at least 3 structured detail fields, capped at 60. 133 published → 56 (169 records total; 111 noindex, 2 review). Sitemap has exactly 56 Experience URLs. New `scripts/experience-quality-gate.mjs` (`--check`/`--write`) runs as npm `prebuild`; hub shows 56 of 169 and documents the gate. Duplicate titles 0; broken internal links 0. |
 | N3 | 2026-11-10 | a6d5ae6 | 162 content pages (+6 redirect stubs) | Split the top 10 questions into `/questions/{slug}/` pages (970–1,161 words each; 8 FAQs; 5–6 sections; sources; explicit "not been reviewed by a clinician" note). The hub is now an index: 10 featured cards plus a compact 112-question list with short answers. The 112-question FAQPage was removed; each detail page emits its own 8-item FAQPage. HTML sitemap has a Questions section (10 entries). Duplicate titles 0; broken internal links 0. |
 | N4 | 2026-11-11 | 1415a37 | 163 content pages (+6 redirect stubs) | Metadata + schema + review disclosure pass. Every indexable page: title 20–60 chars, description 140–155, self-referencing canonical, exactly one H1, duplicate titles/descriptions 0. New `src/utils/seo.ts` clamps at render time (`seoTitle`, `seoDescription`, `clampDescriptionMax`) so future content cannot exceed the limits; three Experience titles were shortened in the data instead of relying on truncation. New `/editorial-policy/` page (source hierarchy, corrections, AI-assistance disclosure, explicit "no clinician has reviewed this page") linked from header, footer and HTML sitemap. `ReviewStatement` on every content page states the page "has not been reviewed by a clinician" — the site never uses "medically reviewed". JSON-LD: author + datePublished on Article/MedicalWebPage/WebPage, self-referential `reviewedBy` removed, non-ISO review labels no longer leak into `dateModified`, duplicate BreadcrumbList output removed (nav component already emits it). New `scripts/seo-audit.mjs` (`npm run audit:seo`): 169 HTML files, 163 indexable, 0 problems. |
+| N5 | 2026-11-12 | 4b4b339 | 163 content pages (+6 redirect stubs) | Expanded `/quit-smoking/` into the first Pillar: 4,040 source words (≈4,400 rendered), 12 H2 sections, 4 tables (health milestones, guideline comparison, method comparison, withdrawal symptoms), 12 linked sources (WHO 2024, WHO fact sheet, USPSTF 2021, NICE NG209, five Cochrane reviews, Surgeon General 2020, NHS), 29 unique internal links, and both `Article` and `MedicalWebPage` JSON-LD with author/datePublished/dateModified. No dosing, injection, efficacy guarantees or invented reviewer; the page states "Not reviewed by a clinician" in the header line and in `ReviewStatement`. `npm run audit:seo`: 169 HTML files, 163 indexable, 0 problems; duplicate titles/descriptions 0; page-level internal links 0 missing. |
 
 ## Blocked / Partial
 
@@ -29,6 +30,8 @@ Status: ready
 - N3 page selection avoided topics already covered by a deeper page (`/comparisons/`, `/withdrawal/{symptom}/`, `/populations/`) to limit keyword cannibalisation. The remaining 102 questions keep one-paragraph answers on the hub; N15–N20 will split the next 30.
 - N3 word counts are 970–1,161 per page, below the 1,200–1,800 Phase 3 target. The pages are complete (direct answer, key points, 5–6 sections, 8 FAQs, sources); expansion belongs with the N15–N20 batch rather than padding these now.
 - Astro's static `redirects` generate meta-refresh stubs for hosts that do not read `_redirects`, `vercel.json` or `nginx.conf`; these stubs are `noindex` and excluded from the XML sitemap.
+- N5 word count is measured on the Astro source after stripping frontmatter/markup (4,040); the rendered page is ≈4,400 words including navigation, sources and CTA. Pillar target for N5 is 4,000–5,000, so no padding was added. N6 is the withdrawal-timeline Pillar (3,500–4,500 words); it should reuse the timeline collection rather than duplicate it.
+- N5 keeps the guideline and medication summaries at class level. It deliberately omits doses, titration schedules and injection instructions; those belong to prescribers and product labels, not to this site.
 
 ## Rules
 
