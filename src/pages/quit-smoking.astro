@@ -5,197 +5,835 @@ import StructuredData from '~/components/common/StructuredData.astro';
 import Breadcrumbs from '~/components/common/Breadcrumbs.astro';
 import ReviewStatement from '~/components/common/ReviewStatement.astro';
 import { SITE } from 'astrowind:config';
-import { authorRef, dateFields } from '~/utils/schema';
+import { authorRef, dateFields, organizationRef, siteUrl } from '~/utils/schema';
+import { seoDescription, seoTitle } from '~/utils/seo';
 import CallToAction from '~/components/widgets/CallToAction.astro';
 
+const site = siteUrl(SITE.site);
+
 const metadata = {
-  title: 'How to Quit Smoking | Quit Smoking Hub',
-  description:
-    'An evidence-based overview of quitting smoking: preparation, choosing a method, managing withdrawal and cravings, and staying quit after the first week.',
+  title: seoTitle('How to Quit Smoking: Complete Evidence-Based Guide'),
+  description: seoDescription(
+    'A complete, source-based guide to quitting smoking: preparation, methods, withdrawal, cravings, relapse and long-term maintenance without hype.'
+  ),
 };
 
-const pageSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Article',
-  headline: 'How to Quit Smoking | Quit Smoking Hub',
-  name: 'How to Quit Smoking | Quit Smoking Hub',
-  description: 'An evidence-based overview of how to quit smoking: preparation, choosing a quit method, managing withdrawal and cravings, and staying quit.',
-  url: `${String(SITE.site).replace(/\/$/, '')}/quit-smoking/`,
-  mainEntityOfPage: `${String(SITE.site).replace(/\/$/, '')}/quit-smoking/`,
-  isPartOf: { '@id': `${SITE.site}/#website` },
-  author: authorRef(SITE.site),
-  publisher: { '@id': `${SITE.site}/#organization` },
-  ...dateFields(),
-};
-
-const pageSources = [
-    { label: 'NHS — Quit smoking', url: 'https://www.nhs.uk/live-well/quit-smoking/' },
-    { label: 'USPSTF — Tobacco Smoking Cessation in Adults, Including Pregnant Persons', url: 'https://www.uspreventiveservicestaskforce.org/uspstf/recommendation/tobacco-use-in-adults-and-pregnant-women-counseling-and-interventions' },
-    { label: 'WHO — Tobacco fact sheet', url: 'https://www.who.int/news-room/fact-sheets/detail/tobacco' },
+const pageSchema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: 'How to Quit Smoking: Complete Evidence-Based Guide',
+    name: 'How to Quit Smoking: Complete Evidence-Based Guide',
+    description:
+      'A complete, source-based guide to quitting smoking: preparation, methods, withdrawal, cravings, relapse and long-term maintenance.',
+    url: `${site}/quit-smoking/`,
+    mainEntityOfPage: `${site}/quit-smoking/`,
+    isPartOf: { '@id': `${site}/#website` },
+    author: authorRef(SITE.site),
+    publisher: organizationRef(SITE.site),
+    ...dateFields(undefined, '2026-11-12'),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'MedicalWebPage',
+    headline: 'How to Quit Smoking: Complete Evidence-Based Guide',
+    name: 'How to Quit Smoking: Complete Evidence-Based Guide',
+    description:
+      'A complete, source-based guide to quitting smoking: preparation, methods, withdrawal, cravings, relapse and long-term maintenance.',
+    url: `${site}/quit-smoking/`,
+    mainEntityOfPage: `${site}/quit-smoking/`,
+    isPartOf: { '@id': `${site}/#website` },
+    author: authorRef(SITE.site),
+    publisher: organizationRef(SITE.site),
+    about: { '@type': 'MedicalCondition', name: 'Tobacco use disorder' },
+    audience: { '@type': 'Audience', audienceType: 'Adults who smoke and want to stop' },
+    ...dateFields(undefined, '2026-11-12'),
+  },
 ];
 
+const pageSources = [
+  {
+    label: 'WHO — Clinical treatment guideline for tobacco cessation in adults (2024)',
+    url: 'https://www.who.int/publications/i/item/9789240096431',
+  },
+  {
+    label: 'WHO — Tobacco fact sheet',
+    url: 'https://www.who.int/news-room/fact-sheets/detail/tobacco',
+  },
+  {
+    label: 'USPSTF — Tobacco smoking cessation in adults, including pregnant persons (2021)',
+    url: 'https://www.uspreventiveservicestaskforce.org/uspstf/recommendation/tobacco-use-in-adults-and-pregnant-women-counseling-and-interventions',
+  },
+  {
+    label: 'NICE NG209 — Tobacco: preventing uptake, promoting quitting and treating dependence',
+    url: 'https://www.nice.org.uk/guidance/ng209',
+  },
+  {
+    label: 'Cochrane — Nicotine replacement therapy for smoking cessation',
+    url: 'https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD000146.pub4/full',
+  },
+  {
+    label: 'Cochrane — Nicotine receptor partial agonists for smoking cessation',
+    url: 'https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD006103.pub4/full',
+  },
+  {
+    label: 'Cochrane — Antidepressants for smoking cessation',
+    url: 'https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD000031.pub3/full',
+  },
+  {
+    label: 'Cochrane — Reduction versus abrupt cessation in smokers who want to quit',
+    url: 'https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD010332.pub2/full',
+  },
+  {
+    label: 'Cochrane — Pharmacological interventions: overview and network meta-analyses',
+    url: 'https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD009329.pub2/full',
+  },
+  {
+    label: 'Cochrane — Electronic cigarettes for smoking cessation',
+    url: 'https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD010216/full',
+  },
+  {
+    label: 'US Surgeon General — Smoking Cessation: A Report of the Surgeon General (2020)',
+    url: 'https://www.hhs.gov/sites/default/files/2020-cessation-sgr-full-report.pdf',
+  },
+  {
+    label: 'NHS — Quit smoking',
+    url: 'https://www.nhs.uk/live-well/quit-smoking/',
+  },
+];
+
+const tableHead = 'py-2 pr-4 font-bold text-heading dark:text-slate-200';
+const tableRow = 'border-b border-gray-100 dark:border-slate-800';
+const tableCell = 'py-3 pr-4 align-top';
 ---
 
-
-
 <Layout metadata={metadata}>
-  <StructuredData slot="head" schema={[pageSchema]} />
-  <Breadcrumbs bar items={[{ text: 'Home', href: '/' }, { text: 'How to quit smoking: what actually works' }]} />
+  <StructuredData slot="head" schema={pageSchema} />
+  <Breadcrumbs
+    bar
+    items={[{ text: 'Home', href: '/' }, { text: 'How to Quit Smoking' }]}
+  />
   <section class="relative mx-auto max-w-4xl px-4 sm:px-6 pt-8 md:pt-12 pb-4">
-    <p class="text-base font-bold tracking-wide uppercase text-secondary mb-2 text-center">How to Quit</p>
+    <p class="text-base font-bold tracking-wide uppercase text-secondary mb-2 text-center">Complete Guide</p>
     <h1 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading text-heading text-center">
-      How to quit smoking: what actually works
+      How to quit smoking: the complete evidence-based guide
     </h1>
     <p class="mt-4 max-w-3xl mx-auto text-lg text-muted text-center">
-      Quitting is not one decision — it is a process with a preparation phase, an acute withdrawal phase, and a
-      maintenance phase. Each phase has tools that work better than willpower alone.
+      A practical, source-based walkthrough of the whole process — from choosing a quit date and a method, through
+      the first month of withdrawal, to staying smoke-free a year later.
     </p>
   </section>
-  <p class="mx-auto max-w-4xl px-4 sm:px-6 pb-2 text-xs text-muted dark:text-slate-400">Maintained by <span class="font-semibold">SmokingCessationHub Tech Team</span></p>
+  <p class="mx-auto max-w-4xl px-4 sm:px-6 pb-2 text-xs text-muted dark:text-slate-400">
+    Maintained by <span class="font-semibold">SmokingCessationHub Tech Team</span> · Last updated
+    <span class="font-semibold">12 November 2026</span> · Not reviewed by a clinician
+  </p>
 
-  <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8 md:py-12">
+  <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8">
+    <div class="rounded-lg border border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-900/40 p-5 text-sm mb-10">
+      <p class="text-muted dark:text-slate-400">
+        <span class="font-bold text-heading dark:text-slate-200">What this page is:</span> a summary of public
+        guidance from the World Health Organization, USPSTF, NICE, Cochrane reviews and the US Surgeon General,
+        written for adults who smoke and want to stop. It is general education, not a personal treatment plan. It
+        contains no dosing instructions and no guarantee of success. Medication decisions belong with a clinician or
+        pharmacist who knows your history. Read our
+        <a href="/editorial-policy/" class="text-primary underline decoration-1 underline-offset-2">editorial policy</a>
+        for how sources are selected and corrected.
+      </p>
+    </div>
+
     <div class="space-y-12">
       <div>
-        <h2 class="text-2xl font-bold font-heading mb-4">1. Prepare (1–2 weeks)</h2>
-        <ul class="list-disc list-inside space-y-2 text-muted dark:text-slate-400">
-          <li><strong class="text-heading">Set a quit date</strong> and write it down.</li>
-          <li>
-            <strong class="text-heading">Choose a method:</strong>{' '}
-            <a href="/methods/" class="text-primary underline decoration-1 underline-offset-2">compare quit methods</a>.
-            Medication plus behavioral support works better than either alone.
-          </li>
-          <li>
-            <strong class="text-heading">Identify your triggers</strong> — check the{' '}
-            <a href="/triggers/" class="text-primary underline decoration-1 underline-offset-2">trigger list</a> and
-            plan a replacement for each.
-          </li>
-          <li>
-            <strong class="text-heading">Remove smoking items</strong>: cigarettes, lighters, ashtrays. Clean the car
-            and clothes.
-          </li>
-          <li>
-            <strong class="text-heading">Line up support</strong>: a quitline, a counselor, family, or a
-            quit-smoking community.
-          </li>
-        </ul>
-      </div>
-
-      <div>
-        <h2 class="text-2xl font-bold font-heading mb-4">2. Survive the first weeks</h2>
-        <p class="text-muted dark:text-slate-400 mb-3">
-          Withdrawal peaks in the first week. This is the hardest phase and it is temporary. Understand{' '}
-          <a href="/withdrawal/" class="text-primary underline decoration-1 underline-offset-2">
-            what withdrawal feels like
-          </a>{' '}
-          and use the{' '}
-          <a href="/cravings/" class="text-primary underline decoration-1 underline-offset-2">cravings playbook</a>.
-        </p>
-        <ul class="list-disc list-inside space-y-2 text-muted dark:text-slate-400">
-          <li>Most cravings pass within 5–10 minutes — wait them out, don't fight them.</li>
-          <li>Change your routines: different coffee spot, different break, different route home.</li>
-          <li>Avoid high-risk situations (alcohol, smoking friends) in the first weeks.</li>
-          <li>Use your quit method correctly — NRT and medication only work as directed.</li>
-        </ul>
-      </div>
-
-      <div>
-        <h2 class="text-2xl font-bold font-heading mb-4">3. Stay quit (weeks to years)</h2>
-        <ul class="list-disc list-inside space-y-2 text-muted dark:text-slate-400">
-          <li>
-            Track your progress — the{' '}
-            <a href="/timeline/" class="text-primary underline decoration-1 underline-offset-2">
-              quit timeline
-            </a>{' '}
-            shows what is happening in your body.
-          </li>
-          <li>Expect trigger cravings for months; each one survived weakens the association.</li>
-          <li>
-            If you lapse, read{' '}
-            <a href="/relapse/" class="text-primary underline decoration-1 underline-offset-2">
-              Relapse &amp; Recovery
-            </a>{' '}
-            and return to your quit plan the same day.
-          </li>
-          <li>Most successful quitters made multiple attempts — each attempt teaches something.</li>
-        </ul>
-      </div>
-
-      <div>
-        <h2 class="text-2xl font-bold font-heading mb-4">What does not work well</h2>
         <p class="text-muted dark:text-slate-400">
-          Waiting for the perfect moment, relying on willpower alone without a plan, and treating a lapse as total
-          failure. None of these are supported by evidence — a plan, support and (where appropriate) medication are.
+          Most people who smoke already know that quitting would help. The harder question is how to do it in a way
+          that survives a bad day, a social event, a stressful week and the ordinary pull of a habit built over
+          years. This guide answers that question in order: what quitting involves, what the evidence says works,
+          how to prepare, how to choose a method, what the first month feels like, and how to keep going after the
+          acute withdrawal is over.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Two warnings frame everything below. First, no page can tell you which medicine is right for you; that
+          depends on your health, other medicines, pregnancy status and local access. Second, the evidence describes
+          averages. Your withdrawal may be milder or harder than the averages, and neither outcome says anything
+          about your character.
         </p>
       </div>
 
       <div>
-        <h2 class="text-2xl font-bold font-heading mb-3">What the evidence supports</h2>
-        <p class="text-muted dark:text-slate-400 mb-3">
-          Three findings appear consistently across the research base — they are the backbone of this guide:
+        <h2 class="text-2xl font-bold font-heading mb-4">1. What quitting actually involves</h2>
+        <p class="text-muted dark:text-slate-400">
+          Smoking looks like one behaviour and is usually three problems stacked together. The first is
+          <strong class="text-heading">nicotine dependence</strong>: repeated exposure changes how nicotine
+          receptors respond, and removing nicotine produces a predictable withdrawal syndrome. The second is
+          <strong class="text-heading">conditioned routine</strong>: coffee, the car, work breaks, meals, alcohol and
+          stress become paired with smoking until the cue itself creates an urge. The third is
+          <strong class="text-heading">social context</strong>: friends who smoke, a household where smoking is
+          normal, and the identity of being “a smoker.”
         </p>
-        <ul class="list-disc list-inside space-y-2 text-muted dark:text-slate-400">
+        <p class="mt-3 text-muted dark:text-slate-400">
+          These layers explain why a single tool rarely feels sufficient. Medication mostly addresses the first
+          layer. Behavioural support and planning address the second and third. The strongest guideline
+          recommendation is therefore not “pick one” but “combine what you can”: behavioural support plus
+          medication where it is appropriate and available. That is the through-line of the WHO 2024 guideline,
+          USPSTF 2021 and NICE NG209.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Quitting also has a shape in time. The preparation phase is days to weeks. Acute withdrawal is roughly the
+          first one to four weeks, with most physical symptoms peaking in the first week. Maintenance then runs for
+          months, during which the risk shifts from physical discomfort to complacency, social pressure and
+          situation-specific cravings. Planning for all three phases is more useful than planning only for the quit
+          date. The
+          <a href="/withdrawal/" class="text-primary underline decoration-1 underline-offset-2">withdrawal section</a>
+          covers the symptom-by-symptom detail; the
+          <a href="/timeline/" class="text-primary underline decoration-1 underline-offset-2">quit timeline</a>
+          covers what changes in the body and when.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">2. What changes when you stop — and when</h2>
+        <p class="text-muted dark:text-slate-400 mb-4">
+          Health benefits begin earlier than most people expect and continue for years. The table below summarises
+          commonly cited milestones from public health guidance. The exact timing varies by source and by person;
+          treat the rows as population patterns, not personal promises.
+        </p>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm text-left">
+            <thead>
+              <tr class="border-b border-gray-200 dark:border-slate-700">
+                <th class={tableHead}>Time after the last cigarette</th>
+                <th class={tableHead}>What typically changes</th>
+              </tr>
+            </thead>
+            <tbody class="text-muted dark:text-slate-400">
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>20–30 minutes</td>
+                <td class={tableCell}>Heart rate and blood pressure begin moving back toward usual levels.</td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>12–24 hours</td>
+                <td class={tableCell}>
+                  Carbon monoxide in the blood falls toward normal, improving oxygen delivery. Nicotine is largely
+                  eliminated within about a day.
+                </td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>2–3 days</td>
+                <td class={tableCell}>
+                  Sense of smell and taste often begin to improve as blood flow and nerve endings recover.
+                </td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>1–9 months</td>
+                <td class={tableCell}>
+                  Coughing and shortness of breath typically decrease as airway cilia recover and clearance improves.
+                </td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>1 year</td>
+                <td class={tableCell}>
+                  The excess risk of coronary heart disease is roughly half that of a continuing smoker.
+                </td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>5 years</td>
+                <td class={tableCell}>Stroke risk moves closer to that of a non-smoker.</td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>10 years</td>
+                <td class={tableCell}>
+                  Lung cancer death risk is roughly half that of a continuing smoker; other cancers also decline.
+                </td>
+              </tr>
+              <tr>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>15 years</td>
+                <td class={tableCell}>
+                  Coronary heart disease risk approaches that of someone who never smoked.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-4 text-muted dark:text-slate-400">
+          The age at which you quit matters, but it is never too late to benefit. A large cohort analysis estimated
+          that smokers lose about a decade of life on average, that quitting before age 40 avoids roughly 90% of the
+          excess risk, and that quitting at 50–59 still avoids a substantial share. Benefits appear at every age
+          studied. The practical conclusion is not “quit while you are young” but “the best available day is today,
+          and a later attempt still counts.”
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          These figures describe risk reduction, not invulnerability. A former smoker can still develop smoking-related
+          disease, and screening recommendations depend on age, history and local guidance. If you have symptoms such
+          as a persistent cough, coughing blood, chest pain or unexplained weight loss, seek medical assessment
+          rather than assuming they are part of quitting.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">3. What the guidelines recommend</h2>
+        <p class="text-muted dark:text-slate-400 mb-4">
+          Four major bodies have published cessation guidance in recent years. They differ in emphasis and in how
+          they handle pregnancy and e-cigarettes, but they agree on the core: identify people who smoke, offer
+          structured support, and offer medication where appropriate. The table summarises the parts relevant to an
+          individual quit attempt.
+        </p>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm text-left">
+            <thead>
+              <tr class="border-b border-gray-200 dark:border-slate-700">
+                <th class={tableHead}>Guideline</th>
+                <th class={tableHead}>Behavioural support</th>
+                <th class={tableHead}>Medication</th>
+                <th class={tableHead}>Practical message</th>
+              </tr>
+            </thead>
+            <tbody class="text-muted dark:text-slate-400">
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>WHO 2024</td>
+                <td class={tableCell}>Brief advice from health workers plus structured behavioural support.</td>
+                <td class={tableCell}>
+                  Varenicline, NRT, bupropion and cytisine are recommended as effective options.
+                </td>
+                <td class={tableCell}>Combine behavioural support with medication; use digital tools as a complement.</td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>USPSTF 2021</td>
+                <td class={tableCell}>
+                  Ask, advise and provide behavioural interventions; effective in non-pregnant adults.
+                </td>
+                <td class={tableCell}>
+                  NRT, bupropion and varenicline are recommended for non-pregnant adults. For pregnant persons,
+                  behavioural interventions are the recommended approach.
+                </td>
+                <td class={tableCell}>Screen every adult; offer support rather than assuming people will ask.</td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>NICE NG209</td>
+                <td class={tableCell}>Person-centred support, repeated if needed; quitlines and digital options.</td>
+                <td class={tableCell}>
+                  Offer combination NRT, varenicline or bupropion alongside behavioural support; e-cigarettes can be
+                  considered within local rules.
+                </td>
+                <td class={tableCell}>Match the offer to the person and review it; do not treat one attempt as the last.</td>
+              </tr>
+              <tr>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>US Surgeon General 2020</td>
+                <td class={tableCell}>Counselling, quitlines and community support all have evidence.</td>
+                <td class={tableCell}>
+                  NRT, varenicline and bupropion have strong evidence; combination approaches are most effective.
+                </td>
+                <td class={tableCell}>Quitting benefits health at any age; combination beats a single tool.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-4 text-sm text-muted dark:text-slate-500">
+          This table is a summary, not a substitute for the guidelines. Local availability, reimbursement and
+          licensing differ by country. If a medicine is unavailable or unaffordable, behavioural support and a
+          structured plan are still worth doing.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">4. Step 1 — Prepare before your quit date</h2>
+        <p class="text-muted dark:text-slate-400">
+          Preparation is the part people skip, and it is the part that makes the first week survivable. You do not
+          need a perfect plan; you need enough structure that a craving does not require a fresh decision every
+          time.
+        </p>
+        <ul class="mt-3 list-disc list-inside space-y-2 text-muted dark:text-slate-400">
           <li>
-            <strong class="text-heading">Medication + behavioural support beats either alone</strong> — the single
-            most consistent recommendation across WHO 2024, USPSTF 2021 and NICE NG209 (see the{' '}
-            <a
-              href="https://data.smokingcessationhub.com/guidelines/"
-              target="_blank"
-              class="text-primary underline decoration-1 underline-offset-2"
-            >
-              guideline comparison
-            </a>).
+            <strong class="text-heading">Pick a date within the next two weeks.</strong> A distant date invites
+            “later.” If you need time to arrange support or a prescription, choose the earliest workable date rather
+            than waiting for a feeling of readiness.
           </li>
           <li>
-            <strong class="text-heading">Withdrawal is temporary</strong> — most physical symptoms peak in week 1
-            and resolve within 2–4 weeks; craving is the exception that fades more slowly (see the{' '}
-            <a
-              href="https://data.smokingcessationhub.com/withdrawal/"
-              target="_blank"
-              class="text-primary underline decoration-1 underline-offset-2"
-            >
-              withdrawal science
-            </a>).
+            <strong class="text-heading">Track your smoking for three days.</strong> Note the time, place, activity,
+            mood and craving strength for each cigarette. Patterns usually appear quickly: the same chair, the same
+            break, the same person.
           </li>
           <li>
-            <strong class="text-heading">A lapse is not a relapse</strong> — a single slip is recoverable; the
-            evidence-based response is to analyze the trigger and recommit the same day (see{' '}
-            <a href="/relapse/" class="text-primary underline decoration-1 underline-offset-2">Relapse &amp; Recovery</a>).
+            <strong class="text-heading">Turn the patterns into if-then plans.</strong> “If I finish a meal, then I
+            brush my teeth and take a five-minute walk.” “If I get in the car, then I put my phone in the holder and
+            start a podcast.” Specific plans beat general intentions.
+          </li>
+          <li>
+            <strong class="text-heading">Tell one or two people.</strong> A partner, friend or colleague who knows
+            your date can check in without judging. If nobody nearby is supportive, a quitline or online community
+            can serve the same function.
+          </li>
+          <li>
+            <strong class="text-heading">Clear the environment.</strong> Remove cigarettes, lighters, ashtrays and
+            hidden stashes from home, car and bag. Clean clothes and soft furnishings if the smell is a trigger.
+          </li>
+          <li>
+            <strong class="text-heading">Sort out medication before day one.</strong> If you plan to use NRT or a
+            prescription medicine, speak to a pharmacist or clinician first. Ask what to do if you miss a day, what
+            side effects to expect, and which medicines or conditions matter for you. Do not start, stop or combine
+            medicines on the basis of a website.
+          </li>
+          <li>
+            <strong class="text-heading">Plan the first 72 hours concretely.</strong> Put the plan in writing:
+            where you will go at your usual smoke break, what you will drink, who you will text, what you will do at
+            the hardest time of day.
+          </li>
+          <li>
+            <strong class="text-heading">Write down your reason — and your fallback.</strong> The reason should be
+            specific to you. The fallback should be a sentence you can read at 11 p.m. on day two: “This is
+            withdrawal, it peaks and passes, and I only have to get through tonight.”
           </li>
         </ul>
-        <p class="mt-3 text-sm text-muted dark:text-slate-500">
-          Evidence grading and the underlying studies: the{' '}
-          <a
-            href="https://data.smokingcessationhub.com/research/"
-            target="_blank"
-            class="text-primary underline decoration-1 underline-offset-2"
-          >
-            Data Center research database
-          </a>.
+        <p class="mt-4 text-muted dark:text-slate-400">
+          If you are pregnant, breastfeeding, taking regular medicines, or living with a heart, lung or mental health
+          condition, build the plan with a clinician rather than around them. The
+          <a href="/populations/" class="text-primary underline decoration-1 underline-offset-2">special situations</a>
+          section summarises the issues for each group. The
+          <a href="/questions/how-do-i-choose-a-quit-date/" class="text-primary underline decoration-1 underline-offset-2">
+            quit-date question
+          </a>
+          covers the timing problem in more detail.
         </p>
       </div>
 
       <div>
-        <h2 class="text-2xl font-bold font-heading mb-3">What varies between people</h2>
+        <h2 class="text-2xl font-bold font-heading mb-4">5. Step 2 — Choose a method that fits</h2>
+        <p class="text-muted dark:text-slate-400 mb-4">
+          There is no single best method for everyone. The evidence supports several routes, and the best route is
+          the one you can use correctly and keep using. The table compares the main options at the level of
+          principle; the
+          <a href="/methods/" class="text-primary underline decoration-1 underline-offset-2">methods section</a>
+          and
+          <a href="/medications/" class="text-primary underline decoration-1 underline-offset-2">medication section</a>
+          carry the detail.
+        </p>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm text-left">
+            <thead>
+              <tr class="border-b border-gray-200 dark:border-slate-700">
+                <th class={tableHead}>Approach</th>
+                <th class={tableHead}>What it involves</th>
+                <th class={tableHead}>What the evidence suggests</th>
+                <th class={tableHead}>Good fit when…</th>
+              </tr>
+            </thead>
+            <tbody class="text-muted dark:text-slate-400">
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Abrupt cessation</td>
+                <td class={tableCell}>Stop completely on a chosen date, with or without medication and support.</td>
+                <td class={tableCell}>
+                  A Cochrane review found abrupt cessation more likely to succeed than gradual reduction before
+                  quitting, though both produced successes.
+                </td>
+                <td class={tableCell}>You want a clear line and can arrange support for the first week.</td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Gradual reduction</td>
+                <td class={tableCell}>Reduce cigarettes step by step, then stop on a set date.</td>
+                <td class={tableCell}>
+                  Less effective on average than abrupt quitting, but still a valid route for people who need a
+                  stepwise approach.
+                </td>
+                <td class={tableCell}>A sudden stop feels unmanageable, or your clinician recommends a taper.</td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>NRT</td>
+                <td class={tableCell}>
+                  Nicotine patch, gum, lozenge, inhalator or spray, used singly or in combination.
+                </td>
+                <td class={tableCell}>
+                  Any form increases quit rates by roughly 50–70% versus placebo or no medication; combination NRT
+                  ranks among the most effective options.
+                </td>
+                <td class={tableCell}>You prefer a widely available option without a prescription.</td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Varenicline</td>
+                <td class={tableCell}>A prescription partial nicotine-receptor agonist, started before the quit date.</td>
+                <td class={tableCell}>
+                  Roughly doubles to triples the odds of quitting versus placebo in trials; among the most effective
+                  single medicines.
+                </td>
+                <td class={tableCell}>You can see a prescriber and have no contraindication.</td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Bupropion</td>
+                <td class={tableCell}>A prescription antidepressant used for cessation, started before the quit date.</td>
+                <td class={tableCell}>Roughly doubles quit rates versus placebo; less effective than varenicline in indirect comparisons.</td>
+                <td class={tableCell}>NRT and varenicline are unsuitable or unavailable.</td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Cytisine</td>
+                <td class={tableCell}>A short prescription course of a plant-derived partial agonist.</td>
+                <td class={tableCell}>
+                  Better than placebo; in one large trial, six-month quit rates were not significantly different
+                  from NRT, at much lower cost.
+                </td>
+                <td class={tableCell}>It is licensed and available where you live.</td>
+              </tr>
+              <tr>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Behavioural support</td>
+                <td class={tableCell}>
+                  Counselling, quitlines, group programmes, digital programmes or peer support.
+                </td>
+                <td class={tableCell}>
+                  Improves quit rates on its own and adds benefit alongside medication; the format matters less than
+                  actually using it.
+                </td>
+                <td class={tableCell}>Always — it is the layer that addresses routines and social triggers.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-4 text-muted dark:text-slate-400">
+          Three practical rules cut through most of the choice. First, if a medicine is appropriate for you,
+          combining it with behavioural support is better than either alone. Second, combination NRT — a patch for
+          background nicotine plus a faster-acting form for breakthrough cravings — is more effective than a single
+          form, and should be arranged with a pharmacist or clinician rather than improvised. Third, the method you
+          can actually obtain and use consistently beats the theoretically superior method you cannot.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          E-cigarettes sit outside the licensed-medicine framework in many countries. Cochrane reviews find
+          moderate-certainty evidence that nicotine e-cigarettes increase quit rates compared with NRT and with
+          behavioural support alone, while noting that long-term safety data are limited. NICE allows them to be
+          considered as a stop-smoking aid within local rules; other regulators take a stricter view. If you are
+          considering one, the honest summary is “better than continuing to smoke, not risk-free, and not a
+          licensed cessation medicine in most places.” The
+          <a href="/comparisons/" class="text-primary underline decoration-1 underline-offset-2">comparison section</a>
+          covers the head-to-head questions in more depth.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">6. Step 3 — Get through the first 72 hours</h2>
         <p class="text-muted dark:text-slate-400">
-          Dependence level, smoking history, living situation, mental health history and support all shape the quit
-          experience. Someone with 30 years of heavy smoking and someone with 3 years of light smoking face
-          different withdrawal intensities; the evidence-based elements (plan, support, medication where
-          appropriate) stay the same, but their proportions differ. Community experiences in the database reflect
-          this spread — read them as possibilities, never predictions.
+          The first three days carry a disproportionate share of the difficulty. Nicotine is largely gone within a
+          day, but receptor adaptation and routine disruption peak over the next few days. The goal is not to feel
+          normal; it is to keep the quit intact until the peak passes.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          <strong class="text-heading">Day one</strong> is mostly about access and routine. Do not keep a “just in
+          case” cigarette. Change the order of your morning. If coffee is inseparable from smoking, switch to tea or
+          drink it somewhere else for a week. Eat regular meals; low blood sugar makes irritability worse. Drink
+          water when an urge arrives, and leave the room where you would normally smoke.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          <strong class="text-heading">Day two and day three</strong> are often the peak. Irritability, difficulty
+          concentrating, restlessness and poor sleep are common. Use your medication exactly as arranged — not more,
+          not less — and follow the product label or your prescriber’s instructions. If you are using a fast-acting
+          NRT, have it within reach before the craving, not after you have already started searching for cigarettes.
+          The
+          <a href="/questions/first-week-hardest/" class="text-primary underline decoration-1 underline-offset-2">
+            first-week question
+          </a>
+          explains why days two to four feel worse than day one.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Cravings usually arrive as a wave: a rapid rise, a plateau of a few minutes, then a fall. Most pass within
+          five to ten minutes if you do not feed them. Useful responses include delaying (“I will decide in ten
+          minutes”), changing location, drinking water, slow breathing, texting someone, or doing a short physical
+          task. The
+          <a href="/cravings/" class="text-primary underline decoration-1 underline-offset-2">cravings playbook</a>
+          has a longer list; the point is to have two or three responses you can use without thinking.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Protect sleep where you can. Nicotine is a stimulant, and early abstinence can fragment sleep even when you
+          feel tired. Reduce caffeine after midday, keep a consistent bedtime, and avoid lying in bed arguing with
+          yourself. If insomnia is severe or lasts beyond a few weeks, discuss it with a clinician rather than
+          treating it with alcohol or sedatives. The
+          <a href="/withdrawal/sleep/" class="text-primary underline decoration-1 underline-offset-2">sleep symptom page</a>
+          covers this in detail.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">7. Step 4 — Manage withdrawal in the first month</h2>
+        <p class="text-muted dark:text-slate-400 mb-4">
+          Withdrawal is not a sign that quitting is damaging you; it is the nervous system adjusting to the absence
+          of nicotine. Most symptoms peak in the first week and resolve within two to four weeks. Craving and
+          increased appetite can persist longer. The table describes the common pattern and the practical response.
+        </p>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm text-left">
+            <thead>
+              <tr class="border-b border-gray-200 dark:border-slate-700">
+                <th class={tableHead}>Symptom</th>
+                <th class={tableHead}>Typical pattern</th>
+                <th class={tableHead}>What helps</th>
+              </tr>
+            </thead>
+            <tbody class="text-muted dark:text-slate-400">
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Cravings</td>
+                <td class={tableCell}>Strong in the first week, then episodic; triggered by cues for months.</td>
+                <td class={tableCell}>Delay, distract, change location, use fast-acting NRT if prescribed; plan for known triggers.</td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Irritability and anger</td>
+                <td class={tableCell}>Often peaks in the first week and eases by weeks two to four.</td>
+                <td class={tableCell}>Warn people around you, reduce unnecessary conflict, exercise, use NRT as arranged.</td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Poor concentration</td>
+                <td class={tableCell}>Common in the first two weeks; usually temporary.</td>
+                <td class={tableCell}>Shorten tasks, take breaks, avoid important decisions in the first few days if possible.</td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Sleep disturbance</td>
+                <td class={tableCell}>Falling asleep or staying asleep can be harder for several weeks.</td>
+                <td class={tableCell}>Less caffeine, wind-down routine, daylight and activity; seek advice if persistent.</td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Increased appetite</td>
+                <td class={tableCell}>Common; weight gain is usually modest and can be managed over time.</td>
+                <td class={tableCell}>Regular meals, protein and fibre, water, planned snacks; do not crash-diet in the first month.</td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Low mood or anxiety</td>
+                <td class={tableCell}>Can worsen temporarily, especially in the first weeks.</td>
+                <td class={tableCell}>Use support, keep routines, and tell a clinician early if symptoms are severe or worsening.</td>
+              </tr>
+              <tr>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Cough</td>
+                <td class={tableCell}>A temporary increase is common as airway clearance improves.</td>
+                <td class={tableCell}>Usually settles; coughing blood, chest pain or breathlessness needs medical assessment.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-4 text-muted dark:text-slate-400">
+          Two safety points are worth stating plainly. Severe depression, hopelessness or thoughts of self-harm need
+          urgent help from a local health service, not a quit forum. Chest pain, severe breathlessness, coughing
+          blood or unexplained weight loss also need medical assessment. Most withdrawal symptoms are uncomfortable
+          but not dangerous; those are different.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          If you take regular medicines, tell your prescriber that you have stopped smoking. Smoking changes the
+          metabolism of some drugs, so doses sometimes need review. This is a routine conversation, not a reason to
+          delay quitting. The
+          <a href="/withdrawal/" class="text-primary underline decoration-1 underline-offset-2">withdrawal section</a>
+          has a page for each symptom, including
+          <a href="/withdrawal/irritability/" class="text-primary underline decoration-1 underline-offset-2">irritability</a>,
+          <a href="/withdrawal/sleep/" class="text-primary underline decoration-1 underline-offset-2">sleep</a> and
+          <a href="/withdrawal/weight-change/" class="text-primary underline decoration-1 underline-offset-2">weight change</a>.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">8. Step 5 — Handle cravings and triggers</h2>
+        <p class="text-muted dark:text-slate-400">
+          A trigger is a learned association, not a character flaw. The smell of coffee, the end of a meal, a
+          specific road, a work deadline or a glass of wine can each activate the expectation of a cigarette. The
+          association weakens with repeated exposure without smoking, but it does not disappear on a fixed schedule.
+          Most people report that trigger cravings become less frequent and less intense over months, while a few
+          situations can still produce a surprise urge a year later.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          The practical method is to separate the trigger from the response. For the first two to four weeks, change
+          the context where you can: take your break somewhere else, sit in a different chair, drive a different
+          route, switch the after-meal routine. Where you cannot change the context, rehearse the response. “If I
+          walk past the smoking area, then I keep walking and call someone.” “If I finish dinner, then I get up and
+          wash the plates immediately.”
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Alcohol deserves its own plan. It lowers inhibition and is present at many social occasions, which makes it
+          one of the most commonly reported relapse triggers. For the first month, consider drinking less, drinking
+          later, holding a non-alcoholic drink, or leaving events early. If you do drink, decide in advance what you
+          will do when someone offers a cigarette. “No thanks, I have stopped” said once is easier than a debate.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          The
+          <a href="/triggers/" class="text-primary underline decoration-1 underline-offset-2">trigger library</a>
+          has specific countermeasures for
+          <a href="/triggers/after-meals/" class="text-primary underline decoration-1 underline-offset-2">after meals</a>,
+          <a href="/triggers/coffee/" class="text-primary underline decoration-1 underline-offset-2">coffee</a>,
+          <a href="/triggers/alcohol/" class="text-primary underline decoration-1 underline-offset-2">alcohol</a>,
+          <a href="/triggers/stress/" class="text-primary underline decoration-1 underline-offset-2">stress</a> and
+          <a href="/triggers/social-events/" class="text-primary underline decoration-1 underline-offset-2">social events</a>.
+          Read the two or three that match your pattern rather than trying to memorise all of them.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">9. Step 6 — Stay quit after the first month</h2>
+        <p class="text-muted dark:text-slate-400">
+          By the end of the first month, most physical symptoms have settled. The risk changes shape. The main
+          threats are now complacency (“I have done it, so one is fine”), social pressure, a major stressor, and the
+          slow return of old routines. Maintenance is less dramatic than withdrawal but it is where most long-term
+          quits are won or lost.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Keep at least one form of support in place for the first three months. That can be a weekly check-in with a
+          friend, a quitline callback, a digital programme or a community. Review your plan at the end of each month:
+          what was hardest, what worked, what needs to change. Set small, concrete goals rather than relying on
+          motivation. If you used medication, do not stop it early without discussing the plan with your prescriber
+          or pharmacist; the instructions that came with it exist for a reason.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Identity matters more than most people expect. “I am trying to quit” keeps smoking in the present tense;
+          “I do not smoke” frames it as a settled fact. Practice the sentence before you need it. It also helps to
+          replace the functions smoking served — a break, a reward, a way to socialise, a way to handle anger. If
+          smoking was your only pause in the day, build another pause. If it was your only reward, build another
+          reward.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Weight gain is common and usually modest. It is a health issue worth managing, but it is not a reason to
+          return to smoking, which carries a much larger risk. Focus on regular meals, activity and sleep rather than
+          a restrictive diet in the first month. The
+          <a href="/withdrawal/weight-change/" class="text-primary underline decoration-1 underline-offset-2">weight change page</a>
+          explains the trade-off. If low mood or anxiety persists or worsens, seek help; quitting does not require
+          you to white-knuckle a treatable condition. The
+          <a href="/populations/mental-health-conditions/" class="text-primary underline decoration-1 underline-offset-2">
+            mental health section
+          </a>
+          covers this.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">10. If you slip, what to do</h2>
+        <p class="text-muted dark:text-slate-400">
+          A lapse is one cigarette; a relapse is a return to regular smoking. The difference is what happens in the
+          next few hours. The most damaging response is the all-or-nothing story: “I have ruined it, so I may as
+          well finish the pack.” That story is not supported by the evidence and it turns a single event into a
+          restart.
+        </p>
+        <ul class="mt-3 list-disc list-inside space-y-2 text-muted dark:text-slate-400">
+          <li><strong class="text-heading">Stop at the cigarette.</strong> Do not buy a pack, do not finish someone else’s, do not “test” whether you can have one.</li>
+          <li><strong class="text-heading">Write down what happened.</strong> Where were you, who was there, what were you feeling, what did you tell yourself?</li>
+          <li><strong class="text-heading">Change one thing in the plan.</strong> A lapse is information about a gap, not proof of failure.</li>
+          <li><strong class="text-heading">Recommit the same day.</strong> The sooner you return to the quit, the shorter the lapse stays a lapse.</li>
+          <li><strong class="text-heading">If it happens repeatedly, add support.</strong> A different method, a clinician conversation or a structured programme is a sensible next step, not a concession.</li>
+        </ul>
+        <p class="mt-4 text-muted dark:text-slate-400">
+          Most people who quit successfully took more than one attempt. That is not a consolation prize; it is the
+          normal shape of the evidence. The
+          <a href="/relapse/" class="text-primary underline decoration-1 underline-offset-2">relapse and recovery section</a>
+          covers the common patterns, and the
+          <a href="/questions/does-a-few-puffs-break-my-quit/" class="text-primary underline decoration-1 underline-offset-2">
+            “does a few puffs break my quit”
+          </a>
+          answer deals with the specific worry directly.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">11. Special situations</h2>
+        <p class="text-muted dark:text-slate-400">
+          The core approach — support, a plan, and medication where appropriate — applies to almost everyone, but the
+          details change for some groups.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          <strong class="text-heading">Pregnancy and breastfeeding.</strong> Stopping smoking is one of the most
+          important things you can do for a pregnancy. USPSTF recommends behavioural interventions for pregnant
+          persons; UK guidance allows NRT to be considered after a conversation about risks and benefits, with the
+          decision made by the maternity team. Do not start or stop any medicine during pregnancy without that
+          conversation. The
+          <a href="/populations/pregnancy/" class="text-primary underline decoration-1 underline-offset-2">pregnancy page</a>
+          sets out the detail.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          <strong class="text-heading">Mental health conditions.</strong> Smoking is common among people with
+          depression, anxiety, ADHD and other conditions, and quitting can temporarily worsen mood or anxiety.
+          A large randomised trial found no significant increase in moderate-to-severe neuropsychiatric events with
+          varenicline or bupropion compared with placebo or patch, but individual monitoring still matters. Quitting
+          is not a reason to stop psychiatric treatment; it is a reason to plan it with your clinician. The
+          <a href="/populations/mental-health-conditions/" class="text-primary underline decoration-1 underline-offset-2">
+            mental health page
+          </a>
+          covers the trade-offs.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          <strong class="text-heading">Cardiovascular disease.</strong> Quitting reduces cardiovascular risk at every
+          stage, and the benefit begins quickly. If you have established heart disease, discuss medication choices
+          with your cardiologist or usual clinician, especially if you are considering NRT or a prescription
+          medicine. The
+          <a href="/populations/cardiovascular-disease/" class="text-primary underline decoration-1 underline-offset-2">
+            cardiovascular page
+          </a>
+          summarises the evidence.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          <strong class="text-heading">Younger and long-term smokers.</strong> Starting young makes quitting more
+          valuable, not less urgent later. Long-term heavy smokers may have more intense withdrawal and more
+          smoking-related health concerns; a clinician can help distinguish withdrawal from something that needs
+          assessment. The
+          <a href="/populations/young-smokers/" class="text-primary underline decoration-1 underline-offset-2">younger smokers page</a>
+          and the
+          <a href="/questions/is-it-ever-too-late-to-quit/" class="text-primary underline decoration-1 underline-offset-2">
+            “is it ever too late”
+          </a>
+          answer cover both ends of that range.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">12. How this guide was built</h2>
+        <p class="text-muted dark:text-slate-400">
+          This page is a synthesis of public guidance and systematic reviews, not a report of a new study. The
+          hierarchy is: current clinical guidelines (WHO 2024, USPSTF 2021, NICE NG209, the US Surgeon General
+          report), then Cochrane systematic reviews and network meta-analyses, then large trials and cohort studies
+          for specific claims. The research records behind the summary are listed at
+          <a href="/research/" class="text-primary underline decoration-1 underline-offset-2">Research Highlights</a>
+          and in the data centre, where each record carries its source URL and verification date.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          The page does not contain dosing instructions, injection guidance, individual treatment recommendations or
+          guarantees. It does not claim that any method “works for everyone.” Where the evidence is uncertain — for
+          example, the long-term safety of e-cigarettes or the best approach for a specific person — the text says
+          so rather than filling the gap with confidence.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          No clinician has reviewed this page. That is a statement about the site's review process, not about the
+          sources: the sources are public and linked so you can read them yourself. If you find an error, the
+          <a href="/contact/" class="text-primary underline decoration-1 underline-offset-2">contact page</a>
+          explains how to report it; corrections are logged under the
+          <a href="/editorial-policy/" class="text-primary underline decoration-1 underline-offset-2">editorial policy</a>.
+          The page was last updated on 12 November 2026.
         </p>
       </div>
     </div>
   </section>
 
+  <nav aria-label="Related guides" class="mx-auto max-w-4xl px-4 sm:px-6 pb-4">
+    <div class="rounded-lg border border-gray-200 dark:border-slate-700 p-6">
+      <p class="text-xl font-bold font-heading mb-4">Related guides</p>
+      <div class="grid gap-4 sm:grid-cols-2">
+        <a href="/withdrawal/" class="card p-4 no-underline hover:-translate-y-1 transition duration-200">
+          <h3 class="font-bold font-heading text-heading mb-1">Nicotine withdrawal</h3>
+          <p class="text-sm text-muted dark:text-slate-400">What each symptom feels like, how long it lasts, and what helps.</p>
+        </a>
+        <a href="/cravings/" class="card p-4 no-underline hover:-translate-y-1 transition duration-200">
+          <h3 class="font-bold font-heading text-heading mb-1">Cravings playbook</h3>
+          <p class="text-sm text-muted dark:text-slate-400">Why urges pass, and what to do in the five minutes they peak.</p>
+        </a>
+        <a href="/methods/" class="card p-4 no-underline hover:-translate-y-1 transition duration-200">
+          <h3 class="font-bold font-heading text-heading mb-1">Quit methods</h3>
+          <p class="text-sm text-muted dark:text-slate-400">Cold turkey, gradual reduction, NRT, counselling and more.</p>
+        </a>
+        <a href="/medications/" class="card p-4 no-underline hover:-translate-y-1 transition duration-200">
+          <h3 class="font-bold font-heading text-heading mb-1">Quit smoking medications</h3>
+          <p class="text-sm text-muted dark:text-slate-400">Evidence pages for NRT, varenicline, bupropion and cytisine.</p>
+        </a>
+        <a href="/relapse/" class="card p-4 no-underline hover:-translate-y-1 transition duration-200">
+          <h3 class="font-bold font-heading text-heading mb-1">Relapse and recovery</h3>
+          <p class="text-sm text-muted dark:text-slate-400">What a lapse means and how to restart without losing the attempt.</p>
+        </a>
+        <a href="/start/" class="card p-4 no-underline hover:-translate-y-1 transition duration-200">
+          <h3 class="font-bold font-heading text-heading mb-1">Start here</h3>
+          <p class="text-sm text-muted dark:text-slate-400">A short, step-by-step route into the site if you are deciding where to begin.</p>
+        </a>
+      </div>
+    </div>
+  </nav>
+
   <Sources sources={pageSources} />
   <CallToAction
     title="Ready to start?"
-    subtitle="Pick your quit date, then choose the method that fits you."
+    subtitle="Pick your quit date, then choose the method that fits your life."
     actions={[
       { variant: 'primary', text: 'Compare Quit Methods', href: '/methods/' },
       { text: 'Start Here', href: '/start/' },
     ]}
   />
 
-  <ReviewStatement />
+  <ReviewStatement updated="12 November 2026" />
 </Layout>
