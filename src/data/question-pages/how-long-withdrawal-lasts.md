@@ -122,6 +122,10 @@
       "href": "/withdrawal/"
     },
     {
+      "label": "Nicotine withdrawal timeline: hour by hour, week by week",
+      "href": "/withdrawal/timeline/"
+    },
+    {
       "label": "Quit timeline: what changes and when",
       "href": "/timeline/"
     },

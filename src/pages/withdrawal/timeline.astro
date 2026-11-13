@@ -1,0 +1,848 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '~/layouts/PageLayout.astro';
+import Sources from '~/components/common/Sources.astro';
+import StructuredData from '~/components/common/StructuredData.astro';
+import Breadcrumbs from '~/components/common/Breadcrumbs.astro';
+import ReviewStatement from '~/components/common/ReviewStatement.astro';
+import { SITE } from 'astrowind:config';
+import { authorRef, dateFields, organizationRef, siteUrl } from '~/utils/schema';
+import { seoDescription, seoTitle } from '~/utils/seo';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+const site = siteUrl(SITE.site);
+
+const STAGE_ORDER = [
+  'first-hour',
+  'day-1',
+  'day-2',
+  'day-3',
+  'first-week',
+  'week-2',
+  'week-3',
+  'month-1',
+  'month-2',
+  'month-3',
+  'month-6',
+  'year-1',
+  'long-term',
+];
+
+const stages = (await getCollection('timeline')).sort(
+  (a, b) => STAGE_ORDER.indexOf(a.data.slug) - STAGE_ORDER.indexOf(b.data.slug)
+);
+
+const metadata = {
+  title: seoTitle('Nicotine Withdrawal Timeline: Hour by Hour, Week by Week'),
+  description: seoDescription(
+    'A week-by-week map of nicotine withdrawal: what changes in the first hours, when symptoms peak, how long each one usually lasts, and what helps.'
+  ),
+};
+
+const pageSchema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: 'Nicotine Withdrawal Timeline: Hour by Hour, Week by Week',
+    name: 'Nicotine Withdrawal Timeline: Hour by Hour, Week by Week',
+    description:
+      'What nicotine withdrawal does in the first hours, days, weeks and months, how long each symptom usually lasts, and what the evidence supports for easing it.',
+    url: `${site}/withdrawal/timeline/`,
+    mainEntityOfPage: `${site}/withdrawal/timeline/`,
+    isPartOf: { '@id': `${site}/#website` },
+    author: authorRef(SITE.site),
+    publisher: organizationRef(SITE.site),
+    ...dateFields(undefined, '2026-11-13'),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'MedicalWebPage',
+    headline: 'Nicotine Withdrawal Timeline: Hour by Hour, Week by Week',
+    name: 'Nicotine Withdrawal Timeline: Hour by Hour, Week by Week',
+    description:
+      'The typical time course of nicotine withdrawal symptoms after the last cigarette, with the evidence behind each stage.',
+    url: `${site}/withdrawal/timeline/`,
+    mainEntityOfPage: `${site}/withdrawal/timeline/`,
+    isPartOf: { '@id': `${site}/#website` },
+    author: authorRef(SITE.site),
+    publisher: organizationRef(SITE.site),
+    about: { '@type': 'MedicalCondition', name: 'Nicotine withdrawal' },
+    audience: { '@type': 'Audience', audienceType: 'Adults who smoke and want to stop' },
+    ...dateFields(undefined, '2026-11-13'),
+  },
+];
+
+const pageSources = [
+  {
+    label: 'WHO — Clinical treatment guideline for tobacco cessation in adults (2024)',
+    url: 'https://www.who.int/publications/i/item/9789240096431',
+  },
+  {
+    label: 'WHO — Tobacco fact sheet',
+    url: 'https://www.who.int/news-room/fact-sheets/detail/tobacco',
+  },
+  {
+    label: 'USPSTF — Tobacco smoking cessation in adults, including pregnant persons (2021)',
+    url: 'https://www.uspreventiveservicestaskforce.org/uspstf/recommendation/tobacco-use-in-adults-and-pregnant-women-counseling-and-interventions',
+  },
+  {
+    label: 'NICE NG209 — Tobacco: preventing uptake, promoting quitting and treating dependence',
+    url: 'https://www.nice.org.uk/guidance/ng209',
+  },
+  {
+    label: 'Hughes JR (2007) — Effects of abstinence from tobacco: valid symptoms and time course (R-007)',
+    url: 'https://academic.oup.com/ntr/article/9/3/315/1071235',
+  },
+  {
+    label: 'Cochrane — Nicotine replacement therapy for smoking cessation (R-001)',
+    url: 'https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD000146.pub4/full',
+  },
+  {
+    label: 'Cochrane — Nicotine receptor partial agonists for smoking cessation (R-002)',
+    url: 'https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD006103.pub4/full',
+  },
+  {
+    label: 'Cochrane — Antidepressants for smoking cessation (R-003)',
+    url: 'https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD000031.pub3/full',
+  },
+  {
+    label: 'Cochrane — Pharmacological interventions: overview and network meta-analyses (R-008)',
+    url: 'https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD009329.pub2/full',
+  },
+  {
+    label: 'US Surgeon General — Smoking Cessation: A Report of the Surgeon General (2020)',
+    url: 'https://www.hhs.gov/sites/default/files/2020-cessation-sgr-full-report.pdf',
+  },
+  {
+    label: 'NHS — Quit smoking',
+    url: 'https://www.nhs.uk/live-well/quit-smoking/',
+  },
+  {
+    label: 'CDC — Smoking and Tobacco Use',
+    url: 'https://www.cdc.gov/tobacco/index.html',
+  },
+];
+
+const tableHead = 'py-2 pr-4 font-bold text-heading dark:text-slate-200';
+const tableRow = 'border-b border-gray-100 dark:border-slate-800';
+const tableCell = 'py-3 pr-4 align-top';
+---
+
+<Layout metadata={metadata}>
+  <StructuredData slot="head" schema={pageSchema} />
+  <Breadcrumbs
+    bar
+    items={[
+      { text: 'Home', href: '/' },
+      { text: 'Withdrawal', href: '/withdrawal/' },
+      { text: 'Withdrawal timeline' },
+    ]}
+  />
+
+  <section class="relative mx-auto max-w-4xl px-4 sm:px-6 pt-8 md:pt-12 pb-4">
+    <p class="text-base font-bold tracking-wide uppercase text-secondary mb-2 text-center">Nicotine Withdrawal</p>
+    <h1 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading text-heading text-center">
+      Nicotine withdrawal timeline: hour by hour, week by week
+    </h1>
+    <p class="mt-4 max-w-3xl mx-auto text-lg text-muted text-center">
+      What changes in the first hours, when symptoms usually peak, how long each one tends to last, and why your own
+      timeline can differ from the average without anything being wrong.
+    </p>
+  </section>
+  <p class="mx-auto max-w-4xl px-4 sm:px-6 pb-2 text-xs text-muted dark:text-slate-400">
+    Maintained by <span class="font-semibold">SmokingCessationHub Tech Team</span> · Last updated
+    <span class="font-semibold">13 November 2026</span> · Not reviewed by a clinician
+  </p>
+
+  <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8">
+    <div class="rounded-lg border border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-900/40 p-5 text-sm mb-10">
+      <p class="text-muted dark:text-slate-400">
+        <span class="font-bold text-heading dark:text-slate-200">What this page is:</span> a description of the
+        typical time course of nicotine withdrawal, compiled from public clinical guidance, systematic reviews and
+        the withdrawal research records summarised on this site. It is general education, not a personal treatment
+        plan. It contains no dosing instructions and promises no particular outcome. Decisions about medication
+        belong with a clinician or pharmacist who knows your history. Read our
+        <a href="/editorial-policy/" class="text-primary underline decoration-1 underline-offset-2">editorial policy</a>
+        for how sources are selected and corrected.
+      </p>
+    </div>
+
+    <div class="space-y-12">
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">1. What a withdrawal timeline can and cannot tell you</h2>
+        <p class="text-muted dark:text-slate-400">
+          Nicotine withdrawal is the set of physical and psychological symptoms that follow the removal of nicotine
+          after a period of regular use. It is not a sign that the body is being damaged by quitting. It is the
+          opposite: it is the nervous system recalibrating to the absence of a drug it had adapted to, while the
+          routines built around smoking are interrupted at the same time.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          The time course is documented well enough to plan around. A widely cited review of abstinence effects found
+          that most withdrawal symptoms peak in the first week and substantially resolve within two to four weeks,
+          with craving and increased appetite as the exceptions that can run longer (Hughes, 2007 — record R-007 in
+          the data centre). Clinical guidelines describe the same broad shape. What the literature cannot tell you is
+          your particular week, because the spread between individuals is wide in both intensity and duration.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Two timelines run in parallel after the last cigarette, and confusing them causes a lot of unnecessary
+          worry. <strong class="text-heading">Withdrawal</strong> is what you feel as nicotine leaves and receptors
+          adapt. <strong class="text-heading">Recovery</strong> is what repairs: carbon monoxide clearing, airways
+          cleaning themselves, circulation and lung function improving. Recovery continues long after withdrawal
+          ends, and it is measured in months and years rather than days. This page is about withdrawal. The
+          <a href="/timeline/" class="text-primary underline decoration-1 underline-offset-2">quit timeline</a>
+          covers the recovery side, alongside the community-reported stages.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          One more limit is worth stating at the start. The intervals below are population patterns drawn from
+          clinical descriptions and trial data. They describe what tends to happen, not what must happen. A symptom
+          that arrives late, lasts longer than the table suggests, or never appears at all is not automatically a
+          problem — but a symptom that is severe, worsening, or outside the patterns described in section 11 should
+          be assessed rather than attributed to withdrawal.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">2. The timeline at a glance</h2>
+        <p class="text-muted dark:text-slate-400 mb-4">
+          The table summarises the stages recorded in this site's timeline collection, from the first hour to the
+          first year. Read it as a map of what is changing in the body, not as a schedule your symptoms are obliged
+          to follow.
+        </p>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm text-left">
+            <thead>
+              <tr class="border-b border-gray-200 dark:border-slate-700">
+                <th class={tableHead}>Stage</th>
+                <th class={tableHead}>What typically changes</th>
+              </tr>
+            </thead>
+            <tbody class="text-muted dark:text-slate-400">
+              {
+                stages.map((s) => (
+                  <tr class={tableRow}>
+                    <td class={`${tableCell} font-semibold text-heading dark:text-slate-300 whitespace-nowrap`}>
+                      {s.data.timeLabel}
+                    </td>
+                    <td class={tableCell}>{s.data.scienceSummary}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-4 text-sm text-muted dark:text-slate-500">
+          Stage summaries are drawn from the site's timeline records, which cite public health guidance and the
+          withdrawal time-course literature. The same stages described through community experience — what people
+          said it felt like — are on the
+          <a href="/timeline/" class="text-primary underline decoration-1 underline-offset-2">quit timeline page</a>.
+          Community accounts describe individual experiences; they are not predictions.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">3. Hour 0 to 24: what happens first</h2>
+        <p class="text-muted dark:text-slate-400 mb-4">
+          The first day is usually less dramatic than people expect, and that is part of its danger: motivation is
+          high, the decision feels fresh, and the hardest hours often arrive after the initial resolve has worn off.
+          Physiologically, a lot is already changing.
+        </p>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm text-left">
+            <thead>
+              <tr class="border-b border-gray-200 dark:border-slate-700">
+                <th class={tableHead}>Window</th>
+                <th class={tableHead}>What is changing</th>
+                <th class={tableHead}>What people commonly notice</th>
+              </tr>
+            </thead>
+            <tbody class="text-muted dark:text-slate-400">
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>0–2 hours</td>
+                <td class={tableCell}>
+                  Nicotine levels begin to fall. Heart rate and blood pressure start drifting back toward usual
+                  levels.
+                </td>
+                <td class={tableCell}>
+                  Often nothing yet, or a first sense of something missing at a habitual moment — after a meal, with
+                  coffee, on a break.
+                </td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>2–8 hours</td>
+                <td class={tableCell}>
+                  Nicotine continues to clear. The first genuinely noticeable withdrawal effects appear.
+                </td>
+                <td class={tableCell}>
+                  First real cravings, irritability, restlessness, and the odd feeling of having nothing to do with
+                  your hands.
+                </td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>8–12 hours</td>
+                <td class={tableCell}>
+                  Carbon monoxide in the blood falls substantially, so oxygen delivery improves. Nicotine is well on
+                  its way out.
+                </td>
+                <td class={tableCell}>
+                  Cravings arriving in waves tied to routine; headache or tiredness can appear; concentration may
+                  dip.
+                </td>
+              </tr>
+              <tr>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>12–24 hours</td>
+                <td class={tableCell}>
+                  Carbon monoxide approaches normal. Most nicotine has been eliminated. The first night without
+                  nicotine begins.
+                </td>
+                <td class={tableCell}>
+                  Stronger urges, a low mood in the evening, and often the first disturbed night's sleep.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-4 text-muted dark:text-slate-400">
+          The practical question for day one is not how to feel normal — you will not — but how to keep the quit
+          intact until the evening. Three things help more than willpower. First, remove access: no cigarettes in the
+          house, the car or the bag, including the one in the coat pocket you have forgotten about. Second, change
+          the sequence around the times you would normally smoke: leave the table immediately after eating, take the
+          break somewhere else, drink your coffee standing up or switch to tea for a week. Third, arrange company for
+          the evening, whether that is a person, a phone call or a quitline.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          If you are using a nicotine patch, follow the product instructions and the plan you agreed with your
+          pharmacist or prescriber. Some people notice vivid dreams with 24-hour patches and discuss wear time with a
+          pharmacist; that is a product-instruction question, not something to improvise from a website. If you are
+          using a fast-acting form, have it within reach before the urge arrives rather than after you have started
+          searching for cigarettes. The
+          <a href="/medications/" class="text-primary underline decoration-1 underline-offset-2">medication section</a>
+          explains what each option is for.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">4. Days 2 and 3: the peak</h2>
+        <p class="text-muted dark:text-slate-400">
+          By the second day, nicotine is largely gone but the adapted receptors have not reset. That mismatch — no
+          nicotine arriving, a system still expecting it — is the physiological reason days two and three often feel
+          worse than day one. The novelty of the decision has also worn off, and the practical work of avoiding
+          cigarettes has begun to feel like effort rather than resolve.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          The symptom mix usually broadens in this window. Irritability and anger are common and often out of
+          proportion to the trigger. Restlessness makes sitting still difficult. Concentration drops, which is
+          especially noticeable at work or while driving. Low mood can arrive without an obvious cause. Headache,
+          fatigue and disturbed sleep are frequently reported. Cravings are at their most frequent, and many of them
+          are attached to a specific time and place rather than to a physical need.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          This is the point at which the community timeline on this site records week one as the hardest, with days
+          two to four described as the low point. That is a description of reported experience, not a rule, and it
+          does not tell you how your own day three will go. It does explain why so many quit attempts end here: the
+          gap between "I have stopped" and "I feel better" is at its widest.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          What actually helps at the peak is unglamorous. Use medication exactly as arranged rather than adding or
+          skipping it; follow the label or your prescriber's instructions, and ask a pharmacist if something is
+          unclear. Shorten tasks and lower the bar for the day. Eat regular meals, because low blood sugar makes
+          irritability worse. Drink water when an urge arrives. Move — a walk around the block changes the scene and
+          burns off some of the restlessness. Protect sleep where you can, and do not treat a bad night as proof that
+          the quit is failing.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Tell the people around you what is happening. A sentence before the fact — "I am quitting and I may be short
+          with you for a few days" — prevents a surprising number of arguments. If you live with someone who smokes,
+          agree in advance where they will smoke and what you will do when you smell it.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          The peak is short even when it does not feel short. Many people describe a turning point somewhere in the
+          middle of the first week, after which the physical intensity begins to fall. It rarely falls in a straight line:
+          a good morning can be followed by a difficult afternoon. Judge the week by the direction of travel, not by
+          the worst hour.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          One safety point belongs here rather than at the end. Withdrawal can temporarily worsen low mood, and
+          people with a history of depression or anxiety are at higher risk of a difficult period. If you feel
+          hopeless, cannot function, or have thoughts of harming yourself, contact a local health service or crisis
+          line the same day. That is not a dramatic overreaction to withdrawal; it is the correct response to a
+          symptom that needs treatment. The
+          <a href="/populations/mental-health-conditions/" class="text-primary underline decoration-1 underline-offset-2">
+            mental health section
+          </a>
+          covers the planning side.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">5. Days 4 to 7: the turn</h2>
+        <p class="text-muted dark:text-slate-400">
+          For most people, the physical symptoms begin to ease somewhere in the second half of the first week.
+          Irritability becomes less constant. Restlessness settles. Cravings still arrive, but they start to feel
+          more like waves and less like a continuous state. Sleep is often still poor, and concentration can remain
+          unreliable for another week or two.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Some symptoms appear now rather than earlier. A cough with phlegm — sometimes called the quitter's cough —
+          commonly shows up or worsens in the first weeks as the airways clear. Increased appetite becomes
+          noticeable, partly because nicotine no longer suppresses it and partly because food tastes better as smell
+          and taste recover. Constipation can appear as the gut adjusts. None of these are signs that quitting is
+          harming you; they are signs that the body is changing in the other direction.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          This is also where complacency does its damage. Feeling better for two days produces the thought "I am
+          clearly fine now, so one cigarette would not matter." It does matter, for two reasons. Nicotine
+          re-establishes its hold quickly, and a cigarette reactivates every cue that was beginning to fade. The
+          lapse itself is survivable — most people who quit for good had earlier attempts — but the story that
+          follows it ("I have ruined it, so I may as well continue") is what turns a single cigarette into a return
+          to smoking. The
+          <a href="/relapse/" class="text-primary underline decoration-1 underline-offset-2">relapse and recovery section</a>
+          deals with that moment directly.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          By the end of the first week, it helps to write down what actually happened rather than what you feared
+          would happen. Which hours were worst? Which strategy worked? Which person or place made it harder? That
+          record is more useful for week two than any general advice, because it describes your pattern rather than
+          the population average.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">6. Weeks 2 to 4: settling</h2>
+        <p class="text-muted dark:text-slate-400">
+          The second and third weeks are usually where the acute phase ends. Irritability and restlessness tend to
+          fade first. Sleep and concentration often lag behind, which is why week three can feel strangely
+          discouraging: the worst is over, but you do not yet feel like yourself. Appetite frequently stays elevated
+          for longer than either.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Cravings change character in this window. They become shorter, less frequent and more clearly tied to
+          situations: the first coffee of the day, a specific road, a work deadline, a person you used to smoke
+          with. That is a sign of progress, not a setback. A cue-driven craving is a learned association being
+          reactivated, not evidence that physical withdrawal has restarted.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Practical priorities shift accordingly. Keep whatever support you arranged — a weekly check-in, a quitline
+          callback, a group or a digital programme — because the risk in this period is less about surviving a peak
+          and more about drifting back into old routines. Build the replacement routines deliberately: a different
+          break, a walk after dinner, something to do with your hands in the car. If you are taking medication, do
+          not stop it early on the grounds that you feel better; ask the prescriber or pharmacist who set up the plan
+          whether and when to step down. The
+          <a href="/methods/" class="text-primary underline decoration-1 underline-offset-2">methods section</a>
+          covers how the behavioural side fits alongside medication.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Symptoms that persist beyond four weeks are not automatically abnormal, but they deserve a different
+          explanation than "still withdrawing". Persistent low mood, anxiety, insomnia or brain fog can overlap with
+          stress, a mood disorder, poor sleep or thyroid problems, and attributing all of it to nicotine can delay
+          appropriate help. The
+          <a href="/questions/how-long-withdrawal-lasts/" class="text-primary underline decoration-1 underline-offset-2">
+            short answer on how long withdrawal lasts
+          </a>
+          summarises the same boundary in fewer words.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">7. Month 2 to month 12: the long tail</h2>
+        <p class="text-muted dark:text-slate-400">
+          By the second or third month, most physical withdrawal symptoms have gone for most people. What remains is
+          a long tail of cue-driven cravings, appetite and weight change, and occasional surprises — a dream about
+          smoking, a sudden urge in a situation you had stopped thinking about, a difficult week that feels like week
+          one again.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Cravings continue to decline in frequency and intensity, but they do not disappear on a schedule. A wave
+          in month six does not mean the quit has failed or that withdrawal has returned; it usually means a
+          conditioned trigger has been encountered after a long gap. The same rule as week one applies: the urge
+          rises, peaks and falls, and what matters is what you do in the few minutes around the peak.
+        </p>
+        <p class="mt-3 dark:text-slate-400 text-muted">
+          Weight change is one of the most common concerns people raise about quitting, so it is worth being honest
+          about it. Population studies commonly cite an average gain of around four to five kilograms over the first
+          year, with most of it in the first three to six months and wide variation between individuals — many people
+          gain much less, and some gain more. That is a real health issue worth managing with regular meals, activity
+          and sleep. It is not a reason to return to smoking, which carries a far larger risk. The
+          <a href="/withdrawal/weight-change/" class="text-primary underline decoration-1 underline-offset-2">weight change page</a>
+          sets out the trade-off.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Sleep usually normalises within the first one to three months, though people who had poor sleep before
+          quitting often find that the underlying problem remains. Mood generally improves as withdrawal settles, but
+          a flat or low period in the second month is common enough to be unsurprising. If it persists, is getting
+          worse, or comes with loss of interest in everything, treat it as a condition to assess rather than a
+          withdrawal symptom to endure.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          The psychological work of this period is different from the first month. It is less about resisting a
+          constant urge and more about not renegotiating a decision you have already made. Confidence tends to grow
+          faster than the risk disappears, which is why people who feel entirely finished with smoking can still be
+          caught out by a single unplanned cigarette at a wedding in month eight. The
+          <a href="/triggers/" class="text-primary underline decoration-1 underline-offset-2">trigger library</a>
+          is more useful now than it was in week one, because the triggers are specific rather than constant.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">8. Symptom by symptom: how long each one usually lasts</h2>
+        <p class="text-muted dark:text-slate-400 mb-4">
+          The table condenses the timing described across the withdrawal section. Onset and duration are typical
+          patterns, not individual predictions, and each row links to the page that covers that symptom in detail.
+        </p>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm text-left">
+            <thead>
+              <tr class="border-b border-gray-200 dark:border-slate-700">
+                <th class={tableHead}>Symptom</th>
+                <th class={tableHead}>Usually starts</th>
+                <th class={tableHead}>Usually settles</th>
+              </tr>
+            </thead>
+            <tbody class="text-muted dark:text-slate-400">
+              <tr class={tableRow}>
+                <td class={tableCell}>
+                  <a href="/withdrawal/cravings/" class="text-primary underline decoration-1 underline-offset-2">Cravings</a>
+                </td>
+                <td class={tableCell}>Within hours</td>
+                <td class={tableCell}>Weeks to months, in declining waves</td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={tableCell}>
+                  <a href="/withdrawal/irritability/" class="text-primary underline decoration-1 underline-offset-2">Irritability and anger</a>
+                </td>
+                <td class={tableCell}>Day 1–3</td>
+                <td class={tableCell}>Peaks in week one; eases over 2–4 weeks</td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={tableCell}>
+                  <a href="/withdrawal/anxiety/" class="text-primary underline decoration-1 underline-offset-2">Anxiety</a>
+                </td>
+                <td class={tableCell}>Day 1–3</td>
+                <td class={tableCell}>Usually 2–4 weeks</td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={tableCell}>
+                  <a href="/withdrawal/mood/" class="text-primary underline decoration-1 underline-offset-2">Low mood</a>
+                </td>
+                <td class={tableCell}>Day 1–3</td>
+                <td class={tableCell}>Usually 2–4 weeks</td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={tableCell}>
+                  <a href="/withdrawal/sleep/" class="text-primary underline decoration-1 underline-offset-2">Sleep problems</a>
+                </td>
+                <td class={tableCell}>Day 1–7</td>
+                <td class={tableCell}>Usually 2–4 weeks</td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={tableCell}>
+                  <a href="/withdrawal/concentration/" class="text-primary underline decoration-1 underline-offset-2">Poor concentration</a>
+                </td>
+                <td class={tableCell}>Day 1–7</td>
+                <td class={tableCell}>Usually 2–4 weeks</td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={tableCell}>
+                  <a href="/withdrawal/restlessness/" class="text-primary underline decoration-1 underline-offset-2">Restlessness</a>
+                </td>
+                <td class={tableCell}>Day 1–7</td>
+                <td class={tableCell}>Usually 2–4 weeks</td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={tableCell}>
+                  <a href="/withdrawal/fatigue/" class="text-primary underline decoration-1 underline-offset-2">Fatigue</a>
+                </td>
+                <td class={tableCell}>Day 1–7</td>
+                <td class={tableCell}>Usually 2–4 weeks</td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={tableCell}>
+                  <a href="/withdrawal/headache/" class="text-primary underline decoration-1 underline-offset-2">Headache</a>
+                </td>
+                <td class={tableCell}>Day 1–7</td>
+                <td class={tableCell}>Usually 1–3 weeks</td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={tableCell}>
+                  <a href="/withdrawal/appetite/" class="text-primary underline decoration-1 underline-offset-2">Increased appetite</a>
+                </td>
+                <td class={tableCell}>Week 1 onward</td>
+                <td class={tableCell}>Can persist for months</td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={tableCell}>
+                  <a href="/withdrawal/constipation/" class="text-primary underline decoration-1 underline-offset-2">Constipation</a>
+                </td>
+                <td class={tableCell}>Week 1 onward</td>
+                <td class={tableCell}>Usually 2–4 weeks</td>
+              </tr>
+              <tr>
+                <td class={tableCell}>
+                  <a href="/withdrawal/cough/" class="text-primary underline decoration-1 underline-offset-2">Cough</a>
+                </td>
+                <td class={tableCell}>Week 1 onward</td>
+                <td class={tableCell}>Weeks to months, then improves</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-4 text-muted dark:text-slate-400">
+          Dizziness and weight change are also described in the
+          <a href="/withdrawal/" class="text-primary underline decoration-1 underline-offset-2">withdrawal section</a>.
+          A symptom that follows this pattern but lasts longer is a reason to check in with a clinician, not a reason
+          to conclude that something is permanently wrong.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">9. What actually makes withdrawal easier</h2>
+        <p class="text-muted dark:text-slate-400 mb-4">
+          The evidence is clearest on two levers: medication that reduces withdrawal and craving, and behavioural
+          support that changes the routines and situations around smoking. Everything else is a supplement to those
+          two, not a replacement.
+        </p>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm text-left">
+            <thead>
+              <tr class="border-b border-gray-200 dark:border-slate-700">
+                <th class={tableHead}>Support</th>
+                <th class={tableHead}>What the evidence supports</th>
+                <th class={tableHead}>Practical note</th>
+              </tr>
+            </thead>
+            <tbody class="text-muted dark:text-slate-400">
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Combination NRT</td>
+                <td class={tableCell}>
+                  A background patch plus a faster-acting form is more effective than a single form, and is
+                  recommended in UK guidance.
+                </td>
+                <td class={tableCell}>
+                  Arrange the combination with a pharmacist or clinician; do not improvise two products together.
+                </td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Single NRT</td>
+                <td class={tableCell}>
+                  Any licensed form reduces withdrawal symptoms and improves quit rates compared with placebo.
+                </td>
+                <td class={tableCell}>Use as directed on the product and in the plan you agreed.</td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Varenicline</td>
+                <td class={tableCell}>
+                  A prescription medicine recommended by WHO and NICE; trials show reduced craving and withdrawal.
+                </td>
+                <td class={tableCell}>
+                  Requires a prescriber who can check suitability. See the
+                  <a href="/medications/varenicline/" class="text-primary underline decoration-1 underline-offset-2">varenicline page</a>.
+                </td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Cytisine</td>
+                <td class={tableCell}>
+                  A shorter prescription course recommended by WHO; in one large trial it performed comparably to
+                  NRT.
+                </td>
+                <td class={tableCell}>
+                  Availability and licensing vary by country. See the
+                  <a href="/medications/cytisine/" class="text-primary underline decoration-1 underline-offset-2">cytisine page</a>.
+                </td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Bupropion</td>
+                <td class={tableCell}>
+                  A prescription antidepressant with good evidence for cessation, though generally less effective
+                  than varenicline in comparisons.
+                </td>
+                <td class={tableCell}>
+                  Not suitable for everyone; a prescriber screens for contraindications.
+                </td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Behavioural support</td>
+                <td class={tableCell}>
+                  Counselling, quitlines, groups, digital programmes and peer support all improve quit rates, alone
+                  and alongside medication.
+                </td>
+                <td class={tableCell}>The format matters less than actually using it consistently.</td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Movement</td>
+                <td class={tableCell}>
+                  Useful in the moment for restlessness and low mood; not a substitute for treatment.
+                </td>
+                <td class={tableCell}>A short walk is often enough. It also changes the scene, which interrupts a cue.</td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Sleep and caffeine</td>
+                <td class={tableCell}>
+                  Caffeine has a stronger effect after quitting because smoking speeds its clearance; cutting back
+                  can reduce jitteriness and improve sleep.
+                </td>
+                <td class={tableCell}>Reduce caffeine after midday for the first month, then adjust.</td>
+              </tr>
+              <tr>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Detox products</td>
+                <td class={tableCell}>
+                  No established role. The body clears nicotine itself within days.
+                </td>
+                <td class={tableCell}>Money spent here is better spent on proven support.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-4 text-muted dark:text-slate-400">
+          The table deliberately stops at the level of class and principle. It does not list doses, schedules or
+          combinations, because those depend on the product, the country, your health and your other medicines.
+          Those decisions belong with a pharmacist or prescriber, and the product label is the authority on how a
+          licensed medicine is used. The
+          <a href="/quit-smoking/" class="text-primary underline decoration-1 underline-offset-2">complete guide to quitting</a>
+          explains how to combine medication with a plan.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">10. Why your timeline may not match this page</h2>
+        <p class="text-muted dark:text-slate-400">
+          The single most useful thing to understand about withdrawal timing is that the variation is not noise
+          around a fixed schedule — it is the normal range. The Hughes review notes substantial individual variation
+          in both intensity and duration. Two people who smoked the same amount for the same number of years can have
+          very different first weeks.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Several factors reliably shift the experience. Heavier dependence — more cigarettes per day, a long smoking
+          history, smoking soon after waking — is associated with more intense withdrawal. A history of depression or
+          anxiety is associated with a harder time, and with a higher chance that mood symptoms need attention.
+          Alcohol, poor sleep and a high-stress period make everything feel worse. Living or working with people who
+          smoke adds constant cue exposure that no medication addresses.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Using medication and behavioural support tends to reduce intensity, though it does not make withdrawal
+          disappear. People who plan for a hard first week often describe it as more manageable than people who
+          expected quitting to feel effortless; expectation does not change the physiology, but it changes how a bad
+          afternoon is interpreted.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Pregnancy, some medicines and some health conditions change how quickly nicotine is cleared and how
+          symptoms are experienced. If any of those apply, the timing in this page is a starting point for a
+          conversation with your maternity team or clinician, not a schedule to measure yourself against. The
+          <a href="/populations/pregnancy/" class="text-primary underline decoration-1 underline-offset-2">pregnancy page</a>
+          sets out the specific considerations.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Finally, previous attempts matter in a practical way. If you have quit before, you already know which day
+          is your worst and which situation catches you. That knowledge is more valuable than any average, and it is
+          worth writing down before the next attempt rather than rediscovering it in the middle of one.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">11. When it is not withdrawal</h2>
+        <p class="text-muted dark:text-slate-400">
+          Most withdrawal symptoms are uncomfortable but not dangerous. A small number of symptoms are not typical
+          withdrawal at all, and treating them as such delays assessment. Seek medical help promptly for any of the
+          following:
+        </p>
+        <ul class="mt-3 list-disc list-inside space-y-2 text-muted dark:text-slate-400">
+          <li><strong class="text-heading">Chest pain, pressure or tightness</strong>, especially with sweating, nausea or pain spreading to the arm or jaw.</li>
+          <li><strong class="text-heading">Severe or worsening breathlessness</strong>, or breathlessness at rest.</li>
+          <li><strong class="text-heading">Coughing up blood</strong>, or a cough that keeps worsening over weeks rather than improving.</li>
+          <li><strong class="text-heading">Fever, persistent vomiting, severe abdominal pain</strong> or symptoms of dehydration.</li>
+          <li><strong class="text-heading">Fainting, a racing or irregular heartbeat</strong>, or sudden severe headache unlike any you have had.</li>
+          <li><strong class="text-heading">Sudden weakness, numbness, confusion or difficulty speaking</strong> — treat as an emergency.</li>
+          <li><strong class="text-heading">Persistent low mood, hopelessness or thoughts of self-harm</strong> — contact a health service or crisis line the same day.</li>
+        </ul>
+        <p class="mt-4 text-muted dark:text-slate-400">
+          Two less urgent patterns also deserve a conversation rather than endurance. Symptoms that continue to
+          worsen after four weeks, and symptoms that are severe enough to stop you eating, sleeping or working, are
+          not what the typical timeline predicts. Neither is a reason to resume smoking; both are reasons to ask for
+          help. If you use NRT and develop persistent hiccups, jaw pain, heartburn or a bad taste, a pharmacist can
+          usually suggest a different form rather than you abandoning the attempt.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">12. How to use a timeline without turning it into a deadline</h2>
+        <p class="text-muted dark:text-slate-400">
+          A timeline is useful for preparation and dangerous as a scorecard. If you read it as a promise — "by day 28
+          I will feel normal" — then day 29 becomes evidence of failure, even though the evidence says nothing of the
+          kind. Use the dates to arrange support and to recognise what is expected, not to grade yourself.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          A more useful habit is to track three things once a week: how often cravings arrived, how well you slept,
+          and how your mood compared with the week before. Three lines in a note are enough. They show direction when
+          a single bad day feels like the whole picture, and they give a clinician something concrete if you do need
+          to ask for help.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Expect the path to be uneven. Week three can be worse than week two. A stressful Thursday can feel like day
+          two. A craving can arrive in month five with no warning. None of that means the quit has restarted from
+          zero, and none of it requires a new decision — only the same response as before: let the urge peak, change
+          what you are doing, and keep going.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          The timeline ends; maintenance does not. The point of getting through withdrawal is not to reach a date but
+          to build a life in which smoking is no longer the default response to a break, a meal, a stressor or a
+          drink. The
+          <a href="/cravings/" class="text-primary underline decoration-1 underline-offset-2">cravings playbook</a>
+          and the
+          <a href="/relapse/" class="text-primary underline decoration-1 underline-offset-2">relapse section</a>
+          are the practical companions to this page once the acute phase is over.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          This page is a synthesis of public guidance and systematic reviews, not a report of a new study. The
+          hierarchy is: current clinical guidelines (WHO 2024, USPSTF 2021, NICE NG209, the US Surgeon General
+          report), then Cochrane reviews and the withdrawal time-course literature, then the site's own research
+          records. It contains no dosing instructions, no individual treatment recommendation and no guarantee. No
+          clinician has reviewed it. That is a statement about the review process, not about the sources: they are
+          public and linked below so you can read them yourself. Corrections are handled under the
+          <a href="/editorial-policy/" class="text-primary underline decoration-1 underline-offset-2">editorial policy</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <nav aria-label="Related guides" class="mx-auto max-w-4xl px-4 sm:px-6 pb-4">
+    <div class="rounded-lg border border-gray-200 dark:border-slate-700 p-6">
+      <p class="text-xl font-bold font-heading mb-4">Related guides</p>
+      <div class="grid gap-4 sm:grid-cols-2">
+        <a href="/withdrawal/" class="card p-4 no-underline hover:-translate-y-1 transition duration-200">
+          <h3 class="font-bold font-heading text-heading mb-1">Withdrawal, symptom by symptom</h3>
+          <p class="text-sm text-muted dark:text-slate-400">What each symptom feels like, how long it lasts, and when to get help.</p>
+        </a>
+        <a href="/timeline/" class="card p-4 no-underline hover:-translate-y-1 transition duration-200">
+          <h3 class="font-bold font-heading text-heading mb-1">Quit timeline</h3>
+          <p class="text-sm text-muted dark:text-slate-400">What changes in the body after the last cigarette, and what people report.</p>
+        </a>
+        <a href="/cravings/" class="card p-4 no-underline hover:-translate-y-1 transition duration-200">
+          <h3 class="font-bold font-heading text-heading mb-1">Cravings playbook</h3>
+          <p class="text-sm text-muted dark:text-slate-400">Why urges pass, and what to do in the five minutes they peak.</p>
+        </a>
+        <a href="/medications/" class="card p-4 no-underline hover:-translate-y-1 transition duration-200">
+          <h3 class="font-bold font-heading text-heading mb-1">Quit smoking medications</h3>
+          <p class="text-sm text-muted dark:text-slate-400">Evidence pages for NRT, varenicline, bupropion and cytisine.</p>
+        </a>
+        <a href="/questions/how-long-withdrawal-lasts/" class="card p-4 no-underline hover:-translate-y-1 transition duration-200">
+          <h3 class="font-bold font-heading text-heading mb-1">How long does withdrawal last?</h3>
+          <p class="text-sm text-muted dark:text-slate-400">The short answer, with the same boundaries in fewer words.</p>
+        </a>
+        <a href="/experiences/" class="card p-4 no-underline hover:-translate-y-1 transition duration-200">
+          <h3 class="font-bold font-heading text-heading mb-1">Real quit experiences</h3>
+          <p class="text-sm text-muted dark:text-slate-400">De-identified community accounts of what the first weeks were like.</p>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <Sources sources={pageSources} />
+  <CallToAction
+    title="In the middle of week one?"
+    subtitle="Read what helps in the moment, and what the evidence actually supports."
+    actions={[
+      { variant: 'primary', text: 'Cravings Playbook', href: '/cravings/' },
+      { text: 'Withdrawal Section', href: '/withdrawal/' },
+    ]}
+  />
+
+  <ReviewStatement updated="13 November 2026" />
+</Layout>
