@@ -1,122 +1,851 @@
 ---
-import { getCollection } from 'astro:content';
 import Layout from '~/layouts/PageLayout.astro';
 import Sources from '~/components/common/Sources.astro';
 import StructuredData from '~/components/common/StructuredData.astro';
 import Breadcrumbs from '~/components/common/Breadcrumbs.astro';
 import ReviewStatement from '~/components/common/ReviewStatement.astro';
 import { SITE } from 'astrowind:config';
-import { authorRef, dateFields } from '~/utils/schema';
+import { authorRef, dateFields, organizationRef, siteUrl } from '~/utils/schema';
+import { seoDescription, seoTitle } from '~/utils/seo';
 import CallToAction from '~/components/widgets/CallToAction.astro';
 
-const medications = (await getCollection('method')).filter((m) => m.data.medicationWarning);
+const site = siteUrl(SITE.site);
 
 const metadata = {
-  title: 'Quit Smoking Medications | Quit Smoking Hub',
-  description:
-    'Evidence pages for smoking cessation medications: nicotine replacement therapy, varenicline, bupropion and cytisine. What they are, how they work, and what trials found.',
+  title: seoTitle('Quit Smoking Medications: Complete Comparison'),
+  description: seoDescription(
+    'Compare nicotine replacement therapy, varenicline, cytisine and bupropion: how each works, what trials found, safety cautions and guideline positions.'
+  ),
 };
 
-const pageSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'CollectionPage',
-  headline: 'Quit Smoking Medications | Quit Smoking Hub',
-  name: 'Quit Smoking Medications | Quit Smoking Hub',
-  description: 'Evidence pages for smoking cessation medications: nicotine replacement therapy, varenicline, bupropion and cytisine. What they are, how they work, and what trials found.',
-  url: `${String(SITE.site).replace(/\/$/, '')}/medications/`,
-  mainEntityOfPage: `${String(SITE.site).replace(/\/$/, '')}/medications/`,
-  isPartOf: { '@id': `${SITE.site}/#website` },
-  author: authorRef(SITE.site),
-  publisher: { '@id': `${SITE.site}/#organization` },
-  ...dateFields(),
-};
-
-const pageSources = [
-    { label: 'NICE NG209 — Tobacco: preventing uptake, promoting quitting and treating dependence', url: 'https://www.nice.org.uk/guidance/ng209' },
-    { label: 'USPSTF — Tobacco Smoking Cessation in Adults, Including Pregnant Persons', url: 'https://www.uspreventiveservicestaskforce.org/uspstf/recommendation/tobacco-use-in-adults-and-pregnant-women-counseling-and-interventions' },
-    { label: 'Cochrane — Pharmacological interventions for smoking cessation (overview & network meta-analysis)', url: 'https://doi.org/10.1002/14651858.CD009329.pub2' },
+const pageSchema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: 'Quit Smoking Medications: Complete Comparison',
+    name: 'Quit Smoking Medications: Complete Comparison',
+    description:
+      'Compare nicotine replacement therapy, varenicline, cytisine and bupropion: how each works, what trials found, safety cautions and guideline positions.',
+    url: `${site}/medications/`,
+    mainEntityOfPage: `${site}/medications/`,
+    isPartOf: { '@id': `${site}/#website` },
+    author: authorRef(SITE.site),
+    publisher: organizationRef(SITE.site),
+    ...dateFields(undefined, '2026-11-14'),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'MedicalWebPage',
+    headline: 'Quit Smoking Medications: Complete Comparison',
+    name: 'Quit Smoking Medications: Complete Comparison',
+    description:
+      'Compare nicotine replacement therapy, varenicline, cytisine and bupropion: how each works, what trials found, safety cautions and guideline positions.',
+    url: `${site}/medications/`,
+    mainEntityOfPage: `${site}/medications/`,
+    isPartOf: { '@id': `${site}/#website` },
+    author: authorRef(SITE.site),
+    publisher: organizationRef(SITE.site),
+    about: { '@type': 'MedicalCondition', name: 'Tobacco use disorder' },
+    audience: { '@type': 'Audience', audienceType: 'Adults who smoke and want to stop' },
+    ...dateFields(undefined, '2026-11-14'),
+  },
 ];
 
+const pageSources = [
+  {
+    label: 'WHO — Clinical treatment guideline for tobacco cessation in adults (2024)',
+    url: 'https://www.who.int/publications/i/item/9789240096431',
+  },
+  {
+    label: 'WHO — Tobacco fact sheet',
+    url: 'https://www.who.int/news-room/fact-sheets/detail/tobacco',
+  },
+  {
+    label: 'USPSTF — Tobacco smoking cessation in adults, including pregnant persons (2021)',
+    url: 'https://www.uspreventiveservicestaskforce.org/uspstf/recommendation/tobacco-use-in-adults-and-pregnant-women-counseling-and-interventions',
+  },
+  {
+    label: 'NICE NG209 — Tobacco: preventing uptake, promoting quitting and treating dependence',
+    url: 'https://www.nice.org.uk/guidance/ng209',
+  },
+  {
+    label: 'Cochrane — Nicotine replacement therapy for smoking cessation (R-001)',
+    url: 'https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD000146.pub4/full',
+  },
+  {
+    label: 'Cochrane — Nicotine receptor partial agonists for smoking cessation (R-002)',
+    url: 'https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD006103.pub4/full',
+  },
+  {
+    label: 'Cochrane — Antidepressants for smoking cessation (R-003)',
+    url: 'https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD000031.pub3/full',
+  },
+  {
+    label: 'Cochrane — Pharmacological interventions: overview and network meta-analyses (R-008)',
+    url: 'https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD009329.pub2/full',
+  },
+  {
+    label:
+      'Anthenelli et al. — EAGLES trial: neuropsychiatric safety and efficacy of varenicline, bupropion and nicotine patch (R-015)',
+    url: 'https://doi.org/10.1016/S0140-6736(16)30272-0',
+  },
+  {
+    label: 'West et al. — Placebo-controlled trial of cytisine for smoking cessation (R-016)',
+    url: 'https://doi.org/10.1056/NEJMoa1102035',
+  },
+  {
+    label: 'Walker et al. — Cytisine versus nicotine for smoking cessation (R-017)',
+    url: 'https://doi.org/10.1056/NEJMoa1407764',
+  },
+  {
+    label: 'US Surgeon General — Smoking Cessation: A Report of the Surgeon General (2020)',
+    url: 'https://www.hhs.gov/sites/default/files/2020-cessation-sgr-full-report.pdf',
+  },
+];
+
+const tableHead = 'py-2 pr-4 font-bold text-heading dark:text-slate-200';
+const tableRow = 'border-b border-gray-100 dark:border-slate-800';
+const tableCell = 'py-3 pr-4 align-top';
+const inlineLink = 'text-primary underline decoration-1 underline-offset-2';
+
+const options = [
+  {
+    name: 'Nicotine patch',
+    className: 'NRT — steady release',
+    role: 'Background cover through the day; the usual base of combination NRT',
+    rx: 'No, in most countries',
+    evidence: 'Strong',
+    href: '/medications/nicotine-patch/',
+  },
+  {
+    name: 'Nicotine gum',
+    className: 'NRT — fast-acting',
+    role: 'On-demand relief when a craving starts; also occupies the mouth',
+    rx: 'No, in most countries',
+    evidence: 'Strong',
+    href: '/medications/nicotine-gum/',
+  },
+  {
+    name: 'Nicotine lozenge',
+    className: 'NRT — fast-acting',
+    role: 'On-demand relief without chewing; discreet in work settings',
+    rx: 'No, in most countries',
+    evidence: 'Strong',
+    href: '/medications/nicotine-lozenge/',
+  },
+  {
+    name: 'Varenicline',
+    className: 'Partial nicotine-receptor agonist',
+    role: 'Daily tablet; reduces craving and blunts the reward from smoking',
+    rx: 'Yes',
+    evidence: 'Strong',
+    href: '/medications/varenicline/',
+  },
+  {
+    name: 'Cytisine',
+    className: 'Partial nicotine-receptor agonist',
+    role: 'Short tablet course; similar mechanism to varenicline, far cheaper',
+    rx: 'Varies by country',
+    evidence: 'Moderate',
+    href: '/medications/cytisine/',
+  },
+  {
+    name: 'Bupropion',
+    className: 'Non-nicotine antidepressant',
+    role: 'Daily tablet; reduces withdrawal and craving without nicotine',
+    rx: 'Yes',
+    evidence: 'Strong',
+    href: '/medications/bupropion/',
+  },
+];
+
+const comparisons = [
+  {
+    comparison: 'Any NRT versus placebo or no medication',
+    finding:
+      'Increases the chance of quitting by roughly 50% to 70%, across settings and across patch, gum, lozenge, inhaler and spray.',
+    note: 'Large evidence base; absolute quit rates still modest.',
+  },
+  {
+    comparison: 'Varenicline versus placebo',
+    finding:
+      'Roughly doubles to triples the odds of quitting in trials — among the largest effects for a single medication.',
+    note: 'Consistent across reviews; nausea is the most common reason people stop it.',
+  },
+  {
+    comparison: 'Bupropion versus placebo',
+    finding: 'Roughly doubles quit rates; effective whether or not the person has a history of depression.',
+    note: 'Less effective than varenicline and combination NRT in indirect comparisons.',
+  },
+  {
+    comparison: 'Cytisine versus placebo',
+    finding:
+      'Increases quit rates. One placebo-controlled trial reported 12-month continuous abstinence of 8.4% versus 2.4%.',
+    note: 'Single-country trial; absolute rates were low in both arms.',
+  },
+  {
+    comparison: 'Combination NRT versus single-form NRT',
+    finding: 'Patch plus a fast-acting form is more effective than either form alone.',
+    note: 'The default offer in UK stop-smoking services; also supported by network meta-analysis.',
+  },
+  {
+    comparison: 'Varenicline versus single-form NRT',
+    finding: 'Varenicline generally comes out ahead of a single NRT form in network meta-analyses.',
+    note: 'Indirect comparison; head-to-head trials are fewer.',
+  },
+  {
+    comparison: 'Varenicline versus bupropion',
+    finding: 'Varenicline generally produces higher quit rates in both direct and indirect comparisons.',
+    note: 'Bupropion remains a reasonable option when varenicline is unsuitable or unavailable.',
+  },
+  {
+    comparison: 'Cytisine versus NRT',
+    finding:
+      'One open-label trial found higher one-month abstinence with cytisine (40% versus 31%); by six months the difference had narrowed (22% versus 15%) and was not statistically significant.',
+    note: 'Cytisine cost far less; the wide confidence intervals matter more than the headline numbers.',
+  },
+  {
+    comparison: 'Cytisine versus varenicline',
+    finding: 'Both are partial agonists with similar mechanisms, but head-to-head trial evidence is limited.',
+    note: 'Treat claims that one is clearly superior as unsettled.',
+  },
+];
+
+const guidelines = [
+  {
+    body: 'WHO 2024',
+    behavioural: 'Brief advice from health workers plus structured behavioural support; digital tools as a complement.',
+    medication: 'Recommends varenicline, NRT, bupropion and cytisine as effective options for adults using tobacco.',
+    message: 'Combine behavioural support with medication; treat pharmacotherapy as part of a system, not a shortcut.',
+  },
+  {
+    body: 'USPSTF 2021',
+    behavioural: 'Ask, advise and offer behavioural interventions to every adult; effective in non-pregnant adults.',
+    medication:
+      'Recommends NRT, bupropion and varenicline for non-pregnant adults. For pregnant persons, behavioural interventions are the recommended approach.',
+    message: 'Screen and offer, rather than waiting for people to ask.',
+  },
+  {
+    body: 'NICE NG209',
+    behavioural: 'Person-centred support, repeated if needed; quitlines and digital options count.',
+    medication:
+      'Offer combination NRT, varenicline or bupropion alongside behavioural support; e-cigarettes can be considered within local rules.',
+    message: 'Match the offer to the person and review it; one failed attempt is not a verdict.',
+  },
+  {
+    body: 'US Surgeon General 2020',
+    behavioural: 'Counselling, quitlines and community support all have evidence behind them.',
+    medication: 'NRT, varenicline and bupropion have strong evidence; combination approaches are most effective.',
+    message: 'Quitting helps at any age; combining tools beats relying on one.',
+  },
+];
 ---
 
-
-
 <Layout metadata={metadata}>
-  <StructuredData slot="head" schema={[pageSchema]} />
-  <Breadcrumbs bar items={[{ text: 'Home', href: '/' }, { text: 'Medications', href: '/medications/' }, { text: 'Quit smoking medications: the evidence' }]} />
+  <StructuredData slot="head" schema={pageSchema} />
+  <Breadcrumbs
+    bar
+    items={[
+      { text: 'Home', href: '/' },
+      { text: 'Medications', href: '/medications/' },
+      { text: 'Complete comparison' },
+    ]}
+  />
+
   <section class="relative mx-auto max-w-4xl px-4 sm:px-6 pt-8 md:pt-12 pb-4">
-    <p class="text-base font-bold tracking-wide uppercase text-secondary mb-2 text-center">Quit Smoking Medications</p>
+    <p class="text-base font-bold tracking-wide uppercase text-secondary mb-2 text-center">Complete Guide</p>
     <h1 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading text-heading text-center">
-      Quit smoking medications: the evidence
+      Quit smoking medications and NRT: the complete comparison
     </h1>
     <p class="mt-4 max-w-3xl mx-auto text-lg text-muted text-center">
-      Medication is one of the strongest tools available for quitting — combined with behavioral support it is more
-      effective than either alone. These pages explain the evidence. They do not prescribe.
+      What nicotine replacement, varenicline, cytisine and bupropion actually do, what the trials found, where the
+      guidelines agree, and which questions belong with a prescriber rather than a website.
     </p>
   </section>
-  <p class="mx-auto max-w-4xl px-4 sm:px-6 pb-2 text-xs text-muted dark:text-slate-400">Maintained by <span class="font-semibold">SmokingCessationHub Tech Team</span></p>
+  <p class="mx-auto max-w-4xl px-4 sm:px-6 pb-2 text-xs text-muted dark:text-slate-400">
+    Maintained by <span class="font-semibold">SmokingCessationHub Tech Team</span> · Last updated
+    <span class="font-semibold">14 November 2026</span> · Not reviewed by a clinician
+  </p>
 
   <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8">
-    <div class="grid gap-6 md:grid-cols-2">
-      {
-        medications.map((m) => (
-          <a
-            href={`/medications/${m.data.slug}/`}
-            class="card p-6 no-underline hover:-translate-y-1 transition duration-200"
-          >
-            <h2 class="font-bold font-heading text-xl mb-2">{m.data.title}</h2>
-            <p class="text-muted dark:text-slate-400 text-sm mb-3">{m.data.summary}</p>
-            <p class="text-sm">
-              Evidence strength: <span class="font-bold text-primary">{m.data.evidenceStrength}</span>
-            </p>
+    <div
+      class="rounded-lg border border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-900/40 p-5 text-sm mb-10"
+    >
+      <p class="text-muted dark:text-slate-400">
+        <span class="font-bold text-heading dark:text-slate-200">What this page is:</span> a comparison of the cessation medications
+        with the strongest published evidence, written for adults who smoke and want to stop. It contains no doses, no tapering
+        schedules and no injection instructions, because those depend on the product, the country and the person. It makes
+        no promise about outcome. Medication choices belong with a clinician or pharmacist who knows your history. Read our
+        <a href="/editorial-policy/" class={inlineLink}>editorial policy</a> for how sources are selected and corrected.
+      </p>
+    </div>
+
+    <div class="space-y-12">
+      <div>
+        <p class="text-muted dark:text-slate-400">
+          Almost everyone who smokes has heard of nicotine patches. Far fewer can explain how varenicline differs from
+          cytisine, why guidelines sometimes prefer a combination of two nicotine products to one, or why the same habit
+          can lead two people to different prescriptions. This page is the comparison: what each option does, what the
+          trials and systematic reviews found, what the safety questions are, and what the major guidelines recommend.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          One idea organises everything below. Medication does not make anyone quit. It reduces the intensity of
+          withdrawal and craving enough that the behavioural work — changing routines, surviving triggers, learning to
+          sit with an urge — has a chance to take effect. That is why the strongest guideline recommendation is not a
+          particular drug but a combination: behavioural support plus medication where it is appropriate.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">1. What cessation medication can and cannot do</h2>
+        <p class="text-muted dark:text-slate-400">
+          Nicotine dependence is a pharmacological problem before it is a habit problem. Repeated exposure changes the
+          number and sensitivity of nicotinic receptors, and when nicotine is removed the body produces a predictable
+          withdrawal syndrome: craving, irritability, restlessness, poor concentration, disturbed sleep, low mood and
+          increased appetite. Most of those symptoms peak in the first week and settle within two to four weeks, but
+          craving and appetite can run longer. Medication acts on that layer. It replaces some nicotine, or stimulates
+          the receptor partially, or changes the dopamine and noradrenaline signalling that withdrawal disrupts.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          What medication cannot do is unhook the cigarette from the coffee, the car, the break, the argument or the
+          glass of wine. Those are learned associations, and they fade through repeated exposure without smoking, not
+          through pharmacology. A person can take a perfectly appropriate medicine and still relapse at a wedding
+          because the plan never covered weddings. The
+          <a href="/cravings/" class={inlineLink}>cravings section</a> and the
+          <a href="/triggers/" class={inlineLink}>trigger library</a> deal with that half of the problem; this page deals
+          with the pharmacological half and is explicit that neither half is sufficient alone.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          There is also an arithmetic point that prevents a great deal of disappointment. Trial results are usually
+          reported as relative effects: “roughly doubles the chance of quitting” means that if 5 in 100 people quit
+          without medication, about 10 in 100 quit with it. That is a real and worthwhile difference — it is roughly one
+          extra quitter for every twenty people treated — but it is not a guarantee, and it is not a verdict on anyone
+          who does not succeed. The Cochrane review of nicotine replacement makes the same point in its limitations:
+          even with effective medication, most participants in these trials did not stop smoking. The aim is to improve
+          the odds and to make the attempt survivable, not to promise an outcome.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Finally, medication is not a substitute for wanting to stop. It can reduce the cost of the attempt, but it
+          cannot supply the reason. If you are not ready yet, the
+          <a href="/questions/what-if-im-not-ready-to-quit/" class={inlineLink}>“not ready to quit” answer</a> is a more honest
+          starting point than a prescription.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">2. The options at a glance</h2>
+        <p class="text-muted dark:text-slate-400 mb-4">
+          The table below covers the six options with dedicated pages on this site, plus the combination approach that
+          guidelines most often recommend. “Prescription” describes typical status, not universal law: availability and
+          scheduling differ by country, and nicotine replacement is sold over the counter in many places but not all.
+        </p>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm text-left">
+            <thead>
+              <tr class="border-b border-gray-200 dark:border-slate-700">
+                <th class={tableHead}>Option</th>
+                <th class={tableHead}>Class</th>
+                <th class={tableHead}>Typical role</th>
+                <th class={tableHead}>Prescription</th>
+                <th class={tableHead}>Evidence</th>
+              </tr>
+            </thead>
+            <tbody class="text-muted dark:text-slate-400">
+              {
+                options.map((o, i) => (
+                  <tr class={i === options.length - 1 ? '' : tableRow}>
+                    <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>
+                      <a href={o.href} class={inlineLink}>
+                        {o.name}
+                      </a>
+                    </td>
+                    <td class={tableCell}>{o.className}</td>
+                    <td class={tableCell}>{o.role}</td>
+                    <td class={tableCell}>{o.rx}</td>
+                    <td class={tableCell}>{o.evidence}</td>
+                  </tr>
+                ))
+              }
+              <tr>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>
+                  <a href="/methods/combination/" class={inlineLink}> Combination NRT </a>
+                </td>
+                <td class={tableCell}>Patch plus a fast-acting form</td>
+                <td class={tableCell}>Steady background cover plus on-demand relief</td>
+                <td class={tableCell}>No, where both forms are sold</td>
+                <td class={tableCell}>Strong</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-4 text-muted dark:text-slate-400">
+          Two NRT forms are not covered by their own pages here: the inhalator and the mouth spray. They belong to the
+          same evidence base and the same logic — a fast-acting form used when a craving arrives — but their
+          availability varies widely, and a page without local product detail would add little. If your country supplies
+          them, treat them as members of the fast-acting group described in the next section.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          The evidence labels are deliberately coarse. “Strong” means multiple systematic reviews and large trials agree
+          on the direction of effect; “moderate” means the evidence is consistent but thinner, or comes from fewer
+          settings. Neither label means “works for you”.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">3. Nicotine replacement therapy: steady versus fast-acting</h2>
+        <p class="text-muted dark:text-slate-400">
+          Nicotine replacement works by giving nicotine without the smoke. That sounds like a paradox — nicotine is the
+          addictive drug in cigarettes — but the point of the substitution is to separate the drug from the behaviour
+          and from the combustion products. The person keeps the nicotine they are physically dependent on while the
+          smoking routine, the hand-to-mouth habit and the exposure to tar and carbon monoxide are removed. The Cochrane
+          review of NRT found that any form increases quitting by roughly 50% to 70% compared with placebo or no
+          medication, and the effect appears across settings and across products.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          The practical distinction inside NRT is speed. The patch delivers nicotine slowly and steadily through the
+          skin, producing a fairly constant blood level. Gum, lozenge, inhalator and spray deliver a dose within
+          minutes, so they can interrupt a craving that has already started. Combining the two is the arrangement most
+          guidelines favour: a patch for the baseline, and a fast-acting form for the moments when the baseline is not
+          enough.
+        </p>
+
+        <h3 class="text-xl font-bold font-heading mt-6 mb-2">The patch: background cover</h3>
+        <p class="text-muted dark:text-slate-400">
+          The patch is the least demanding form. It is applied once, worn through the day, and forgotten. That
+          convenience matters in the first week, when the effort of remembering a routine is itself a risk. The
+          trade-off is that it cannot respond to a spike in craving; it flattens the background, it does not intercept
+          the ambush. Skin irritation at the application site is the most commonly reported problem, and rotating the
+          site helps. Vivid dreams and disturbed sleep are reported with some products, and some people remove the patch
+          overnight for that reason — a decision to discuss with a pharmacist rather than to improvise.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Read the
+          <a href="/medications/nicotine-patch/" class={inlineLink}>nicotine patch page</a> for the fuller account of evidence,
+          side effects and cautions.
+        </p>
+
+        <h3 class="text-xl font-bold font-heading mt-6 mb-2">Gum and lozenge: on-demand relief</h3>
+        <p class="text-muted dark:text-slate-400">
+          Gum and lozenge are the two fast-acting forms most people can buy without a prescription. Both deliver
+          nicotine through the lining of the mouth, and both depend on technique. Gum is chewed briefly and then parked
+          against the cheek — chewing it continuously like ordinary gum releases nicotine too quickly, which causes
+          hiccups, jaw ache and stomach upset. The lozenge is left to dissolve; chewing or swallowing it produces the
+          same problems. Acidic drinks such as coffee, cola and fruit juice reduce absorption if taken around the same
+          time, which is an easy detail to miss and an annoying one to discover in the first week.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          The behavioural side effect is useful: both forms give the mouth and hands something to do at exactly the
+          moment the old routine would have supplied a cigarette. That is not a cure for the habit, but it is a
+          practical bridge. The
+          <a href="/medications/nicotine-gum/" class={inlineLink}>gum page</a> and the
+          <a href="/medications/nicotine-lozenge/" class={inlineLink}>lozenge page</a> cover the details.
+        </p>
+
+        <h3 class="text-xl font-bold font-heading mt-6 mb-2">Combining forms — and what “combination” means</h3>
+        <p class="text-muted dark:text-slate-400">
+          Combination NRT means using a patch as the base and a fast-acting form on top, not doubling up on the same
+          product. The evidence for this is stronger than the evidence for either form alone, and NICE explicitly offers
+          combination NRT as a first-line option alongside behavioural support. The
+          <a href="/comparisons/combination-nrt-vs-single-form/" class={inlineLink}>
+            combination versus single-form comparison
           </a>
-        ))
-      }
+          sets out the numbers; the
+          <a href="/methods/combination/" class={inlineLink}>combination method page</a> covers the practical arrangement.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          A caution that applies to all NRT: these products are not harmless confectionery, and they are not a long-term
+          substitute for smoking. They are licensed medicines with labels, cautions and children-safety warnings. Keep
+          them away from children — lozenges in particular resemble sweets — and tell your pharmacist what else you
+          take. People who have had a recent heart attack, stroke or unstable angina should talk to a clinician before
+          starting, not because NRT is known to cause cardiac events at usual use, but because that decision deserves a
+          professional assessment rather than a website's reassurance.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">4. Varenicline</h2>
+        <p class="text-muted dark:text-slate-400">
+          Varenicline is a partial agonist at nicotinic receptors. “Partial” is the key word: it stimulates the receptor
+          enough to reduce withdrawal and craving, but not enough to reproduce the full reward of a cigarette. If a
+          person smokes while taking it, the cigarette delivers less pleasure than expected, which weakens the reward
+          loop that sustains the habit. It is taken as a daily tablet, and treatment usually starts before the quit date
+          so that the drug is established by the time smoking stops.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          The evidence is among the strongest for any single cessation medication. The Cochrane review of nicotine
+          receptor partial agonists found that varenicline roughly doubles to triples the odds of quitting compared with
+          placebo, and network meta-analyses consistently place it at or near the top of single agents, ahead of
+          single-form NRT and bupropion. The
+          <a href="/medications/varenicline/" class={inlineLink}>varenicline page</a> has the detail.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          The safety story is worth knowing because it was noisy for years. Early case reports raised concern about
+          neuropsychiatric events, and regulators applied strict warnings. The EAGLES trial then randomised 8,144
+          smokers — about half with a psychiatric diagnosis — to varenicline, bupropion, nicotine patch or placebo, and
+          found no significant increase in moderate-to-severe neuropsychiatric adverse events with varenicline or
+          bupropion compared with placebo or patch. Varenicline was also more effective than placebo, bupropion and
+          patch for continuous abstinence. Regulators subsequently removed the boxed warning in several markets after
+          reviewing that evidence. That does not mean mood changes cannot happen; it means the trial evidence did not
+          support a broad neuropsychiatric hazard, and any mood change on treatment should still be reported promptly.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Nausea is the most commonly reported side effect, often early and often mild, and it is the main reason people
+          stop. Abnormal dreams and insomnia are also common. Kidney function affects suitability, and the prescriber
+          will want to know about other medicines. Varenicline is prescription-only in most countries, and availability
+          and cost vary enormously.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">5. Cytisine</h2>
+        <p class="text-muted dark:text-slate-400">
+          Cytisine comes from the seeds of Laburnum anagyroides and has been used as a smoking cessation aid in Central
+          and Eastern Europe for decades. Pharmacologically it is a partial nicotinic agonist, close enough to
+          varenicline in mechanism that the two are usually discussed together. Courses are short — a few weeks rather
+          than months — and the drug is inexpensive to produce, which is why it has attracted attention in countries
+          where cost is the main barrier to treatment.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          The landmark placebo-controlled trial randomised 740 daily smokers in Poland and found 12-month continuous
+          abstinence of 8.4% with cytisine versus 2.4% with placebo — a large relative difference on a low absolute
+          base. The comparative trial that made cytisine a policy question randomised 1,310 smokers in New Zealand to
+          cytisine or eight weeks of NRT. At one month, abstinence was higher with cytisine (40% versus 31%); by six
+          months the difference had narrowed to 22% versus 15% and was no longer statistically significant. Cytisine
+          cost far less. The honest reading is that cytisine is effective, probably broadly comparable to NRT, and much
+          cheaper — not that it is proven superior.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Availability is the practical complication. Cytisine is prescription-only in some countries, pharmacy-sold in
+          others, and not approved at all in some — including the United States, which is why USPSTF guidance does not
+          cover it even though WHO recommends it. Nausea, dry mouth, sleep disturbance and headache are the commonly
+          reported effects, and gastrointestinal upset is the usual reason people stop. The
+          <a href="/medications/cytisine/" class={inlineLink}>cytisine page</a> covers the rest.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">6. Bupropion</h2>
+        <p class="text-muted dark:text-slate-400">
+          Bupropion is an antidepressant that was noticed to reduce smoking in patients taking it for depression, and
+          was subsequently developed as a cessation medication in its own right. It acts on dopamine and noradrenaline
+          rather than on nicotinic receptors, which makes it the main non-nicotine option. It is taken as a daily
+          tablet, usually started before the quit date.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          The Cochrane review of antidepressants found that bupropion roughly doubles quit rates compared with placebo,
+          and that the effect holds whether or not the person has a history of depression. Network meta-analyses place
+          it below varenicline and combination NRT in effectiveness, but clearly above placebo. For someone who wants to
+          avoid nicotine entirely, or who has used NRT without success, it remains a reasonable conversation to have
+          with a prescriber.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          The contraindications are the part to take seriously. Bupropion is contraindicated in people with a seizure
+          disorder, a current or previous eating disorder, or recent use of MAOI antidepressants, and seizure risk is
+          the main serious concern. Dry mouth, insomnia and headache are the common effects. Mood changes should be
+          reported promptly. As with every medicine on this page, the individual risk assessment belongs to a prescriber
+          who knows the full history — the
+          <a href="/medications/bupropion/" class={inlineLink}>bupropion page</a> lists the questions worth asking.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">7. What the comparative evidence actually shows</h2>
+        <p class="text-muted dark:text-slate-400 mb-4">
+          The table below summarises the comparisons that come up most often. Read the third column as carefully as the
+          second: most of these are indirect comparisons from network meta-analyses, which combine trials that used
+          different populations, different support levels and different definitions of abstinence. They are useful for
+          ranking options at a population level and unreliable for choosing a medicine for one person.
+        </p>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm text-left">
+            <thead>
+              <tr class="border-b border-gray-200 dark:border-slate-700">
+                <th class={tableHead}>Comparison</th>
+                <th class={tableHead}>What the reviews find</th>
+                <th class={tableHead}>How much to trust it</th>
+              </tr>
+            </thead>
+            <tbody class="text-muted dark:text-slate-400">
+              {
+                comparisons.map((c, i) => (
+                  <tr class={i === comparisons.length - 1 ? '' : tableRow}>
+                    <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>{c.comparison}</td>
+                    <td class={tableCell}>{c.finding}</td>
+                    <td class={tableCell}>{c.note}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-4 text-muted dark:text-slate-400">
+          Three cautions follow from that table. First, “more effective on average” is not “better for you”. A drug that
+          ranks second may be the right choice because the first is unavailable, unaffordable, contraindicated or
+          previously intolerable. Second, the differences between active treatments are smaller than the difference
+          between any active treatment and nothing — which is why the strongest message in the guidelines is “use
+          something evidence-based”, not “use the top-ranked product”. Third, the ranking can change as reviews update;
+          the Cochrane overview underpinning much of this table is from 2013, and newer trials have been published
+          since.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          E-cigarettes are deliberately outside this comparison. They are not a licensed medicine in most countries,
+          their long-term safety is still being studied, and the evidence question is different in kind. The
+          <a href="/methods/" class={inlineLink}>methods section</a> explains where they sit among the options, and the
+          <a href="/comparisons/" class={inlineLink}>comparisons hub</a> covers the method-level questions that are not about
+          medicines.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">8. How the guidelines position medication</h2>
+        <p class="text-muted dark:text-slate-400 mb-4">
+          Four major bodies have published cessation guidance in recent years. They differ in emphasis, in how they
+          handle pregnancy and in whether they mention cytisine, but they converge on the same core: identify people who
+          smoke, offer structured support, and offer medication where it is appropriate. The table summarises the
+          medication-relevant parts.
+        </p>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm text-left">
+            <thead>
+              <tr class="border-b border-gray-200 dark:border-slate-700">
+                <th class={tableHead}>Guideline</th>
+                <th class={tableHead}>Behavioural support</th>
+                <th class={tableHead}>Medication</th>
+                <th class={tableHead}>Practical message</th>
+              </tr>
+            </thead>
+            <tbody class="text-muted dark:text-slate-400">
+              {
+                guidelines.map((g, i) => (
+                  <tr class={i === guidelines.length - 1 ? '' : tableRow}>
+                    <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>{g.body}</td>
+                    <td class={tableCell}>{g.behavioural}</td>
+                    <td class={tableCell}>{g.medication}</td>
+                    <td class={tableCell}>{g.message}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-4 text-muted dark:text-slate-400">
+          The convergence is more informative than the differences. All four treat medication as an adjunct to support
+          rather than a standalone intervention. All four recommend NRT, varenicline and bupropion; WHO additionally
+          recommends cytisine. The differences are mostly about access and regulation: USPSTF cannot recommend a drug
+          that is not approved in the United States, and NICE works inside a health system that funds combination NRT
+          through stop-smoking services.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          For an individual, the practical translation is to ask what is available and funded where you live, rather
+          than to assume the guideline from another country applies. A drug that costs several hundred dollars a month
+          is not a plan; a free quitline plus over-the-counter NRT may be. The
+          <a href="/methods/quitlines/" class={inlineLink}>quitline page</a> and the
+          <a href="/methods/counseling/" class={inlineLink}>counselling page</a> cover the support side, which is usually
+          the cheapest part of the package.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">9. Safety: who should talk to a clinician first</h2>
+        <p class="text-muted dark:text-slate-400">
+          Most people can use cessation medication without a specialist assessment, but several groups need a
+          conversation before starting. This is not a complete list, and it is not a substitute for the product label,
+          which is the authoritative document for contraindications and interactions.
+        </p>
+        <ul class="mt-3 list-disc list-inside space-y-3 text-muted dark:text-slate-400">
+          <li>
+            <strong class="text-heading">Pregnancy and breastfeeding.</strong> Guidance differs. USPSTF recommends behavioural
+            interventions for pregnant people and finds insufficient evidence for medication in this group; UK guidance allows
+            NRT to be considered in some circumstances. This is a decision for a clinician who knows the pregnancy, not a
+            decision to make from a comparison table. The
+            <a href="/populations/pregnancy/" class={inlineLink}>pregnancy section</a> covers the wider question.
+          </li>
+          <li>
+            <strong class="text-heading">Recent cardiovascular events.</strong> A recent heart attack, stroke or unstable
+            angina warrants a professional conversation before starting NRT or any other cessation medicine. Stopping smoking
+            is strongly beneficial for cardiovascular risk, but the timing and choice of support should be individual.
+          </li>
+          <li>
+            <strong class="text-heading">Mental health conditions.</strong> The EAGLES trial is reassuring for varenicline
+            and bupropion at a population level, but it excluded some people with unstable conditions. If you have a serious
+            mental illness, take medicines that interact, or have had mood changes on a previous quit attempt, plan the attempt
+            with your mental health team. The
+            <a href="/populations/mental-health-conditions/" class={inlineLink}>mental health section</a> explains why quitting
+            is still worth doing and how to do it safely.
+          </li>
+          <li>
+            <strong class="text-heading">Seizure history or eating disorders.</strong> Bupropion is contraindicated in both,
+            and in people who have recently taken MAOI antidepressants. Mention these explicitly if a prescriber does not
+            ask.
+          </li>
+          <li>
+            <strong class="text-heading">Kidney disease.</strong> Varenicline suitability depends on kidney function, so the
+            prescriber needs that information.
+          </li>
+          <li>
+            <strong class="text-heading">Other medicines.</strong> Smoking changes how the body handles some drugs, so stopping
+            can change the effect of medicines you already take. Tell your prescriber that you are quitting, and ask whether
+            anything needs review. This is a routine conversation, not a reason to delay.
+          </li>
+          <li>
+            <strong class="text-heading">Young people and other tobacco products.</strong> Adolescents and people who use
+            smokeless tobacco, waterpipe or heated tobacco need guidance tailored to those products. WHO's 2024 guideline
+            explicitly covers adults using any tobacco product, not cigarettes alone.
+          </li>
+        </ul>
+        <p class="mt-4 text-muted dark:text-slate-400">
+          One warning belongs outside the medication list. Severe depression, hopelessness or thoughts of self-harm need
+          urgent help from a local health service, not a quit forum and not a website. Chest pain, severe
+          breathlessness, coughing blood or unexplained weight loss also need medical assessment rather than being
+          attributed to withdrawal.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">10. Medication plus support: the part that is easy to skip</h2>
+        <p class="text-muted dark:text-slate-400">
+          The single most consistent finding across the guidelines is that medication and behavioural support work
+          better together than either does alone. The mechanism is not mysterious: medication makes the first weeks
+          tolerable, and support teaches the skills that the first weeks do not automatically produce — how to
+          restructure a break, how to refuse a cigarette without a debate, how to interpret a lapse without
+          catastrophising. The
+          <a href="/comparisons/medication-vs-behavioral-support/" class={inlineLink}>
+            medication versus behavioural support comparison
+          </a>
+          sets out the evidence.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Support does not have to be expensive or intensive. A quitline call, a text programme, a weekly check-in with
+          a friend, a workplace stop-smoking group or a few sessions with a counsellor all count. What tends to matter
+          is that the support is scheduled rather than vague — “I'll call if it gets bad” is not a plan, whereas “I have
+          a call on Tuesday at seven” is. The
+          <a href="/methods/combination/" class={inlineLink}>combination page</a> explains how to stack these without making
+          the attempt complicated.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          If you are using a prescription medicine, do not stop it early because the first week felt fine. The course
+          length is part of the treatment, and the relapse risk is highest shortly after stopping. Equally, do not
+          continue beyond the planned course without review. Both decisions belong with the prescriber or pharmacist,
+          and both are easier when you say what is actually happening rather than what you think they want to hear.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">11. Cost, access and realistic planning</h2>
+        <p class="text-muted dark:text-slate-400">
+          Cost is not a footnote in this decision; it is often the deciding variable. Nicotine replacement is usually
+          the cheapest licensed option where it is sold over the counter, and generic store-brand products are usually
+          equivalent to branded ones in nicotine content. Varenicline is expensive in markets without subsidy and cheap
+          where a health system negotiates or funds it. Cytisine is the cheapest medication in the countries that supply
+          it, which is precisely why it matters. Behavioural support through a quitline or national service is often
+          free.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Two practical rules follow. First, buy enough to cover the period the product label or your prescriber
+          specifies; running out mid-course is a common and avoidable cause of relapse. Second, be sceptical of
+          unregulated “stop smoking” products sold online with testimonials and no regulatory approval. The licensed
+          options on this page have labels, trials and pharmacovigilance behind them; a miracle herbal capsule does not.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          If cost is the barrier, say so to the prescriber or pharmacist rather than silently choosing nothing. Generic
+          NRT, shorter courses where appropriate, subsidised services and quitline support are all legitimate parts of
+          the conversation. Paying nothing and continuing to smoke is the most expensive option in the long run, in both
+          money and health.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">12. Questions to ask before you start</h2>
+        <p class="text-muted dark:text-slate-400">
+          These are the questions that turn a web page into a clinical conversation. None of them has a universal
+          answer, and that is the point: the answers depend on your history, your other medicines, your country and what
+          you have already tried.
+        </p>
+        <ul class="mt-4 list-disc list-inside space-y-2 text-muted dark:text-slate-400">
+          <li>Which options are funded or available where I live, and what will this cost me?</li>
+          <li>Given my medical history and other medicines, is any of these unsuitable for me?</li>
+          <li>What side effects should make me stop and call you rather than wait?</li>
+          <li>How long should I plan to use this, and what happens when I stop?</li>
+          <li>Should I use a single form or a combination, and why?</li>
+          <li>What should I do if I smoke while using it?</li>
+          <li>Does quitting change how any of my current medicines work?</li>
+          <li>What support is available alongside the medication, and is it free?</li>
+          <li>If this attempt does not work, what should we try next?</li>
+          <li>Is there anything about my mental health history that changes this plan?</li>
+        </ul>
+        <p class="mt-4 text-muted dark:text-slate-400">
+          A good prescriber will welcome these questions. A short appointment is still enough to ask the first three,
+          and a pharmacist can answer most of the rest for over-the-counter products. The
+          <a href="/questions/do-i-need-a-doctor-to-quit-smoking/" class={inlineLink}>
+            “do I need a doctor to quit” answer
+          </a>
+          explains which options require a prescription and which do not, and the
+          <a href="/questions/can-i-smoke-while-using-nrt/" class={inlineLink}>
+            “can I smoke while using NRT” answer
+          </a>
+          deals with the most common practical worry.
+        </p>
+      </div>
     </div>
   </section>
 
-  <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8 space-y-6">
-    <div class="card p-8">
-      <h2 class="text-2xl font-bold font-heading mb-3">How medication helps</h2>
-      <p class="text-muted dark:text-slate-400 mb-3">
-        Nicotine withdrawal is the main reason early quit attempts fail. Medications act on the brain's nicotine
-        system to reduce withdrawal and craving, which frees up attention for the behavioral work — new routines,
-        trigger management, coping skills. This is why trials consistently find that medication plus behavioral
-        support outperforms either alone.
-      </p>
-    </div>
-
-    <div class="card p-8 border-l-4 border-l-primary">
-      <h2 class="text-2xl font-bold font-heading mb-3">Important: this is information, not a prescription</h2>
-      <ul class="list-disc list-inside space-y-2 text-muted dark:text-slate-400 text-sm">
-        <li>We do not recommend doses, judge whether a medication suits you, or give individual advice.</li>
-        <li>Prescription medications (varenicline, bupropion, cytisine in most countries) require a healthcare professional.</li>
-        <li>Every medication has contraindications, interactions and side effects that only a prescriber can assess.</li>
-        <li>Pregnant people, people with cardiovascular disease, mental health conditions or other illnesses need professional guidance.</li>
-      </ul>
-      <p class="text-sm font-bold text-heading mt-3">
-        Questions to ask a healthcare professional are listed on each medication page.
-      </p>
-      <p class="text-sm text-muted dark:text-slate-500 mt-3">
-        Per-medication evidence — trials, systematic reviews, safety data and how guidelines position each option — is
-        collected in the{' '}
+  <nav aria-label="Related guides" class="mx-auto max-w-4xl px-4 sm:px-6 pb-4">
+    <div class="rounded-lg border border-gray-200 dark:border-slate-700 p-6">
+      <p class="text-xl font-bold font-heading mb-4">Related guides</p>
+      <div class="grid gap-4 sm:grid-cols-2">
+        <a href="/medications/varenicline/" class="card p-4 no-underline hover:-translate-y-1 transition duration-200">
+          <h3 class="font-bold font-heading text-heading mb-1">Varenicline</h3>
+          <p class="text-sm text-muted dark:text-slate-400">
+            The strongest single agent, the EAGLES safety trial and the questions to ask.
+          </p>
+        </a>
+        <a href="/medications/cytisine/" class="card p-4 no-underline hover:-translate-y-1 transition duration-200">
+          <h3 class="font-bold font-heading text-heading mb-1">Cytisine</h3>
+          <p class="text-sm text-muted dark:text-slate-400">
+            A cheap partial agonist with a long history and uneven availability.
+          </p>
+        </a>
         <a
-          href="https://data.smokingcessationhub.com/medications/"
-          target="_blank"
-          class="text-primary underline decoration-1 underline-offset-2"
+          href="/medications/nicotine-patch/"
+          class="card p-4 no-underline hover:-translate-y-1 transition duration-200"
         >
-          Data Center medication evidence pages
-        </a>.
-      </p>
+          <h3 class="font-bold font-heading text-heading mb-1">Nicotine patch</h3>
+          <p class="text-sm text-muted dark:text-slate-400">
+            Steady background cover, skin irritation and what to do about dreams.
+          </p>
+        </a>
+        <a
+          href="/comparisons/combination-nrt-vs-single-form/"
+          class="card p-4 no-underline hover:-translate-y-1 transition duration-200"
+        >
+          <h3 class="font-bold font-heading text-heading mb-1">Combination NRT</h3>
+          <p class="text-sm text-muted dark:text-slate-400">
+            Why patch plus gum beats either alone, and how the trials compare.
+          </p>
+        </a>
+        <a href="/withdrawal/" class="card p-4 no-underline hover:-translate-y-1 transition duration-200">
+          <h3 class="font-bold font-heading text-heading mb-1">Nicotine withdrawal</h3>
+          <p class="text-sm text-muted dark:text-slate-400">
+            What each symptom feels like, how long it lasts, and what helps.
+          </p>
+        </a>
+        <a href="/quit-smoking/" class="card p-4 no-underline hover:-translate-y-1 transition duration-200">
+          <h3 class="font-bold font-heading text-heading mb-1">How to quit smoking</h3>
+          <p class="text-sm text-muted dark:text-slate-400">The full process, from quit date to the first year.</p>
+        </a>
+      </div>
     </div>
-  </section>
+  </nav>
 
   <Sources sources={pageSources} />
   <CallToAction
-    title="Medication + support = strongest evidence"
-    subtitle="Read the method pages to see how medication combines with counseling, quitlines and community support."
-    actions={[{ variant: 'primary', text: 'Compare Quit Methods', href: '/methods/' }]}
+    title="Medication is one part of the plan"
+    subtitle="Pair it with behavioural support and a quit date you can actually prepare for."
+    actions={[
+      { variant: 'primary', text: 'Compare Quit Methods', href: '/methods/' },
+      { text: 'Start Here', href: '/start/' },
+    ]}
   />
 
-  <ReviewStatement />
+  <ReviewStatement updated="14 November 2026" />
 </Layout>
