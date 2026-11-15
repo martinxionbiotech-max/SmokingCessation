@@ -5,117 +5,829 @@ import StructuredData from '~/components/common/StructuredData.astro';
 import Breadcrumbs from '~/components/common/Breadcrumbs.astro';
 import ReviewStatement from '~/components/common/ReviewStatement.astro';
 import { SITE } from 'astrowind:config';
-import { authorRef, dateFields } from '~/utils/schema';
+import { authorRef, dateFields, organizationRef, siteUrl } from '~/utils/schema';
+import { seoDescription, seoTitle } from '~/utils/seo';
 import CallToAction from '~/components/widgets/CallToAction.astro';
 
+const site = siteUrl(SITE.site);
+
 const metadata = {
-  title: 'Cravings: How to Handle Urges to Smoke | Quit Smoking Hub',
-  description:
-    'What a craving is, how long it lasts, and a practical playbook for getting through it — based on behavioral science and community experience.',
+  title: seoTitle('Cravings, Triggers and Relapse Prevention'),
+  description: seoDescription(
+    'Why cravings happen, how long they last, how to map your triggers, and how to plan relapse prevention — with in-the-moment skills and if-then plans.'
+  ),
 };
 
-const pageSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Article',
-  headline: 'Cravings: How to Handle Urges to Smoke | Quit Smoking Hub',
-  name: 'Cravings: How to Handle Urges to Smoke | Quit Smoking Hub',
-  description: 'What a craving is, how long it lasts, and a practical playbook for getting through it — based on behavioral science and community experience.',
-  url: `${String(SITE.site).replace(/\/$/, '')}/cravings/`,
-  mainEntityOfPage: `${String(SITE.site).replace(/\/$/, '')}/cravings/`,
-  isPartOf: { '@id': `${SITE.site}/#website` },
-  author: authorRef(SITE.site),
-  publisher: { '@id': `${SITE.site}/#organization` },
-  ...dateFields(),
-};
-
-const pageSources = [
-    { label: 'WHO — More than 100 reasons to quit tobacco', url: 'https://www.who.int/news-room/spotlight/more-than-100-reasons-to-quit-tobacco' },
-    { label: 'NHS — Quit smoking', url: 'https://www.nhs.uk/live-well/quit-smoking/' },
+const pageSchema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: 'Cravings, Triggers and Relapse Prevention',
+    name: 'Cravings, Triggers and Relapse Prevention',
+    description:
+      'A practical, source-based guide to smoking cravings, conditioned triggers and relapse prevention: what an urge is, how to ride it out, and how to plan for the situations that end quit attempts.',
+    url: `${site}/cravings/`,
+    mainEntityOfPage: `${site}/cravings/`,
+    isPartOf: { '@id': `${site}/#website` },
+    author: authorRef(SITE.site),
+    publisher: organizationRef(SITE.site),
+    ...dateFields(undefined, '2026-11-16'),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'MedicalWebPage',
+    headline: 'Cravings, Triggers and Relapse Prevention',
+    name: 'Cravings, Triggers and Relapse Prevention',
+    description:
+      'What cravings are, how conditioned triggers work, in-the-moment coping skills, medication at class level, and a written relapse-prevention plan.',
+    url: `${site}/cravings/`,
+    mainEntityOfPage: `${site}/cravings/`,
+    isPartOf: { '@id': `${site}/#website` },
+    author: authorRef(SITE.site),
+    publisher: organizationRef(SITE.site),
+    about: { '@type': 'MedicalCondition', name: 'Tobacco use disorder' },
+    audience: { '@type': 'Audience', audienceType: 'Adults who smoke and want to stop' },
+    ...dateFields(undefined, '2026-11-16'),
+  },
 ];
 
+const pageSources = [
+  {
+    label: 'WHO — Clinical treatment guideline for tobacco cessation in adults (2024)',
+    url: 'https://www.who.int/publications/i/item/9789240096431',
+  },
+  {
+    label: 'WHO — Tobacco fact sheet',
+    url: 'https://www.who.int/news-room/fact-sheets/detail/tobacco',
+  },
+  {
+    label: 'USPSTF — Tobacco smoking cessation in adults, including pregnant persons (2021)',
+    url: 'https://www.uspreventiveservicestaskforce.org/uspstf/recommendation/tobacco-use-in-adults-and-pregnant-women-counseling-and-interventions',
+  },
+  {
+    label: 'NICE NG209 — Tobacco: preventing uptake, promoting quitting and treating dependence',
+    url: 'https://www.nice.org.uk/guidance/ng209',
+  },
+  {
+    label: 'Hughes JR (2007) — Effects of abstinence from tobacco: valid symptoms and time course (R-007)',
+    url: 'https://academic.oup.com/ntr/article/9/3/315/1071235',
+  },
+  {
+    label: 'Cochrane — Nicotine replacement therapy for smoking cessation (R-001)',
+    url: 'https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD000146.pub4/full',
+  },
+  {
+    label: 'Cochrane — Nicotine receptor partial agonists for smoking cessation (R-002)',
+    url: 'https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD006103.pub4/full',
+  },
+  {
+    label: 'Cochrane — Antidepressants for smoking cessation (R-003)',
+    url: 'https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD000031.pub3/full',
+  },
+  {
+    label: 'Cochrane — Pharmacological interventions: overview and network meta-analyses (R-008)',
+    url: 'https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD009329.pub2/full',
+  },
+  {
+    label: 'US Surgeon General — Smoking Cessation: A Report of the Surgeon General (2020)',
+    url: 'https://www.hhs.gov/sites/default/files/2020-cessation-sgr-full-report.pdf',
+  },
+  {
+    label: 'NHS — Quit smoking',
+    url: 'https://www.nhs.uk/live-well/quit-smoking/',
+  },
+  {
+    label: 'CDC — Smoking and Tobacco Use',
+    url: 'https://www.cdc.gov/tobacco/index.html',
+  },
+];
+
+const tableHead = 'py-2 pr-4 font-bold text-heading dark:text-slate-200';
+const tableRow = 'border-b border-gray-100 dark:border-slate-800';
+const tableCell = 'py-3 pr-4 align-top';
+const inline = 'text-primary underline decoration-1 underline-offset-2';
 ---
 
-
-
 <Layout metadata={metadata}>
-  <StructuredData slot="head" schema={[pageSchema]} />
-  <Breadcrumbs bar items={[{ text: 'Home', href: '/' }, { text: 'The cravings playbook' }]} />
+  <StructuredData slot="head" schema={pageSchema} />
+  <Breadcrumbs bar items={[{ text: 'Home', href: '/' }, { text: 'Cravings, triggers and relapse prevention' }]} />
   <section class="relative mx-auto max-w-4xl px-4 sm:px-6 pt-8 md:pt-12 pb-4">
-    <p class="text-base font-bold tracking-wide uppercase text-secondary mb-2 text-center">Cravings</p>
+    <p class="text-base font-bold tracking-wide uppercase text-secondary mb-2 text-center">Complete Guide</p>
     <h1 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading text-heading text-center">
-      The cravings playbook
+      Cravings, triggers and relapse prevention
     </h1>
     <p class="mt-4 max-w-3xl mx-auto text-lg text-muted text-center">
-      A craving is a wave, not a wall. Most pass within 5–10 minutes — the skill is not to stop the wave, but to ride
-      it out without smoking.
+      Most quit attempts do not fail because the first day was impossible. They fail on an ordinary afternoon, in a
+      familiar situation, when an urge arrives with a convincing story attached. This guide is about that moment —
+      and about the weeks of planning that make it survivable.
     </p>
   </section>
-  <p class="mx-auto max-w-4xl px-4 sm:px-6 pb-2 text-xs text-muted dark:text-slate-400">Maintained by <span class="font-semibold">SmokingCessationHub Tech Team</span></p>
+  <p class="mx-auto max-w-4xl px-4 sm:px-6 pb-2 text-xs text-muted dark:text-slate-400">
+    Maintained by <span class="font-semibold">SmokingCessationHub Tech Team</span> · Last updated
+    <span class="font-semibold">16 November 2026</span> · Not reviewed by a clinician
+  </p>
 
-  <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8 space-y-10">
-    <div>
-      <h2 class="text-2xl font-bold font-heading mb-3">What a craving actually is</h2>
+  <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8">
+    <div class="rounded-lg border border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-900/40 p-5 text-sm mb-10">
       <p class="text-muted dark:text-slate-400">
-        Two things produce cravings after quitting. <strong class="text-heading">Withdrawal craving</strong> comes
-        from the brain adapting to the absence of nicotine — it fades over weeks. <strong class="text-heading">
-          Cue-triggered craving</strong> comes from learned associations (coffee, stress, driving) and can appear for
-        months. Both feel urgent. Neither lasts long.
+        <span class="font-bold text-heading dark:text-slate-200">What this page is:</span> a summary of public
+        guidance and systematic reviews on cravings, conditioned triggers and relapse, written for adults who smoke
+        and want to stop. It is general education, not a personal treatment plan. It contains no dosing instructions
+        and no guarantee that any method will work for you. Medication decisions belong with a clinician or pharmacist
+        who knows your history. Read our
+        <a href="/editorial-policy/" class={inline}>editorial policy</a>
+        for how sources are selected and corrected.
       </p>
     </div>
 
-    <div>
-      <h2 class="text-2xl font-bold font-heading mb-4">The 10-minute playbook</h2>
-      <ol class="list-decimal list-inside space-y-3 text-muted dark:text-slate-400">
-        <li><strong class="text-heading">Name it:</strong> "This is a craving. It will pass in minutes."</li>
-        <li><strong class="text-heading">Set a timer</strong> for 10 minutes and commit to waiting it out.</li>
-        <li><strong class="text-heading">Change state:</strong> drink cold water, wash your face, stand up and move.</li>
-        <li><strong class="text-heading">Change scene:</strong> leave the room, take a short walk.</li>
-        <li><strong class="text-heading">Occupy the mouth:</strong> sugar-free gum, mint, toothpicks, water.</li>
-        <li><strong class="text-heading">Breathe slowly:</strong> 4 seconds in, 6 seconds out, for two minutes.</li>
-        <li>
-          <strong class="text-heading">After it passes, note it:</strong> every survived craving weakens the
-          association.
-        </li>
-      </ol>
-    </div>
+    <div class="space-y-12">
+      <div>
+        <p class="text-muted dark:text-slate-400">
+          A craving is where a quit attempt is tested — and where most of the useful work happens, because every urge you meet without smoking is evidence that the situation no longer requires a cigarette. Urges are not polite, though: they arrive when you are tired, when someone hands you a drink, when the argument is over.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          This guide answers three questions: what is happening in your body and brain when an urge arrives, what you can do in the five minutes it lasts, and how to arrange your life in advance so the highest-risk situations do not decide the outcome. The trigger database holds the situation-by-situation detail; the relapse section holds the after-the-fact accounts. This page connects them.
+        </p>
+      </div>
 
-    <div>
-      <h2 class="text-2xl font-bold font-heading mb-3">What research supports</h2>
-      <p class="text-muted dark:text-slate-400">
-        Urge surfing (observing the craving without acting) and distraction have behavioral research support, and are
-        standard components of cessation counseling. Nicotine replacement therapy and stop-smoking medications reduce
-        craving intensity — which is a main reason they improve quit rates in trials.
-      </p>
-    </div>
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">1. What a craving actually is</h2>
+        <p class="text-muted dark:text-slate-400">
+          A craving is not one thing. Three processes usually arrive together, and they need slightly different
+          answers.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          The first is <strong class="text-heading">nicotine withdrawal</strong>. Regular nicotine exposure changes
+          how nicotinic receptors respond, and the brain adapts to a predictable supply. When the supply stops, that
+          adaptation becomes visible: irritability, restlessness, difficulty concentrating, low mood, sleep changes,
+          increased appetite and, centrally, the sense that something is missing and a cigarette would fix it. These
+          symptoms are time-limited and follow a fairly consistent course, which is why the
+          <a href="/withdrawal/timeline/" class={inline}>withdrawal timeline</a> can describe them in advance.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          The second is <strong class="text-heading">cue-triggered craving</strong>. Smoking has been paired with
+          thousands of ordinary moments — the first coffee, the car, the back door, a particular colleague, the end of
+          a meal. The brain learns these as predictors, not as causes. After quitting, the predictor still fires, and
+          the body prepares for nicotine that never arrives. That preparation is what a cue-triggered urge feels like:
+          attention narrows, the cigarette seems suddenly necessary, and it is hard to think about anything else.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          The third is <strong class="text-heading">routine and reward</strong>: the break that marked the end of a
+          task, the cigarette that was the reward for finishing something, the hand-to-mouth habit that filled a gap.
+          This layer is often the least dramatic and the most persistent. It shows up as a vague restlessness at 3pm,
+          not as a dramatic urge.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Two things follow from this. First, craving intensity is not a measure of character, and it is not a
+          reliable measure of how addicted you are. It varies with sleep, alcohol, stress, hunger, hormones and how
+          recently you stopped. Second, because the three layers have different causes, a single tool rarely covers
+          all of them. Medication mostly lowers the withdrawal layer. Planning and behavioural work address the cue
+          and routine layers. That is why guidelines recommend combining support and medication where appropriate
+          rather than choosing one.
+        </p>
+      </div>
 
-    <div>
-      <h2 class="text-2xl font-bold font-heading mb-3">What people report</h2>
-      <p class="text-muted dark:text-slate-400">
-        Community reports consistently describe cravings as waves that peak and fade, becoming shorter and less
-        frequent over weeks. Many people describe the first few days as a constant background urge, later replaced by
-        short, sharp trigger-based bursts. Community records are being compiled in the Experience Database.
-      </p>
-    </div>
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">2. How long cravings last — and why the wave metaphor holds</h2>
+        <p class="text-muted dark:text-slate-400">
+          A single urge is usually short. Clinical quit-smoking guidance commonly describes a craving as building over
+          seconds or minutes, peaking, and then fading if you do not smoke — often within about five minutes, though
+          people report a wide range and some waves last considerably longer. The wave metaphor is useful because it
+          replaces an impossible instruction (“stop wanting it”) with a possible one (“wait, and it will change”).
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          The background pattern is longer. Withdrawal-driven craving is usually strongest in the first three to seven days, then becomes less frequent and less intense over following weeks. Cue-driven surges can continue for months but tend to become shorter, more situational and easier to interrupt. If you expect cravings to vanish by day ten, a bad day in week six feels like failure. It is not; it is the normal shape of a learned response.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          One less obvious point: learned responses can return after a period without practice — a quiet week, then a strong urge in a situation you thought was settled. Learning researchers call this spontaneous recovery, and it is why relapse prevention is a long project rather than a two-week sprint. A surge at month four does not mean the earlier months were wasted or that you are back at the beginning; it means the old association needs another answer.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400 mb-4">
+          The table below separates the three kinds of urge, because the right response depends on which one you are
+          having.
+        </p>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm text-left">
+            <thead>
+              <tr class="border-b border-gray-200 dark:border-slate-700">
+                <th class={tableHead}>Kind of urge</th>
+                <th class={tableHead}>What drives it</th>
+                <th class={tableHead}>When it is strongest</th>
+                <th class={tableHead}>What helps most</th>
+              </tr>
+            </thead>
+            <tbody class="text-muted dark:text-slate-400">
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Withdrawal urge</td>
+                <td class={tableCell}>
+                  Receptors adapted to regular nicotine are under-stimulated; the reward system is less responsive.
+                </td>
+                <td class={tableCell}>First 3–7 days, fading over 2–6 weeks.</td>
+                <td class={tableCell}>
+                  Time, sleep, food and water; medication or NRT if you are using it; lowering demands where you can.
+                </td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Cue-triggered urge</td>
+                <td class={tableCell}>
+                  A learned predictor — coffee, alcohol, a person, a place, a time of day — fires the expectation of a
+                  cigarette.
+                </td>
+                <td class={tableCell}>
+                  Within seconds of the cue; strongest in the first weeks, can recur for months.
+                </td>
+                <td class={tableCell}>
+                  Interrupt the cue sequence, change the setting, and repeat the situation without smoking when you are
+                  prepared.
+                </td>
+              </tr>
+              <tr>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Routine or reward urge</td>
+                <td class={tableCell}>
+                  The habit is doing a job: marking a break, ending a meal, rewarding finished work, filling a gap.
+                </td>
+                <td class={tableCell}>Predictable times of day; often the last pattern to fade.</td>
+                <td class={tableCell}>
+                  Replace the function, not just the cigarette: a different break ritual, a walk, a drink, a short task.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
 
-    <div class="card p-6">
-      <h2 class="text-xl font-bold font-heading mb-2">If a craving overwhelms you</h2>
-      <p class="text-muted dark:text-slate-400 text-sm">
-        One cigarette will not make the craving "stop" in a useful way — it restarts the withdrawal clock. If you are
-        repeatedly overwhelmed, that is a signal to strengthen your toolkit: consider NRT or medication, call a
-        quitline, or ask for professional support.
-      </p>
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">3. Triggers: why a cue can still fire years later</h2>
+        <p class="text-muted dark:text-slate-400">
+          A trigger is a situation the brain has learned to associate with smoking. It is not a cause in the sense
+          that it guarantees a relapse; it is a predictor that raises the probability of an urge. That distinction is
+          important, because it means triggers can be worked with rather than merely feared.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          The mechanism is ordinary learning. A cue is followed by nicotine often enough that the cue starts to
+          predict it. After quitting, the prediction continues even though the nicotine does not. Repeatedly meeting
+          the cue without smoking does not erase the old learning; it builds a competing response that becomes
+          stronger with practice. This is why the first few exposures are the hardest and why the same situation gets
+          easier the fifth or tenth time — and also why the old response can occasionally resurface after a gap.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Context matters: the new response is tied to where you practised it, so a cue that is settled at home may still fire on holiday or with people you have not seen since you quit. That is how learned responses generalise, not a character flaw.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Avoidance and exposure both have a place. In the first days, avoiding the hardest situations is sensible —
+          there is no prize for testing yourself at a smoky party on day two. Later, planned exposure with a coping
+          plan is what weakens the association. The difference between exposure and a dare is preparation: you know
+          the trigger is coming, you know what you will do, and you have an exit.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400 mb-4">
+          The table maps the common trigger families to what is happening and to a concrete replacement. Each link
+          goes to a page that separates what people report from what the evidence shows.
+        </p>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm text-left">
+            <thead>
+              <tr class="border-b border-gray-200 dark:border-slate-700">
+                <th class={tableHead}>Trigger family</th>
+                <th class={tableHead}>Common examples</th>
+                <th class={tableHead}>If-then replacement</th>
+                <th class={tableHead}>Detail</th>
+              </tr>
+            </thead>
+            <tbody class="text-muted dark:text-slate-400">
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Morning and coffee</td>
+                <td class={tableCell}>First coffee, waking up, the balcony, the news.</td>
+                <td class={tableCell}>
+                  If I make coffee, then I drink it in a different chair and go outside without my jacket.
+                </td>
+                <td class={tableCell}>
+                  <a href="/triggers/coffee/" class={inline}>Coffee</a>,
+                  <a href="/triggers/morning-routine/" class={inline}>morning routine</a>
+                </td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Meals</td>
+                <td class={tableCell}>After lunch or dinner, the second half of a meal, clearing plates.</td>
+                <td class={tableCell}>
+                  If I finish eating, then I get up and brush my teeth or take the plates out immediately.
+                </td>
+                <td class={tableCell}><a href="/triggers/after-meals/" class={inline}>After meals</a></td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Alcohol</td>
+                <td class={tableCell}>The first drink, the second drink, being in a bar, a wedding.</td>
+                <td class={tableCell}>
+                  If I am offered a drink, then I choose a soft drink first and decide about alcohol after an hour.
+                </td>
+                <td class={tableCell}>
+                  <a href="/triggers/alcohol/" class={inline}>Alcohol</a>,
+                  <a href="/triggers/social-events/" class={inline}>social events</a>
+                </td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Stress and anger</td>
+                <td class={tableCell}>A conflict, a deadline, bad news, a difficult phone call.</td>
+                <td class={tableCell}>
+                  If I feel the argument rising, then I leave the room and walk for ten minutes before responding.
+                </td>
+                <td class={tableCell}>
+                  <a href="/triggers/stress/" class={inline}>Stress</a>,
+                  <a href="/triggers/anger/" class={inline}>anger</a>
+                </td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Other people who smoke</td>
+                <td class={tableCell}>A friend who steps out, a group outside a pub, a smoking household.</td>
+                <td class={tableCell}>
+                  If a friend goes out to smoke, then I stay seated and order a drink rather than following.
+                </td>
+                <td class={tableCell}>
+                  <a href="/triggers/friends-who-smoke/" class={inline}>Friends who smoke</a>
+                </td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Work breaks and driving</td>
+                <td class={tableCell}>The 10am break, the commute, waiting in the car, traffic.</td>
+                <td class={tableCell}>
+                  If I stop for a break, then I walk a different route and take water instead of standing at the usual
+                  spot.
+                </td>
+                <td class={tableCell}>
+                  <a href="/triggers/work-breaks/" class={inline}>Work breaks</a>,
+                  <a href="/triggers/driving/" class={inline}>driving</a>
+                </td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Boredom and loneliness</td>
+                <td class={tableCell}>An empty evening, a quiet weekend, waiting for someone.</td>
+                <td class={tableCell}>
+                  If I notice the flat feeling of boredom, then I start a ten-minute task before deciding anything.
+                </td>
+                <td class={tableCell}>
+                  <a href="/triggers/boredom/" class={inline}>Boredom</a>,
+                  <a href="/triggers/loneliness/" class={inline}>loneliness</a>
+                </td>
+              </tr>
+              <tr>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Night and fatigue</td>
+                <td class={tableCell}>Late evening, poor sleep, the last hour before bed.</td>
+                <td class={tableCell}>
+                  If it is past my bedtime, then I go to bed rather than staying up with the urge.
+                </td>
+                <td class={tableCell}>
+                  <a href="/triggers/nighttime/" class={inline}>Nighttime</a>,
+                  <a href="/triggers/fatigue/" class={inline}>fatigue</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">4. The 10-minute playbook</h2>
+        <p class="text-muted dark:text-slate-400">
+          This is the in-the-moment sequence. It is deliberately mechanical: when an urge is loud, a list works
+          better than a principle.
+        </p>
+        <ol class="list-decimal list-inside space-y-3 text-muted dark:text-slate-400 mt-4">
+          <li>
+            <strong class="text-heading">Name it.</strong> Say or write: “This is a craving. It is not an instruction.”
+            Naming the state creates a small distance between the urge and the decision.
+          </li>
+          <li>
+            <strong class="text-heading">Set a timer for ten minutes.</strong> Commit to deciding nothing until it
+            rings. You are not promising to quit forever in this moment; you are postponing one decision.
+          </li>
+          <li>
+            <strong class="text-heading">Change your body.</strong> Cold water on your face or wrists, stand up, walk
+            to another room, do twenty stairs. A change in physical state interrupts the loop more reliably than
+            arguing with it.
+          </li>
+          <li>
+            <strong class="text-heading">Change your scene.</strong> If the urge is tied to the kitchen, the balcony or
+            the car, leave that place. Distance from the cue is not avoidance if it buys you ten minutes.
+          </li>
+          <li>
+            <strong class="text-heading">Give your mouth a job.</strong> Water, sugar-free gum, a mint, a toothpick.
+            The hand-to-mouth part of the habit is real, and it responds to substitutes.
+          </li>
+          <li>
+            <strong class="text-heading">Breathe out longer than you breathe in.</strong> Four seconds in, six seconds
+            out, for two minutes. Slow exhaling is a simple way to reduce the physical arousal that makes an urge feel
+            urgent.
+          </li>
+          <li>
+            <strong class="text-heading">Move, if you can.</strong> A brisk five-minute walk is one of the most
+            commonly recommended and most consistently reported ways to take the edge off a craving.
+          </li>
+          <li>
+            <strong class="text-heading">Record it afterwards.</strong> One line: time, trigger, intensity out of ten,
+            what helped. The record turns a bad afternoon into information you can use next week.
+          </li>
+        </ol>
+        <p class="mt-4 text-muted dark:text-slate-400">
+          Delay is not suppression. You are not pretending the urge is absent; you are giving it the few minutes it needs to change shape. Urges that do not change are usually attached to something else — hunger, exhaustion, an unresolved argument — and those need a different response, not a stronger act of will.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Three things to avoid: testing yourself with “just one”; adding alcohol while you are deciding; and improvising with medication — if you use NRT or a prescription medicine, follow the instructions you were given rather than adjusting it mid-urge.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">5. Urge surfing: what it is and what the evidence supports</h2>
+        <p class="text-muted dark:text-slate-400">
+          Urge surfing comes from mindfulness-based relapse prevention. Instead of fighting an urge or obeying it, you
+          observe it as a set of physical sensations that rise and fall. The instruction is not “make it go away” but
+          “stop treating it as a command”.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          A simple version: notice that an urge has arrived; locate where you feel it (throat, chest, hands, stomach);
+          describe the sensation in plain words (tight, warm, restless); breathe slowly; watch it for two or three
+          minutes without deciding anything. Often the sensation changes — it moves, fades, or turns into something
+          more like restlessness. The point is that you have now seen an urge behave like a wave rather than a wall.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          The evidence needs care. Mindfulness-based approaches have a reasonable base in substance-use treatment generally and appear in some cessation programmes, but for smoking specifically the trials are fewer and less consistent than those for medication and structured behavioural support. Urge surfing is therefore a sensible adjunct, not a replacement for a plan. It also does not suit everyone: if sitting with bodily sensations makes you more anxious, a physical or distraction-based strategy may serve you better.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">6. The first 72 hours: a plan for the peak</h2>
+        <p class="text-muted dark:text-slate-400">
+          The first three days carry the heaviest withdrawal load, and they are when the quit is most fragile socially: the decision is new, the routines are broken, and everyone including you is watching to see whether it holds. Treat the 72 hours as a scheduled event, not an ordinary weekend.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Before day one, remove every cigarette, lighter and ashtray from the house, the car and the bag. Tell two
+          people who will actually check on you. Clear alcohol out of the house for the first week if it is a trigger.
+          Stock food you can eat without cooking a production. Put the written plan somewhere visible. If you are
+          using NRT or a prescription medicine, have it ready before the quit date and use it as instructed by the
+          clinician or pharmacist who supplied it — this page does not contain dosing guidance.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400 mb-4">
+          During the three days, the goal is not productivity. It is to keep the decision intact while the physical
+          peak passes.
+        </p>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm text-left">
+            <thead>
+              <tr class="border-b border-gray-200 dark:border-slate-700">
+                <th class={tableHead}>Window</th>
+                <th class={tableHead}>What is usually happening</th>
+                <th class={tableHead}>What to do</th>
+                <th class={tableHead}>What to avoid</th>
+              </tr>
+            </thead>
+            <tbody class="text-muted dark:text-slate-400">
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Hours 0–24</td>
+                <td class={tableCell}>
+                  Nicotine is clearing; irritability, restlessness and attention problems are common; the first
+                  cravings arrive.
+                </td>
+                <td class={tableCell}>
+                  Keep the day small. Water, food, a walk, an early night. Tell someone how the first day went.
+                </td>
+                <td class={tableCell}>Alcohol, long meetings, smoky places, “one last” anything.</td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Hours 24–48</td>
+                <td class={tableCell}>
+                  Often the most uncomfortable stretch: mood dips, concentration is poor, sleep may be disrupted.
+                </td>
+                <td class={tableCell}>
+                  Use the 10-minute playbook. Keep meals and naps regular. Shorten commitments where possible.
+                </td>
+                <td class={tableCell}>Making big decisions; picking fights; testing yourself with a cigarette.</td>
+              </tr>
+              <tr>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Hours 48–72</td>
+                <td class={tableCell}>
+                  Physical symptoms are still strong but begin to settle; cue-driven urges become more noticeable as
+                  you return to normal routines.
+                </td>
+                <td class={tableCell}>
+                  Re-enter one routine with a plan (the coffee, the commute). Review your notes from the first two
+                  days.
+                </td>
+                <td class={tableCell}>Assuming the hard part is over and abandoning the plan.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-4 text-muted dark:text-slate-400">
+          If the first three days are much worse than you expected, that is information, not a verdict. It may mean
+          the withdrawal load is high, that sleep and food have collapsed, or that the method needs strengthening.
+          The
+          <a href="/withdrawal/" class={inline}>withdrawal section</a> covers symptom-by-symptom management, and
+          <a href="/questions/first-week-hardest/" class={inline}>“is the first week really the hardest?”</a> answers
+          the timing question directly.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">7. High-risk situations and if-then plans</h2>
+        <p class="text-muted dark:text-slate-400">
+          General intentions (“I will be careful at parties”) fail because they do not specify a behaviour. An
+          if-then plan does: it names the situation and the response in advance, so the decision is already made when
+          the moment arrives. Behavioural support programmes use this approach because it converts a vague
+          commitment into something you can rehearse.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">Six examples, phrased the way you would actually use them:</p>
+        <ul class="list-disc list-inside space-y-2 text-muted dark:text-slate-400 mt-3">
+          <li>
+            <strong class="text-heading">Alcohol:</strong> if someone puts a drink in my hand, then I hold it and do
+            not take a cigarette from anyone tonight.
+          </li>
+          <li>
+            <strong class="text-heading">A party:</strong> if people go outside to smoke, then I stay inside for ten
+            minutes and then decide whether to join them.
+          </li>
+          <li>
+            <strong class="text-heading">Conflict:</strong> if I feel the argument escalating, then I say I need air
+            and walk around the block before continuing.
+          </li>
+          <li>
+            <strong class="text-heading">Bad news:</strong> if I get news that upsets me, then I call the person on my
+            support list before I do anything else.
+          </li>
+          <li>
+            <strong class="text-heading">Long drive:</strong> if I stop at a service station, then I buy water and
+            walk to the far entrance rather than standing near the smoking area.
+          </li>
+          <li>
+            <strong class="text-heading">After a meal:</strong> if I finish eating, then I get up immediately and do
+            the dishes or brush my teeth.
+          </li>
+        </ul>
+        <p class="mt-4 text-muted dark:text-slate-400">
+          The situations that deserve a written plan are the “firsts”: the first weekend, the first night out, the
+          first work trip, the first argument, the first bad news, the first holiday, the anniversary of something
+          difficult. These are the moments when the old routine has the strongest claim, because the new one has no
+          history yet. Write the plan the week before, not in the taxi on the way.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">8. What medication and NRT change about cravings</h2>
+        <p class="text-muted dark:text-slate-400">
+          Medication does not remove cravings, and it does not make quitting effortless. What it does, at class level,
+          is reduce the intensity of withdrawal and the pull of the cue, which makes the behavioural work possible on
+          days when it would otherwise be overwhelming.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          <strong class="text-heading">Nicotine replacement therapy</strong> supplies nicotine without the smoke,
+          which partially substitutes for what the body is missing and reduces withdrawal symptoms and urge intensity.
+          Cochrane reviews find that NRT increases quit rates compared with placebo, and that combining forms (for
+          example a patch plus a short-acting form) is more effective than a single form. The
+          <a href="/medications/" class={inline}>medications section</a> covers the class-level evidence, and the
+          <a href="/comparisons/combination-nrt-vs-single-form/" class={inline}>combination NRT comparison</a> explains
+          why two forms are used together.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          <strong class="text-heading">Varenicline</strong> is a partial nicotinic receptor agonist: it reduces craving
+          and dampens the reward from a cigarette if one is smoked. <strong class="text-heading">Bupropion</strong> is
+          an antidepressant that also reduces withdrawal and urge intensity through a different mechanism.
+          <strong class="text-heading">Cytisine</strong> is a partial agonist used in some countries and included in
+          the WHO 2024 guideline. Network meta-analyses rank varenicline and combination NRT among the most effective
+          options; the
+          <a href="/comparisons/nrt-vs-no-medication/" class={inline}>NRT versus no medication</a> comparison puts
+          those relative effects in context.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Three cautions. Choice of medicine depends on your health, other medicines, pregnancy status and local availability: that is a conversation with a clinician or pharmacist, not a decision from a web page. This page deliberately contains no doses or tapering schedules. And medication does not do the behavioural work — guidelines recommend combining the two where possible.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">9. Lapse vs relapse: the one-cigarette question</h2>
+        <p class="text-muted dark:text-slate-400">
+          A <strong class="text-heading">lapse</strong> is a slip: one cigarette, or a few, followed by a return to not
+          smoking. A <strong class="text-heading">relapse</strong> is a return to regular smoking. The distinction is
+          not semantic. It marks the difference between an event you can contain and a pattern that needs a new plan.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          One cigarette does not erase the weeks before it, and it does not prove the attempt was doomed. It does two real things: it reactivates the nicotine loop for a few days, and it hands you a story about what kind of person you are. The second is usually more dangerous. People who relapse often describe the same moment — “I had already broken it, so it did not matter” — then a packet, then a week. The relapse accounts on this site show that pattern repeatedly.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          The practical rule is to treat a lapse as urgent and small. Stop at the next cigarette, not the next packet.
+          Tell someone within the hour. Write down what happened while it is still specific. Then decide the next
+          action — not the next identity. The question
+          <a href="/questions/does-a-few-puffs-break-my-quit/" class={inline}>“does a few puffs break my quit?”</a>
+          answers the physiological side of this in more detail.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">10. Building a relapse-prevention plan</h2>
+        <p class="text-muted dark:text-slate-400">
+          A relapse-prevention plan is short, written and specific. It should fit on one page, because you will not
+          read three pages at 11pm on a Saturday. Seven components are enough.
+        </p>
+        <ol class="list-decimal list-inside space-y-3 text-muted dark:text-slate-400 mt-4">
+          <li>
+            <strong class="text-heading">Your top three triggers</strong>, in your own words, not the generic list.
+          </li>
+          <li>
+            <strong class="text-heading">One if-then response for each</strong>, written as an action you can perform.
+          </li>
+          <li>
+            <strong class="text-heading">Two names and numbers</strong> — people you will actually contact, not people
+            you could theoretically contact.
+          </li>
+          <li>
+            <strong class="text-heading">Your support and medication plan</strong>, including what you will do if you
+            miss a scheduled use or run out (ask the prescriber or pharmacist; do not improvise).
+          </li>
+          <li>
+            <strong class="text-heading">Your early-warning signs</strong>: romanticising cigarettes, “just one”,
+            skipping support, isolating, drinking more, stopping the plan because it is going well.
+          </li>
+          <li>
+            <strong class="text-heading">A slip protocol</strong>: what you will do in the first hour after a cigarette.
+          </li>
+          <li>
+            <strong class="text-heading">Review dates</strong>: day three, week one, week four, month three, month
+            twelve.
+          </li>
+        </ol>
+        <p class="mt-4 text-muted dark:text-slate-400 mb-4">
+          The risk profile changes over the first year, and the plan should change with it. The table below is a rough
+          map, not a schedule you have to follow exactly.
+        </p>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm text-left">
+            <thead>
+              <tr class="border-b border-gray-200 dark:border-slate-700">
+                <th class={tableHead}>Stage</th>
+                <th class={tableHead}>What is changing</th>
+                <th class={tableHead}>Main risk</th>
+                <th class={tableHead}>Preventive action</th>
+              </tr>
+            </thead>
+            <tbody class="text-muted dark:text-slate-400">
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Days 1–3</td>
+                <td class={tableCell}>Withdrawal is at its most physical; routines are broken.</td>
+                <td class={tableCell}>Impulse buying, “one last cigarette”, alcohol.</td>
+                <td class={tableCell}>Keep the day small; remove cigarettes; use the 10-minute playbook.</td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Weeks 1–2</td>
+                <td class={tableCell}>Physical symptoms ease; cues become the main driver.</td>
+                <td class={tableCell}>Returning to old routines without a plan.</td>
+                <td class={tableCell}>Re-enter routines one at a time; review notes; keep support.</td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Weeks 3–4</td>
+                <td class={tableCell}>Confidence rises; the memory of withdrawal fades.</td>
+                <td class={tableCell}>Overconfidence and “just one”.</td>
+                <td class={tableCell}>Name the risk out loud; keep the plan visible; do not stop medication early without advice.</td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Months 2–3</td>
+                <td class={tableCell}>Life returns to normal; support often drops away.</td>
+                <td class={tableCell}>A crisis, a celebration, a holiday, or a return of cue-driven urges.</td>
+                <td class={tableCell}>Plan the “firsts”; keep one support contact; review the slip protocol.</td>
+              </tr>
+              <tr>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Months 6–12</td>
+                <td class={tableCell}>The quit is established; occasional urges can still surprise you.</td>
+                <td class={tableCell}>Complacency, weight and mood changes, a single cigarette at a celebration.</td>
+                <td class={tableCell}>Treat a surprise urge as normal; use the same skills; do not renegotiate the decision.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-4 text-muted dark:text-slate-400">
+          If you want a structured version of this, the
+          <a href="/tools/" class={inline}>tools page</a> lists the site's planning resources, and
+          <a href="/questions/how-many-attempts/" class={inline}>“how many attempts does it take?”</a> is worth reading
+          if this is not your first try.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">11. If you have already slipped: the 72-hour reset</h2>
+        <p class="text-muted dark:text-slate-400">
+          The first hour after a cigarette decides more than the cigarette did. This sequence is designed to stop a
+          lapse from becoming a relapse without turning the moment into a trial.
+        </p>
+        <ol class="list-decimal list-inside space-y-3 text-muted dark:text-slate-400 mt-4">
+          <li>
+            <strong class="text-heading">Stop at this cigarette.</strong> Not tomorrow, not after the packet. Put the
+            rest out of reach now.
+          </li>
+          <li>
+            <strong class="text-heading">Tell one person within the hour.</strong> Secrecy is the mechanism by which a
+            slip becomes a relapse.
+          </li>
+          <li>
+            <strong class="text-heading">Write the chain.</strong> Where were you, who was there, what had happened in
+            the previous hour, what had you eaten and drunk, what were you feeling, what did you tell yourself just
+            before?
+          </li>
+          <li>
+            <strong class="text-heading">Choose one change.</strong> Not five. One specific adjustment for the next
+            seven days.
+          </li>
+          <li>
+            <strong class="text-heading">Set the next quit date within days.</strong> A long delay lets the habit
+            re-establish itself.
+          </li>
+          <li>
+            <strong class="text-heading">Review the method.</strong> If withdrawal was overwhelming, ask whether
+            medication or structured support would help next time.
+          </li>
+          <li>
+            <strong class="text-heading">Expect a few difficult days.</strong> The nicotine loop has been reactivated;
+            the urges will be louder for a short while. That is a predictable aftermath, not a sign that the quit is
+            over.
+          </li>
+        </ol>
+        <p class="mt-4 text-muted dark:text-slate-400">
+          If you have returned to regular smoking, the next attempt does not start from zero: you know more about your triggers, you have tested at least one plan, and you know which situations need a different answer. Most people who stop needed more than one attempt; the attempts page explains why that is normal.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">12. When to get more help — and how this guide was built</h2>
+        <p class="text-muted dark:text-slate-400">
+          Some situations need a clinician rather than a web page. Seek advice for chest pain, coughing blood, persistent breathlessness, or any new symptom that worries you — and promptly if your mood drops severely or you have thoughts of harming yourself. If you are pregnant or breastfeeding, have a heart condition, diabetes or a mental health condition, or take other medicines, talk to a clinician before choosing a medication. The same applies if you have tried repeatedly and want to review your method.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Practical routes: your family doctor or pharmacist; a national quitline; a local stop-smoking service. In
+          England, NHS stop-smoking services provide behavioural support and medication; in the United States, state
+          quitlines are reachable through the national portal. The
+          <a href="/methods/quitlines/" class={inline}>quitline page</a> and
+          <a href="/methods/counseling/" class={inline}>counselling page</a> describe what those services involve.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          This page synthesises public guidance and systematic reviews; it does not report a new study. The hierarchy is current clinical guidelines (WHO 2024, USPSTF 2021, NICE NG209, the US Surgeon General report), then Cochrane reviews, then the research records for specific claims. It contains no dosing instructions, no individual recommendations and no guarantees. Where the evidence is uncertain — the effect size of mindfulness approaches, for example — the text says so rather than filling the gap with confidence.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          No clinician has reviewed this page. That is a statement about the site's review process, not about the
+          sources: they are public and linked below so you can read them yourself. If you find an error, the
+          <a href="/contact/" class={inline}>contact page</a> explains how to report it, and corrections are logged
+          under the <a href="/editorial-policy/" class={inline}>editorial policy</a>. The page was last updated on 16
+          November 2026.
+        </p>
+      </div>
     </div>
   </section>
+
+  <nav aria-label="Related guides" class="mx-auto max-w-4xl px-4 sm:px-6 pb-4">
+    <div class="rounded-lg border border-gray-200 dark:border-slate-700 p-6">
+      <p class="text-xl font-bold font-heading mb-4">Related guides</p>
+      <div class="grid gap-4 sm:grid-cols-2">
+        <a href="/triggers/" class="card p-4 no-underline hover:-translate-y-1 transition duration-200">
+          <h3 class="font-bold font-heading text-heading mb-1">Trigger database</h3>
+          <p class="text-sm text-muted dark:text-slate-400">
+            Fifteen situations that commonly produce urges, each with evidence and practical countermeasures.
+          </p>
+        </a>
+        <a href="/relapse/" class="card p-4 no-underline hover:-translate-y-1 transition duration-200">
+          <h3 class="font-bold font-heading text-heading mb-1">Relapse and recovery</h3>
+          <p class="text-sm text-muted dark:text-slate-400">
+            What a lapse means, why relapses happen, and how to restart without losing the attempt.
+          </p>
+        </a>
+        <a href="/withdrawal/" class="card p-4 no-underline hover:-translate-y-1 transition duration-200">
+          <h3 class="font-bold font-heading text-heading mb-1">Nicotine withdrawal</h3>
+          <p class="text-sm text-muted dark:text-slate-400">
+            What each symptom feels like, how long it lasts, and what helps.
+          </p>
+        </a>
+        <a href="/withdrawal/timeline/" class="card p-4 no-underline hover:-translate-y-1 transition duration-200">
+          <h3 class="font-bold font-heading text-heading mb-1">Withdrawal timeline</h3>
+          <p class="text-sm text-muted dark:text-slate-400">
+            Hour by hour and week by week: when symptoms peak and when they settle.
+          </p>
+        </a>
+        <a href="/quit-smoking/" class="card p-4 no-underline hover:-translate-y-1 transition duration-200">
+          <h3 class="font-bold font-heading text-heading mb-1">How to quit smoking</h3>
+          <p class="text-sm text-muted dark:text-slate-400">
+            The complete guide, from choosing a quit date to staying smoke-free a year later.
+          </p>
+        </a>
+        <a href="/medications/" class="card p-4 no-underline hover:-translate-y-1 transition duration-200">
+          <h3 class="font-bold font-heading text-heading mb-1">Quit smoking medications</h3>
+          <p class="text-sm text-muted dark:text-slate-400">
+            NRT, varenicline, bupropion and cytisine compared at class level.
+          </p>
+        </a>
+      </div>
+    </div>
+  </nav>
 
   <Sources sources={pageSources} />
   <CallToAction
-    title="Know your triggers, plan your response"
-    subtitle="Cravings usually come from a trigger. Map yours and plan a replacement."
+    title="Write the plan before you need it"
+    subtitle="Three triggers, three if-then responses, two names. That is most of a relapse-prevention plan."
     actions={[
-      { variant: 'primary', text: 'Explore Triggers', href: '/triggers/' },
-      { text: 'Understand Withdrawal', href: '/withdrawal/' },
+      { variant: 'primary', text: 'Map Your Triggers', href: '/triggers/' },
+      { text: 'Build a Quit Plan', href: '/start/' },
     ]}
   />
 
-  <ReviewStatement />
+  <ReviewStatement updated="16 November 2026" />
 </Layout>
