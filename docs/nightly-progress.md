@@ -1,8 +1,8 @@
 # Nightly Progress — SmokingCessationHub
 
-Last updated: 2026-11-14
-Current task: N7
-Next task: N8
+Last updated: 2026-11-16
+Current task: N8
+Next task: N9
 Status: ready
 
 ## Completed
@@ -16,6 +16,7 @@ Status: ready
 | N6 | 2026-11-13 | 7b58071 | 164 content pages (+6 redirect stubs) | New Pillar: `/withdrawal/timeline/` — "Nicotine withdrawal timeline: hour by hour, week by week". 3,897 source words (4,347 rendered main content), 12 H2 sections, 4 tables (stage map rendered from the `timeline` collection, first-24-hours, symptom-duration, what-helps), 12 linked sources (WHO 2024, WHO fact sheet, USPSTF 2021, NICE NG209, Hughes 2007/R-007, four Cochrane reviews, Surgeon General 2020, NHS, CDC), 43 unique site links. `Article` + `MedicalWebPage` JSON-LD with author/datePublished/dateModified; explicit "Not reviewed by a clinician" in the byline and `ReviewStatement`. No dosing, injection, efficacy guarantee or invented reviewer. Linked from `/withdrawal/`, `/timeline/`, `/questions/how-long-withdrawal-lasts/` and the HTML sitemap. `npm run audit:seo`: 170 HTML files, 164 indexable, 0 problems; duplicate titles/descriptions 0; internal links 0 broken. |
 | N5 | 2026-11-12 | 4b4b339 | 163 content pages (+6 redirect stubs) | Expanded `/quit-smoking/` into the first Pillar: 4,040 source words (≈4,400 rendered), 12 H2 sections, 4 tables (health milestones, guideline comparison, method comparison, withdrawal symptoms), 12 linked sources (WHO 2024, WHO fact sheet, USPSTF 2021, NICE NG209, five Cochrane reviews, Surgeon General 2020, NHS), 29 unique internal links, and both `Article` and `MedicalWebPage` JSON-LD with author/datePublished/dateModified. No dosing, injection, efficacy guarantees or invented reviewer; the page states "Not reviewed by a clinician" in the header line and in `ReviewStatement`. `npm run audit:seo`: 169 HTML files, 163 indexable, 0 problems; duplicate titles/descriptions 0; page-level internal links 0 missing. |
 | N7 | 2026-11-14 | 03d94ac | 164 content pages (+6 redirect stubs) | Turned `/medications/` into the medications Pillar: "Quit Smoking Medications: Complete Comparison" — 4,238 words in the rendered `<main>` (3,832 in the template/prose source before the three data-driven tables), 12 H2 sections, 3 comparison tables (options at a glance with all six drug pages, comparative evidence including cytisine vs NRT, guideline positioning), 12 linked sources (WHO 2024, WHO fact sheet, USPSTF 2021, NICE NG209, Cochrane NRT/partial agonists/antidepressants/overview, EAGLES, cytisine NEJM 2011 and 2014, Surgeon General 2020), 29 internal links in the article body, `Article` + `MedicalWebPage` JSON-LD with author/datePublished/dateModified. No doses, no tapering schedules, no injection instructions, no invented reviewer; states "Not reviewed by a clinician" in the byline and `ReviewStatement`. `npm run audit:seo`: 170 HTML files, 164 indexable, 0 problems; duplicate titles/descriptions 0; internal links 0 broken. |
+| N8 | 2026-11-16 | c3ed209 | 164 content pages (+6 redirect stubs) | Turned `/cravings/` into the cravings/triggers/relapse Pillar: "Cravings, triggers and relapse prevention" — 4,477 words in the rendered `<main>`, 12 H2 sections, 4 tables (three kinds of urge, trigger map with if-then replacements, first 72 hours, first-year risk windows), 12 linked sources (WHO 2024, WHO fact sheet, USPSTF 2021, NICE NG209, Hughes 2007/R-007, four Cochrane reviews, Surgeon General 2020, NHS, CDC), 32 unique internal links including 10 trigger pages and two comparisons. `Article` + `MedicalWebPage` JSON-LD with author/datePublished/dateModified; byline and `ReviewStatement` state "Not reviewed by a clinician". No doses, tapering schedules, injection guidance, efficacy guarantees or invented reviewer. `/triggers/` and `/relapse/` keep their cluster hubs and now link up to the pillar; the HTML sitemap lists the new guide. `npm run audit:seo`: 170 HTML files, 164 indexable, 0 problems; duplicate titles/descriptions 0; internal links 0 broken. |
 
 ## Blocked / Partial
 
@@ -42,6 +43,12 @@ Status: ready
 - N7 fixes a claim that would have been wrong: all four guidelines recommend bupropion as well as NRT and varenicline, not three of four. WHO is the only one that also recommends cytisine, which reflects regulatory approval rather than evidence.
 - The pregnancy paragraph in N7 follows USPSTF 2021 precisely: behavioural interventions are recommended for pregnant people and pharmacotherapy has insufficient evidence, so medication is a clinician decision. Do not upgrade that to "NRT is safe in pregnancy" without a source.
 - Next: N8 is the cravings/triggers/relapse Pillar (3,500–4,500 words). It should reuse `/triggers/` and `/cravings/` as clusters rather than duplicate their per-trigger pages, the same way N6 reused the `timeline` collection.
+
+- N8 expands `/cravings/` in place rather than creating a new URL. The old page was 675 words and already received links from `/quit-smoking/`, `/withdrawal/`, `/start/` and `/medications/`; expanding it keeps that equity and avoids a second page competing for the same query. `/triggers/` (15 situation pages) and `/relapse/` (12 accounts) remain the cluster hubs and now link up to the pillar.
+- N8 word count: 4,477 in the rendered `<main>`; 12 H2 sections; 4 tables; 12 sources; 32 unique site links, 10 of them trigger pages. The Pillar target is 3,500–4,500, so the page sits near the top of the range without padding.
+- N8 evidence handling: the urge table separates withdrawal, cue-triggered and routine urges; the trigger table gives if-then replacements rather than predictions; the first-year risk table is qualitative and carries no invented percentages. The mindfulness paragraph says explicitly that smoking-specific trials are fewer and less consistent than the evidence for medication and structured behavioural support.
+- N8 keeps the medication section at class level: no doses, no tapering, no product instructions, and pregnancy remains a clinician decision. The only numbers are the qualitative time windows already used on `/withdrawal/timeline/`.
+- Next: N9 is the first Cluster night — Cold Turkey vs Gradual Reduction and Nicotine Patch vs Gum vs Lozenge. The comparisons collection already has `cold-turkey-vs-gradual-reduction`; decide whether to deepen that record or build the cluster around it before writing.
 
 ## Rules
 
