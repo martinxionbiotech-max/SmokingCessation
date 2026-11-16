@@ -107,6 +107,20 @@ const metadata = {
       Community-reported experiences are de-identified individual accounts and do not constitute scientific evidence
       or medical advice.
     </p>
+
+    {
+      d.relatedComparison && (
+        <div class="card p-6">
+          <h2 class="text-xl font-bold font-heading mb-2">Compare this route</h2>
+          <p class="text-muted dark:text-slate-400 text-sm">
+            <a href={d.relatedComparison.href} class="text-primary underline decoration-1 underline-offset-2">
+              {d.relatedComparison.label}
+            </a>{' '}
+            — the two approaches side by side, with the evidence, the withdrawal shape and the failure modes for each.
+          </p>
+        </div>
+      )
+    }
   </section>
 
   <ReviewStatement updated={d.lastReviewed} />

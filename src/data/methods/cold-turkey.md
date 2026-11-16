@@ -8,6 +8,10 @@
   "howItWorks": "Nicotine clears from the body within days and withdrawal symptoms peak in the first week. Success depends mainly on coping with cravings and changing routines without pharmacological support.",
   "evidence": "A 2016 Cochrane review found that abrupt quitting was more successful than gradual reduction in randomized comparisons. Most ex-smokers in population surveys report having quit without medication or professional help.",
   "evidenceStrength": "Moderate",
+  "relatedComparison": {
+    "label": "Cold turkey vs gradual reduction",
+    "href": "/comparisons/cold-turkey-vs-gradual-reduction/"
+  },
   "reportedCommunityExperiences": "Cold turkey appears frequently in community quit reports. Some people describe strong but short-lived withdrawal; others report repeated failed cold-turkey attempts before success. Structured community records are being compiled in the Experience Database.",
   "practicalConsiderations": [
     "Choose a quit date and remove all cigarettes, lighters and ashtrays beforehand",
