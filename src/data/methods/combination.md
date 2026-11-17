@@ -14,6 +14,11 @@
     "Add behavioral support (quitline, counseling, community) to any medication",
     "Confirm medication combinations with a healthcare professional"
   ],
-  "limitations": "More tools can also mean more complexity and cost. Medication combinations should be discussed with a pharmacist or doctor."
+  "limitations": "More tools can also mean more complexity and cost. Medication combinations should be discussed with a pharmacist or doctor.",
+  "relatedComparison": {
+    "label": "Combination NRT vs single-form NRT",
+    "href": "/comparisons/combination-nrt-vs-single-form/",
+    "note": "the evidence for pairing a patch with a fast-acting form, and when one product is enough."
+  }
 }
 ---

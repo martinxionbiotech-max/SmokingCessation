@@ -172,7 +172,7 @@ export const methodSchema = z.object({
   safetyConsiderations: z.string().optional(),
   guidelineStatus: z.string().optional(),
   comparisonNote: z.string().optional(),
-  relatedComparison: z.object({ label: z.string(), href: z.string() }).optional(),
+  relatedComparison: z.object({ label: z.string(), href: z.string(), note: z.string().optional() }).optional(),
   sources: z.string().optional(),
   lastReviewed: z.string().optional(),
   medicationWarning: z.boolean().default(false),

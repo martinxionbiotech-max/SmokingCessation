@@ -19,7 +19,12 @@
   "commonAdverseEffects": "Nausea is the most commonly reported side effect (about 3 in 10 users in clinical trials), usually mild and early in treatment. Abnormal dreams and insomnia are also common. Less common reports include headache and constipation.",
   "safetyConsiderations": "The EAGLES trial (2016, 8,144 participants with and without psychiatric disorders) found no significant increase in moderate-to-severe neuropsychiatric adverse events compared with placebo or nicotine patch; regulators subsequently removed the boxed warning. Mood or behavior changes should still be reported to the prescriber promptly. Kidney function and medical history affect suitability.",
   "guidelineStatus": "Recommended by WHO (2024), USPSTF (2021) and NICE NG209 (UK) as a first-line medication for adult smokers.",
-  "comparisonNote": "Network meta-analyses place varenicline among the most effective single medications, ahead of single-form NRT and bupropion; combination NRT is roughly comparable. Cytisine was non-inferior in one randomized comparison, with fewer reported adverse events.",
+  "comparisonNote": "Network meta-analyses place varenicline among the most effective single medications, ahead of single-form NRT and bupropion; combination NRT is roughly comparable. In a 2021 head-to-head trial, cytisine did not meet the non-inferiority margin against varenicline, though it caused fewer reported adverse events.",
+  "relatedComparison": {
+    "label": "Varenicline vs cytisine vs bupropion",
+    "href": "/comparisons/varenicline-vs-cytisine-vs-bupropion/",
+    "note": "how the three prescription options compare on trial evidence, side effects and access."
+  },
   "sources": "R-002 (Cochrane partial-agonist review); EAGLES trial (Anthenelli 2016); R-013 (WHO 2024 guideline); R-012 (NICE NG209).",
   "lastReviewed": "October 2026"
 }

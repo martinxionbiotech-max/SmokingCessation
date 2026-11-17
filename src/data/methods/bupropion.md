@@ -20,6 +20,11 @@
   "safetyConsiderations": "Contraindicated in people with a seizure disorder, current or previous eating disorder, or recent use of MAOI antidepressants. Mood changes should be reported to the prescriber promptly. Medical history review before starting is required.",
   "guidelineStatus": "Recommended by WHO (2024), USPSTF (2021) and NICE NG209 (UK) as an effective medication for adult smokers.",
   "comparisonNote": "Roughly doubles quit success versus placebo, but network meta-analyses place it below varenicline and combination NRT in effectiveness. It may suit people who prefer a non-nicotine oral option or where varenicline is unsuitable.",
+  "relatedComparison": {
+    "label": "Varenicline vs cytisine vs bupropion",
+    "href": "/comparisons/varenicline-vs-cytisine-vs-bupropion/",
+    "note": "how the three prescription options compare on trial evidence, side effects and access."
+  },
   "sources": "R-003 (Cochrane antidepressant review); R-013 (WHO 2024 guideline); R-012 (NICE NG209).",
   "lastReviewed": "October 2026"
 }

@@ -116,7 +116,7 @@ const metadata = {
             <a href={d.relatedComparison.href} class="text-primary underline decoration-1 underline-offset-2">
               {d.relatedComparison.label}
             </a>{' '}
-            — the two approaches side by side, with the evidence, the withdrawal shape and the failure modes for each.
+            — {d.relatedComparison.note ?? 'the two approaches side by side, with the evidence, the withdrawal shape and the failure modes for each.'}
           </p>
         </div>
       )

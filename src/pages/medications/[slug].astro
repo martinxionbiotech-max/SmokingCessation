@@ -145,8 +145,7 @@ const questionsToAsk = [
             <a href={d.relatedComparison.href} class="text-primary underline decoration-1 underline-offset-2">
               {d.relatedComparison.label}
             </a>{' '}
-            — how this product compares with the other nicotine replacement forms, and which craving pattern each one
-            fits.
+            — {d.relatedComparison.note ?? 'how this product compares with the other nicotine replacement forms, and which craving pattern each one fits.'}
           </p>
         </div>
       )
