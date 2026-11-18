@@ -14,7 +14,7 @@ const comparisons = (await getCollection('comparison')).sort((a, b) => a.data.ti
 const metadata = {
   title: 'Quit Methods Compared Head-to-Head | Quit Smoking Hub',
   description:
-    'Six head-to-head comparisons: cold turkey vs gradual reduction, three NRT forms, combination vs single-form NRT, and varenicline vs cytisine vs bupropion.',
+    'Eight head-to-head comparisons of the options people actually weigh: cold turkey, three NRT forms, combination NRT, prescription drugs and e-cigarettes.',
 };
 
 const pageSchema = {
@@ -22,7 +22,7 @@ const pageSchema = {
   '@type': 'CollectionPage',
   headline: 'Quit Methods Compared Head-to-Head | Quit Smoking Hub',
   name: 'Quit Methods Compared Head-to-Head | Quit Smoking Hub',
-  description: 'Six head-to-head comparisons: cold turkey vs gradual reduction, three NRT forms, combination vs single-form NRT, and varenicline vs cytisine vs bupropion.',
+  description: 'Eight head-to-head comparisons of the options people actually weigh: cold turkey, three NRT forms, combination NRT, prescription drugs and e-cigarettes.',
   url: `${String(SITE.site).replace(/\/$/, '')}/comparisons/`,
   mainEntityOfPage: `${String(SITE.site).replace(/\/$/, '')}/comparisons/`,
   isPartOf: { '@id': `${SITE.site}/#website` },
