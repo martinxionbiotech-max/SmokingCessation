@@ -1,0 +1,581 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Sources from '~/components/common/Sources.astro';
+import StructuredData from '~/components/common/StructuredData.astro';
+import Breadcrumbs from '~/components/common/Breadcrumbs.astro';
+import ReviewStatement from '~/components/common/ReviewStatement.astro';
+import { SITE } from 'astrowind:config';
+import { authorRef, dateFields, organizationRef, siteUrl } from '~/utils/schema';
+import { seoDescription, seoTitle } from '~/utils/seo';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+const site = siteUrl(SITE.site);
+const reviewed = '19 November 2026';
+
+const metadata = {
+  title: seoTitle('The First 72 Hours Without Smoking'),
+  description: seoDescription(
+    'An hour-by-hour plan for the first three days after quitting: what withdrawal feels like, what to prepare, and what to do when a craving hits.'
+  ),
+};
+
+const pageSchema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: 'The First 72 Hours Without Smoking',
+    name: 'The First 72 Hours Without Smoking',
+    description:
+      'A practical plan for the first three days of a quit attempt: the withdrawal curve, preparation, in-the-moment skills, sleep and food, and what to do after a slip.',
+    url: `${site}/first-72-hours/`,
+    mainEntityOfPage: `${site}/first-72-hours/`,
+    isPartOf: { '@id': `${site}/#website` },
+    author: authorRef(SITE.site),
+    publisher: organizationRef(SITE.site),
+    ...dateFields(undefined, '2026-11-19'),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'MedicalWebPage',
+    headline: 'The First 72 Hours Without Smoking',
+    name: 'The First 72 Hours Without Smoking',
+    description:
+      'What happens in the first three days after stopping smoking, how to prepare for the withdrawal peak, and when to seek medical advice.',
+    url: `${site}/first-72-hours/`,
+    mainEntityOfPage: `${site}/first-72-hours/`,
+    isPartOf: { '@id': `${site}/#website` },
+    author: authorRef(SITE.site),
+    publisher: organizationRef(SITE.site),
+    about: { '@type': 'MedicalCondition', name: 'Nicotine withdrawal' },
+    audience: { '@type': 'Audience', audienceType: 'Adults in the first days of a quit attempt' },
+    ...dateFields(undefined, '2026-11-19'),
+  },
+];
+
+const pageSources = [
+  {
+    label: 'WHO — Clinical treatment guideline for tobacco cessation in adults (2024)',
+    url: 'https://www.who.int/publications/i/item/9789240096431',
+  },
+  {
+    label: 'USPSTF — Tobacco smoking cessation in adults, including pregnant persons (2021)',
+    url: 'https://www.uspreventiveservicestaskforce.org/uspstf/recommendation/tobacco-use-in-adults-and-pregnant-women-counseling-and-interventions',
+  },
+  {
+    label: 'NICE NG209 — Tobacco: preventing uptake, promoting quitting and treating dependence',
+    url: 'https://www.nice.org.uk/guidance/ng209',
+  },
+  {
+    label: 'Hughes JR (2007) — Effects of abstinence from tobacco: valid symptoms and time course (R-007)',
+    url: 'https://academic.oup.com/ntr/article/9/3/315/1071235',
+  },
+  {
+    label: 'Cochrane — Nicotine replacement therapy for smoking cessation (R-001)',
+    url: 'https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD000146.pub4/full',
+  },
+  {
+    label: 'Cochrane — Different doses, durations and modes of delivery of nicotine replacement therapy (2023)',
+    url: 'https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD013308.pub2/full',
+  },
+  {
+    label: 'US Surgeon General — Smoking Cessation: A Report of the Surgeon General (2020)',
+    url: 'https://www.hhs.gov/sites/default/files/2020-cessation-sgr-full-report.pdf',
+  },
+  {
+    label: 'NHS — Quit smoking',
+    url: 'https://www.nhs.uk/live-well/quit-smoking/',
+  },
+  {
+    label: 'CDC — Smoking and Tobacco Use',
+    url: 'https://www.cdc.gov/tobacco/index.html',
+  },
+];
+
+const tableHead = 'py-2 pr-4 font-bold text-heading dark:text-slate-200';
+const tableRow = 'border-b border-gray-100 dark:border-slate-800';
+const tableCell = 'py-3 pr-4 align-top';
+const inline = 'text-primary underline decoration-1 underline-offset-2';
+---
+
+<Layout metadata={metadata}>
+  <StructuredData slot="head" schema={pageSchema} />
+  <Breadcrumbs
+    bar
+    items={[
+      { text: 'Home', href: '/' },
+      { text: 'Start Here', href: '/start/' },
+      { text: 'The first 72 hours' },
+    ]}
+  />
+
+  <section class="relative mx-auto max-w-4xl px-4 sm:px-6 pt-8 md:pt-12 pb-4">
+    <p class="text-base font-bold tracking-wide uppercase text-secondary mb-2 text-center">The First Three Days</p>
+    <h1 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading text-heading text-center">
+      The first 72 hours without smoking
+    </h1>
+    <p class="mt-4 max-w-3xl mx-auto text-lg text-muted text-center">
+      The physical peak of withdrawal, the collapse of the old routine, and the three days that decide whether the
+      rest of the plan gets a chance.
+    </p>
+  </section>
+  <p class="mx-auto max-w-4xl px-4 sm:px-6 pb-2 text-xs text-muted dark:text-slate-400">
+    Maintained by <span class="font-semibold">SmokingCessationHub Tech Team</span> · Last updated
+    <span class="font-semibold">{reviewed}</span> · Not reviewed by a clinician
+  </p>
+
+  <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8">
+    <div class="rounded-lg border border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-900/40 p-5 text-sm mb-10">
+      <p class="text-muted dark:text-slate-400">
+        <span class="font-bold text-heading dark:text-slate-200">What this page is:</span> a practical summary of what
+        happens in the first three days after stopping smoking and how people commonly get through them. It is general
+        education, not a personal treatment plan. It contains no doses, no tapering schedules and no injection
+        instructions. If you use medication, follow the instructions from the clinician or pharmacist who supplied it.
+        Read our <a href="/editorial-policy/" class={inline}>editorial policy</a> for how sources are selected and
+        corrected.
+      </p>
+    </div>
+
+    <div class="space-y-12">
+      <div>
+        <p class="text-muted dark:text-slate-400">
+          The first 72 hours get a reputation for being the hardest part of quitting. They are not always the hardest —
+          week three has its own ambushes — but they are the most <em>physically</em> concentrated. Nicotine is
+          clearing, the receptors that adapted to a regular supply are protesting, and the routines that used to
+          deliver nicotine are suddenly empty. At the same time, the decision is new and everyone around you is
+          watching to see whether it holds.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          That combination is why preparation matters more here than at any other point. You cannot think your way
+          through the peak in the moment; you can only follow a plan you made before it arrived. This page gives you
+          the shape of the three days, a preparation list, and a short playbook for the moments when the plan is the
+          only thing standing between you and a cigarette.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">1. What is actually happening in the first 72 hours</h2>
+        <p class="text-muted dark:text-slate-400">
+          Three processes overlap, and they do not run on the same clock.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          <strong class="text-heading">Nicotine clearance.</strong> Nicotine leaves the body relatively quickly; its
+          main breakdown product, cotinine, takes longer. Public health timelines commonly describe nicotine and
+          cotinine as cleared within about three days, which is one reason the three-day mark has become shorthand for
+          the end of the physical peak. Clearance is not the same as recovery: the receptors and habits that adapted to
+          nicotine take longer to settle, which is why cravings continue after the drug is gone.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          <strong class="text-heading">Carbon monoxide and oxygen.</strong> Carbon monoxide from smoke binds to
+          haemoglobin more readily than oxygen does. When smoking stops, its level falls, and oxygen-carrying capacity
+          improves. This is why people often notice breathing and energy changing early, sometimes before the
+          psychological part of withdrawal has really started.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          <strong class="text-heading">Withdrawal.</strong> The characteristic symptoms — irritability, restlessness,
+          difficulty concentrating, low mood, increased appetite, sleep disturbance and craving — usually begin within
+          hours of the last cigarette, are strongest in the first few days, and then gradually subside over two to four
+          weeks. The <a href="/withdrawal/timeline/" class={inline}>withdrawal timeline</a> sets out the expected
+          course symptom by symptom.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">2. The shape of the three days</h2>
+        <p class="text-muted dark:text-slate-400 mb-4">
+          Individual experiences vary widely, and the boundaries are approximate. Use this as a map, not a schedule.
+        </p>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm text-left">
+            <thead>
+              <tr class="border-b border-gray-200 dark:border-slate-700">
+                <th class={tableHead}>Window</th>
+                <th class={tableHead}>What is usually happening</th>
+                <th class={tableHead}>What helps</th>
+                <th class={tableHead}>What to avoid</th>
+              </tr>
+            </thead>
+            <tbody class="text-muted dark:text-slate-400">
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Hours 0–12</td>
+                <td class={tableCell}>
+                  The last cigarette is recent enough that the habit is still loud. Cravings arrive in waves, often
+                  attached to the first coffee, the commute or a break. Some people feel almost normal and are lulled.
+                </td>
+                <td class={tableCell}>
+                  Remove cigarettes, lighters and ashtrays. Drink water. Keep the day small. Tell one person that today
+                  is day one.
+                </td>
+                <td class={tableCell}>
+                  "One last cigarette" to mark the occasion; alcohol; a long unstructured evening.
+                </td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Hours 12–24</td>
+                <td class={tableCell}>
+                  Irritability and restlessness often build. Concentration slips. The first night's sleep may be
+                  broken. Cravings become more frequent rather than longer.
+                </td>
+                <td class={tableCell}>
+                  Regular meals, water, a walk, an early night. Use the 10-minute playbook below. Keep commitments
+                  short if you can.
+                </td>
+                <td class={tableCell}>
+                  Caffeine on an empty stomach; big decisions; arguments; driving long distances without a plan.
+                </td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Hours 24–48</td>
+                <td class={tableCell}>
+                  Often the most uncomfortable stretch: mood dips, poor concentration and strong cue-driven urges as
+                  you re-enter normal routines. This is the point where many people conclude it is not working.
+                </td>
+                <td class={tableCell}>
+                  Name the stage out loud: "this is the peak, not the new normal". Use support — a call, a message, a
+                  quitline. Keep the plan visible.
+                </td>
+                <td class={tableCell}>
+                  Testing yourself with "just one"; skipping meals; isolating; deciding the method has failed.
+                </td>
+              </tr>
+              <tr>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Hours 48–72</td>
+                <td class={tableCell}>
+                  Physical symptoms are still present but begin to settle. Cue-driven urges become more noticeable as
+                  ordinary life resumes, especially around coffee, meals, work breaks and the car.
+                </td>
+                <td class={tableCell}>
+                  Re-enter one routine at a time with a replacement behaviour. Review what worked in the first two
+                  days. Plan the first week.
+                </td>
+                <td class={tableCell}>
+                  Assuming the hard part is over and abandoning the plan; celebrating with alcohol.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">3. Before hour zero: the preparation list</h2>
+        <p class="text-muted dark:text-slate-400">
+          The work that makes the first 72 hours survivable happens before the first hour. None of it is complicated;
+          all of it is easy to skip.
+        </p>
+        <ul class="mt-4 list-disc list-inside space-y-3 text-muted dark:text-slate-400">
+          <li>
+            <strong class="text-heading">Remove the supply completely.</strong> Cigarettes, lighters, matches,
+            ashtrays, the emergency pack in the glovebox, the one in the coat pocket. "Hidden" is not removed.
+          </li>
+          <li>
+            <strong class="text-heading">Clean the cues.</strong> Wash the jacket, air the car, change the chair cover,
+            clear the balcony. Smell is a powerful trigger, and a clean environment removes one layer of it.
+          </li>
+          <li>
+            <strong class="text-heading">Tell two people.</strong> Not a public announcement — two people who will
+            actually check in. One is enough if they are reliable.
+          </li>
+          <li>
+            <strong class="text-heading">Book the support before you need it.</strong> A quitline call, a stop-smoking
+            service appointment, a text programme start date. Support arranged during the peak is support you may not
+            reach for.
+          </li>
+          <li>
+            <strong class="text-heading">Stock the substitutes.</strong> Water, sugar-free gum, mints, toothpicks,
+            cut vegetables, something to do with your hands. The hand-to-mouth habit is real and responds to
+            substitutes better than to instructions.
+          </li>
+          <li>
+            <strong class="text-heading">Plan food and sleep.</strong> Meals you can assemble without thinking, and a
+            bedtime that is earlier than usual for three nights. Hunger and exhaustion make every symptom worse.
+          </li>
+          <li>
+            <strong class="text-heading">Clear the alcohol.</strong> If alcohol is a trigger for you, remove it from
+            the house for the first week. This is a temporary cost with a large payoff.
+          </li>
+          <li>
+            <strong class="text-heading">Write the plan down.</strong> Three if-then rules, the support number, and the
+            reason you are doing this. Put it where you will see it on day two, not day one.
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">4. The first morning</h2>
+        <p class="text-muted dark:text-slate-400">
+          The first morning without a cigarette is the most rehearsed moment of the quit, and the one people most often
+          improvise. The old sequence — wake, coffee, cigarette — is a single learned chain. Break it in more than one
+          place.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Get out of bed and drink water before coffee. Change where you drink the coffee, or change the cup. Eat
+          something before the first caffeine, because caffeine on an empty stomach amplifies restlessness and
+          jitteriness. If the morning cigarette was tied to reading or the phone, move that activity to another chair
+          for a few days.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          The <a href="/triggers/morning-routine/" class={inline}>morning routine trigger page</a> has a longer list,
+          and the <a href="/triggers/coffee/" class={inline}>coffee trigger</a> explains why the pairing is so strong.
+          If you use NRT, have it where you will need it before the first craving, not after.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">5. The 10-minute playbook for a craving</h2>
+        <p class="text-muted dark:text-slate-400">
+          A craving is usually short — commonly described as building over seconds or minutes, peaking, and fading if
+          you do not smoke, often within about five minutes, though people report a wide range. The practical
+          implication is that you do not need to make the urge disappear; you need to survive the next ten minutes
+          without smoking.
+        </p>
+        <ol class="mt-4 list-decimal list-inside space-y-2 text-muted dark:text-slate-400">
+          <li>
+            <strong class="text-heading">Delay.</strong> Say "in ten minutes" rather than "never". The decision is
+            smaller and the urge usually changes shape before the ten minutes are up.
+          </li>
+          <li>
+            <strong class="text-heading">Change your body.</strong> Stand up, walk to another room, go up and down the
+            stairs, splash cold water on your face or wrists. A physical state change interrupts the loop more reliably
+            than an argument with yourself.
+          </li>
+          <li>
+            <strong class="text-heading">Change your scene.</strong> Leave the kitchen, the balcony, the car. Distance
+            from the cue buys you the ten minutes.
+          </li>
+          <li>
+            <strong class="text-heading">Give your mouth a job.</strong> Water, sugar-free gum, a mint, a toothpick.
+          </li>
+          <li>
+            <strong class="text-heading">Breathe out longer than you breathe in.</strong> Four seconds in, six seconds
+            out, for two minutes. Slow exhaling reduces the physical arousal that makes an urge feel urgent.
+          </li>
+          <li>
+            <strong class="text-heading">Move.</strong> A brisk five-minute walk is one of the most commonly
+            recommended and most consistently reported ways to take the edge off a craving.
+          </li>
+          <li>
+            <strong class="text-heading">Record it afterwards.</strong> One line: time, trigger, intensity out of ten,
+            what helped. The record turns a bad afternoon into information.
+          </li>
+        </ol>
+        <p class="mt-4 text-muted dark:text-slate-400">
+          Do not test yourself with "just one" during the first three days. The first cigarette after quitting is the
+          one that most reliably restarts the habit, and the first three days are the worst time to find out how you
+          respond to it. The <a href="/cravings/" class={inline}>cravings guide</a> covers the full set of
+          in-the-moment skills, including urge surfing.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">6. Sleep, food, caffeine and alcohol</h2>
+        <p class="text-muted dark:text-slate-400">
+          The first three days are not a normal working week, and treating them as one makes them harder. Four
+          practical adjustments carry most of the benefit.
+        </p>
+        <ul class="mt-4 list-disc list-inside space-y-3 text-muted dark:text-slate-400">
+          <li>
+            <strong class="text-heading">Sleep.</strong> Expect it to be disrupted. Go to bed earlier rather than
+            trying to force the same schedule. If you wake at 3am, get up, drink water, read something dull, and go
+            back when sleepy. Do not lie awake negotiating with a craving.
+          </li>
+          <li>
+            <strong class="text-heading">Food.</strong> Regular meals, preferably with protein, and water through the
+            day. Hunger is easily mistaken for a craving, and low blood sugar makes irritability worse.
+          </li>
+          <li>
+            <strong class="text-heading">Caffeine.</strong> Smoking speeds caffeine clearance, so the same coffee can
+            hit harder after quitting. Reduce the amount or switch to a smaller cup for a few weeks; the jitteriness is
+            otherwise easy to misread as withdrawal.
+          </li>
+          <li>
+            <strong class="text-heading">Alcohol.</strong> Avoid it for the first week if it is a trigger. It lowers
+            inhibition, pairs with smoking socially, and is involved in a large share of early lapses. If you do drink,
+            decide the plan before the first glass.
+          </li>
+        </ul>
+        <p class="mt-4 text-muted dark:text-slate-400">
+          The <a href="/triggers/alcohol/" class={inline}>alcohol trigger page</a> has a longer treatment of the
+          social mechanics, and the <a href="/withdrawal/sleep/" class={inline}>sleep symptom page</a> covers what is
+          typical and what to do when it persists.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">7. If you are using NRT or a prescription medicine</h2>
+        <p class="text-muted dark:text-slate-400">
+          Medication does not remove the need for a plan; it lowers the withdrawal load so the plan has room to work.
+          The practical rules are the ones on the label and the ones you were given by the clinician or pharmacist.
+          This page does not repeat doses or schedules, because those depend on the product and on you.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Two things are worth knowing at the level of principle. First, oral NRT has a technique — chewing and
+          "parking" gum, letting a lozenge dissolve rather than chewing it — and using it like an ordinary sweet
+          reduces what you get from it. Second, combination NRT (a patch plus a fast-acting form) is more effective
+          than a single form, which is why it is a common recommendation for people with strong or frequent cravings.
+          The <a href="/comparisons/combination-nrt-vs-single-form/" class={inline}>combination comparison</a> sets out
+          the evidence, and the <a href="/medications/" class={inline}>medications section</a> covers each class.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          If you are taking varenicline or bupropion, the course usually starts before or on the quit date and runs for
+          a set period. Do not stop it early because day two feels bad without discussing it; equally, do not push
+          through side effects that worry you. Call the prescriber. If you are pregnant or have a cardiovascular or
+          mental-health condition, the choice of medicine belongs in a clinical conversation, not in a general guide.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">8. Work, driving and social situations</h2>
+        <p class="text-muted dark:text-slate-400">
+          Most first-week lapses happen in transitions: leaving the house, arriving at work, the mid-morning break, the
+          drive home, the first drink. These are not random failures; they are the points where the old routine used to
+          deliver nicotine.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Plan each transition separately. For the commute, change the route or the playlist, and put water in the cup
+          holder where the cigarettes used to be. For work breaks, take the break somewhere else and with someone who
+          does not smoke, or take a short walk. For the drive home, plan a stop — a shop, a park, a call — that breaks
+          the automatic arrival-and-smoke sequence. The
+          <a href="/triggers/work-breaks/" class={inline}>work-breaks page</a> and the
+          <a href="/triggers/driving/" class={inline}>driving page</a> have specific alternatives.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Socially, the first week is not the time to prove you can sit in a smoking area. Decline the invitation
+          without a speech. If you must attend, arrive late, leave early, keep a drink in your hand, and tell one
+          person at the event that you have just stopped. The
+          <a href="/triggers/social-events/" class={inline}>social-events page</a> has a fuller plan.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">9. What is normal — and what needs medical advice</h2>
+        <p class="text-muted dark:text-slate-400">
+          Most of what happens in the first 72 hours is uncomfortable but not dangerous: irritability, restlessness,
+          poor concentration, low mood, increased appetite, sleep changes, headaches, cough and cravings. These are
+          consistent with the known time course of nicotine withdrawal.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Some things are not explained by withdrawal and should be assessed. Seek medical advice promptly for chest
+          pain or pressure, severe shortness of breath, fainting, a rapid or irregular heartbeat, coughing blood, or
+          thoughts of harming yourself. If you have a chronic condition and your symptoms change in a way that worries
+          you, call the clinician who manages it rather than waiting for the three days to pass. This page cannot tell
+          you which category you are in; that is what a clinician is for.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Mental health deserves a specific note. Stopping smoking is associated with improved mental health in the
+          medium term, but the first days can feel worse, and people with a history of depression or anxiety may
+          notice a dip. If you are on treatment, tell the clinician managing it that you are quitting. The
+          <a href="/populations/mental-health-conditions/" class={inline}>mental health and quitting page</a> covers
+          the general principles.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">10. If you slip in the first three days</h2>
+        <p class="text-muted dark:text-slate-400">
+          A cigarette in the first 72 hours is a lapse, not a verdict. The most damaging response is the one that
+          follows it automatically: "I have ruined it, so I may as well finish the pack." That reasoning turns one
+          cigarette into a returned habit.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          What to do instead: put the cigarette out, throw away the pack, drink water, and write down what happened —
+          where you were, what you felt, what you told yourself. Then decide one change for the next 24 hours: a
+          different route, a call to your support contact, a change to the medication plan with advice. The
+          <a href="/relapse/" class={inline}>relapse section</a> covers the difference between a lapse and a return to
+          smoking, and the <a href="/questions/does-a-few-puffs-break-my-quit/" class={inline}>short answer on a few
+          puffs</a> is worth reading before it happens.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">11. After 72 hours: what changes next</h2>
+        <p class="text-muted dark:text-slate-400">
+          The three-day mark is not the end of withdrawal, but it is usually the end of the steepest part. Physical
+          symptoms tend to become less intense over the following weeks, while cue-driven cravings may become more
+          noticeable as you return to normal routines. That shift is normal: the first phase is chemical, the second is
+          learned.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          The first week is the next unit of planning. The
+          <a href="/questions/first-week-hardest/" class={inline}>first-week guide</a> covers days four to seven, and
+          the <a href="/withdrawal/timeline/" class={inline}>withdrawal timeline</a> shows what to expect week by week.
+          Keep the support contact active through at least the first month; that is when the quiet ambushes happen.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          If you have made it through 72 hours, you have already done the part that most attempts never reach. The
+          useful question now is not "how do I feel?" but "what is the next situation I need a plan for?"
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">12. Bottom line</h2>
+        <p class="text-muted dark:text-slate-400">
+          Prepare before hour zero, protect the three days, and treat the peak as a stage rather than a verdict. The
+          plan does not need to be elaborate: remove the supply, tell two people, book support, write three if-then
+          rules, and keep water, food and sleep in the schedule.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          If you are choosing a method at the same time, the
+          <a href="/methods/choosing-a-method/" class={inline}>method decision guide</a> walks through the options in
+          the order that matters — support, medication, date, plan. If you are already past the first three days, the
+          <a href="/quit-smoking/" class={inline}>complete guide</a> is the next stop.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <nav aria-label="Related guides" class="mx-auto max-w-4xl px-4 sm:px-6 pb-4">
+    <div class="rounded-lg border border-gray-200 dark:border-slate-700 p-6">
+      <p class="text-xl font-bold font-heading mb-4">Related guides</p>
+      <div class="grid gap-4 sm:grid-cols-2">
+        <a href="/withdrawal/timeline/" class="card p-4 no-underline hover:-translate-y-1 transition duration-200">
+          <h3 class="font-bold font-heading text-heading mb-1">Withdrawal timeline</h3>
+          <p class="text-sm text-muted dark:text-slate-400">
+            Hour by hour and week by week: when symptoms peak and when they settle.
+          </p>
+        </a>
+        <a href="/cravings/" class="card p-4 no-underline hover:-translate-y-1 transition duration-200">
+          <h3 class="font-bold font-heading text-heading mb-1">Cravings and triggers</h3>
+          <p class="text-sm text-muted dark:text-slate-400">
+            Why urges happen, how to ride one out, and how to plan for the situations that cause them.
+          </p>
+        </a>
+        <a href="/methods/choosing-a-method/" class="card p-4 no-underline hover:-translate-y-1 transition duration-200">
+          <h3 class="font-bold font-heading text-heading mb-1">How to choose a method</h3>
+          <p class="text-sm text-muted dark:text-slate-400">
+            A decision guide to cold turkey, NRT, prescription medication and behavioural support.
+          </p>
+        </a>
+        <a href="/medications/" class="card p-4 no-underline hover:-translate-y-1 transition duration-200">
+          <h3 class="font-bold font-heading text-heading mb-1">Quit smoking medications</h3>
+          <p class="text-sm text-muted dark:text-slate-400">
+            NRT, varenicline, bupropion and cytisine compared at class level.
+          </p>
+        </a>
+        <a href="/relapse/" class="card p-4 no-underline hover:-translate-y-1 transition duration-200">
+          <h3 class="font-bold font-heading text-heading mb-1">Relapse and recovery</h3>
+          <p class="text-sm text-muted dark:text-slate-400">
+            What a lapse means, why relapses happen, and how to restart without losing the attempt.
+          </p>
+        </a>
+        <a href="/quit-smoking/" class="card p-4 no-underline hover:-translate-y-1 transition duration-200">
+          <h3 class="font-bold font-heading text-heading mb-1">How to quit smoking</h3>
+          <p class="text-sm text-muted dark:text-slate-400">
+            The complete guide, from choosing a quit date to staying smoke-free a year later.
+          </p>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <Sources sources={pageSources} />
+  <CallToAction
+    title="Plan the three days before they start"
+    subtitle="Remove the supply, book the support, write three if-then rules. That is most of the preparation."
+    actions={[
+      { variant: 'primary', text: 'Choose a Method', href: '/methods/choosing-a-method/' },
+      { text: 'See the Withdrawal Timeline', href: '/withdrawal/timeline/' },
+    ]}
+  />
+
+  <ReviewStatement updated={reviewed} />
+</Layout>

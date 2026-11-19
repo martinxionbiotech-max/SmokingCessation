@@ -1,0 +1,654 @@
+---
+// Static route: takes precedence over the [slug] method template, because the
+// method collection has no "choosing-a-method" record. The URL stays under
+// /methods/ so the decision guide reads as the front door to the method pages.
+import Layout from '~/layouts/PageLayout.astro';
+import Sources from '~/components/common/Sources.astro';
+import StructuredData from '~/components/common/StructuredData.astro';
+import Breadcrumbs from '~/components/common/Breadcrumbs.astro';
+import ReviewStatement from '~/components/common/ReviewStatement.astro';
+import { SITE } from 'astrowind:config';
+import { authorRef, dateFields, organizationRef, siteUrl } from '~/utils/schema';
+import { seoDescription, seoTitle } from '~/utils/seo';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+const site = siteUrl(SITE.site);
+const reviewed = '19 November 2026';
+
+const metadata = {
+  title: seoTitle('How to Choose a Quit Smoking Method'),
+  description: seoDescription(
+    'A practical framework for choosing a quit method: cold turkey, NRT, prescription medication and behavioural support, compared by access, cost and fit.'
+  ),
+};
+
+const pageSchema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: 'How to Choose a Quit Smoking Method',
+    name: 'How to Choose a Quit Smoking Method',
+    description:
+      'A decision guide to smoking cessation methods: what the guidelines recommend, how the evidence compares, and how to match a method to your access, history and preferences.',
+    url: `${site}/methods/choosing-a-method/`,
+    mainEntityOfPage: `${site}/methods/choosing-a-method/`,
+    isPartOf: { '@id': `${site}/#website` },
+    author: authorRef(SITE.site),
+    publisher: organizationRef(SITE.site),
+    ...dateFields(undefined, '2026-11-19'),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'MedicalWebPage',
+    headline: 'How to Choose a Quit Smoking Method',
+    name: 'How to Choose a Quit Smoking Method',
+    description:
+      'How to compare cessation methods: guideline recommendations, evidence strength, access, side effects and personal history. General education, not a prescription.',
+    url: `${site}/methods/choosing-a-method/`,
+    mainEntityOfPage: `${site}/methods/choosing-a-method/`,
+    isPartOf: { '@id': `${site}/#website` },
+    author: authorRef(SITE.site),
+    publisher: organizationRef(SITE.site),
+    about: { '@type': 'MedicalCondition', name: 'Tobacco use disorder' },
+    audience: { '@type': 'Audience', audienceType: 'Adults who smoke and want to stop' },
+    ...dateFields(undefined, '2026-11-19'),
+  },
+];
+
+const pageSources = [
+  {
+    label: 'WHO — Clinical treatment guideline for tobacco cessation in adults (2024)',
+    url: 'https://www.who.int/publications/i/item/9789240096431',
+  },
+  {
+    label: 'USPSTF — Tobacco smoking cessation in adults, including pregnant persons (2021)',
+    url: 'https://www.uspreventiveservicestaskforce.org/uspstf/recommendation/tobacco-use-in-adults-and-pregnant-women-counseling-and-interventions',
+  },
+  {
+    label: 'NICE NG209 — Tobacco: preventing uptake, promoting quitting and treating dependence',
+    url: 'https://www.nice.org.uk/guidance/ng209',
+  },
+  {
+    label: 'Cochrane — Nicotine replacement therapy for smoking cessation (R-001)',
+    url: 'https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD000146.pub4/full',
+  },
+  {
+    label: 'Cochrane — Different doses, durations and modes of delivery of nicotine replacement therapy (2023)',
+    url: 'https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD013308.pub2/full',
+  },
+  {
+    label: 'Cochrane — Nicotine receptor partial agonists for smoking cessation (R-002)',
+    url: 'https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD006103.pub4/full',
+  },
+  {
+    label: 'Cochrane — Reduction versus abrupt cessation in smokers who want to quit (R-004)',
+    url: 'https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD010332.pub2/full',
+  },
+  {
+    label: 'US Surgeon General — Smoking Cessation: A Report of the Surgeon General (2020)',
+    url: 'https://www.hhs.gov/sites/default/files/2020-cessation-sgr-full-report.pdf',
+  },
+  {
+    label: 'NHS — Quit smoking',
+    url: 'https://www.nhs.uk/live-well/quit-smoking/',
+  },
+];
+
+const tableHead = 'py-2 pr-4 font-bold text-heading dark:text-slate-200';
+const tableRow = 'border-b border-gray-100 dark:border-slate-800';
+const tableCell = 'py-3 pr-4 align-top';
+const inline = 'text-primary underline decoration-1 underline-offset-2';
+---
+
+<Layout metadata={metadata}>
+  <StructuredData slot="head" schema={pageSchema} />
+  <Breadcrumbs
+    bar
+    items={[
+      { text: 'Home', href: '/' },
+      { text: 'Quit Methods', href: '/methods/' },
+      { text: 'How to choose a method' },
+    ]}
+  />
+
+  <section class="relative mx-auto max-w-4xl px-4 sm:px-6 pt-8 md:pt-12 pb-4">
+    <p class="text-base font-bold tracking-wide uppercase text-secondary mb-2 text-center">Decision Guide</p>
+    <h1 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading text-heading text-center">
+      How to choose a quit smoking method
+    </h1>
+    <p class="mt-4 max-w-3xl mx-auto text-lg text-muted text-center">
+      The strongest method on paper is worthless if you cannot get it, cannot tolerate it, or will not keep using it.
+      This guide narrows the field in the order that actually matters.
+    </p>
+  </section>
+  <p class="mx-auto max-w-4xl px-4 sm:px-6 pb-2 text-xs text-muted dark:text-slate-400">
+    Maintained by <span class="font-semibold">SmokingCessationHub Tech Team</span> · Last updated
+    <span class="font-semibold">{reviewed}</span> · Not reviewed by a clinician
+  </p>
+
+  <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8">
+    <div class="rounded-lg border border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-900/40 p-5 text-sm mb-10">
+      <p class="text-muted dark:text-slate-400">
+        <span class="font-bold text-heading dark:text-slate-200">What this page is:</span> a summary of public guidance
+        and systematic reviews on choosing a cessation method, written for adults who smoke and want to stop. It is
+        general education, not a personal treatment plan. It contains no doses, no tapering schedules and no injection
+        instructions, and it does not guarantee that any method will work for you. Medication decisions belong with a
+        clinician or pharmacist who knows your history. Read our
+        <a href="/editorial-policy/" class={inline}>editorial policy</a> for how sources are selected and corrected.
+      </p>
+    </div>
+
+    <div class="space-y-12">
+      <div>
+        <p class="text-muted dark:text-slate-400">
+          People usually ask which method works best. The honest answer is that the question is incomplete. A method
+          has to be available, affordable, tolerable and used for long enough to matter. Varenicline has the strongest
+          average effect against a single form of nicotine replacement, but it needs a prescriber and a course you can
+          stay on. Combination NRT performs well in trials, but only if you use two forms consistently rather than
+          rationing one. Cold turkey is free and immediate, and it is also the method most often attempted without any
+          preparation at all.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          This page gives you a way to choose in the right order: first what the guidance says, then what the evidence
+          can and cannot distinguish, then the practical questions — access, health history, past attempts, and how
+          much structure you actually want. The method pages and the head-to-head
+          <a href="/comparisons/" class={inline}>comparisons</a> hold the detail for each option. This page is the
+          decision layer above them.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">1. Start with what the guidelines agree on</h2>
+        <p class="text-muted dark:text-slate-400">
+          The major guidelines differ in emphasis, but they converge on one structural point: the best-supported
+          approach is <strong class="text-heading">behavioural support combined with medication</strong>, not either
+          one alone.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          The WHO's 2024 clinical treatment guideline for tobacco cessation recommends behavioural support alongside
+          pharmacotherapy, and lists nicotine replacement therapy, varenicline, bupropion and cytisine among the
+          treatment options. The USPSTF's 2021 recommendation asks clinicians to advise all adults who smoke to stop
+          and to offer behavioural interventions and approved pharmacotherapy; for pregnant people it recommends
+          behavioural interventions and finds the evidence on medication insufficient, which makes medication a
+          clinician's decision rather than a default. NICE NG209 likewise recommends combining behavioural support
+          with medication, and it is the guidance that most clearly allows e-cigarettes as a stop-smoking option.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Two practical conclusions follow. If you are choosing between a medication and a behavioural programme, the
+          answer is usually neither-or: it is both, if both are accessible. And if you are choosing cold turkey because
+          you do not want to involve a clinician, that is a legitimate preference — but it is a choice about access,
+          not evidence that support is unnecessary.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          The <a href="/quit-smoking/" class={inline}>complete guide to quitting</a> covers the sequence — quit date,
+          preparation, the first days, the first year — rather than the menu. Use it after you have picked a route,
+          or read it first if you have not decided whether you are ready.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">2. What the evidence can actually distinguish</h2>
+        <p class="text-muted dark:text-slate-400">
+          Evidence rankings are useful only at the resolution they can support. The reliable findings are broad;
+          the fine distinctions usually are not.
+        </p>
+        <ul class="mt-4 list-disc list-inside space-y-3 text-muted dark:text-slate-400">
+          <li>
+            <strong class="text-heading">Any nicotine replacement beats none.</strong> The Cochrane review of NRT
+            finds that every form — patch, gum, lozenge, inhalator, spray — increases quit rates compared with placebo
+            or no NRT.
+          </li>
+          <li>
+            <strong class="text-heading">Combination NRT beats a single form.</strong> Using a patch plus a
+            fast-acting form is more effective than one form alone (risk ratio about 1.27 in the 2023 Cochrane review
+            of doses, durations and delivery modes; high certainty). That is a reasonably strong, practical finding.
+          </li>
+          <li>
+            <strong class="text-heading">Varenicline beats single-form NRT, and is roughly equal to combination
+            NRT.</strong> The 2023 partial-agonist review found a clear advantage over a single NRT form and no clear
+            difference against dual-form NRT, where the certainty was low. Do not compress that into a general
+            ranking.
+          </li>
+          <li>
+            <strong class="text-heading">Behavioural support adds to medication.</strong> Structured support —
+            quitline calls, group programmes, text programmes, face-to-face services — improves outcomes, and the
+            guidelines recommend combining it with medication rather than substituting one for the other.
+          </li>
+          <li>
+            <strong class="text-heading">Head-to-head rankings below the top tier are uncertain.</strong> Cytisine
+            versus varenicline, bupropion versus NRT, and most network rankings rest on indirect or limited evidence.
+            A method that is "second best" on average may still be the best one available to you.
+          </li>
+        </ul>
+        <p class="mt-4 text-muted dark:text-slate-400">
+          What the evidence cannot tell you is which method you will tolerate, which one fits your working day, and
+          whether you will still be using it in week four. Those are the variables that decide most outcomes.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">3. Five questions that narrow the field</h2>
+        <p class="text-muted dark:text-slate-400 mb-4">
+          Answer these in order. Each one removes options that were never realistic, which is more useful than
+          ranking the ones that remain.
+        </p>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm text-left">
+            <thead>
+              <tr class="border-b border-gray-200 dark:border-slate-700">
+                <th class={tableHead}>Question</th>
+                <th class={tableHead}>Why it matters</th>
+                <th class={tableHead}>What it usually points to</th>
+              </tr>
+            </thead>
+            <tbody class="text-muted dark:text-slate-400">
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>
+                  Can you see a prescriber in the next two weeks?
+                </td>
+                <td class={tableCell}>
+                  Prescription medicines need a consultation, and some need monitoring or a follow-up. If access is
+                  slow, that changes the timeline, not the value of the option.
+                </td>
+                <td class={tableCell}>
+                  Yes: varenicline, bupropion and cytisine become real options. No: NRT, behavioural support and
+                  quitlines carry the plan.
+                </td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>
+                  Have you tried a method before, and what happened?
+                </td>
+                <td class={tableCell}>
+                  A previous attempt is information about fit and dose of support, not proof that you cannot quit.
+                  Repeating the same under-supported attempt usually repeats the same result.
+                </td>
+                <td class={tableCell}>
+                  Failed cold turkey: add support or medication. Failed single NRT: consider combination NRT. Stopped
+                  varenicline early: discuss tolerability before choosing it again.
+                </td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>
+                  Do you have a health condition or take medicines that need checking?
+                </td>
+                <td class={tableCell}>
+                  Pregnancy, cardiovascular disease, mental-health conditions and some drug interactions change which
+                  options are appropriate.
+                </td>
+                <td class={tableCell}>
+                  Ask a clinician or pharmacist before starting any medicine. See the
+                  <a href="/populations/" class={inline}>special situations</a> pages for the general principles.
+                </td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>
+                  How much structure do you want?
+                </td>
+                <td class={tableCell}>
+                  Some people want a course to follow and appointments to keep. Others need something they can start
+                  alone, today. Both are valid; they lead to different plans.
+                </td>
+                <td class={tableCell}>
+                  High structure: varenicline or bupropion plus a programme. Low structure: NRT plus a quitline or text
+                  support. Minimal: a written cold-turkey plan with a support contact.
+                </td>
+              </tr>
+              <tr>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>
+                  What can you afford for the length of the course?
+                </td>
+                <td class={tableCell}>
+                  Cost decides adherence more often than preference does. A cheaper option used properly beats an
+                  expensive one abandoned in week two.
+                </td>
+                <td class={tableCell}>
+                  Check local subsidy or insurance. Generic NRT is often the lowest-cost supported option; quitlines are
+                  usually free.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">4. Matching the method to the situation</h2>
+        <p class="text-muted dark:text-slate-400 mb-4">
+          The table is a starting point for a conversation, not a prescription. Several rows can apply at once.
+        </p>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm text-left">
+            <thead>
+              <tr class="border-b border-gray-200 dark:border-slate-700">
+                <th class={tableHead}>If this describes you</th>
+                <th class={tableHead}>Reasonable first options</th>
+                <th class={tableHead}>Why</th>
+              </tr>
+            </thead>
+            <tbody class="text-muted dark:text-slate-400">
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>
+                  First serious attempt, no strong preference
+                </td>
+                <td class={tableCell}>
+                  Behavioural support plus NRT; or cold turkey with a written plan and a quitline contact
+                </td>
+                <td class={tableCell}>
+                  Both routes are low-barrier. The support component is what most first attempts lack, not motivation.
+                </td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>
+                  Previous attempt ended in the first week
+                </td>
+                <td class={tableCell}>
+                  Combination NRT, or a prescriber discussion about varenicline or bupropion
+                </td>
+                <td class={tableCell}>
+                  Early relapse usually means the withdrawal load was higher than the plan allowed for. Strengthen the
+                  pharmacological side before trying harder.
+                </td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>
+                  Heavy smoking, strong morning craving
+                </td>
+                <td class={tableCell}>
+                  Combination NRT with a fast-acting form; ask about prescription options
+                </td>
+                <td class={tableCell}>
+                  A steady patch plus a form you can use at the peak is the standard way to cover both background and
+                  breakthrough craving.
+                </td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>
+                  Dislikes medication or wants to avoid it
+                </td>
+                <td class={tableCell}>
+                  Structured behavioural support, quitline, text programme, cold turkey
+                </td>
+                <td class={tableCell}>
+                  Support alone is better than an unsupported attempt. Say plainly that the evidence for medication is
+                  stronger, then plan the support properly.
+                </td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>
+                  Pregnant or planning pregnancy
+                </td>
+                <td class={tableCell}>
+                  Behavioural support first; medication only through a clinician
+                </td>
+                <td class={tableCell}>
+                  USPSTF finds behavioural interventions recommended and pharmacotherapy evidence insufficient. That
+                  is a risk-benefit conversation, not a self-service choice.
+                </td>
+              </tr>
+              <tr>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>
+                  Serious mental-health condition
+                </td>
+                <td class={tableCell}>
+                  Behavioural support plus a clinician-guided medication decision
+                </td>
+                <td class={tableCell}>
+                  Stopping smoking is still worth doing; the medicine choice and monitoring need to account for
+                  existing treatment. See
+                  <a href="/populations/mental-health-conditions/" class={inline}>mental health and quitting</a>.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">5. What behavioural support means in practice</h2>
+        <p class="text-muted dark:text-slate-400">
+          "Behavioural support" is a vague phrase for a set of concrete services. It usually means a trained adviser
+          who helps you set a quit date, prepares you for specific triggers, reviews what happened after a lapse, and
+          keeps contact for a few weeks. The delivery channel matters less than whether it is structured and repeated.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          The main routes are:
+        </p>
+        <ul class="mt-4 list-disc list-inside space-y-2 text-muted dark:text-slate-400">
+          <li>
+            <strong class="text-heading">Telephone quitlines</strong> — free in many countries, often with callback
+            sessions. See <a href="/methods/quitlines/" class={inline}>quitlines</a>.
+          </li>
+          <li>
+            <strong class="text-heading">Face-to-face or group programmes</strong> — stop-smoking services, pharmacy
+            programmes and community groups. See <a href="/methods/counseling/" class={inline}>counselling</a>.
+          </li>
+          <li>
+            <strong class="text-heading">Text and app programmes</strong> — structured messages timed around the quit
+            date. Convenient, but the evidence is more variable than for telephone support. See
+            <a href="/methods/digital-programs/" class={inline}>digital programmes</a>.
+          </li>
+          <li>
+            <strong class="text-heading">Peer support</strong> — group or online communities. Useful for persistence;
+            not a substitute for clinical advice. See <a href="/methods/peer-support/" class={inline}>peer support</a>.
+          </li>
+        </ul>
+        <p class="mt-4 text-muted dark:text-slate-400">
+          If you only do one thing beyond choosing a method, book the support before the quit date. Support arranged
+          after the first bad day is support you may not use.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">6. Medication: what to ask a clinician or pharmacist</h2>
+        <p class="text-muted dark:text-slate-400">
+          This page does not give doses or schedules. What it can do is tell you which questions make a consultation
+          useful, so you leave with a plan rather than a leaflet.
+        </p>
+        <ol class="mt-4 list-decimal list-inside space-y-2 text-muted dark:text-slate-400">
+          <li>Which options are appropriate given my health history, other medicines and pregnancy status?</li>
+          <li>What is the intended length of the course, and what happens if I miss a day or want to stop early?</li>
+          <li>Which side effects should make me call rather than wait — and which are common and settle?</li>
+          <li>Can I combine this with NRT, and if so, which form and when?</li>
+          <li>What support is available alongside it, and how do I access that here?</li>
+          <li>If this does not work, what is the next option rather than the same option again?</li>
+        </ol>
+        <p class="mt-4 text-muted dark:text-slate-400">
+          The <a href="/medications/" class={inline}>medications section</a> compares the classes at the level the
+          evidence supports: how they work, what the trials found, common adverse effects and cautions. It is
+          deliberately not a prescribing reference.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">7. Cold turkey and gradual reduction: when either is reasonable</h2>
+        <p class="text-muted dark:text-slate-400">
+          Cold turkey is not a failure of planning by definition. It is a reasonable choice when you have a clear quit
+          date, a prepared environment, at least one person who knows what you are doing, and a plan for the first
+          three days. What makes it fail is usually the absence of those things, not the absence of a product.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Gradual reduction is reasonable when a fixed quit date feels impossible, or when you want to separate the
+          behavioural work from the withdrawal peak. The Cochrane review of reduction versus abrupt cessation found
+          that abrupt cessation is at least as effective and may be better for people who are able to set a date — but
+          reduction with support is a legitimate route for people who are not there yet. The
+          <a href="/comparisons/cold-turkey-vs-gradual-reduction/" class={inline}>full comparison</a> sets out the
+          trade-offs, and the individual method pages cover
+          <a href="/methods/cold-turkey/" class={inline}>cold turkey</a> and
+          <a href="/methods/gradual-reduction/" class={inline}>gradual reduction</a>.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          One caution applies to both: if you cut down while still smoking, you can end up maintaining the habit at a
+          lower rate indefinitely. Set a date for zero, not a direction of travel.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">8. Combining methods without overcomplicating</h2>
+        <p class="text-muted dark:text-slate-400">
+          Most successful plans combine two things: something pharmacological to reduce withdrawal, and something
+          behavioural to change the situations that trigger smoking. A third element — social accountability — is
+          optional but cheap.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          A workable combination looks like this: a medication or NRT chosen with advice; a support contact booked
+          before the quit date; a written plan for the first 72 hours; and a review point at the end of week one. That
+          is not a complex programme. It is the minimum structure the guidelines describe, translated into four
+          calendar entries.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          The combination to avoid is "NRT in a drawer and no plan". Product without technique is the most common
+          expensive mistake in cessation: the patch is used sporadically, the gum is chewed like normal gum, the
+          lozenge is bitten, and the conclusion drawn is that NRT does not work.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">9. A decision worksheet you can finish in ten minutes</h2>
+        <p class="text-muted dark:text-slate-400 mb-4">
+          Write the answers down. The act of writing produces a plan that a preference in your head does not.
+        </p>
+        <ol class="list-decimal list-inside space-y-3 text-muted dark:text-slate-400">
+          <li>
+            <strong class="text-heading">Set the date.</strong> Pick a specific day in the next two to three weeks. A
+            date that is too soon has no preparation; a date that keeps moving is not a date. The
+            <a href="/questions/how-do-i-choose-a-quit-date/" class={inline}>quit-date guide</a> has a checklist.
+          </li>
+          <li>
+            <strong class="text-heading">Choose the support before the product.</strong> Name the service, the phone
+            number or the person. "I will look into it" is not support.
+          </li>
+          <li>
+            <strong class="text-heading">Choose the medication route with advice, or consciously choose none.</strong>{' '}
+            If none, say why, and what you will do instead when withdrawal peaks.
+          </li>
+          <li>
+            <strong class="text-heading">Write three if-then rules.</strong> "If I am in the car after work, then I
+            will..." Specific situations beat general intentions.
+          </li>
+          <li>
+            <strong class="text-heading">Set the review.</strong> A ten-minute check at day three and day seven, with
+            yourself or your support contact. Decide in advance what you will change if it is going badly.
+          </li>
+        </ol>
+        <p class="mt-4 text-muted dark:text-slate-400">
+          The <a href="/start/" class={inline}>start-here path</a> walks through the same steps with links to the
+          preparation pages, and the <a href="/withdrawal/timeline/" class={inline}>withdrawal timeline</a> tells you
+          what the first days are likely to feel like so the plan is not built on optimism.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">10. Common selection mistakes</h2>
+        <ul class="mt-2 list-disc list-inside space-y-3 text-muted dark:text-slate-400">
+          <li>
+            <strong class="text-heading">Choosing the method with the best average result rather than the best fit.</strong>{' '}
+            A treatment you abandon in week two has an average result of zero for you.
+          </li>
+          <li>
+            <strong class="text-heading">Treating a previous failure as a verdict.</strong> Most people who quit
+            needed more than one attempt. The useful question is what the attempt lacked, not what it proves.
+          </li>
+          <li>
+            <strong class="text-heading">Starting medication on the quit date without reading how to use it.</strong>{' '}
+            Technique matters, especially for oral NRT. Read the label and ask the pharmacist.
+          </li>
+          <li>
+            <strong class="text-heading">Planning the quit but not the relapse.</strong> Decide now what you will do
+            after a cigarette — not whether you will have one. The
+            <a href="/relapse/" class={inline}>relapse section</a> covers the difference between a lapse and a
+            return to smoking.
+          </li>
+          <li>
+            <strong class="text-heading">Waiting for the perfect week.</strong> There is no week without a deadline,
+            a social event or a bad night's sleep. Preparation can be scheduled; life cannot.
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">11. If the first choice does not work</h2>
+        <p class="text-muted dark:text-slate-400">
+          A failed attempt is not a reason to choose a harder method next time. It is a reason to change one variable:
+          add behavioural support if you had none, switch from a single NRT form to combination NRT, or discuss a
+          prescription option if you have only used over-the-counter products. Changing everything at once makes it
+          impossible to know what helped.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          If you stopped a medicine because of side effects, say so at the next consultation. "It made me feel awful"
+          is clinically useful information; it may lead to a different medicine, a different schedule or a different
+          class entirely. Do not silently switch to a method you already know does not suit you.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">12. Bottom line</h2>
+        <p class="text-muted dark:text-slate-400">
+          Choose in this order: the support you can actually access, the medication or NRT you can tolerate and afford,
+          the quit date you can prepare for, and the plan for the first 72 hours. The evidence favours behavioural
+          support plus medication; it does not favour waiting until you can arrange the perfect version of either.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          If you remember one sentence from this page, make it this: the method is not the quit. The method is what
+          carries you through the first three days and the first three weeks while the new routine takes hold.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <nav aria-label="Related guides" class="mx-auto max-w-4xl px-4 sm:px-6 pb-4">
+    <div class="rounded-lg border border-gray-200 dark:border-slate-700 p-6">
+      <p class="text-xl font-bold font-heading mb-4">Related guides</p>
+      <div class="grid gap-4 sm:grid-cols-2">
+        <a href="/methods/" class="card p-4 no-underline hover:-translate-y-1 transition duration-200">
+          <h3 class="font-bold font-heading text-heading mb-1">All quit methods</h3>
+          <p class="text-sm text-muted dark:text-slate-400">
+            The evidence page for each method, with strength ratings and practical considerations.
+          </p>
+        </a>
+        <a href="/comparisons/" class="card p-4 no-underline hover:-translate-y-1 transition duration-200">
+          <h3 class="font-bold font-heading text-heading mb-1">Head-to-head comparisons</h3>
+          <p class="text-sm text-muted dark:text-slate-400">
+            Cold turkey vs gradual reduction, NRT forms, prescription drugs and e-cigarettes.
+          </p>
+        </a>
+        <a href="/medications/" class="card p-4 no-underline hover:-translate-y-1 transition duration-200">
+          <h3 class="font-bold font-heading text-heading mb-1">Quit smoking medications</h3>
+          <p class="text-sm text-muted dark:text-slate-400">
+            NRT, varenicline, bupropion and cytisine compared at class level.
+          </p>
+        </a>
+        <a href="/first-72-hours/" class="card p-4 no-underline hover:-translate-y-1 transition duration-200">
+          <h3 class="font-bold font-heading text-heading mb-1">The first 72 hours</h3>
+          <p class="text-sm text-muted dark:text-slate-400">
+            An hour-by-hour plan for the stretch where the quit is most fragile.
+          </p>
+        </a>
+        <a href="/quit-smoking/" class="card p-4 no-underline hover:-translate-y-1 transition duration-200">
+          <h3 class="font-bold font-heading text-heading mb-1">How to quit smoking</h3>
+          <p class="text-sm text-muted dark:text-slate-400">
+            The complete guide, from choosing a quit date to staying smoke-free a year later.
+          </p>
+        </a>
+        <a href="/start/" class="card p-4 no-underline hover:-translate-y-1 transition duration-200">
+          <h3 class="font-bold font-heading text-heading mb-1">Start here</h3>
+          <p class="text-sm text-muted dark:text-slate-400">
+            The shortest path through the site, wherever you are in the process.
+          </p>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <Sources sources={pageSources} />
+  <CallToAction
+    title="Pick the method, then protect the first three days"
+    subtitle="A quit date, one support contact and three if-then rules. That is enough structure to start."
+    actions={[
+      { variant: 'primary', text: 'Plan the First 72 Hours', href: '/first-72-hours/' },
+      { text: 'Compare Methods', href: '/comparisons/' },
+    ]}
+  />
+
+  <ReviewStatement updated={reviewed} />
+</Layout>
