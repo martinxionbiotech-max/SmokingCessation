@@ -1,0 +1,557 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Sources from '~/components/common/Sources.astro';
+import StructuredData from '~/components/common/StructuredData.astro';
+import Breadcrumbs from '~/components/common/Breadcrumbs.astro';
+import ReviewStatement from '~/components/common/ReviewStatement.astro';
+import { SITE } from 'astrowind:config';
+import { authorRef, dateFields, organizationRef, siteUrl } from '~/utils/schema';
+import { seoDescription, seoTitle } from '~/utils/seo';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+const site = siteUrl(SITE.site);
+const reviewed = '20 November 2026';
+
+const metadata = {
+  title: seoTitle('Weight gain after quitting smoking'),
+  description: seoDescription(
+    'How much weight people usually gain after quitting, why it happens, what helps, and why the health benefit of stopping still outweighs the change.'
+  ),
+};
+
+const pageSchema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: 'Weight gain after quitting smoking',
+    name: 'Weight gain after quitting smoking',
+    description:
+      'What the evidence says about weight gain after smoking cessation, when the gain happens, why averages mislead, and what actually helps without derailing the quit.',
+    url: `${site}/weight-gain/`,
+    mainEntityOfPage: `${site}/weight-gain/`,
+    isPartOf: { '@id': `${site}/#website` },
+    author: authorRef(SITE.site),
+    publisher: organizationRef(SITE.site),
+    ...dateFields(undefined, '2026-11-20'),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'MedicalWebPage',
+    headline: 'Weight gain after quitting smoking',
+    name: 'Weight gain after quitting smoking',
+    description:
+      'The expected weight change after stopping smoking, the mechanisms behind it, and the practical and clinical points to consider.',
+    url: `${site}/weight-gain/`,
+    mainEntityOfPage: `${site}/weight-gain/`,
+    isPartOf: { '@id': `${site}/#website` },
+    author: authorRef(SITE.site),
+    publisher: organizationRef(SITE.site),
+    about: { '@type': 'MedicalCondition', name: 'Nicotine withdrawal' },
+    audience: { '@type': 'Audience', audienceType: 'Adults who have stopped smoking or are planning to' },
+    ...dateFields(undefined, '2026-11-20'),
+  },
+];
+
+const pageSources = [
+  {
+    label: 'Aubin HJ, Farley A, Lycett D, Lahmek P, Aveyard P (2012) — Weight gain in smokers after quitting cigarettes: meta-analysis. BMJ 345:e4439',
+    url: 'https://doi.org/10.1136/bmj.e4439',
+  },
+  {
+    label: 'WHO — Clinical treatment guideline for tobacco cessation in adults (2024)',
+    url: 'https://www.who.int/publications/i/item/9789240096431',
+  },
+  {
+    label: 'USPSTF — Tobacco smoking cessation in adults, including pregnant persons (2021)',
+    url: 'https://www.uspreventiveservicestaskforce.org/uspstf/recommendation/tobacco-use-in-adults-and-pregnant-women-counseling-and-interventions',
+  },
+  {
+    label: 'NICE NG209 — Tobacco: preventing uptake, promoting quitting and treating dependence',
+    url: 'https://www.nice.org.uk/guidance/ng209',
+  },
+  {
+    label: 'Cochrane — Nicotine replacement therapy for smoking cessation (R-001)',
+    url: 'https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD000146.pub4/full',
+  },
+  {
+    label: 'US Surgeon General — Smoking Cessation: A Report of the Surgeon General (2020)',
+    url: 'https://www.hhs.gov/sites/default/files/2020-cessation-sgr-full-report.pdf',
+  },
+  {
+    label: 'NHS — Quit smoking',
+    url: 'https://www.nhs.uk/live-well/quit-smoking/',
+  },
+  {
+    label: 'CDC — Smoking and Tobacco Use',
+    url: 'https://www.cdc.gov/tobacco/index.html',
+  },
+];
+
+const tableHead = 'py-2 pr-4 font-bold text-heading dark:text-slate-200';
+const tableRow = 'border-b border-gray-100 dark:border-slate-800';
+const tableCell = 'py-3 pr-4 align-top';
+const inline = 'text-primary underline decoration-1 underline-offset-2';
+---
+
+<Layout metadata={metadata}>
+  <StructuredData slot="head" schema={pageSchema} />
+  <Breadcrumbs
+    bar
+    items={[
+      { text: 'Home', href: '/' },
+      { text: 'Withdrawal', href: '/withdrawal/' },
+      { text: 'Weight gain after quitting' },
+    ]}
+  />
+
+  <section class="relative mx-auto max-w-4xl px-4 sm:px-6 pt-8 md:pt-12 pb-4">
+    <p class="text-base font-bold tracking-wide uppercase text-secondary mb-2 text-center">After the Last Cigarette</p>
+    <h1 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading text-heading text-center">
+      Weight gain after quitting smoking
+    </h1>
+    <p class="mt-4 max-w-3xl mx-auto text-lg text-muted text-center">
+      Weight change is common, usually modest, and wildly variable. It is also one of the most common reasons people
+      delay quitting — which makes it worth understanding properly.
+    </p>
+  </section>
+  <p class="mx-auto max-w-4xl px-4 sm:px-6 pb-2 text-xs text-muted dark:text-slate-400">
+    Maintained by <span class="font-semibold">SmokingCessationHub Tech Team</span> · Last updated
+    <span class="font-semibold">{reviewed}</span> · Not reviewed by a clinician
+  </p>
+
+  <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8">
+    <div class="rounded-lg border border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-900/40 p-5 text-sm mb-10">
+      <p class="text-muted dark:text-slate-400">
+        <span class="font-bold text-heading dark:text-slate-200">What this page is:</span> a summary of the published
+        evidence on weight change after stopping smoking, and the practical responses that do not require a
+        prescription. It is general education, not a personal treatment plan. It contains no doses, no tapering
+        schedules and no injection instructions. If you have a condition affected by weight or eating, discuss the plan
+        with the clinician who manages it. Read our
+        <a href="/editorial-policy/" class={inline}>editorial policy</a> for how sources are selected and corrected.
+      </p>
+    </div>
+
+    <div class="space-y-12">
+      <div>
+        <p class="text-muted dark:text-slate-400">
+          Fear of weight gain is not vanity. It is one of the most consistently reported reasons for not quitting, and
+          it is especially common among younger women and people who have quit before and gained. The fear deserves a
+          straight answer rather than a slogan about willpower.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          The straight answer has three parts. Most people gain some weight, the average is modest, and the range is
+          wide enough that an average tells you very little about your own case. The gain is also front-loaded: most of
+          it happens in the first three months, then tends to plateau. And the health comparison that matters is not
+          between your current weight and a slightly lower one; it is between your weight as a non-smoker and the
+          cardiovascular and cancer risk of continuing to smoke.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          This page sets out what the evidence actually shows, why the mechanism is more interesting than "eating
+          more", what helps, what does not, and when weight change deserves medical attention. It is not a diet plan,
+          and it does not pretend that weight is irrelevant. It is a guide to keeping the quit while managing the
+          trade-off.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">1. The short answer</h2>
+        <p class="text-muted dark:text-slate-400">
+          In the largest meta-analysis of the question — 62 studies of people abstinent for up to a year — mean weight
+          gain was about 1.1 kg at one month, 2.3 kg at two months, 2.9 kg at three months, 4.2 kg at six months and
+          4.7 kg at twelve months. Most of the gain occurred within the first three months. The same analysis found
+          that 16% of quitters lost weight, 37% gained less than 5 kg, 34% gained 5–10 kg, and 13% gained more than
+          10 kg.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Those are averages and distributions, not predictions. A person who gains 8 kg is not doing quitting wrong;
+          they are inside the range the data describes. A person who gains nothing is also not an outlier. The
+          <a href="/questions/" class={inline}>questions hub</a> covers the shorter version of the same answer, and the
+          <a href="/withdrawal/weight-change/" class={inline}>weight-change symptom page</a> describes what the first
+          weeks feel like.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">2. Why quitting changes weight</h2>
+        <p class="text-muted dark:text-slate-400">
+          The mechanism is not a single switch. At least four things change at once, and they reinforce each other.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          <strong class="text-heading">Appetite returns.</strong> Nicotine suppresses appetite. When it is removed,
+          hunger signals become more noticeable, and meals that were previously optional start to feel necessary.
+          Increased appetite is a documented withdrawal symptom, and it can persist longer than the physical symptoms
+          that get more attention.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          <strong class="text-heading">Energy expenditure falls slightly.</strong> Smoking is associated with a small
+          increase in resting energy expenditure. Stopping removes that effect. The size is modest — it is not the main
+          driver of a 5 kg gain — but it shifts the balance in the same direction as the extra appetite.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          <strong class="text-heading">Food becomes more rewarding.</strong> Taste and smell often recover in the weeks
+          after quitting, which makes food more interesting. People frequently report rediscovering flavours and
+          eating more as a result. This is a pleasant change with an obvious consequence.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          <strong class="text-heading">The hand-to-mouth habit needs a destination.</strong> A cigarette occupies the
+          mouth and hands for several minutes, many times a day. When it disappears, snacks, sweets and extra coffees
+          are the most available substitutes. This is a behavioural effect, not a metabolic one, and it is the part
+          most responsive to planning.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">3. How much, and when</h2>
+        <p class="text-muted dark:text-slate-400 mb-4">
+          The figures below come from the Aubin et al. meta-analysis of untreated quitters. They describe averages;
+          individual trajectories vary widely.
+        </p>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm text-left">
+            <thead>
+              <tr class="border-b border-gray-200 dark:border-slate-700">
+                <th class={tableHead}>Time after quitting</th>
+                <th class={tableHead}>Mean weight gain</th>
+                <th class={tableHead}>What it means in practice</th>
+              </tr>
+            </thead>
+            <tbody class="text-muted dark:text-slate-400">
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>1 month</td>
+                <td class={tableCell}>about 1.1 kg</td>
+                <td class={tableCell}>Usually small; appetite and routine changes are just beginning to show.</td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>2 months</td>
+                <td class={tableCell}>about 2.3 kg</td>
+                <td class={tableCell}>The steepest part of the curve for many people.</td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>3 months</td>
+                <td class={tableCell}>about 2.9 kg</td>
+                <td class={tableCell}>Most of the total gain has usually happened by this point.</td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>6 months</td>
+                <td class={tableCell}>about 4.2 kg</td>
+                <td class={tableCell}>Gain continues more slowly; new habits are consolidating.</td>
+              </tr>
+              <tr>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>12 months</td>
+                <td class={tableCell}>about 4.7 kg</td>
+                <td class={tableCell}>Average plateau; the range around this figure is wide.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-4 text-muted dark:text-slate-400">
+          At twelve months the distribution was: 16% lost weight, 37% gained less than 5 kg, 34% gained 5–10 kg, and
+          13% gained more than 10 kg. The same review found similar estimates across the pharmacological options it
+          examined, and similar estimates for people who were especially concerned about weight and those who were not.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">4. Why the average is a poor prediction</h2>
+        <p class="text-muted dark:text-slate-400">
+          An average of 4.7 kg is compatible with a very large number of individual outcomes. Baseline weight, diet,
+          activity, age, metabolism, medication, sleep, stress and eating patterns all influence what happens. So does
+          the reason for smoking: people who used cigarettes to manage appetite or mood may notice the change more than
+          people who smoked mostly in social settings.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          The practical conclusion is not "expect 5 kg". It is "expect change, measure it occasionally, and respond to
+          the trend rather than to a single weigh-in". Weight fluctuates by a kilogram or more within a day; a weekly
+          or fortnightly measurement is more informative than a daily one, and a trend over a month is more informative
+          than either.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          It also helps to separate the short-term change from the long-term one. The first three months are the
+          steepest part of the curve for many people. If the gain stabilises after that, the picture is following the
+          expected pattern. If it keeps climbing month after month, that is worth a conversation rather than a
+          resolution to try harder.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">5. Is the gain dangerous compared with smoking?</h2>
+        <p class="text-muted dark:text-slate-400">
+          Weight is a health issue, and it would be dishonest to say otherwise. But the relevant comparison is not
+          between 70 kg and 75 kg. It is between the risks of living with a few extra kilograms and the risks of
+          continuing to smoke.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Smoking is a major cause of cardiovascular disease, many cancers and chronic respiratory disease. Stopping
+          reduces those risks, and the reduction begins quickly even if it takes years to approach the risk of someone
+          who never smoked. Every major guideline — WHO, USPSTF, NICE and the US Surgeon General — recommends stopping
+          smoking without making the recommendation conditional on weight. That is a judgment about relative risk, not
+          a claim that weight does not matter.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          The honest framing is this: the weight change is a side effect worth managing, not a reason to postpone the
+          main event. People who quit and gain a few kilograms are still substantially better off than people who
+          continue to smoke at the same weight. The
+          <a href="/quit-smoking/" class={inline}>complete quitting guide</a> sets out the health changes that follow
+          the last cigarette, and the <a href="/questions/" class={inline}>questions hub</a> has a one-paragraph
+          version of the trade-off.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">6. What actually helps</h2>
+        <p class="text-muted dark:text-slate-400">
+          The evidence for preventing post-cessation weight gain is less impressive than the evidence for stopping
+          smoking, and no single dietary strategy has been shown to abolish the gain. What follows is therefore
+          practical rather than magical: the behaviours that make the trade-off smaller and easier to live with.
+        </p>
+        <ul class="mt-4 list-disc list-inside space-y-3 text-muted dark:text-slate-400">
+          <li>
+            <strong class="text-heading">Eat regularly, including breakfast.</strong> Skipping meals to compensate for
+            anticipated gain tends to produce hunger, irritability and later overeating — three things a quit does not
+            need. Protein at breakfast and lunch makes the day more stable.
+          </li>
+          <li>
+            <strong class="text-heading">Keep the substitutes low-cost.</strong> Stock fruit, vegetables, plain yoghurt,
+            nuts in small portions, sugar-free gum and water. The hand-to-mouth habit will find something; make the
+            something convenient.
+          </li>
+          <li>
+            <strong class="text-heading">Move daily, not heroically.</strong> A twenty- or thirty-minute walk has a
+            modest effect on weight and a useful effect on craving, mood and sleep. It is also easier to sustain than a
+            new gym regime started on day two.
+          </li>
+          <li>
+            <strong class="text-heading">Protect sleep.</strong> Short sleep is associated with increased appetite and
+            poorer food choices. The first month already disrupts sleep; prioritising it is part of weight management,
+            not a separate project.
+          </li>
+          <li>
+            <strong class="text-heading">Watch the drinks.</strong> Alcohol and sweet drinks are easy sources of
+            energy that do not satisfy hunger. Alcohol also lowers inhibition around smoking, which makes it a
+            double-risk in the first months.
+          </li>
+          <li>
+            <strong class="text-heading">Measure the trend, not the day.</strong> Weigh yourself at the same time of day,
+            once a week or fortnight, and look at the direction over a month. Daily weighing during a quit tends to
+            produce anxiety rather than information.
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">7. What does not help</h2>
+        <p class="text-muted dark:text-slate-400">
+          Some responses are intuitively appealing and make the quit harder.
+        </p>
+        <ul class="mt-4 list-disc list-inside space-y-3 text-muted dark:text-slate-400">
+          <li>
+            <strong class="text-heading">A strict diet in the first weeks.</strong> A large calorie deficit adds hunger,
+            fatigue and irritability to withdrawal. It also creates a second source of failure at the moment when the
+            quit needs to feel achievable.
+          </li>
+          <li>
+            <strong class="text-heading">Skipping meals to "bank" calories.</strong> This usually backfires: hunger
+            builds, and the next meal is larger and less controlled.
+          </li>
+          <li>
+            <strong class="text-heading">Compensating with more smoking.</strong> Sometimes the thought is explicit —
+            "I would rather smoke than gain weight." The trade is a large, well-established risk for a small, uncertain
+            benefit. If this thought is persistent, it is worth discussing with a clinician rather than negotiating
+            alone.
+          </li>
+          <li>
+            <strong class="text-heading">Treating medication as a weight-control tool.</strong> Cessation medicines are
+            chosen to help you stop smoking. In the meta-analysis, average gain was similar across the pharmacological
+            options studied. Do not start, stop or change a medicine for weight reasons without advice.
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">8. Medication, NRT and weight</h2>
+        <p class="text-muted dark:text-slate-400">
+          People often ask whether nicotine replacement prevents weight gain. The evidence does not support using NRT
+          for that purpose: it is a cessation treatment, chosen to reduce withdrawal and improve the chance of
+          stopping smoking, not a weight-management product.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          In the Aubin meta-analysis, estimates of weight gain were similar for people using different
+          pharmacotherapies to support cessation. That is a useful corrective to the idea that one product is
+          "weight-neutral" and another is not. If you are choosing a medicine, choose it for cessation with the
+          clinician who knows your history; the
+          <a href="/medications/" class={inline}>medications section</a> explains the classes, and the
+          <a href="/comparisons/combination-nrt-vs-single-form/" class={inline}>combination NRT comparison</a> covers
+          the delivery question.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          The same principle applies to prescription medicines. Varenicline, bupropion and cytisine are cessation
+          treatments, not weight-loss drugs. Their place in your plan depends on your medical history, other medicines
+          and preferences — a conversation for a prescriber, not a general guide.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">9. If weight concern is delaying your quit</h2>
+        <p class="text-muted dark:text-slate-400">
+          This is common enough to deserve its own section. The pattern is a loop: the fear of gain makes quitting feel
+          costly, the delay continues the smoking, and the smoking makes the eventual quit feel even more daunting.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Breaking the loop usually means separating the two projects. Choose a quit date and a method first. Decide
+          what you will do about food and activity in the first month — regular meals, a daily walk, no aggressive diet
+          — and leave the finer tuning for month three, when the withdrawal load is lower. If the fear is severe, or
+          if you have a history of disordered eating, talk to a clinician before the quit date so that the plan is
+          built with you rather than around you.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          It also helps to name the comparison explicitly. A modest gain that stabilises is a manageable health issue.
+          Continued smoking is a much larger one. The
+          <a href="/withdrawal/weight-change/" class={inline}>weight-change symptom page</a> and the
+          <a href="/withdrawal/appetite/" class={inline}>increased appetite page</a> are useful starting points; the
+          <a href="/first-month/" class={inline}>first month guide</a> puts the change in the context of the whole
+          quit.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">10. A practical first 90 days</h2>
+        <p class="text-muted dark:text-slate-400 mb-4">
+          The plan below is deliberately modest. It is designed to protect the quit first and manage weight second.
+        </p>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm text-left">
+            <thead>
+              <tr class="border-b border-gray-200 dark:border-slate-700">
+                <th class={tableHead}>Period</th>
+                <th class={tableHead}>Focus</th>
+                <th class={tableHead}>Concrete actions</th>
+              </tr>
+            </thead>
+            <tbody class="text-muted dark:text-slate-400">
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Before the quit date</td>
+                <td class={tableCell}>Decide the method and the support; do not start a diet.</td>
+                <td class={tableCell}>
+                  Choose a date, arrange support, remove cigarettes, plan meals you can assemble without thinking.
+                </td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Days 1–30</td>
+                <td class={tableCell}>Protect the quit; keep blood sugar and sleep stable.</td>
+                <td class={tableCell}>
+                  Three meals, water, fruit within reach, a daily walk, no alcohol if it is a trigger, weekly weigh-in.
+                </td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Days 31–60</td>
+                <td class={tableCell}>Consolidate routines; review the trend.</td>
+                <td class={tableCell}>
+                  Add one activity you enjoy, adjust portion sizes if the trend is still climbing, keep support active.
+                </td>
+              </tr>
+              <tr>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Days 61–90</td>
+                <td class={tableCell}>Tune the plan without gambling with the quit.</td>
+                <td class={tableCell}>
+                  If weight is still rising, discuss it with a clinician or dietitian rather than starting a crash diet.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">11. When to seek medical advice</h2>
+        <p class="text-muted dark:text-slate-400">
+          Weight change after quitting is usually expected. Some situations deserve a professional conversation rather
+          than a self-directed plan.
+        </p>
+        <ul class="mt-4 list-disc list-inside space-y-3 text-muted dark:text-slate-400">
+          <li>Rapid or unexplained weight change, especially if it continues well beyond the first year.</li>
+          <li>Diabetes, prediabetes or cardiovascular disease, where weight change can affect control and medication needs.</li>
+          <li>A history of disordered eating, or eating patterns that feel out of control.</li>
+          <li>Pregnancy or breastfeeding — weight and nutrition advice belongs with the maternity team.</li>
+          <li>Low mood, anxiety or body-image distress that is affecting daily life.</li>
+        </ul>
+        <p class="mt-4 text-muted dark:text-slate-400">
+          This page cannot tell you whether your weight change is in the expected range for you. That judgment needs
+          your history, your other conditions and, often, a measurement over time. The
+          <a href="/disclaimer/" class={inline}>medical disclaimer</a> explains the limits of what this site can offer.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">12. Bottom line</h2>
+        <p class="text-muted dark:text-slate-400">
+          Most people gain a few kilograms after quitting, most of it in the first three months, and the range is wide.
+          The gain is worth managing, but it is not a reason to keep smoking or to postpone the quit. Eat regularly,
+          move daily, protect sleep, measure the trend rather than the day, and get help if the change is rapid,
+          distressing or complicated by another condition.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          If you are still choosing a method, the
+          <a href="/methods/choosing-a-method/" class={inline}>method decision guide</a> puts the weight question in
+          context. If you are in the first weeks, the <a href="/first-month/" class={inline}>first month guide</a>
+          covers the rest of what is happening.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <nav aria-label="Related guides" class="mx-auto max-w-4xl px-4 sm:px-6 pb-4">
+    <div class="rounded-lg border border-gray-200 dark:border-slate-700 p-6">
+      <p class="text-xl font-bold font-heading mb-4">Related guides</p>
+      <div class="grid gap-4 sm:grid-cols-2">
+        <a href="/withdrawal/weight-change/" class="card p-4 no-underline hover:-translate-y-1 transition duration-200">
+          <h3 class="font-bold font-heading text-heading mb-1">Appetite and weight change</h3>
+          <p class="text-sm text-muted dark:text-slate-400">
+            The withdrawal symptom page: what changes, what people report, and what helps.
+          </p>
+        </a>
+        <a href="/first-month/" class="card p-4 no-underline hover:-translate-y-1 transition duration-200">
+          <h3 class="font-bold font-heading text-heading mb-1">The first month</h3>
+          <p class="text-sm text-muted dark:text-slate-400">
+            A week-by-week guide to the first four weeks, including appetite and mood.
+          </p>
+        </a>
+        <a href="/questions/" class="card p-4 no-underline hover:-translate-y-1 transition duration-200">
+          <h3 class="font-bold font-heading text-heading mb-1">Popular questions</h3>
+          <p class="text-sm text-muted dark:text-slate-400">
+            Short answers on weight, appetite and the other questions people ask most about quitting.
+          </p>
+        </a>
+        <a href="/withdrawal/appetite/" class="card p-4 no-underline hover:-translate-y-1 transition duration-200">
+          <h3 class="font-bold font-heading text-heading mb-1">Increased appetite</h3>
+          <p class="text-sm text-muted dark:text-slate-400">
+            Why hunger changes after quitting, and the practical responses that help.
+          </p>
+        </a>
+        <a href="/medications/" class="card p-4 no-underline hover:-translate-y-1 transition duration-200">
+          <h3 class="font-bold font-heading text-heading mb-1">Quit smoking medications</h3>
+          <p class="text-sm text-muted dark:text-slate-400">
+            NRT, varenicline, bupropion and cytisine compared at class level.
+          </p>
+        </a>
+        <a href="/quit-smoking/" class="card p-4 no-underline hover:-translate-y-1 transition duration-200">
+          <h3 class="font-bold font-heading text-heading mb-1">How to quit smoking</h3>
+          <p class="text-sm text-muted dark:text-slate-400">
+            The complete guide, from choosing a quit date to staying smoke-free a year later.
+          </p>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <Sources sources={pageSources} />
+  <CallToAction
+    title="Protect the quit first"
+    subtitle="Regular meals, a daily walk, and a weekly weigh-in will do more than a crash diet in the first month."
+    actions={[
+      { variant: 'primary', text: 'Read the First Month Guide', href: '/first-month/' },
+      { text: 'See the Withdrawal Timeline', href: '/withdrawal/timeline/' },
+    ]}
+  />
+
+  <ReviewStatement updated={reviewed} />
+</Layout>

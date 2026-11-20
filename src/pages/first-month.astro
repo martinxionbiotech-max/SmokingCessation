@@ -1,0 +1,618 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Sources from '~/components/common/Sources.astro';
+import StructuredData from '~/components/common/StructuredData.astro';
+import Breadcrumbs from '~/components/common/Breadcrumbs.astro';
+import ReviewStatement from '~/components/common/ReviewStatement.astro';
+import { SITE } from 'astrowind:config';
+import { authorRef, dateFields, organizationRef, siteUrl } from '~/utils/schema';
+import { seoDescription, seoTitle } from '~/utils/seo';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+const site = siteUrl(SITE.site);
+const reviewed = '20 November 2026';
+
+const metadata = {
+  title: seoTitle('The first month without smoking: week by week'),
+  description: seoDescription(
+    'What weeks one to four of quitting usually feel like: the withdrawal curve, sleep, mood, cravings, appetite and the routines that keep a quit steady.'
+  ),
+};
+
+const pageSchema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: 'The first month without smoking: week by week',
+    name: 'The first month without smoking: week by week',
+    description:
+      'A week-by-week guide to the first month of a quit attempt: the withdrawal curve, sleep and mood, appetite and weight, cravings, support and what to arrange next.',
+    url: `${site}/first-month/`,
+    mainEntityOfPage: `${site}/first-month/`,
+    isPartOf: { '@id': `${site}/#website` },
+    author: authorRef(SITE.site),
+    publisher: organizationRef(SITE.site),
+    ...dateFields(undefined, '2026-11-20'),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'MedicalWebPage',
+    headline: 'The first month without smoking: week by week',
+    name: 'The first month without smoking: week by week',
+    description:
+      'What happens across the first four weeks after stopping smoking, which symptoms are expected, and which need medical assessment.',
+    url: `${site}/first-month/`,
+    mainEntityOfPage: `${site}/first-month/`,
+    isPartOf: { '@id': `${site}/#website` },
+    author: authorRef(SITE.site),
+    publisher: organizationRef(SITE.site),
+    about: { '@type': 'MedicalCondition', name: 'Nicotine withdrawal' },
+    audience: { '@type': 'Audience', audienceType: 'Adults in the first month of a quit attempt' },
+    ...dateFields(undefined, '2026-11-20'),
+  },
+];
+
+const pageSources = [
+  {
+    label: 'WHO — Clinical treatment guideline for tobacco cessation in adults (2024)',
+    url: 'https://www.who.int/publications/i/item/9789240096431',
+  },
+  {
+    label: 'USPSTF — Tobacco smoking cessation in adults, including pregnant persons (2021)',
+    url: 'https://www.uspreventiveservicestaskforce.org/uspstf/recommendation/tobacco-use-in-adults-and-pregnant-women-counseling-and-interventions',
+  },
+  {
+    label: 'NICE NG209 — Tobacco: preventing uptake, promoting quitting and treating dependence',
+    url: 'https://www.nice.org.uk/guidance/ng209',
+  },
+  {
+    label: 'Hughes JR (2007) — Effects of abstinence from tobacco: valid symptoms and time course (R-007)',
+    url: 'https://academic.oup.com/ntr/article/9/3/315/1071235',
+  },
+  {
+    label: 'Cochrane — Nicotine replacement therapy for smoking cessation (R-001)',
+    url: 'https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD000146.pub4/full',
+  },
+  {
+    label: 'Cochrane — Different doses, durations and modes of delivery of nicotine replacement therapy (2023)',
+    url: 'https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD013308.pub2/full',
+  },
+  {
+    label: 'US Surgeon General — Smoking Cessation: A Report of the Surgeon General (2020)',
+    url: 'https://www.hhs.gov/sites/default/files/2020-cessation-sgr-full-report.pdf',
+  },
+  {
+    label: 'NHS — Quit smoking',
+    url: 'https://www.nhs.uk/live-well/quit-smoking/',
+  },
+  {
+    label: 'CDC — Smoking and Tobacco Use',
+    url: 'https://www.cdc.gov/tobacco/index.html',
+  },
+];
+
+const tableHead = 'py-2 pr-4 font-bold text-heading dark:text-slate-200';
+const tableRow = 'border-b border-gray-100 dark:border-slate-800';
+const tableCell = 'py-3 pr-4 align-top';
+const inline = 'text-primary underline decoration-1 underline-offset-2';
+---
+
+<Layout metadata={metadata}>
+  <StructuredData slot="head" schema={pageSchema} />
+  <Breadcrumbs
+    bar
+    items={[
+      { text: 'Home', href: '/' },
+      { text: 'Start Here', href: '/start/' },
+      { text: 'The first month' },
+    ]}
+  />
+
+  <section class="relative mx-auto max-w-4xl px-4 sm:px-6 pt-8 md:pt-12 pb-4">
+    <p class="text-base font-bold tracking-wide uppercase text-secondary mb-2 text-center">Weeks One to Four</p>
+    <h1 class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading text-heading text-center">
+      The first month without smoking
+    </h1>
+    <p class="mt-4 max-w-3xl mx-auto text-lg text-muted text-center">
+      The withdrawal peak is over in days; the first month is where the new routine is built — or where the old one
+      quietly reassembles.
+    </p>
+  </section>
+  <p class="mx-auto max-w-4xl px-4 sm:px-6 pb-2 text-xs text-muted dark:text-slate-400">
+    Maintained by <span class="font-semibold">SmokingCessationHub Tech Team</span> · Last updated
+    <span class="font-semibold">{reviewed}</span> · Not reviewed by a clinician
+  </p>
+
+  <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8">
+    <div class="rounded-lg border border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-900/40 p-5 text-sm mb-10">
+      <p class="text-muted dark:text-slate-400">
+        <span class="font-bold text-heading dark:text-slate-200">What this page is:</span> a week-by-week summary of
+        what people commonly experience in the first four weeks after stopping smoking, and what helps. It is general
+        education, not a personal treatment plan. It contains no doses, no tapering schedules and no injection
+        instructions. If you use medication, follow the instructions from the clinician or pharmacist who supplied it.
+        Read our <a href="/editorial-policy/" class={inline}>editorial policy</a> for how sources are selected and
+        corrected.
+      </p>
+    </div>
+
+    <div class="space-y-12">
+      <div>
+        <p class="text-muted dark:text-slate-400">
+          The first month is not one experience repeated thirty times. It has a shape: a sharp physical opening, a
+          stretch where expectation and reality disagree, a quieter middle, and then a week that can feel almost
+          ordinary — which is exactly why it catches people out.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Most of the clinical advice about quitting concentrates on the first few days, because that is when
+          withdrawal is most intense. But the first month is where the quit becomes a life rather than an event. The
+          habits that used to carry nicotine have to be rebuilt around something else, and the confidence that comes
+          from a week without smoking has to survive a bad Tuesday.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          This page maps the four weeks and separates what is expected from what needs medical advice. It follows the
+          <a href="/first-72-hours/" class={inline}>first 72 hours plan</a>; if you are still deciding how to quit, start
+          with the <a href="/methods/choosing-a-method/" class={inline}>method decision guide</a>.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">1. What the first month is actually for</h2>
+        <p class="text-muted dark:text-slate-400">
+          Three jobs overlap, and they need different responses.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          <strong class="text-heading">Recover from the physical adjustment.</strong> Nicotine clears relatively
+          quickly, but the systems that adapted to it take longer to settle. Withdrawal symptoms generally peak in the
+          first week and resolve over two to four weeks, though craving and increased appetite can persist longer. That
+          pattern is summarised in the <a href="/withdrawal/timeline/" class={inline}>withdrawal timeline</a>.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          <strong class="text-heading">Replace the routine.</strong> A cigarette is rarely just nicotine. It is a
+          punctuation mark between tasks, a reason to leave a room, a way to start a conversation. Removing it leaves
+          gaps that are not pharmacological. The first month is when those gaps are most visible and most easily filled
+          with something deliberate.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          <strong class="text-heading">Build evidence that you can do this.</strong> Confidence after a quit is
+          accumulated proof: every handled craving and every smoke-free morning adds to it. The first month is where
+          that evidence is collected.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">2. Week one: the physical peak and the routine shock</h2>
+        <p class="text-muted dark:text-slate-400">
+          Week one carries the steepest part of the withdrawal curve. Irritability, restlessness, poor concentration,
+          low mood, disturbed sleep, increased appetite and strong cravings are all commonly reported, and they tend to
+          be most intense in the first three to five days. The
+          <a href="/first-72-hours/" class={inline}>first 72 hours</a> covers the hour-by-hour shape; by day four or
+          five, the intensity usually begins to flatten.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          What surprises people is the routine shock. The first week removes not only cigarettes but the small
+          architecture around them: the reason to step outside, the break between meetings, the reward after a
+          difficult call. Many people feel restless without being able to name what is missing. That is not a sign the
+          quit is failing; it is what an unfilled habit feels like.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          The practical priorities for week one are unglamorous. Protect sleep where you can. Eat at regular times.
+          Keep water available. Avoid alcohol if it is a trigger. Tell the people you live and work with what you are
+          doing, so that you are not also managing their surprise. And keep the plan visible: the three if-then rules
+          you wrote before the quit date are more useful now than any new resolution made at 10pm on day three.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">3. Week two: the expectation gap</h2>
+        <p class="text-muted dark:text-slate-400">
+          Week two is often less physically intense and more psychologically awkward. The acute symptoms are easing,
+          but not on the schedule people expected. Sleep may still be broken, concentration unreliable, and cravings
+          less frequent but sharper in familiar situations.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          The common mistake is to read that gap as evidence of failure. "If this were working, I would feel normal by
+          now" is reasonable and wrong. Recovery is a slope with plateaus, not a switch. Week two being better than
+          week one but worse than week four is what the time course predicts.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Week two is also when the social account comes due. Friends have absorbed the news; some will test it, some
+          will forget it, and a few will offer a cigarette without thinking. Decide on a short, unapologetic answer —
+          "I've stopped; I'm not having one" — and check the
+          <a href="/triggers/social-events/" class={inline}>social events page</a> for the situations where refusal is
+          hardest.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">4. Week three: the ambush week</h2>
+        <p class="text-muted dark:text-slate-400">
+          Many quit accounts describe week three as unexpectedly difficult. The physical symptoms are fading and the
+          novelty has worn off, while the brain has had time to notice that something is permanently different. A
+          craving can arrive with less warning, often attached to a situation that had not previously been a problem.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          This is a reported pattern, not a measured law. Some people sail through week three; others find week two
+          harder. The useful response is not to expect a crisis, but to keep the same skills available. The
+          <a href="/cravings/" class={inline}>cravings guide</a> sets out the ten-minute playbook, and the
+          <a href="/triggers/" class={inline}>trigger pages</a> cover the specific situations — coffee, driving, work
+          breaks, alcohol, stress, meals, the phone, the evening.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Week three is also a good time to notice what has improved. Breathing may be easier, food may taste
+          different, the morning may take less time. These changes are easy to discount, but they are the beginning of
+          the return.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">5. Week four: the first ordinary month</h2>
+        <p class="text-muted dark:text-slate-400">
+          By the end of the fourth week, most acute withdrawal symptoms have settled. That does not mean the brain has
+          forgotten nicotine; it means the loudest part of the adjustment is over, and the quit now lives in the same
+          world as ordinary life.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          The risk in week four is complacency. A month feels like proof, so it is tempting to stop the medication
+          early, skip the support call, or accept "just one" because the quit now feels solid. The first months remain
+          a high-risk window, and a single cigarette is the most common way back into a routine.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          The better use of week four is to review what worked and to formalise it. Which situations were hardest?
+          Which replacement behaviours actually helped? What support do you still have, and what happens when it ends?
+          The <a href="/relapse/" class={inline}>relapse and recovery section</a> is worth reading before you need it,
+          not after.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">6. The month at a glance</h2>
+        <p class="text-muted dark:text-slate-400 mb-4">
+          The boundaries are approximate and individual curves vary. Use this as a map, not a schedule.
+        </p>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm text-left">
+            <thead>
+              <tr class="border-b border-gray-200 dark:border-slate-700">
+                <th class={tableHead}>Week</th>
+                <th class={tableHead}>What usually changes</th>
+                <th class={tableHead}>Common difficulty</th>
+                <th class={tableHead}>What helps</th>
+              </tr>
+            </thead>
+            <tbody class="text-muted dark:text-slate-400">
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Week 1</td>
+                <td class={tableCell}>
+                  Withdrawal peaks, nicotine clears, routines lose their usual punctuation. Sleep and concentration are
+                  often worst here.
+                </td>
+                <td class={tableCell}>
+                  Irritability, restlessness, strong and frequent cravings, the feeling that the day has no shape.
+                </td>
+                <td class={tableCell}>
+                  Water, regular meals, short walks, early nights, support contact, the written if-then plan.
+                </td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Week 2</td>
+                <td class={tableCell}>
+                  Physical intensity eases; the gap between expected and actual recovery becomes noticeable. Cravings
+                  become more situational.
+                </td>
+                <td class={tableCell}>
+                  "I should feel normal by now"; sleep still broken; social pressure; first invitations to smoke.
+                </td>
+                <td class={tableCell}>
+                  Adjust the expectation, not the plan. Keep support active. Rehearse a short refusal.
+                </td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Week 3</td>
+                <td class={tableCell}>
+                  Symptoms continue to fade; the quit starts to feel less novel and more ordinary. Some people report
+                  unexpected cravings.
+                </td>
+                <td class={tableCell}>
+                  An ambush urge attached to a new situation; overconfidence; abandoning the plan too early.
+                </td>
+                <td class={tableCell}>
+                  Keep the ten-minute playbook. Name the trigger. Notice improvements and record them.
+                </td>
+              </tr>
+              <tr>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Week 4</td>
+                <td class={tableCell}>
+                  Most acute symptoms have settled. Breathing and taste may have changed. The quit is now part of
+                  ordinary life.
+                </td>
+                <td class={tableCell}>
+                  Complacency; "just one"; stopping medication or support without advice; an unplanned high-risk
+                  situation.
+                </td>
+                <td class={tableCell}>
+                  Review the month, keep the support, plan month two, and decide in advance how to handle a lapse.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">7. Sleep, concentration and mood</h2>
+        <p class="text-muted dark:text-slate-400">
+          These three are the most common reasons people conclude that something is wrong. They are also the symptoms
+          most likely to outlast the first week.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Sleep often breaks early and then gradually improves. Some people wake at three or four in the morning;
+          others take longer to fall asleep. Protect the opportunity for sleep — a consistent bedtime, less caffeine
+          after midday, a dark and cool room — rather than chasing a perfect night. If insomnia persists for weeks or
+          severely affects daytime functioning, raise it with a clinician.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Concentration is often the last ordinary function to feel reliable. Reading the same paragraph twice or
+          losing the thread of a meeting is common in the first weeks and usually improves gradually. Schedule
+          demanding work for your better hours and write things down rather than trusting working memory. The
+          <a href="/withdrawal/concentration/" class={inline}>concentration page</a> has more detail.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Mood is more complicated. Many people feel irritable and flat in the first weeks; for most, mood improves
+          over the first month. For a minority — particularly people with a history of depression or anxiety — the
+          early weeks can be genuinely difficult. If low mood is persistent, if you lose interest in things you usually
+          enjoy, or if you have thoughts of harming yourself, seek professional help promptly. The
+          <a href="/withdrawal/mood/" class={inline}>mood page</a> and the
+          <a href="/populations/mental-health-conditions/" class={inline}>mental health and quitting page</a> go
+          further.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">8. Appetite and weight in the first month</h2>
+        <p class="text-muted dark:text-slate-400">
+          Increased appetite is a documented withdrawal symptom and is usually most noticeable in the first month.
+          Nicotine suppresses appetite and slightly raises energy expenditure; quitting reverses both. Food also
+          becomes more rewarding as taste and smell recover, and the hand-to-mouth habit needs somewhere to go.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Average weight gain is modest and slower than most people fear: in a meta-analysis of 62 studies, mean gain
+          was about 1.1 kg at one month, 2.3 kg at two months and 2.9 kg at three months, reaching about 4.7 kg at
+          twelve months. Most of the gain happens in the first three months. Individual variation is wide — some people
+          lose weight, and some gain more than ten kilograms — so an average is a poor prediction for any one person.
+          The <a href="/weight-gain/" class={inline}>weight gain guide</a> covers the evidence and the practical
+          responses in detail.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          The first-month advice is not to start an aggressive diet. A strict deficit adds hunger, irritability and low
+          energy to a system that is already adjusting. Regular meals, protein at breakfast, fruit and vegetables within
+          reach, water instead of sweet drinks, and a daily walk are more sustainable. If weight is a serious concern —
+          because of diabetes, cardiovascular disease or a history of disordered eating — raise it with a clinician.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">9. Cravings: from constant to situational</h2>
+        <p class="text-muted dark:text-slate-400">
+          In the first days, cravings can feel almost continuous. By the end of the month, most people describe them
+          as episodic: less frequent, often shorter, and more clearly attached to a situation. That is the difference
+          between withdrawal-driven and cue-driven craving.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          The skills change. In week one, the task is to survive a wave that seems to have no trigger. In week four,
+          the task is to notice the trigger early enough to choose a different response. The
+          <a href="/cravings/" class={inline}>cravings guide</a> separates the two and gives a playbook for each.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">10. Medication and support across the month</h2>
+        <p class="text-muted dark:text-slate-400">
+          If you are using NRT, the first month is usually the period of heaviest use. The form matters less than using
+          it consistently and correctly: gum needs to be chewed and parked, lozenges dissolve rather than being
+          chewed, patches need to be applied to clean, dry skin and rotated. Those are label-level instructions; the
+          specific product and dose are decisions for the clinician or pharmacist who supplied it.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Combination NRT — a patch for background nicotine plus a fast-acting form for cravings — is more effective
+          than a single form. The <a href="/comparisons/combination-nrt-vs-single-form/" class={inline}>combination
+          comparison</a> sets out the evidence. If you are taking varenicline or bupropion, the course usually starts
+          before or on the quit date and runs for a set period; do not stop it early because week three feels flat
+          without discussing it with the prescriber.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          Behavioural support is the other half. A quitline, a stop-smoking service, a text programme or a structured
+          app all provide something that checks in, helps you plan the next high-risk situation, and notices a slip
+          early. The <a href="/methods/" class={inline}>methods section</a> describes the options; support arranged in
+          advance is used, while support planned for "if it gets bad" often is not.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">11. Slips, restarts and the all-or-nothing trap</h2>
+        <p class="text-muted dark:text-slate-400">
+          A cigarette in the first month is a lapse, not a verdict. The dangerous moment is the sentence that follows
+          it — "I've ruined it, so I may as well finish the pack" — because that turns one lapse into a returned habit.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          The response that works is unromantic. Put the cigarette out, throw away the pack, drink water, and write
+          down what happened: where you were, what you felt, what you told yourself. Then change one thing for the
+          next 24 hours. The
+          <a href="/relapse/" class={inline}>relapse section</a> covers the difference between a lapse and a relapse
+          in more detail, and the <a href="/questions/does-a-few-puffs-break-my-quit/" class={inline}>short answer on a
+          few puffs</a> is worth reading before it happens.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">12. What is normal — and what needs medical advice</h2>
+        <p class="text-muted dark:text-slate-400 mb-4">
+          Most first-month symptoms are uncomfortable but expected. A smaller number are not explained by withdrawal
+          and should be assessed.
+        </p>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm text-left">
+            <thead>
+              <tr class="border-b border-gray-200 dark:border-slate-700">
+                <th class={tableHead}>Symptom</th>
+                <th class={tableHead}>Usually expected</th>
+                <th class={tableHead}>Worth medical advice</th>
+              </tr>
+            </thead>
+            <tbody class="text-muted dark:text-slate-400">
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Irritability, restlessness</td>
+                <td class={tableCell}>Common in weeks one to two, easing after that.</td>
+                <td class={tableCell}>Severe agitation, inability to function, or thoughts of harming yourself.</td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Cough</td>
+                <td class={tableCell}>
+                  A temporary increase is common as the airways clear; it usually settles over weeks.
+                </td>
+                <td class={tableCell}>Coughing blood, worsening breathlessness, fever, or a cough that persists for weeks.</td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Sleep and concentration</td>
+                <td class={tableCell}>Broken sleep and a foggy head are common early and improve gradually.</td>
+                <td class={tableCell}>Insomnia lasting weeks, severe daytime sleepiness, or confusion.</td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Mood</td>
+                <td class={tableCell}>A low or flat mood in the first weeks is common and usually lifts.</td>
+                <td class={tableCell}>Persistent low mood, loss of pleasure, hopelessness, or thoughts of self-harm.</td>
+              </tr>
+              <tr>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>Chest symptoms</td>
+                <td class={tableCell}>A transient awareness of breathing is not unusual.</td>
+                <td class={tableCell}>Chest pain or pressure, fainting, a racing or irregular heartbeat, or severe breathlessness.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-4 text-muted dark:text-slate-400">
+          If something worries you, call the clinician who knows your history. If you have a heart or lung condition or
+          take regular medicines, tell them you have stopped smoking — some prescriptions need review as your body
+          adjusts.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">13. Before month two: a short review</h2>
+        <p class="text-muted dark:text-slate-400 mb-4">
+          The end of the first month is a natural checkpoint. Fifteen minutes with three questions is enough.
+        </p>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm text-left">
+            <thead>
+              <tr class="border-b border-gray-200 dark:border-slate-700">
+                <th class={tableHead}>Question</th>
+                <th class={tableHead}>Why it matters</th>
+                <th class={tableHead}>What to do with the answer</th>
+              </tr>
+            </thead>
+            <tbody class="text-muted dark:text-slate-400">
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>
+                  Which three situations were hardest?
+                </td>
+                <td class={tableCell}>They are the situations most likely to produce a lapse in month two.</td>
+                <td class={tableCell}>Write one if-then rule for each, and rehearse it once before it happens.</td>
+              </tr>
+              <tr class={tableRow}>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>
+                  What actually helped?
+                </td>
+                <td class={tableCell}>Useful skills get forgotten when the crisis passes.</td>
+                <td class={tableCell}>Keep the two or three that worked; drop the ones you never used.</td>
+              </tr>
+              <tr>
+                <td class={`${tableCell} font-semibold text-heading dark:text-slate-300`}>
+                  What happens when support ends?
+                </td>
+                <td class={tableCell}>Many programmes run for a fixed number of weeks.</td>
+                <td class={tableCell}>Decide now whether to extend, switch, or replace it with a check-in routine.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-4 text-muted dark:text-slate-400">
+          Month two is usually quieter, but cravings can still appear around alcohol, holidays, stress and other
+          people who smoke. Keep the <a href="/withdrawal/timeline/" class={inline}>withdrawal timeline</a> and the
+          <a href="/cravings/" class={inline}>cravings guide</a> within reach, and treat the first month as the
+          foundation rather than the finish line.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold font-heading mb-4">14. Bottom line</h2>
+        <p class="text-muted dark:text-slate-400">
+          The first month has a predictable shape: a hard opening, an expectation gap, a quieter middle and a
+          deceptively ordinary fourth week. Prepare for the opening, adjust expectations in week two, keep your skills
+          in week three, and resist declaring victory in week four.
+        </p>
+        <p class="mt-3 text-muted dark:text-slate-400">
+          If you are choosing a method at the same time, the
+          <a href="/methods/choosing-a-method/" class={inline}>method decision guide</a> walks through the options in
+          the order that matters. If you are past the first month and want the longer view, the
+          <a href="/quit-smoking/" class={inline}>complete guide</a> covers the first year.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <nav aria-label="Related guides" class="mx-auto max-w-4xl px-4 sm:px-6 pb-4">
+    <div class="rounded-lg border border-gray-200 dark:border-slate-700 p-6">
+      <p class="text-xl font-bold font-heading mb-4">Related guides</p>
+      <div class="grid gap-4 sm:grid-cols-2">
+        <a href="/first-72-hours/" class="card p-4 no-underline hover:-translate-y-1 transition duration-200">
+          <h3 class="font-bold font-heading text-heading mb-1">The first 72 hours</h3>
+          <p class="text-sm text-muted dark:text-slate-400">
+            An hour-by-hour plan for the three days when withdrawal is most concentrated.
+          </p>
+        </a>
+        <a href="/withdrawal/timeline/" class="card p-4 no-underline hover:-translate-y-1 transition duration-200">
+          <h3 class="font-bold font-heading text-heading mb-1">Withdrawal timeline</h3>
+          <p class="text-sm text-muted dark:text-slate-400">
+            When each symptom starts, peaks and settles, and what helps at each stage.
+          </p>
+        </a>
+        <a href="/cravings/" class="card p-4 no-underline hover:-translate-y-1 transition duration-200">
+          <h3 class="font-bold font-heading text-heading mb-1">Cravings and triggers</h3>
+          <p class="text-sm text-muted dark:text-slate-400">
+            Why urges happen, how to ride one out, and how to plan for high-risk situations.
+          </p>
+        </a>
+        <a href="/weight-gain/" class="card p-4 no-underline hover:-translate-y-1 transition duration-200">
+          <h3 class="font-bold font-heading text-heading mb-1">Weight gain after quitting</h3>
+          <p class="text-sm text-muted dark:text-slate-400">
+            How much weight people actually gain, why it happens, and what helps without derailing the quit.
+          </p>
+        </a>
+        <a href="/medications/" class="card p-4 no-underline hover:-translate-y-1 transition duration-200">
+          <h3 class="font-bold font-heading text-heading mb-1">Quit smoking medications</h3>
+          <p class="text-sm text-muted dark:text-slate-400">
+            NRT, varenicline, bupropion and cytisine compared at class level.
+          </p>
+        </a>
+        <a href="/relapse/" class="card p-4 no-underline hover:-translate-y-1 transition duration-200">
+          <h3 class="font-bold font-heading text-heading mb-1">Relapse and recovery</h3>
+          <p class="text-sm text-muted dark:text-slate-400">
+            What a lapse means, why it happens, and how to restart without losing the attempt.
+          </p>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <Sources sources={pageSources} />
+  <CallToAction
+    title="Plan the second month before it starts"
+    subtitle="Review the hardest situations, keep the support that worked, and decide now how you will handle a lapse."
+    actions={[
+      { variant: 'primary', text: 'Read the Cravings Guide', href: '/cravings/' },
+      { text: 'See the Withdrawal Timeline', href: '/withdrawal/timeline/' },
+    ]}
+  />
+
+  <ReviewStatement updated={reviewed} />
+</Layout>
