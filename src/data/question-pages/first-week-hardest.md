@@ -132,6 +132,10 @@
     {
       "label": "How to prepare for your quit date",
       "href": "/questions/how-do-i-choose-a-quit-date/"
+    },
+    {
+      "label": "The first month without smoking: week by week",
+      "href": "/first-month/"
     }
   ],
   "lastReviewed": "2026-11-10",
