@@ -296,6 +296,7 @@ export const populationSchema = z.object({
   communityExperience: z.string(),
   keyCautions: z.array(z.string()),
   sources: z.array(z.string()).optional(),
+  sourceLinks: z.array(z.object({ label: z.string(), url: z.string() })).optional(),
   lastReviewed: z.string().optional(),
   metadata: metadataDefinition(),
 });

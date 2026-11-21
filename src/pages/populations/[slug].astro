@@ -4,6 +4,7 @@ import Layout from '~/layouts/PageLayout.astro';
 import Breadcrumbs from '~/components/common/Breadcrumbs.astro';
 import StructuredData from '~/components/common/StructuredData.astro';
 import ReviewStatement from '~/components/common/ReviewStatement.astro';
+import Sources from '~/components/common/Sources.astro';
 import CallToAction from '~/components/widgets/CallToAction.astro';
 import { SITE } from 'astrowind:config';
 import { seoDescription, seoTitle } from '~/utils/seo';
@@ -17,32 +18,50 @@ export async function getStaticPaths() {
 const { population } = Astro.props;
 const { Content } = await render(population);
 const p = population.data;
+const hasBody = Boolean(population.body?.trim());
 
 const site = siteUrl(SITE.site);
 const url = `${site}/populations/${p.slug}/`;
+const updatedISO = '2026-11-21';
+const updatedLabel = '21 November 2026';
 
 const metadata = {
   title: seoTitle(`${p.title} | Quit Smoking Hub`),
   description: seoDescription(p.summary),
 };
 
-const pageSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'MedicalWebPage',
-  headline: p.title,
-  name: p.title,
-  description: p.summary,
-  url,
-  mainEntityOfPage: url,
-  isPartOf: { '@id': `${site}/#website` },
-  author: authorRef(SITE.site),
-  publisher: organizationRef(SITE.site),
-  ...dateFields(undefined, p.lastReviewed),
-};
+const pageSchema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: p.title,
+    name: p.title,
+    description: p.summary,
+    url,
+    mainEntityOfPage: url,
+    isPartOf: { '@id': `${site}/#website` },
+    author: authorRef(SITE.site),
+    publisher: organizationRef(SITE.site),
+    ...dateFields(undefined, updatedISO),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'MedicalWebPage',
+    headline: p.title,
+    name: p.title,
+    description: p.summary,
+    url,
+    mainEntityOfPage: url,
+    isPartOf: { '@id': `${site}/#website` },
+    author: authorRef(SITE.site),
+    publisher: organizationRef(SITE.site),
+    ...dateFields(undefined, updatedISO),
+  },
+];
 ---
 
 <Layout metadata={metadata}>
-  <StructuredData slot="head" schema={[pageSchema]} />
+  <StructuredData slot="head" schema={pageSchema} />
   <Breadcrumbs
     bar
     items={[{ text: 'Home', href: '/' }, { text: 'Special Situations', href: '/populations/' }, { text: p.title }]}
@@ -56,59 +75,135 @@ const pageSchema = {
     <p class="mt-4 max-w-3xl mx-auto text-lg text-muted text-center">{p.summary}</p>
   </section>
 
-  <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8 space-y-8">
-    <div class="card p-8">
-      <h2 class="text-2xl font-bold font-heading mb-3">Why this group is different</h2>
-      <p class="text-muted dark:text-slate-400">{p.whyThisGroupIsDifferent}</p>
-    </div>
+  <p class="mx-auto max-w-4xl px-4 sm:px-6 pb-2 text-xs text-muted dark:text-slate-400">
+    Maintained by <span class="font-semibold">SmokingCessationHub Tech Team</span> · Last updated
+    <span class="font-semibold">{updatedLabel}</span> · Not reviewed by a clinician
+  </p>
 
-    <div class="card p-8">
-      <h2 class="text-2xl font-bold font-heading mb-4">Recommended approach</h2>
-      <ul class="space-y-2 text-muted dark:text-slate-400 list-disc list-inside">
-        {p.recommendedApproach.map((item) => (
-          <li>{item}</li>
-        ))}
-      </ul>
-    </div>
+  {
+    hasBody && (
+      <section class="mx-auto max-w-4xl px-4 sm:px-6 py-6">
+        <div class="rounded-lg border border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-900/40 p-5 text-sm">
+          <p class="text-muted dark:text-slate-400">
+            <span class="font-bold text-heading dark:text-slate-200">What this page is:</span> general education about
+            what the evidence says for this situation. It is not a personal treatment plan and it contains no doses, no
+            tapering schedules and no injection instructions. If you use medication, follow the instructions from the
+            clinician or pharmacist who supplied it. Read our{' '}
+            <a href="/editorial-policy/" class="text-primary underline decoration-1 underline-offset-2">
+              editorial policy
+            </a>{' '}
+            for how sources are selected and corrected.
+          </p>
+        </div>
+      </section>
+    )
+  }
 
-    <div class="card p-8">
-      <h2 class="text-2xl font-bold font-heading mb-3">What the evidence says</h2>
-      <p class="text-muted dark:text-slate-400">{p.evidence}</p>
-      <p class="text-sm mt-3">
-        Evidence strength: <span class="font-bold text-primary">{p.evidenceStrength}</span>
-      </p>
-    </div>
+  {
+    hasBody && (
+      <section class="mx-auto max-w-4xl px-4 sm:px-6 pb-4">
+        <div class="prose prose-lg max-w-none dark:prose-invert prose-headings:font-heading prose-headings:font-bold prose-headings:leading-tighter prose-headings:tracking-tighter prose-headings:text-heading dark:prose-headings:text-slate-200 prose-a:text-primary dark:prose-a:text-blue-400 prose-table:text-sm prose-th:text-left">
+          <Content />
+        </div>
+      </section>
+    )
+  }
 
-    <div class="card p-8">
-      <h2 class="text-xl font-bold font-heading mb-2">Medication notes</h2>
-      <p class="text-muted dark:text-slate-400">{p.medicationNotes}</p>
-    </div>
+  {
+    hasBody && (
+      <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8 space-y-6">
+        <div class="card p-8">
+          <h2 class="text-2xl font-bold font-heading mb-4">Quick reference</h2>
+          <h3 class="text-lg font-bold font-heading mb-2">Recommended approach</h3>
+          <ul class="space-y-2 text-muted dark:text-slate-400 list-disc list-inside">
+            {p.recommendedApproach.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
 
-    <div class="card p-8">
-      <h2 class="text-xl font-bold font-heading mb-2">Community experience</h2>
-      <p class="text-muted dark:text-slate-400">{p.communityExperience}</p>
-    </div>
+        <div class="card p-8">
+          <h3 class="text-xl font-bold font-heading mb-2">Medication notes</h3>
+          <p class="text-muted dark:text-slate-400">{p.medicationNotes}</p>
+        </div>
 
-    <div class="card p-8 border-amber-500/50">
-      <h2 class="text-xl font-bold font-heading mb-3">Key cautions</h2>
-      <ul class="space-y-2 text-muted dark:text-slate-400 list-disc list-inside">
-        {p.keyCautions.map((item) => (
-          <li>{item}</li>
-        ))}
-      </ul>
-    </div>
+        <div class="card p-8 border-amber-500/50">
+          <h3 class="text-xl font-bold font-heading mb-3">Key cautions</h3>
+          <ul class="space-y-2 text-muted dark:text-slate-400 list-disc list-inside">
+            {p.keyCautions.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    )
+  }
 
-    {
-      p.sources?.length > 0 && (
+  {
+    !hasBody && (
+      <section class="mx-auto max-w-4xl px-4 sm:px-6 py-8 space-y-8">
+        <div class="card p-8">
+          <h2 class="text-2xl font-bold font-heading mb-3">Why this group is different</h2>
+          <p class="text-muted dark:text-slate-400">{p.whyThisGroupIsDifferent}</p>
+        </div>
+
+        <div class="card p-8">
+          <h2 class="text-2xl font-bold font-heading mb-4">Recommended approach</h2>
+          <ul class="space-y-2 text-muted dark:text-slate-400 list-disc list-inside">
+            {p.recommendedApproach.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="card p-8">
+          <h2 class="text-2xl font-bold font-heading mb-3">What the evidence says</h2>
+          <p class="text-muted dark:text-slate-400">{p.evidence}</p>
+          <p class="text-sm mt-3">
+            Evidence strength: <span class="font-bold text-primary">{p.evidenceStrength}</span>
+          </p>
+        </div>
+
+        <div class="card p-8">
+          <h2 class="text-xl font-bold font-heading mb-2">Medication notes</h2>
+          <p class="text-muted dark:text-slate-400">{p.medicationNotes}</p>
+        </div>
+
+        <div class="card p-8">
+          <h2 class="text-xl font-bold font-heading mb-2">Community experience</h2>
+          <p class="text-muted dark:text-slate-400">{p.communityExperience}</p>
+        </div>
+
+        <div class="card p-8 border-amber-500/50">
+          <h2 class="text-xl font-bold font-heading mb-3">Key cautions</h2>
+          <ul class="space-y-2 text-muted dark:text-slate-400 list-disc list-inside">
+            {p.keyCautions.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    p.sourceLinks?.length > 0 && (
+      <Sources sources={p.sourceLinks} />
+    )
+  }
+
+  {
+    !p.sourceLinks?.length && p.sources?.length > 0 && (
+      <section class="mx-auto max-w-4xl px-4 sm:px-6 pb-4">
         <p class="text-sm text-muted dark:text-slate-400">
           <strong class="text-heading">Sources:</strong> {p.sources.join('; ')} · Last reviewed:{' '}
           {p.lastReviewed ?? 'not dated'}
         </p>
-      )
-    }
-  </section>
+      </section>
+    )
+  }
 
-  <ReviewStatement updated={p.lastReviewed} />
+  <ReviewStatement updated={updatedLabel} />
   <CallToAction
     title="Every situation is individual"
     subtitle="This page explains the evidence — your clinician can apply it to your case."
