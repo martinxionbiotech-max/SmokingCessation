@@ -1,7 +1,7 @@
 ---
 {
   "slug": "secondhand-smoke-family",
-  "stage": "Pregnancy",
+  "stage": "Before Quitting",
   "searchIntent": "INFORMATIONAL",
   "question": "How does secondhand smoke affect my family?",
   "shortAnswer": "Secondhand smoke causes real harm — respiratory illness in children, increased SIDS risk, and adult heart and lung disease. There is no safe level, and the home and car are where exposure concentrates.",
