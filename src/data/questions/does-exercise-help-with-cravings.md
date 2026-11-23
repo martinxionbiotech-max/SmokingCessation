@@ -4,11 +4,11 @@
   "stage": "First 72 Hours",
   "searchIntent": "SOLUTION",
   "question": "Does exercise help with cravings?",
-  "shortAnswer": "Yes — short bouts of exercise reliably reduce cigarette cravings and withdrawal symptoms in the moment, and regular exercise is a useful quit tool.",
-  "fullAnswer": "Studies show that even a short session of moderate exercise — a brisk walk, a short bike ride — reduces cravings and withdrawal symptoms during and shortly after the activity. The effect is acute (immediate) and also useful as a routine: regular exercisers report better mood and lower craving intensity overall during quitting. Exercise is one of the few craving interventions with direct experimental support.",
-  "evidence": "Meta-analyses of acute exercise effects on craving (e.g., Roberts et al., Cochrane-related literature).",
+  "shortAnswer": "Short bouts of exercise can reduce cigarette cravings during the activity and for up to about 50 minutes afterwards, but adding exercise to cessation support has not been shown to improve long-term quit rates.",
+  "fullAnswer": "Short periods of aerobic activity — a brisk walk, stairs, a short cycle — reduce the urge to smoke during exercise and for up to about 50 minutes afterwards, according to US smokefree guidance. A Cochrane review of 24 trials, however, found no clear evidence that adding exercise to cessation support improves long-term abstinence (risk ratio 1.08, 95% confidence interval 0.96 to 1.22, low certainty). Exercise is a useful craving tool, not a proven stand-alone treatment.",
+  "evidence": "Cochrane 2019 exercise review (CD002295); smokefree.gov exercise guidance; NICE NG209.",
   "communityExperience": "Community reports frequently cite walking, running and gym sessions as go-to craving responses. Records are being compiled in the Experience Database.",
-  "uncertainty": "Optimal type, intensity and duration are not firmly established; the effect is short-lived per session.",
+  "uncertainty": "The acute craving effect is temporary; the long-term benefit as an add-on is uncertain, with low-certainty evidence.",
   "relatedTopics": [
     "Cravings",
     "Quit Tools"
